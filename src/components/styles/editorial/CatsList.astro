@@ -3,36 +3,80 @@ const { lang, style, nav, cats, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-stone-50 text-stone-800">
-	<nav class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-center gap-8 border-b border-stone-300">
-		{nav.map((item: any) => (
-			<a href={item.href} class="font-serif text-sm tracking-widest uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
-		))}
-	</nav>
+	<!-- Masthead nav -->
+	<header class="max-w-6xl mx-auto px-6 pt-6">
+		<hr class="border-t-2 border-stone-900 mb-1" />
+		<hr class="border-t border-stone-400" />
+		<nav class="flex items-center justify-center gap-6 md:gap-10 py-3 border-b border-stone-300">
+			{nav.map((item: any) => (
+				<a href={item.href} class="font-serif text-xs md:text-sm tracking-[0.25em] uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
+			))}
+		</nav>
+	</header>
 
-	<main class="max-w-5xl mx-auto px-6">
-		<div class="pt-16 pb-10 text-center">
-			<h1 class="font-serif text-5xl md:text-6xl font-light text-stone-900 mb-3">{t.cats.title}</h1>
-			<hr class="w-12 mx-auto border-t border-amber-700 mb-4" />
-			<p class="text-stone-500 text-lg max-w-xl mx-auto">{t.cats.subtitle}</p>
+	<main class="max-w-6xl mx-auto px-6">
+		<!-- Massive headline -->
+		<div class="pt-14 pb-4">
+			<h1 class="font-serif text-6xl md:text-7xl lg:text-8xl font-light text-stone-900 leading-none tracking-tight">{t.cats.title}</h1>
+		</div>
+		<div class="md:flex md:items-baseline md:justify-between pb-8 border-b border-stone-300">
+			<p class="text-stone-500 text-lg max-w-md">{t.cats.subtitle}</p>
+			<p class="text-xs tracking-[0.3em] uppercase text-stone-400 mt-3 md:mt-0">{cats.length} {t.cats.title}</p>
 		</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-stone-200">
-			{cats.map((cat: any) => (
-				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group bg-stone-50 p-8 hover:bg-white transition-colors block">
-					<div>
-						<span class="text-xs tracking-widest uppercase text-amber-700 mb-3 block">{cat.status}</span>
-						<h2 class="font-serif text-2xl md:text-3xl font-light text-stone-900 mb-2 group-hover:text-amber-800 transition-colors">{cat.name}</h2>
-						<p class="text-sm text-stone-400 mb-4 tracking-wide">{cat.breed} · {cat.age} · {cat.gender}</p>
-						<hr class="w-8 border-t border-stone-300 mb-4" />
-						<p class="text-stone-600 leading-relaxed text-sm mb-5">{cat.description.slice(0, 100)}...</p>
-						<div class="flex flex-wrap gap-2">
-							{cat.personality.map((trait: string) => (
-								<span class="text-xs tracking-wider uppercase text-stone-400 border border-stone-200 px-2 py-1">{trait}</span>
+		<!-- Featured cat: lead story treatment -->
+		{cats.length > 0 && (
+			<section class="py-10 border-b border-stone-300">
+				<a href={`/${lang}/${style}/cats/${cats[0].id}`} class="group block md:grid md:grid-cols-5 md:gap-12 items-start">
+					<div class="md:col-span-3">
+						<span class="text-xs tracking-[0.3em] uppercase text-amber-700 mb-4 block">{cats[0].status}</span>
+						<h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-stone-900 mb-4 group-hover:text-amber-800 transition-colors leading-tight">{cats[0].name}</h2>
+						<p class="text-sm text-stone-400 tracking-wide mb-5">{cats[0].breed} &middot; {cats[0].age} &middot; {cats[0].gender}</p>
+						<hr class="w-12 border-t border-stone-300 mb-5" />
+						<p class="text-stone-600 leading-relaxed text-lg max-w-prose">{cats[0].description}</p>
+					</div>
+					<aside class="md:col-span-2 md:border-l md:border-stone-300 md:pl-10 mt-8 md:mt-0">
+						<p class="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4">Personality</p>
+						<div class="space-y-3">
+							{cats[0].personality.map((trait: string) => (
+								<p class="font-serif text-lg italic text-stone-600">{trait}</p>
 							))}
 						</div>
-					</div>
+						<hr class="w-8 border-t border-stone-200 my-6" />
+						<dl>
+							<dt class="text-xs tracking-[0.3em] uppercase text-stone-400 mb-1">{t.cats.color}</dt>
+							<dd class="font-serif text-base text-stone-700">{cats[0].color}</dd>
+						</dl>
+					</aside>
 				</a>
-			))}
-		</div>
+			</section>
+		)}
+
+		<!-- Remaining cats: newspaper-column grid -->
+		{cats.length > 1 && (
+			<section class="py-10">
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+					{cats.slice(1).map((cat: any, i: number) => (
+						<a href={`/${lang}/${style}/cats/${cat.id}`} class:list={[
+							"group block py-8 px-6",
+							"border-b border-stone-200",
+							i % 3 !== 2 && "lg:border-r lg:border-stone-200",
+							i % 2 !== 1 && "md:border-r md:border-stone-200 lg:border-r-0",
+							i % 3 !== 2 && "lg:border-r lg:border-stone-200"
+						]}>
+							<span class="text-xs tracking-[0.25em] uppercase text-amber-700 mb-2 block">{cat.status}</span>
+							<h3 class="font-serif text-2xl font-light text-stone-900 mb-1 group-hover:text-amber-800 transition-colors leading-tight">{cat.name}</h3>
+							<p class="text-xs text-stone-400 tracking-wide mb-3">{cat.breed} &middot; {cat.age} &middot; {cat.gender}</p>
+							<p class="text-stone-600 leading-relaxed text-sm mb-4">{cat.description.slice(0, 90)}...</p>
+							<div class="flex flex-wrap gap-2">
+								{cat.personality.slice(0, 3).map((trait: string) => (
+									<span class="text-xs tracking-wider uppercase text-stone-400">{trait}</span>
+								))}
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
+		)}
 	</main>
 </div>
