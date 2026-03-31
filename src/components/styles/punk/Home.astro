@@ -2,42 +2,106 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-mono selection:bg-pink-500 selection:text-white">
 
-<main>
-	<section>
-		<h1>{sanctuary.name}</h1>
-		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
-	</section>
+	<nav class="bg-black text-white px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 border-b-4 border-yellow-400">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"uppercase tracking-widest font-black no-underline hover:underline decoration-wavy decoration-pink-500",
+					i % 3 === 0 ? "text-yellow-300 text-sm" : i % 3 === 1 ? "text-pink-400 text-base" : "text-orange-400 text-xs",
+					i % 2 === 0 ? "-rotate-1" : "rotate-1",
+				]}
+			>
+				{i % 2 === 0 ? "★ " : "✕ "}{item.label}
+			</a>
+		))}
+	</nav>
 
-	<section>
-		<h2>{t.home.mission}</h2>
-		<p>{sanctuary.mission}</p>
-	</section>
-
-	<section>
-		{sanctuary.stats.map((stat: any) => (
-			<div>
-				<span>{stat.value}</span>
-				<span>{stat.label}</span>
+	<main>
+		<!-- HERO -->
+		<section class="relative bg-black text-white px-4 py-16 md:py-24 border-b-8 border-pink-500 overflow-hidden">
+			<div class="absolute top-2 right-4 text-6xl md:text-9xl font-black text-pink-500/20 select-none -rotate-12">★★★</div>
+			<div class="max-w-4xl mx-auto">
+				<h1 class="text-5xl md:text-8xl font-black uppercase leading-none tracking-tighter -rotate-1 mb-4">
+					<span class="bg-yellow-400 text-black px-2 inline-block rotate-1">{sanctuary.name}</span>
+				</h1>
+				<p class="text-xl md:text-3xl font-bold mt-6 rotate-1 bg-pink-500 text-white inline-block px-3 py-1 border-2 border-white">
+					{sanctuary.tagline}
+				</p>
+				<div class="flex flex-wrap gap-4 mt-10">
+					<a
+						href={`/${lang}/${style}/cats`}
+						class="bg-yellow-400 text-black font-black uppercase text-lg md:text-xl px-6 py-3 border-4 border-black -rotate-2 hover:rotate-0 transition-transform inline-block no-underline"
+					>
+						→ {t.home.meetCats}
+					</a>
+					<a
+						href={`/${lang}/${style}/donate`}
+						class="bg-orange-500 text-white font-black uppercase text-lg md:text-xl px-6 py-3 border-4 border-black rotate-2 hover:rotate-0 transition-transform inline-block no-underline"
+					>
+						‼ {t.home.donate}
+					</a>
+				</div>
 			</div>
-		))}
-	</section>
+		</section>
 
-	<section>
-		<h2>{t.home.aboutUs}</h2>
-		{sanctuary.about.map((paragraph: string) => (
-			<p>{paragraph}</p>
-		))}
-	</section>
-</main>
+		<!-- MISSION -->
+		<section class="px-4 py-12 md:py-16 border-b-4 border-black bg-yellow-400">
+			<div class="max-w-3xl mx-auto">
+				<h2 class="text-3xl md:text-5xl font-black uppercase -rotate-1 mb-6 inline-block bg-black text-yellow-400 px-3 py-1">
+					★ {t.home.mission}
+				</h2>
+				<p class="text-lg md:text-xl font-bold leading-relaxed rotate-1 border-4 border-black bg-white p-4 md:p-6">
+					{sanctuary.mission}
+				</p>
+			</div>
+		</section>
 
-<footer>
-	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
-</footer>
+		<!-- STATS -->
+		<section class="px-4 py-12 md:py-16 bg-black text-white border-b-8 border-orange-500">
+			<div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+				{sanctuary.stats.map((stat: any, i: number) => (
+					<div
+						class:list={[
+							"border-4 p-4 text-center",
+							i % 4 === 0 ? "border-yellow-400 bg-yellow-400 text-black -rotate-2" :
+							i % 4 === 1 ? "border-pink-500 bg-pink-500 text-white rotate-2" :
+							i % 4 === 2 ? "border-orange-500 bg-orange-500 text-white -rotate-1" :
+							"border-white bg-white text-black rotate-3",
+						]}
+					>
+						<span class="block text-4xl md:text-6xl font-black">{stat.value}</span>
+						<span class="block text-xs md:text-sm font-bold uppercase tracking-widest mt-2">{stat.label}</span>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- ABOUT -->
+		<section class="px-4 py-12 md:py-16 bg-white border-b-4 border-black">
+			<div class="max-w-3xl mx-auto">
+				<h2 class="text-3xl md:text-5xl font-black uppercase rotate-1 mb-8 inline-block bg-pink-500 text-white px-3 py-1 border-4 border-black">
+					← {t.home.aboutUs} →
+				</h2>
+				{sanctuary.about.map((paragraph: string, i: number) => (
+					<p
+						class:list={[
+							"text-base md:text-lg leading-relaxed mb-4 p-3 border-2 border-black",
+							i % 2 === 0 ? "-rotate-1 bg-gray-100" : "rotate-1 bg-yellow-100",
+						]}
+					>
+						{paragraph}
+					</p>
+				))}
+			</div>
+		</section>
+	</main>
+
+	<footer class="bg-black text-white px-4 py-6 border-t-4 border-yellow-400">
+		<p class="text-center text-xs md:text-sm font-bold uppercase tracking-widest rotate-1">
+			✕ &copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}. ✕
+		</p>
+	</footer>
+</div>

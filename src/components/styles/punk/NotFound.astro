@@ -2,18 +2,48 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-black text-white font-mono selection:bg-yellow-400 selection:text-black">
 
-<main>
-	<section>
-		<h1>{t.notFound.title}</h1>
-		<h2>{t.notFound.heading}</h2>
-		<p>{t.notFound.description}</p>
-		<a href={`/${lang}/${style}/`}>{t.notFound.backHome}</a>
-		<a href={`/${lang}/${style}/cats`}>{t.notFound.meetCats}</a>
-	</section>
-</main>
+	<nav class="bg-black text-white px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 border-b-4 border-yellow-400">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"uppercase tracking-widest font-black no-underline hover:underline decoration-wavy decoration-pink-500",
+					i % 3 === 0 ? "text-yellow-300 text-sm" : i % 3 === 1 ? "text-pink-400 text-base" : "text-orange-400 text-xs",
+					i % 2 === 0 ? "-rotate-1" : "rotate-1",
+				]}
+			>
+				{i % 2 === 0 ? "★ " : "✕ "}{item.label}
+			</a>
+		))}
+	</nav>
+
+	<main class="px-4 py-16 md:py-32 flex items-center justify-center text-center">
+		<section class="max-w-2xl mx-auto">
+			<h1 class="text-8xl md:text-[12rem] font-black leading-none -rotate-3 mb-4">
+				<span class="bg-pink-500 text-white px-4 border-4 border-yellow-400 inline-block">{t.notFound.title}</span>
+			</h1>
+			<h2 class="text-3xl md:text-5xl font-black uppercase rotate-2 mb-6 inline-block bg-yellow-400 text-black px-3 py-1 border-4 border-black">
+				✕ {t.notFound.heading} ✕
+			</h2>
+			<p class="text-base md:text-xl font-bold -rotate-1 bg-white text-black inline-block px-4 py-2 border-4 border-black mb-10 mx-auto">
+				{t.notFound.description}
+			</p>
+			<div class="flex flex-wrap justify-center gap-4 mt-6">
+				<a
+					href={`/${lang}/${style}/`}
+					class="bg-yellow-400 text-black font-black uppercase text-lg px-6 py-3 border-4 border-white -rotate-2 hover:rotate-0 transition-transform no-underline inline-block"
+				>
+					← {t.notFound.backHome}
+				</a>
+				<a
+					href={`/${lang}/${style}/cats`}
+					class="bg-pink-500 text-white font-black uppercase text-lg px-6 py-3 border-4 border-white rotate-2 hover:rotate-0 transition-transform no-underline inline-block"
+				>
+					→ {t.notFound.meetCats} ★
+				</a>
+			</div>
+		</section>
+	</main>
+</div>

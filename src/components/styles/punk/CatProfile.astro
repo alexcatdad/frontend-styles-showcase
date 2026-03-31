@@ -2,47 +2,112 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-mono selection:bg-pink-500 selection:text-white">
 
-<main>
-	<a href={`/${lang}/${style}/cats`}>&larr; {t.cats.backToAll}</a>
+	<nav class="bg-black text-white px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 border-b-4 border-yellow-400">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"uppercase tracking-widest font-black no-underline hover:underline decoration-wavy decoration-pink-500",
+					i % 3 === 0 ? "text-yellow-300 text-sm" : i % 3 === 1 ? "text-pink-400 text-base" : "text-orange-400 text-xs",
+					i % 2 === 0 ? "-rotate-1" : "rotate-1",
+				]}
+			>
+				{i % 2 === 0 ? "★ " : "✕ "}{item.label}
+			</a>
+		))}
+	</nav>
 
-	<article>
-		<h1>{cat.name}</h1>
+	<main class="px-4 py-8 md:py-12">
+		<div class="max-w-4xl mx-auto">
+			<a
+				href={`/${lang}/${style}/cats`}
+				class="inline-block bg-black text-yellow-400 font-black uppercase text-sm px-3 py-1 border-2 border-yellow-400 -rotate-1 hover:rotate-0 transition-transform no-underline mb-8"
+			>
+				← {t.cats.backToAll}
+			</a>
 
-		<dl>
-			<dt>{t.cats.breed}</dt><dd>{cat.breed}</dd>
-			<dt>{t.cats.age}</dt><dd>{cat.age}</dd>
-			<dt>{t.cats.gender}</dt><dd>{cat.gender}</dd>
-			<dt>{t.cats.color}</dt><dd>{cat.color}</dd>
-			<dt>{t.cats.arrived}</dt><dd>{cat.arrivalDate}</dd>
-			<dt>{t.cats.status}</dt><dd>{cat.status}</dd>
-		</dl>
+			<article>
+				<h1 class="text-5xl md:text-8xl font-black uppercase -rotate-2 mb-8 inline-block">
+					<span class="bg-pink-500 text-white px-4 py-2 border-4 border-black">{cat.name}</span>
+				</h1>
 
-		<div>
-			{cat.personality.map((trait: string) => (
-				<span>{trait}</span>
-			))}
-		</div>
+				<dl class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+					<div class="border-4 border-black bg-yellow-400 p-3 -rotate-1">
+						<dt class="text-xs font-black uppercase tracking-widest">{t.cats.breed}</dt>
+						<dd class="text-lg font-black mt-1">{cat.breed}</dd>
+					</div>
+					<div class="border-4 border-black bg-pink-500 text-white p-3 rotate-2">
+						<dt class="text-xs font-black uppercase tracking-widest">{t.cats.age}</dt>
+						<dd class="text-lg font-black mt-1">{cat.age}</dd>
+					</div>
+					<div class="border-4 border-black bg-orange-500 text-white p-3 -rotate-2">
+						<dt class="text-xs font-black uppercase tracking-widest">{t.cats.gender}</dt>
+						<dd class="text-lg font-black mt-1">{cat.gender}</dd>
+					</div>
+					<div class="border-4 border-black bg-white p-3 rotate-1">
+						<dt class="text-xs font-black uppercase tracking-widest">{t.cats.color}</dt>
+						<dd class="text-lg font-black mt-1">{cat.color}</dd>
+					</div>
+					<div class="border-4 border-black bg-gray-100 p-3 -rotate-1">
+						<dt class="text-xs font-black uppercase tracking-widest">{t.cats.arrived}</dt>
+						<dd class="text-lg font-black mt-1">{cat.arrivalDate}</dd>
+					</div>
+					<div class="border-4 border-black bg-yellow-300 p-3 rotate-2">
+						<dt class="text-xs font-black uppercase tracking-widest">{t.cats.status}</dt>
+						<dd class="text-lg font-black mt-1">{cat.status}</dd>
+					</div>
+				</dl>
 
-		<p>{cat.description}</p>
+				<div class="flex flex-wrap gap-3 mb-8">
+					{cat.personality.map((trait: string, i: number) => (
+						<span
+							class:list={[
+								"text-sm font-black uppercase px-3 py-2 border-4 border-black",
+								i % 3 === 0 ? "bg-yellow-400 -rotate-2" :
+								i % 3 === 1 ? "bg-pink-500 text-white rotate-3" :
+								"bg-orange-500 text-white -rotate-1",
+							]}
+						>
+							★ {trait}
+						</span>
+					))}
+				</div>
 
-		<a href={`/${lang}/${style}/auth`}>{t.cats.adopt} {cat.name}</a>
-	</article>
+				<div class="border-4 border-black bg-gray-100 p-4 md:p-6 rotate-1 mb-10">
+					<p class="text-base md:text-lg leading-relaxed font-bold">{cat.description}</p>
+				</div>
 
-	<section>
-		<h2>{t.cats.otherCats}</h2>
-		<div>
-			{otherCats.map((c: any) => (
-				<a href={`/${lang}/${style}/cats/${c.id}`}>
-					<h3>{c.name}</h3>
-					<p>{c.breed} · {c.age}</p>
+				<a
+					href={`/${lang}/${style}/auth`}
+					class="inline-block bg-pink-500 text-white font-black uppercase text-xl md:text-2xl px-8 py-4 border-4 border-black -rotate-1 hover:rotate-0 hover:scale-105 transition-all no-underline"
+				>
+					‼ {t.cats.adopt} {cat.name} ‼
 				</a>
-			))}
+			</article>
+
+			<section class="mt-16 pt-8 border-t-4 border-black">
+				<h2 class="text-2xl md:text-4xl font-black uppercase rotate-1 inline-block bg-black text-yellow-400 px-3 py-1 mb-8">
+					→ {t.cats.otherCats}
+				</h2>
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+					{otherCats.map((c: any, i: number) => (
+						<a
+							href={`/${lang}/${style}/cats/${c.id}`}
+							class:list={[
+								"block border-4 border-black p-4 no-underline text-black hover:scale-105 transition-transform",
+								i % 3 === 0 ? "-rotate-1 bg-yellow-200 hover:bg-yellow-400" :
+								i % 3 === 1 ? "rotate-2 bg-pink-200 hover:bg-pink-400" :
+								"-rotate-2 bg-orange-200 hover:bg-orange-400",
+							]}
+						>
+							<h3 class="text-xl font-black uppercase">{c.name}</h3>
+							<p class="text-sm font-bold mt-1">{c.breed} ✕ {c.age}</p>
+						</a>
+					))}
+				</div>
+			</section>
 		</div>
-	</section>
-</main>
+	</main>
+</div>
