@@ -2,42 +2,112 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-gradient-to-br from-emerald-950 via-purple-950 to-rose-950">
+	<!-- Navigation -->
+	<nav class="relative bg-gradient-to-r from-amber-900 via-yellow-800 to-amber-900 border-b-4 border-amber-400 shadow-2xl shadow-amber-900/50">
+		<div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-2 md:gap-6">
+			{nav.map((item: any) => (
+				<a href={item.href} class="px-5 py-2 font-bold text-amber-100 uppercase tracking-widest text-sm hover:text-white hover:bg-amber-700/50 rounded-sm transition-all duration-300 border border-transparent hover:border-amber-400">
+					{item.label}
+				</a>
+			))}
+		</div>
+		<div class="text-center text-amber-400 text-xs tracking-[0.5em] py-1">✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦</div>
+	</nav>
 
-<main>
-	<section>
-		<h1>{sanctuary.name}</h1>
-		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
-	</section>
-
-	<section>
-		<h2>{t.home.mission}</h2>
-		<p>{sanctuary.mission}</p>
-	</section>
-
-	<section>
-		{sanctuary.stats.map((stat: any) => (
-			<div>
-				<span>{stat.value}</span>
-				<span>{stat.label}</span>
+	<main>
+		<!-- Hero Section -->
+		<section class="relative bg-gradient-to-b from-purple-950 via-indigo-950 to-emerald-950 py-20 md:py-32 px-4 text-center overflow-hidden">
+			<div class="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(45deg,transparent,transparent_20px,rgba(255,215,0,0.1)_20px,rgba(255,215,0,0.1)_22px)]"></div>
+			<div class="relative max-w-5xl mx-auto">
+				<p class="text-amber-400 tracking-[0.4em] uppercase text-sm md:text-base mb-4 font-semibold">❧ ✦ ❧ ✦ ❧</p>
+				<h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 mb-6 leading-tight drop-shadow-lg">
+					{sanctuary.name}
+				</h1>
+				<p class="text-xl md:text-3xl text-purple-200 font-serif italic mb-10 max-w-3xl mx-auto leading-relaxed">
+					{sanctuary.tagline}
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+					<a href={`/${lang}/${style}/cats`} class="px-10 py-4 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-amber-950 font-black uppercase tracking-widest text-lg rounded-sm shadow-2xl shadow-amber-500/40 hover:from-amber-500 hover:via-yellow-400 hover:to-amber-500 transition-all duration-300 border-2 border-amber-300">
+						★ {t.home.meetCats} ★
+					</a>
+					<a href={`/${lang}/${style}/donate`} class="px-10 py-4 bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700 text-emerald-50 font-black uppercase tracking-widest text-lg rounded-sm shadow-2xl shadow-emerald-700/40 hover:from-emerald-600 hover:via-emerald-500 hover:to-emerald-600 transition-all duration-300 border-2 border-emerald-400">
+						✿ {t.home.donate} ✿
+					</a>
+				</div>
+				<p class="text-amber-400 tracking-[0.4em] uppercase text-sm mt-10">❧ ✦ ❧ ✦ ❧</p>
 			</div>
-		))}
-	</section>
+		</section>
 
-	<section>
-		<h2>{t.home.aboutUs}</h2>
-		{sanctuary.about.map((paragraph: string) => (
-			<p>{paragraph}</p>
-		))}
-	</section>
-</main>
+		<!-- Ornamental Divider -->
+		<div class="text-center py-4 bg-gradient-to-r from-transparent via-amber-800/30 to-transparent">
+			<span class="text-amber-500 text-2xl tracking-[0.3em]">║ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ║</span>
+		</div>
 
-<footer>
-	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
-</footer>
+		<!-- Mission Section -->
+		<section class="bg-gradient-to-br from-emerald-950 via-teal-950 to-emerald-900 py-16 md:py-24 px-4 border-y-2 border-emerald-700/50">
+			<div class="max-w-4xl mx-auto text-center">
+				<p class="text-emerald-400 tracking-[0.3em] text-sm mb-4">✦ ✦ ✦</p>
+				<h2 class="font-serif text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-400 mb-8">
+					{t.home.mission}
+				</h2>
+				<p class="text-emerald-100 text-lg md:text-xl leading-relaxed font-serif italic border-l-4 border-r-4 border-amber-500 px-6 md:px-12 py-6 bg-emerald-900/50 rounded-sm shadow-inner">
+					{sanctuary.mission}
+				</p>
+				<p class="text-emerald-400 tracking-[0.3em] text-sm mt-8">✦ ✦ ✦</p>
+			</div>
+		</section>
+
+		<!-- Stats Section -->
+		<section class="bg-gradient-to-r from-purple-950 via-indigo-900 to-purple-950 py-16 md:py-20 px-4">
+			<div class="max-w-6xl mx-auto">
+				<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+					{sanctuary.stats.map((stat: any) => (
+						<div class="bg-gradient-to-b from-purple-800/60 to-indigo-900/60 border-2 border-amber-500/50 rounded-sm p-6 md:p-8 text-center shadow-xl shadow-purple-900/50 hover:border-amber-400 hover:shadow-amber-500/20 transition-all duration-300">
+							<span class="block font-serif text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-300 to-yellow-500 mb-2">
+								{stat.value}
+							</span>
+							<span class="block text-purple-200 uppercase tracking-widest text-xs md:text-sm font-bold">
+								{stat.label}
+							</span>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- Ornamental Divider -->
+		<div class="text-center py-4 bg-gradient-to-r from-transparent via-rose-800/30 to-transparent">
+			<span class="text-rose-400 text-2xl tracking-[0.3em]">❋ ✦ ★ ✦ ❋ ✦ ★ ✦ ❋</span>
+		</div>
+
+		<!-- About Section -->
+		<section class="bg-gradient-to-br from-rose-950 via-pink-950 to-rose-900 py-16 md:py-24 px-4 border-y-2 border-rose-700/50">
+			<div class="max-w-4xl mx-auto">
+				<div class="text-center mb-12">
+					<p class="text-rose-400 tracking-[0.3em] text-sm mb-4">◆ ◆ ◆</p>
+					<h2 class="font-serif text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-200 to-rose-400">
+						{t.home.aboutUs}
+					</h2>
+					<p class="text-rose-400 tracking-[0.3em] text-sm mt-4">◆ ◆ ◆</p>
+				</div>
+				<div class="space-y-6">
+					{sanctuary.about.map((paragraph: string) => (
+						<p class="text-rose-100 text-lg leading-relaxed bg-rose-900/40 border-l-4 border-amber-500 pl-6 pr-4 py-4 shadow-lg rounded-r-sm">
+							{paragraph}
+						</p>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="bg-gradient-to-r from-amber-900 via-yellow-900 to-amber-900 border-t-4 border-amber-400 py-8 px-4 text-center">
+		<div class="text-amber-400 tracking-[0.3em] text-sm mb-4">✦ ◆ ✦ ◆ ✦</div>
+		<p class="text-amber-200 font-serif text-sm tracking-wide">
+			&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.
+		</p>
+		<div class="text-amber-400 tracking-[0.3em] text-sm mt-4">✦ ◆ ✦ ◆ ✦</div>
+	</footer>
+</div>

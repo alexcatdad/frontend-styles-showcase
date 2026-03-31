@@ -2,43 +2,100 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<a href={`/${lang}/${style}/blog`}>&larr; {t.blog.backToBlog}</a>
-
-	<article>
-		<header>
-			<time datetime={post.date}>{post.date}</time>
-			<h1>{post.title}</h1>
-			<span>{t.blog.by} {post.author}</span>
-			<div>
-				{post.tags.map((tag: string) => (
-					<span>{tag}</span>
-				))}
-			</div>
-		</header>
-
-		<div>
-			{post.content.map((paragraph: string) => (
-				<p>{paragraph}</p>
-			))}
-		</div>
-	</article>
-
-	<section>
-		<h2>{t.blog.moreStories}</h2>
-		<div>
-			{otherPosts.map((p: any) => (
-				<a href={`/${lang}/${style}/blog/${p.slug}`}>
-					<h3>{p.title}</h3>
-					<p>{p.excerpt}</p>
+<div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-950 to-rose-950">
+	<!-- Navigation -->
+	<nav class="bg-gradient-to-r from-amber-900 via-yellow-800 to-amber-900 border-b-4 border-amber-400 shadow-2xl shadow-amber-900/50">
+		<div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-2 md:gap-6">
+			{nav.map((item: any) => (
+				<a href={item.href} class="px-5 py-2 font-bold text-amber-100 uppercase tracking-widest text-sm hover:text-white hover:bg-amber-700/50 rounded-sm transition-all duration-300 border border-transparent hover:border-amber-400">
+					{item.label}
 				</a>
 			))}
 		</div>
-	</section>
-</main>
+		<div class="text-center text-amber-400 text-xs tracking-[0.5em] py-1">✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦</div>
+	</nav>
+
+	<main class="max-w-4xl mx-auto px-4 py-10 md:py-16">
+		<!-- Back Link -->
+		<a href={`/${lang}/${style}/blog`} class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-bold uppercase tracking-widest text-sm mb-10 transition-colors">
+			<span class="text-lg">&larr;</span> <span>❧ {t.blog.backToBlog}</span>
+		</a>
+
+		<!-- Article -->
+		<article class="bg-gradient-to-b from-indigo-900/60 to-purple-950/80 border-2 border-amber-500/50 rounded-sm shadow-2xl shadow-indigo-900/60 overflow-hidden">
+			<!-- Top Ornament -->
+			<div class="bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-700 text-center py-3">
+				<span class="text-amber-950 text-sm tracking-[0.4em] font-black">❋ ✦ ★ ✦ ❋</span>
+			</div>
+
+			<!-- Header -->
+			<header class="p-6 md:p-10 lg:p-14 pb-0 md:pb-0 lg:pb-0 text-center">
+				<time datetime={post.date} class="text-amber-400 text-sm font-bold uppercase tracking-widest">
+					◆ {post.date} ◆
+				</time>
+				<h1 class="font-serif text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 mt-4 mb-5 leading-tight">
+					{post.title}
+				</h1>
+				<span class="text-purple-300 font-serif italic text-lg">
+					{t.blog.by} {post.author}
+				</span>
+
+				<!-- Tags -->
+				<div class="flex flex-wrap gap-2 justify-center mt-6">
+					{post.tags.map((tag: string) => (
+						<span class="px-4 py-1.5 bg-gradient-to-r from-purple-800/60 to-indigo-800/60 border border-purple-500/40 text-purple-200 text-xs font-bold uppercase tracking-widest rounded-sm">
+							✦ {tag}
+						</span>
+					))}
+				</div>
+
+				<!-- Divider -->
+				<div class="mt-10 mb-0">
+					<span class="text-amber-500/50 text-lg tracking-[0.3em]">║ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ║</span>
+				</div>
+			</header>
+
+			<!-- Content -->
+			<div class="p-6 md:p-10 lg:p-14 pt-6 md:pt-8 lg:pt-8 space-y-6">
+				{post.content.map((paragraph: string) => (
+					<p class="text-indigo-100 text-lg leading-relaxed first:first-letter:text-5xl first:first-letter:font-serif first:first-letter:font-black first:first-letter:text-amber-400 first:first-letter:float-left first:first-letter:mr-3 first:first-letter:mt-1">
+						{paragraph}
+					</p>
+				))}
+			</div>
+
+			<!-- Bottom Ornament -->
+			<div class="bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-700 text-center py-3">
+				<span class="text-amber-950 text-sm tracking-[0.4em] font-black">❋ ✦ ★ ✦ ❋</span>
+			</div>
+		</article>
+
+		<!-- More Stories Section -->
+		<section class="mt-16">
+			<div class="text-center mb-10">
+				<p class="text-rose-400 tracking-[0.3em] text-sm mb-4">❋ ★ ❋</p>
+				<h2 class="font-serif text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-200 to-rose-400">
+					{t.blog.moreStories}
+				</h2>
+				<p class="text-rose-400 tracking-[0.3em] text-sm mt-4">❋ ★ ❋</p>
+			</div>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				{otherPosts.map((p: any) => (
+					<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block bg-gradient-to-b from-rose-900/60 to-purple-950/60 border-2 border-rose-600/40 rounded-sm shadow-xl hover:shadow-2xl hover:border-amber-400 transition-all duration-500 overflow-hidden">
+						<div class="bg-gradient-to-r from-rose-700/50 via-pink-600/50 to-rose-700/50 text-center py-1.5">
+							<span class="text-rose-300/60 text-xs tracking-[0.3em]">❋ ◆ ❋</span>
+						</div>
+						<div class="p-5 md:p-6">
+							<h3 class="font-serif text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-200 mb-3 group-hover:from-yellow-200 group-hover:to-amber-300 leading-tight">
+								{p.title}
+							</h3>
+							<p class="text-purple-200/70 text-sm leading-relaxed">
+								{p.excerpt}
+							</p>
+						</div>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

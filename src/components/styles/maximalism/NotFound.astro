@@ -2,18 +2,58 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-gradient-to-br from-rose-950 via-purple-950 to-indigo-950">
+	<!-- Navigation -->
+	<nav class="bg-gradient-to-r from-amber-900 via-yellow-800 to-amber-900 border-b-4 border-amber-400 shadow-2xl shadow-amber-900/50">
+		<div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-2 md:gap-6">
+			{nav.map((item: any) => (
+				<a href={item.href} class="px-5 py-2 font-bold text-amber-100 uppercase tracking-widest text-sm hover:text-white hover:bg-amber-700/50 rounded-sm transition-all duration-300 border border-transparent hover:border-amber-400">
+					{item.label}
+				</a>
+			))}
+		</div>
+		<div class="text-center text-amber-400 text-xs tracking-[0.5em] py-1">✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦</div>
+	</nav>
 
-<main>
-	<section>
-		<h1>{t.notFound.title}</h1>
-		<h2>{t.notFound.heading}</h2>
-		<p>{t.notFound.description}</p>
-		<a href={`/${lang}/${style}/`}>{t.notFound.backHome}</a>
-		<a href={`/${lang}/${style}/cats`}>{t.notFound.meetCats}</a>
-	</section>
-</main>
+	<main class="flex items-center justify-center px-4 py-20 md:py-32">
+		<section class="text-center max-w-2xl">
+			<!-- Top Ornament -->
+			<p class="text-amber-400 tracking-[0.4em] text-sm mb-6">❋ ✦ ★ ✦ ❋ ✦ ★ ✦ ❋</p>
+
+			<!-- 404 Title -->
+			<h1 class="font-serif text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-300 via-yellow-200 to-amber-500 mb-6 leading-none">
+				{t.notFound.title}
+			</h1>
+
+			<!-- Heading -->
+			<h2 class="font-serif text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-200 to-rose-400 mb-6">
+				{t.notFound.heading}
+			</h2>
+
+			<!-- Description -->
+			<div class="bg-gradient-to-r from-purple-900/40 via-indigo-900/30 to-purple-900/40 border-l-4 border-r-4 border-amber-500 px-6 md:px-10 py-6 rounded-sm shadow-inner mb-10 mx-auto max-w-xl">
+				<p class="text-purple-200 text-lg font-serif italic leading-relaxed">
+					{t.notFound.description}
+				</p>
+			</div>
+
+			<!-- Divider -->
+			<div class="mb-10">
+				<span class="text-amber-500/50 text-lg tracking-[0.3em]">║ ◆ ✦ ◆ ✦ ◆ ║</span>
+			</div>
+
+			<!-- Action Buttons -->
+			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+				<a href={`/${lang}/${style}/`} class="px-10 py-4 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-amber-950 font-black uppercase tracking-widest text-lg rounded-sm shadow-2xl shadow-amber-500/40 hover:from-amber-500 hover:via-yellow-400 hover:to-amber-500 transition-all duration-300 border-2 border-amber-300">
+					★ {t.notFound.backHome} ★
+				</a>
+				<a href={`/${lang}/${style}/cats`} class="px-10 py-4 bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700 text-emerald-50 font-black uppercase tracking-widest text-lg rounded-sm shadow-2xl shadow-emerald-700/40 hover:from-emerald-600 hover:via-emerald-500 hover:to-emerald-600 transition-all duration-300 border-2 border-emerald-400">
+					✿ {t.notFound.meetCats} ✿
+				</a>
+			</div>
+
+			<!-- Bottom Ornament -->
+			<p class="text-amber-400 tracking-[0.4em] text-sm mt-10">❋ ✦ ★ ✦ ❋ ✦ ★ ✦ ❋</p>
+		</section>
+	</main>
+</div>
