@@ -2,46 +2,117 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<section>
-		<h1>{t.auth.title}</h1>
-		<p>{t.auth.subtitle}</p>
-
-		<form>
-			<div>
-				<label for="email">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" />
-			</div>
-			<div>
-				<label for="password">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" />
-			</div>
-			<div>
-				<label>
-					<input type="checkbox" name="remember" />
-					{t.auth.rememberMe}
-				</label>
-				<a href="#">{t.auth.forgotPassword}</a>
-			</div>
-			<button type="submit">{t.auth.signIn}</button>
-		</form>
-
-		<div>
-			<p>{t.auth.continueWith}</p>
-			<div>
-				<button type="button">Google</button>
-				<button type="button">Apple</button>
-			</div>
+<div class="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100">
+	<!-- Navigation - Toolbar -->
+	<nav class="bg-gradient-to-b from-amber-700 via-amber-800 to-amber-900 border-b-4 border-amber-950 shadow-lg px-4 py-3">
+		<div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-1 sm:gap-2">
+			{nav.map((item: any) => (
+				<a
+					href={item.href}
+					class="px-4 py-2 bg-gradient-to-b from-amber-500 to-amber-700 text-amber-50 font-semibold text-sm rounded-lg border border-amber-900 shadow-md hover:from-amber-400 hover:to-amber-600 active:from-amber-700 active:to-amber-800 active:shadow-inner transition-all"
+				>
+					{item.label}
+				</a>
+			))}
 		</div>
+	</nav>
 
-		<p>
-			{t.auth.noAccount} <a href="#">{t.auth.signUp}</a>
-		</p>
-	</section>
-</main>
+	<main class="max-w-md mx-auto px-4 py-10">
+		<!-- Auth Card - Leather-bound form -->
+		<section class="bg-gradient-to-b from-amber-100 to-amber-200 rounded-2xl border-4 border-amber-800/40 shadow-2xl overflow-hidden">
+			<!-- Header -->
+			<div class="bg-gradient-to-b from-amber-700 via-amber-800 to-amber-900 px-6 py-6 shadow-inner text-center">
+				<h1 class="text-2xl sm:text-3xl font-bold text-amber-100 drop-shadow-md">
+					{t.auth.title}
+				</h1>
+				<p class="text-amber-300 text-sm mt-1">{t.auth.subtitle}</p>
+			</div>
+
+			<div class="p-6 sm:p-8 space-y-6">
+				<form class="space-y-5">
+					<!-- Email field - Recessed input -->
+					<div class="space-y-2">
+						<label for="email" class="block text-amber-800 font-bold text-sm uppercase tracking-wide">
+							{t.auth.email}
+						</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="you@example.com"
+							class="w-full px-4 py-3 bg-gradient-to-b from-amber-50 to-white rounded-lg border-2 border-amber-400/60 shadow-inner text-amber-900 placeholder-amber-400 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/30 transition-all"
+						/>
+					</div>
+
+					<!-- Password field - Recessed input -->
+					<div class="space-y-2">
+						<label for="password" class="block text-amber-800 font-bold text-sm uppercase tracking-wide">
+							{t.auth.password}
+						</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="••••••••"
+							class="w-full px-4 py-3 bg-gradient-to-b from-amber-50 to-white rounded-lg border-2 border-amber-400/60 shadow-inner text-amber-900 placeholder-amber-400 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/30 transition-all"
+						/>
+					</div>
+
+					<!-- Remember / Forgot row -->
+					<div class="flex items-center justify-between">
+						<label class="flex items-center gap-2 cursor-pointer">
+							<input
+								type="checkbox"
+								name="remember"
+								class="w-5 h-5 rounded border-2 border-amber-400 bg-gradient-to-b from-amber-50 to-white shadow-inner accent-amber-700"
+							/>
+							<span class="text-amber-800 text-sm font-medium">{t.auth.rememberMe}</span>
+						</label>
+						<a href="#" class="text-amber-600 text-sm font-medium hover:text-amber-800 underline transition-colors">
+							{t.auth.forgotPassword}
+						</a>
+					</div>
+
+					<!-- Submit button - Big glossy green -->
+					<button
+						type="submit"
+						class="w-full py-3.5 bg-gradient-to-b from-green-400 via-green-500 to-green-700 text-white font-bold text-lg rounded-xl border-2 border-green-800/50 shadow-lg hover:from-green-300 hover:to-green-600 active:shadow-inner active:from-green-600 active:to-green-800 transition-all"
+					>
+						{t.auth.signIn}
+					</button>
+				</form>
+
+				<!-- Divider -->
+				<div class="flex items-center gap-4">
+					<div class="flex-1 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+					<p class="text-amber-600 text-sm font-medium shrink-0">{t.auth.continueWith}</p>
+					<div class="flex-1 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+				</div>
+
+				<!-- Social buttons -->
+				<div class="grid grid-cols-2 gap-3">
+					<button
+						type="button"
+						class="py-3 bg-gradient-to-b from-amber-200 to-amber-400 text-amber-900 font-bold rounded-xl border-2 border-amber-500/50 shadow-md hover:from-amber-100 hover:to-amber-300 active:shadow-inner active:from-amber-400 active:to-amber-500 transition-all"
+					>
+						Google
+					</button>
+					<button
+						type="button"
+						class="py-3 bg-gradient-to-b from-gray-700 to-gray-900 text-white font-bold rounded-xl border-2 border-gray-950/50 shadow-md hover:from-gray-600 hover:to-gray-800 active:shadow-inner active:from-gray-800 active:to-gray-950 transition-all"
+					>
+						Apple
+					</button>
+				</div>
+
+				<!-- Sign up link -->
+				<p class="text-center text-amber-700 text-sm">
+					{t.auth.noAccount}{" "}
+					<a href="#" class="font-bold text-amber-900 hover:text-amber-700 underline transition-colors">
+						{t.auth.signUp}
+					</a>
+				</p>
+			</div>
+		</section>
+	</main>
+</div>

@@ -2,47 +2,114 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<a href={`/${lang}/${style}/cats`}>&larr; {t.cats.backToAll}</a>
-
-	<article>
-		<h1>{cat.name}</h1>
-
-		<dl>
-			<dt>{t.cats.breed}</dt><dd>{cat.breed}</dd>
-			<dt>{t.cats.age}</dt><dd>{cat.age}</dd>
-			<dt>{t.cats.gender}</dt><dd>{cat.gender}</dd>
-			<dt>{t.cats.color}</dt><dd>{cat.color}</dd>
-			<dt>{t.cats.arrived}</dt><dd>{cat.arrivalDate}</dd>
-			<dt>{t.cats.status}</dt><dd>{cat.status}</dd>
-		</dl>
-
-		<div>
-			{cat.personality.map((trait: string) => (
-				<span>{trait}</span>
-			))}
-		</div>
-
-		<p>{cat.description}</p>
-
-		<a href={`/${lang}/${style}/auth`}>{t.cats.adopt} {cat.name}</a>
-	</article>
-
-	<section>
-		<h2>{t.cats.otherCats}</h2>
-		<div>
-			{otherCats.map((c: any) => (
-				<a href={`/${lang}/${style}/cats/${c.id}`}>
-					<h3>{c.name}</h3>
-					<p>{c.breed} · {c.age}</p>
+<div class="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100">
+	<!-- Navigation - Toolbar -->
+	<nav class="bg-gradient-to-b from-amber-700 via-amber-800 to-amber-900 border-b-4 border-amber-950 shadow-lg px-4 py-3">
+		<div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-1 sm:gap-2">
+			{nav.map((item: any) => (
+				<a
+					href={item.href}
+					class="px-4 py-2 bg-gradient-to-b from-amber-500 to-amber-700 text-amber-50 font-semibold text-sm rounded-lg border border-amber-900 shadow-md hover:from-amber-400 hover:to-amber-600 active:from-amber-700 active:to-amber-800 active:shadow-inner transition-all"
+				>
+					{item.label}
 				</a>
 			))}
 		</div>
-	</section>
-</main>
+	</nav>
+
+	<main class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+		<!-- Back link - Embossed button -->
+		<a
+			href={`/${lang}/${style}/cats`}
+			class="inline-block px-5 py-2 bg-gradient-to-b from-amber-300 to-amber-500 text-amber-900 font-semibold text-sm rounded-lg border border-amber-600/40 shadow-md hover:from-amber-200 hover:to-amber-400 active:shadow-inner transition-all"
+		>
+			&larr; {t.cats.backToAll}
+		</a>
+
+		<!-- Cat Profile Card - Leather-bound dossier -->
+		<article class="bg-gradient-to-b from-amber-100 to-amber-200 rounded-2xl border-4 border-amber-800/40 shadow-2xl overflow-hidden">
+			<!-- Name header -->
+			<div class="bg-gradient-to-b from-amber-700 via-amber-800 to-amber-900 px-6 py-6 sm:px-10 shadow-inner">
+				<h1 class="text-3xl sm:text-4xl font-bold text-amber-100 drop-shadow-md">
+					{cat.name}
+				</h1>
+			</div>
+
+			<div class="p-6 sm:p-10 space-y-6">
+				<!-- Details - Engraved metal plate -->
+				<dl class="bg-gradient-to-b from-amber-200 via-amber-100 to-amber-200 rounded-xl border-2 border-amber-600/20 shadow-lg p-5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+					<div class="flex justify-between sm:block border-b border-amber-300/60 pb-2 sm:border-0 sm:pb-0">
+						<dt class="text-amber-600 text-xs uppercase tracking-wider font-bold">{t.cats.breed}</dt>
+						<dd class="text-amber-900 font-semibold">{cat.breed}</dd>
+					</div>
+					<div class="flex justify-between sm:block border-b border-amber-300/60 pb-2 sm:border-0 sm:pb-0">
+						<dt class="text-amber-600 text-xs uppercase tracking-wider font-bold">{t.cats.age}</dt>
+						<dd class="text-amber-900 font-semibold">{cat.age}</dd>
+					</div>
+					<div class="flex justify-between sm:block border-b border-amber-300/60 pb-2 sm:border-0 sm:pb-0">
+						<dt class="text-amber-600 text-xs uppercase tracking-wider font-bold">{t.cats.gender}</dt>
+						<dd class="text-amber-900 font-semibold">{cat.gender}</dd>
+					</div>
+					<div class="flex justify-between sm:block border-b border-amber-300/60 pb-2 sm:border-0 sm:pb-0">
+						<dt class="text-amber-600 text-xs uppercase tracking-wider font-bold">{t.cats.color}</dt>
+						<dd class="text-amber-900 font-semibold">{cat.color}</dd>
+					</div>
+					<div class="flex justify-between sm:block border-b border-amber-300/60 pb-2 sm:border-0 sm:pb-0">
+						<dt class="text-amber-600 text-xs uppercase tracking-wider font-bold">{t.cats.arrived}</dt>
+						<dd class="text-amber-900 font-semibold">{cat.arrivalDate}</dd>
+					</div>
+					<div class="flex justify-between sm:block">
+						<dt class="text-amber-600 text-xs uppercase tracking-wider font-bold">{t.cats.status}</dt>
+						<dd class="text-amber-900 font-semibold">{cat.status}</dd>
+					</div>
+				</dl>
+
+				<!-- Personality badges -->
+				<div class="flex flex-wrap gap-2">
+					{cat.personality.map((trait: string) => (
+						<span class="px-4 py-1.5 bg-gradient-to-b from-green-400 to-green-600 text-white text-sm font-semibold rounded-full border border-green-700/50 shadow-md">
+							{trait}
+						</span>
+					))}
+				</div>
+
+				<!-- Description - Paper inset -->
+				<div class="bg-gradient-to-b from-white to-amber-50 rounded-lg border border-amber-300 shadow-inner p-6">
+					<p class="text-amber-800 leading-relaxed text-base sm:text-lg">
+						{cat.description}
+					</p>
+				</div>
+
+				<!-- Adopt CTA - Big green button -->
+				<div class="text-center pt-4">
+					<a
+						href={`/${lang}/${style}/auth`}
+						class="inline-block px-10 py-4 bg-gradient-to-b from-green-400 via-green-500 to-green-700 text-white font-bold text-lg rounded-xl border-2 border-green-800/50 shadow-lg hover:from-green-300 hover:to-green-600 active:shadow-inner active:from-green-600 active:to-green-800 transition-all"
+					>
+						{t.cats.adopt} {cat.name}
+					</a>
+				</div>
+			</div>
+		</article>
+
+		<!-- Other Cats - Card shelf -->
+		<section class="space-y-4">
+			<h2 class="text-2xl font-bold text-amber-900 drop-shadow-sm">{t.cats.otherCats}</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+				{otherCats.map((c: any) => (
+					<a
+						href={`/${lang}/${style}/cats/${c.id}`}
+						class="group block bg-gradient-to-b from-amber-50 to-amber-100 rounded-xl border-2 border-amber-700/30 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200 p-5"
+					>
+						<div class="bg-gradient-to-b from-amber-700 to-amber-900 rounded-lg px-4 py-3 shadow-inner mb-2">
+							<h3 class="text-lg font-bold text-amber-100 group-hover:text-white transition-colors">
+								{c.name}
+							</h3>
+						</div>
+						<p class="text-amber-700 text-sm">{c.breed} &middot; {c.age}</p>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>
