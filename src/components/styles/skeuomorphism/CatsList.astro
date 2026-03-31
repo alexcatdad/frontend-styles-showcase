@@ -2,14 +2,15 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100">
-	<!-- Navigation - Toolbar -->
-	<nav class="bg-gradient-to-b from-amber-700 via-amber-800 to-amber-900 border-b-4 border-amber-950 shadow-lg px-4 py-3">
-		<div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-1 sm:gap-2">
+<div class="min-h-screen bg-gradient-to-b from-amber-800 via-amber-900 to-stone-900">
+	<!-- Navigation - Brushed metal toolbar -->
+	<nav class="relative bg-gradient-to-b from-stone-300 via-stone-200 to-stone-400 border-b-2 border-stone-500 shadow-[0_2px_8px_rgba(0,0,0,0.4)] px-4 py-2.5">
+		<div class="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+		<div class="relative max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
 			{nav.map((item: any) => (
 				<a
 					href={item.href}
-					class="px-4 py-2 bg-gradient-to-b from-amber-500 to-amber-700 text-amber-50 font-semibold text-sm rounded-lg border border-amber-900 shadow-md hover:from-amber-400 hover:to-amber-600 active:from-amber-700 active:to-amber-800 active:shadow-inner transition-all"
+					class="px-5 py-1.5 bg-gradient-to-b from-stone-100 via-stone-50 to-stone-200 text-stone-700 font-semibold text-sm rounded-md border border-stone-400 shadow-[0_1px_2px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.8)] hover:from-white hover:to-stone-100 active:from-stone-300 active:to-stone-200 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] transition-all"
 				>
 					{item.label}
 				</a>
@@ -18,57 +19,68 @@ const { lang, style, nav, cats, t } = Astro.props;
 	</nav>
 
 	<main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
-		<!-- Header - Engraved plaque -->
-		<div class="bg-gradient-to-b from-amber-200 via-amber-100 to-amber-200 rounded-xl border-2 border-amber-600/30 shadow-lg p-6 sm:p-8 text-center">
-			<h1 class="text-3xl sm:text-4xl font-bold text-amber-900 drop-shadow-sm mb-2">
+		<!-- Header - Wooden signpost / carved sign -->
+		<div class="relative bg-gradient-to-b from-amber-700 via-amber-800 to-amber-900 rounded-xl border-4 border-amber-950 shadow-[0_6px_20px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] p-6 sm:p-8 text-center">
+			<!-- Wood grain lines -->
+			<div class="absolute inset-0 rounded-xl opacity-10 bg-gradient-to-r from-transparent via-amber-400 to-transparent pointer-events-none"></div>
+			<h1 class="relative text-3xl sm:text-4xl font-serif font-bold text-amber-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" style="text-shadow: 0 -1px 0 rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.1);">
 				{t.cats.title}
 			</h1>
-			<p class="text-amber-700 text-lg">{t.cats.subtitle}</p>
+			<p class="relative text-amber-300/80 text-lg mt-2 font-serif italic">{t.cats.subtitle}</p>
 		</div>
 
-		<!-- Cat Cards Grid -->
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-			{cats.map((cat: any) => (
-				<a
-					href={`/${lang}/${style}/cats/${cat.id}`}
-					class="group block bg-gradient-to-b from-amber-50 to-amber-100 rounded-xl border-2 border-amber-700/30 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 overflow-hidden"
-				>
-					<div class="p-5 space-y-3">
-						<!-- Cat name banner -->
-						<div class="bg-gradient-to-b from-amber-700 to-amber-900 rounded-lg px-4 py-3 shadow-inner">
-							<h2 class="text-xl font-bold text-amber-100 group-hover:text-white transition-colors">
-								{cat.name}
-							</h2>
-							<p class="text-amber-300 text-sm">
-								{cat.breed} &middot; {cat.age} &middot; {cat.gender}
-							</p>
+		<!-- Cork board surface with pinned adoption cards -->
+		<div class="bg-gradient-to-br from-amber-600 via-amber-500 to-yellow-700 rounded-xl border-4 border-amber-900 shadow-[inset_0_2px_8px_rgba(0,0,0,0.3)] p-5 sm:p-8">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{cats.map((cat: any, i: number) => (
+					<a
+						href={`/${lang}/${style}/cats/${cat.id}`}
+						class="group relative block"
+					>
+						<!-- Pushpin -->
+						<div class="absolute -top-2 left-1/2 -translate-x-1/2 z-10 w-6 h-6 rounded-full bg-gradient-to-b from-red-400 to-red-700 border border-red-900 shadow-[0_3px_6px_rgba(0,0,0,0.5)]">
+							<div class="absolute inset-1.5 rounded-full bg-gradient-to-b from-white/50 to-transparent"></div>
 						</div>
 
-						<!-- Description on paper background -->
-						<div class="bg-gradient-to-b from-white to-amber-50 rounded-lg border border-amber-200 shadow-inner p-3">
-							<p class="text-amber-800 text-sm leading-relaxed">
-								{cat.description.slice(0, 100)}...
-							</p>
-						</div>
+						<!-- Adoption card - index card style -->
+						<div class="bg-gradient-to-b from-white via-amber-50 to-amber-100 rounded-sm shadow-[3px_4px_10px_rgba(0,0,0,0.35)] border border-amber-200/80 overflow-hidden group-hover:-translate-y-1 group-hover:shadow-[3px_6px_14px_rgba(0,0,0,0.4)] transition-all duration-200 pt-4">
 
-						<!-- Personality tags - small beveled badges -->
-						<div class="flex flex-wrap gap-2">
-							{cat.personality.map((trait: string) => (
-								<span class="px-3 py-1 bg-gradient-to-b from-green-400 to-green-600 text-white text-xs font-semibold rounded-full border border-green-700/50 shadow-sm">
-									{trait}
+							<!-- Top colored stripe like a file folder tab -->
+							<div class="mx-4 mb-3 bg-gradient-to-b from-emerald-600 via-emerald-700 to-emerald-800 rounded-md px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_2px_4px_rgba(0,0,0,0.2)]">
+								<h2 class="text-lg font-serif font-bold text-white group-hover:text-emerald-100 transition-colors">
+									{cat.name}
+								</h2>
+								<p class="text-emerald-200 text-xs font-medium">
+									{cat.breed} &middot; {cat.age} &middot; {cat.gender}
+								</p>
+							</div>
+
+							<!-- Lined area with description -->
+							<div class="mx-4 mb-3 px-3 py-2 bg-white/60 rounded border border-amber-200/40 shadow-[inset_0_1px_3px_rgba(0,0,0,0.08)]" style="background-image: repeating-linear-gradient(transparent, transparent 1.3rem, #d4c5a9 1.3rem, #d4c5a9 1.32rem);">
+								<p class="text-stone-600 text-sm leading-relaxed font-serif">
+									{cat.description.slice(0, 100)}...
+								</p>
+							</div>
+
+							<!-- Personality - stamped labels -->
+							<div class="mx-4 mb-3 flex flex-wrap gap-1.5">
+								{cat.personality.map((trait: string) => (
+									<span class="px-2.5 py-0.5 bg-gradient-to-b from-stone-200 to-stone-300 text-stone-700 text-xs font-bold uppercase tracking-wider rounded border border-stone-400 shadow-[0_1px_2px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.6)]">
+										{trait}
+									</span>
+								))}
+							</div>
+
+							<!-- Status stamp - like an ink stamp -->
+							<div class="mx-4 mb-4">
+								<span class="inline-block px-4 py-1 text-emerald-800 text-xs font-bold uppercase tracking-widest border-2 border-emerald-700/60 rounded-sm rotate-[-2deg] opacity-80" style="font-family: monospace;">
+									{cat.status}
 								</span>
-							))}
+							</div>
 						</div>
-
-						<!-- Status badge -->
-						<div class="pt-2">
-							<span class="inline-block px-4 py-1.5 bg-gradient-to-b from-yellow-400 to-yellow-600 text-amber-900 text-xs font-bold uppercase tracking-wide rounded-full border border-yellow-700/40 shadow-sm">
-								{cat.status}
-							</span>
-						</div>
-					</div>
-				</a>
-			))}
+					</a>
+				))}
+			</div>
 		</div>
 	</main>
 </div>
