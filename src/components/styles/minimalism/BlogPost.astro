@@ -3,57 +3,53 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
-	<!-- Nav -->
-	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
-		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
-			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{post.title}</a>
-			<div class="flex items-center gap-8">
+	<nav class="pt-8 pb-4 px-6 lg:px-12">
+		<div class="max-w-2xl mx-auto flex items-center justify-between">
+			<a href={`/${lang}/${style}/`} class="text-xs text-stone-400 tracking-widest uppercase">{post.title}</a>
+			<div class="flex items-center gap-6 md:gap-8">
 				{nav.map((item: any) => (
-					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+					<a href={item.href} class="text-xs text-stone-400 tracking-widest uppercase hover:text-neutral-900 transition-colors duration-500">{item.label}</a>
 				))}
 			</div>
 		</div>
 	</nav>
 
 	<main>
-		<!-- Back link -->
-		<div class="pt-28 px-6 lg:px-8 max-w-3xl mx-auto">
-			<a href={`/${lang}/${style}/blog`} class="text-xs tracking-widest uppercase text-neutral-400 hover:text-neutral-900 transition-colors duration-300">&larr; {t.blog.backToBlog}</a>
-		</div>
+		<section class="pt-24 md:pt-32 px-6 lg:px-12">
+			<div class="max-w-2xl mx-auto">
+				<a href={`/${lang}/${style}/blog`} class="text-sm font-light text-stone-400 hover:text-neutral-900 transition-colors duration-500">&larr; {t.blog.backToBlog}</a>
+			</div>
+		</section>
 
-		<article class="pt-12 pb-32 px-6 lg:px-8 max-w-3xl mx-auto">
-			<!-- Header -->
-			<header class="mb-20">
-				<time datetime={post.date} class="text-[10px] tracking-widest uppercase text-stone-400 block mb-6">{post.date}</time>
-				<h1 class="text-3xl md:text-5xl font-extralight tracking-tight leading-tight mb-8">{post.title}</h1>
-				<div class="flex items-center gap-6">
-					<span class="text-xs font-light text-neutral-400">{t.blog.by} {post.author}</span>
-					<div class="flex gap-3">
-						{post.tags.map((tag: string) => (
-							<span class="text-[10px] tracking-widest uppercase text-stone-400 border border-stone-200 px-2 py-0.5">{tag}</span>
-						))}
-					</div>
+		<article class="pt-16 md:pt-24 pb-32 md:pb-48 px-6 lg:px-12">
+			<div class="max-w-2xl mx-auto">
+				<header class="mb-24 md:mb-32">
+					<time datetime={post.date} class="text-xs tracking-widest uppercase text-stone-400 block">{post.date}</time>
+					<h1 class="mt-8 text-3xl md:text-5xl lg:text-6xl font-extralight tracking-tight leading-tight">{post.title}</h1>
+					<p class="mt-8 text-sm font-light text-stone-400">{t.blog.by} {post.author}</p>
+				</header>
+
+				<div class="space-y-8 md:space-y-10">
+					{post.content.map((paragraph: string) => (
+						<p class="text-lg font-light leading-loose text-neutral-500">{paragraph}</p>
+					))}
 				</div>
-			</header>
 
-			<!-- Content -->
-			<div class="space-y-8 border-t border-neutral-100 pt-16">
-				{post.content.map((paragraph: string) => (
-					<p class="text-base font-light leading-loose text-neutral-600">{paragraph}</p>
-				))}
+				<p class="mt-16 text-xs font-light text-stone-400 tracking-wide">
+					{post.tags.join(' / ')}
+				</p>
 			</div>
 		</article>
 
-		<!-- More Stories -->
-		<section class="border-t border-neutral-100 py-32 px-6 lg:px-8">
-			<div class="max-w-4xl mx-auto">
-				<h2 class="text-xs tracking-widest uppercase text-stone-400 mb-16">{t.blog.moreStories}</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+		<section class="py-32 md:py-48 px-6 lg:px-12">
+			<div class="max-w-2xl mx-auto">
+				<p class="text-xs tracking-widest uppercase text-stone-400 mb-16 md:mb-24">{t.blog.moreStories}</p>
+				<div class="space-y-16 md:space-y-20">
 					{otherPosts.map((p: any) => (
 						<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block">
-							<time datetime={p.date} class="text-[10px] tracking-widest uppercase text-stone-400 block mb-3">{p.date}</time>
-							<h3 class="text-xl font-light tracking-tight mb-3 group-hover:text-neutral-500 transition-colors duration-300">{p.title}</h3>
-							<p class="text-sm font-light text-neutral-500 leading-relaxed">{p.excerpt}</p>
+							<time datetime={p.date} class="text-xs tracking-widest uppercase text-stone-400 block">{p.date}</time>
+							<h3 class="mt-4 text-2xl md:text-3xl font-extralight tracking-tight group-hover:text-stone-400 transition-colors duration-500">{p.title}</h3>
+							<p class="mt-4 text-base font-light text-neutral-500 leading-relaxed max-w-lg">{p.excerpt}</p>
 						</a>
 					))}
 				</div>

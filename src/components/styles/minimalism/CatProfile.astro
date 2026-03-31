@@ -3,85 +3,75 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
-	<!-- Nav -->
-	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
-		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
-			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{cat.name}</a>
-			<div class="flex items-center gap-8">
+	<nav class="pt-8 pb-4 px-6 lg:px-12">
+		<div class="max-w-2xl mx-auto flex items-center justify-between">
+			<a href={`/${lang}/${style}/`} class="text-xs text-stone-400 tracking-widest uppercase">{cat.name}</a>
+			<div class="flex items-center gap-6 md:gap-8">
 				{nav.map((item: any) => (
-					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+					<a href={item.href} class="text-xs text-stone-400 tracking-widest uppercase hover:text-neutral-900 transition-colors duration-500">{item.label}</a>
 				))}
 			</div>
 		</div>
 	</nav>
 
 	<main>
-		<!-- Back link -->
-		<div class="pt-28 px-6 lg:px-8 max-w-4xl mx-auto">
-			<a href={`/${lang}/${style}/cats`} class="text-xs tracking-widest uppercase text-neutral-400 hover:text-neutral-900 transition-colors duration-300">&larr; {t.cats.backToAll}</a>
-		</div>
-
-		<article class="pt-12 pb-32 px-6 lg:px-8 max-w-4xl mx-auto">
-			<!-- Image placeholder -->
-			<div class="aspect-[16/9] bg-stone-100 mb-16"></div>
-
-			<!-- Name -->
-			<h1 class="text-4xl md:text-6xl font-extralight tracking-tight mb-16">{cat.name}</h1>
-
-			<!-- Details grid -->
-			<dl class="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-8 mb-16">
-				<div>
-					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.breed}</dt>
-					<dd class="text-sm font-light">{cat.breed}</dd>
-				</div>
-				<div>
-					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.age}</dt>
-					<dd class="text-sm font-light">{cat.age}</dd>
-				</div>
-				<div>
-					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.gender}</dt>
-					<dd class="text-sm font-light">{cat.gender}</dd>
-				</div>
-				<div>
-					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.color}</dt>
-					<dd class="text-sm font-light">{cat.color}</dd>
-				</div>
-				<div>
-					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.arrived}</dt>
-					<dd class="text-sm font-light">{cat.arrivalDate}</dd>
-				</div>
-				<div>
-					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.status}</dt>
-					<dd class="text-sm font-light">{cat.status}</dd>
-				</div>
-			</dl>
-
-			<!-- Personality -->
-			<div class="flex flex-wrap gap-3 mb-16">
-				{cat.personality.map((trait: string) => (
-					<span class="text-[10px] tracking-widest uppercase text-neutral-400 border border-neutral-200 px-3 py-1.5">{trait}</span>
-				))}
+		<section class="pt-24 md:pt-32 px-6 lg:px-12">
+			<div class="max-w-2xl mx-auto">
+				<a href={`/${lang}/${style}/cats`} class="text-sm font-light text-stone-400 hover:text-neutral-900 transition-colors duration-500">&larr; {t.cats.backToAll}</a>
 			</div>
+		</section>
 
-			<!-- Description -->
-			<div class="border-t border-neutral-100 pt-16 mb-20">
-				<p class="text-lg md:text-xl font-light leading-relaxed text-neutral-600 max-w-2xl">{cat.description}</p>
+		<article class="pt-16 md:pt-24 pb-32 md:pb-48 px-6 lg:px-12">
+			<div class="max-w-2xl mx-auto">
+				<div class="aspect-[3/2] bg-stone-100 mb-16 md:mb-24"></div>
+
+				<h1 class="text-4xl md:text-6xl lg:text-7xl font-extralight tracking-tight leading-none">{cat.name}</h1>
+
+				<div class="mt-16 md:mt-24 space-y-6">
+					<div class="flex justify-between items-baseline">
+						<span class="text-xs tracking-widest uppercase text-stone-400">{t.cats.breed}</span>
+						<span class="text-sm font-light">{cat.breed}</span>
+					</div>
+					<div class="flex justify-between items-baseline">
+						<span class="text-xs tracking-widest uppercase text-stone-400">{t.cats.age}</span>
+						<span class="text-sm font-light">{cat.age}</span>
+					</div>
+					<div class="flex justify-between items-baseline">
+						<span class="text-xs tracking-widest uppercase text-stone-400">{t.cats.gender}</span>
+						<span class="text-sm font-light">{cat.gender}</span>
+					</div>
+					<div class="flex justify-between items-baseline">
+						<span class="text-xs tracking-widest uppercase text-stone-400">{t.cats.color}</span>
+						<span class="text-sm font-light">{cat.color}</span>
+					</div>
+					<div class="flex justify-between items-baseline">
+						<span class="text-xs tracking-widest uppercase text-stone-400">{t.cats.arrived}</span>
+						<span class="text-sm font-light">{cat.arrivalDate}</span>
+					</div>
+					<div class="flex justify-between items-baseline">
+						<span class="text-xs tracking-widest uppercase text-stone-400">{t.cats.status}</span>
+						<span class="text-sm font-light">{cat.status}</span>
+					</div>
+				</div>
+
+				<p class="mt-16 md:mt-24 text-sm font-light text-stone-400">
+					{cat.personality.join(', ')}
+				</p>
+
+				<p class="mt-16 md:mt-24 text-xl md:text-2xl font-extralight leading-relaxed text-neutral-600">{cat.description}</p>
+
+				<a href={`/${lang}/${style}/auth`} class="mt-16 md:mt-24 inline-block text-sm font-light text-neutral-900 underline underline-offset-4 decoration-stone-300 hover:decoration-neutral-900 transition-colors duration-500">{t.cats.adopt} {cat.name} &rarr;</a>
 			</div>
-
-			<!-- Adopt CTA -->
-			<a href={`/${lang}/${style}/auth`} class="inline-block border border-neutral-900 px-10 py-4 text-xs tracking-widest uppercase hover:bg-neutral-900 hover:text-white transition-colors duration-300">{t.cats.adopt} {cat.name}</a>
 		</article>
 
-		<!-- Other Cats -->
-		<section class="border-t border-neutral-100 py-32 px-6 lg:px-8">
-			<div class="max-w-4xl mx-auto">
-				<h2 class="text-xs tracking-widest uppercase text-stone-400 mb-16">{t.cats.otherCats}</h2>
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+		<section class="py-32 md:py-48 px-6 lg:px-12">
+			<div class="max-w-2xl mx-auto">
+				<p class="text-xs tracking-widest uppercase text-stone-400 mb-16 md:mb-24">{t.cats.otherCats}</p>
+				<div class="space-y-16 md:space-y-20">
 					{otherCats.map((c: any) => (
 						<a href={`/${lang}/${style}/cats/${c.id}`} class="group block">
-							<div class="aspect-[4/3] bg-stone-100 mb-6 group-hover:bg-stone-200 transition-colors duration-300"></div>
-							<h3 class="text-lg font-light tracking-tight mb-1">{c.name}</h3>
-							<p class="text-xs tracking-widest uppercase text-neutral-400">{c.breed} — {c.age}</p>
+							<h3 class="text-2xl md:text-3xl font-extralight tracking-tight group-hover:text-stone-400 transition-colors duration-500">{c.name}</h3>
+							<p class="mt-2 text-sm font-light text-stone-400">{c.breed} &mdash; {c.age}</p>
 						</a>
 					))}
 				</div>
