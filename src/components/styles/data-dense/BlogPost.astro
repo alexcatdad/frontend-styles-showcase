@@ -2,63 +2,165 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gray-50 text-gray-800 text-sm">
-	<nav class="bg-white border-b border-gray-200 px-3 py-1.5 flex items-center gap-4 text-xs sticky top-0 z-50">
-		<span class="font-semibold text-gray-900 tracking-tight text-sm mr-2">{t.blog.title}</span>
-		<div class="flex items-center gap-3">
+<div class="min-h-screen bg-gray-100 text-gray-800 font-sans text-xs leading-tight">
+	<!-- Metrics strip -->
+	<div class="bg-gray-900 text-gray-300 px-2 py-0.5 flex items-center gap-3 text-[10px] font-mono overflow-x-auto">
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="text-gray-500">Author:</span>
+			<span class="text-cyan-400">{post.author}</span>
+		</div>
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="text-gray-500">Date:</span>
+			<span class="text-gray-200">{post.date}</span>
+		</div>
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="text-gray-500">Sections:</span>
+			<span class="text-gray-200">{post.content.length}</span>
+		</div>
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="text-gray-500">Tags:</span>
+			{post.tags.map((tag: string) => (
+				<span class="text-amber-400">{tag}</span>
+			))}
+		</div>
+		<div class="ml-auto flex items-center gap-1 whitespace-nowrap">
+			<span class="w-1 h-1 rounded-full bg-green-400 inline-block animate-pulse"></span>
+			<span class="text-gray-500">LIVE</span>
+		</div>
+	</div>
+
+	<!-- Toolbar with breadcrumbs -->
+	<nav class="bg-white border-b border-gray-300 px-2 py-1 flex items-center gap-1 text-xs sticky top-0 z-50">
+		<a href={`/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
+		<span class="text-gray-300 mx-0.5">/</span>
+		<a href={`/${lang}/${style}/blog`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">{t.blog.title}</a>
+		<span class="text-gray-300 mx-0.5">/</span>
+		<span class="font-bold text-gray-900 text-[11px] truncate max-w-48">{post.title}</span>
+		<div class="ml-auto flex items-center gap-0.5">
 			{nav.map((item: any) => (
-				<a href={item.href} class="text-gray-500 hover:text-gray-900 transition-colors">{item.label}</a>
+				<a href={item.href} class="text-gray-600 hover:text-white hover:bg-gray-700 px-1.5 py-0.5 rounded transition-colors text-[11px]">{item.label}</a>
 			))}
 		</div>
 	</nav>
 
-	<main class="max-w-6xl mx-auto px-3 py-3">
-		<div class="text-xs text-gray-400 mb-2">
-			<a href={`/${lang}/${style}/blog`} class="hover:text-gray-700 transition-colors">&larr; {t.blog.backToBlog}</a>
-		</div>
+	<!-- Sidebar + Main -->
+	<div class="flex min-h-[calc(100vh-52px)]">
+		<!-- Left sidebar: post metadata + related -->
+		<aside class="hidden lg:block w-52 shrink-0 bg-white border-r border-gray-300 overflow-y-auto">
+			<!-- Post metadata -->
+			<div class="border-b border-gray-200">
+				<div class="bg-gray-50 border-b border-gray-200 px-2 py-1">
+					<span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Post Metadata</span>
+				</div>
+				<table class="w-full text-[10px]">
+					<tbody>
+						<tr class="border-b border-gray-100">
+							<td class="px-2 py-1 text-gray-400 font-medium">Author</td>
+							<td class="px-2 py-1 text-gray-800 text-right">
+								<span class="flex items-center justify-end gap-1">
+									<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 inline-block"></span>
+									{post.author}
+								</span>
+							</td>
+						</tr>
+						<tr class="border-b border-gray-100 bg-gray-50/50">
+							<td class="px-2 py-1 text-gray-400 font-medium">Date</td>
+							<td class="px-2 py-1 text-gray-800 font-mono text-right">{post.date}</td>
+						</tr>
+						<tr class="border-b border-gray-100">
+							<td class="px-2 py-1 text-gray-400 font-medium">Sections</td>
+							<td class="px-2 py-1 text-gray-800 font-mono text-right">{post.content.length}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-		<div class="grid grid-cols-1 lg:grid-cols-4 gap-3">
-			<!-- Main content: 3 cols -->
-			<article class="lg:col-span-3 bg-white border border-gray-200 rounded p-3">
-				<header class="border-b border-gray-100 pb-2 mb-3">
-					<div class="flex items-center gap-2 mb-1">
-						<time datetime={post.date} class="text-[10px] font-mono text-gray-400">{post.date}</time>
+			<!-- Tags -->
+			<div class="border-b border-gray-200">
+				<div class="bg-gray-50 border-b border-gray-200 px-2 py-1">
+					<span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Tags</span>
+				</div>
+				<div class="p-2 flex flex-wrap gap-0.5">
+					{post.tags.map((tag: string) => (
+						<span class="bg-blue-50 text-blue-700 text-[9px] px-1.5 py-0.5 rounded font-medium border border-blue-100">{tag}</span>
+					))}
+				</div>
+			</div>
+
+			<!-- Other posts -->
+			<div>
+				<div class="bg-gray-50 border-b border-gray-200 px-2 py-1">
+					<span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{t.blog.moreStories}</span>
+				</div>
+				<div class="divide-y divide-gray-100">
+					{otherPosts.map((p: any) => (
+						<a href={`/${lang}/${style}/blog/${p.slug}`} class="block px-2 py-1.5 hover:bg-blue-50 transition-colors group">
+							<div class="text-[10px] font-semibold text-blue-600 group-hover:text-blue-800 leading-tight">{p.title}</div>
+							<div class="flex items-center gap-1 mt-0.5 text-[9px] text-gray-400">
+								<span class="font-mono">{p.date}</span>
+								<span class="text-gray-300">|</span>
+								<span>{p.author}</span>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</aside>
+
+		<!-- Main content: article -->
+		<main class="flex-1 p-2 overflow-y-auto">
+			<article class="bg-white border border-gray-300 rounded">
+				<!-- Article header -->
+				<div class="bg-gray-50 border-b border-gray-200 px-3 py-1.5">
+					<h1 class="text-sm font-bold text-gray-900 leading-tight">{post.title}</h1>
+					<div class="flex items-center gap-2 mt-0.5 text-[10px] text-gray-500">
+						<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 inline-block"></span>{post.author}</span>
 						<span class="text-gray-300">|</span>
-						<span class="text-[10px] text-gray-400">{t.blog.by} {post.author}</span>
+						<time datetime={post.date} class="font-mono">{post.date}</time>
+						<span class="text-gray-300">|</span>
+						<div class="flex gap-0.5">
+							{post.tags.map((tag: string) => (
+								<span class="bg-gray-200 text-gray-600 px-1 py-0 rounded text-[9px]">{tag}</span>
+							))}
+						</div>
 					</div>
-					<h1 class="text-base font-bold text-gray-900 leading-tight mb-1.5">{post.title}</h1>
-					<div class="flex gap-1">
-						{post.tags.map((tag: string) => (
-							<span class="bg-blue-50 text-blue-700 text-[10px] px-1.5 py-0.5 rounded-full font-medium">{tag}</span>
-						))}
-					</div>
-				</header>
+				</div>
 
-				<div class="text-xs text-gray-700 leading-relaxed columns-1 md:columns-2 gap-4">
+				<!-- Article body: dense columns -->
+				<div class="p-3 columns-1 md:columns-2 gap-4 text-[10px] text-gray-700 leading-relaxed">
 					{post.content.map((paragraph: string) => (
 						<p class="mb-2 break-inside-avoid">{paragraph}</p>
 					))}
 				</div>
 			</article>
 
-			<!-- Sidebar: other posts -->
-			<aside class="lg:col-span-1">
-				<div class="bg-white border border-gray-200 rounded p-3">
-					<h2 class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">{t.blog.moreStories}</h2>
-					<div class="divide-y divide-gray-100">
-						{otherPosts.map((p: any) => (
-							<a href={`/${lang}/${style}/blog/${p.slug}`} class="block py-1.5 hover:bg-gray-50 -mx-1 px-1 rounded transition-colors group">
-								<h3 class="text-xs font-medium text-blue-600 group-hover:text-blue-800 leading-tight">{p.title}</h3>
-								<p class="text-[10px] text-gray-400 line-clamp-2 mt-0.5">{p.excerpt}</p>
-								<div class="flex items-center gap-1.5 mt-0.5">
-									<time datetime={p.date} class="text-[10px] font-mono text-gray-300">{p.date}</time>
-									<span class="text-[10px] text-gray-300">{t.blog.by} {p.author}</span>
-								</div>
-							</a>
-						))}
-					</div>
+			<!-- Related posts table (visible below article on non-sidebar screens) -->
+			<div class="lg:hidden mt-2 bg-white border border-gray-300 rounded">
+				<div class="bg-gray-50 border-b border-gray-200 px-2 py-1 flex items-center justify-between">
+					<span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{t.blog.moreStories}</span>
+					<span class="text-[9px] text-gray-400 font-mono">{otherPosts.length} posts</span>
 				</div>
-			</aside>
-		</div>
-	</main>
+				<table class="w-full text-[10px] border-collapse">
+					<thead>
+						<tr class="bg-gray-100 border-b border-gray-200">
+							<th class="text-left px-2 py-0.5 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200" style="font-size:9px">Date</th>
+							<th class="text-left px-2 py-0.5 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200" style="font-size:9px">Title</th>
+							<th class="text-left px-2 py-0.5 font-bold text-gray-600 uppercase tracking-wider hidden sm:table-cell" style="font-size:9px">Author</th>
+						</tr>
+					</thead>
+					<tbody>
+						{otherPosts.map((p: any, i: number) => (
+							<tr class={`border-b border-gray-100 hover:bg-blue-50/60 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}>
+								<td class="px-2 py-0.5 font-mono text-gray-500 border-r border-gray-100 whitespace-nowrap">{p.date}</td>
+								<td class="px-2 py-0.5 border-r border-gray-100">
+									<a href={`/${lang}/${style}/blog/${p.slug}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline">{p.title}</a>
+								</td>
+								<td class="px-2 py-0.5 text-gray-600 hidden sm:table-cell">{p.author}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</div>
 </div>
