@@ -2,112 +2,211 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gradient-to-br from-emerald-950 via-purple-950 to-rose-950">
-	<!-- Navigation -->
-	<nav class="relative bg-gradient-to-r from-amber-900 via-yellow-800 to-amber-900 border-b-4 border-amber-400 shadow-2xl shadow-amber-900/50">
-		<div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-2 md:gap-6">
+<div class="min-h-screen bg-gradient-to-b from-purple-950 via-indigo-950 to-emerald-950">
+	<!-- Navigation — Gilded Ribbon -->
+	<nav class="relative bg-gradient-to-r from-amber-950 via-yellow-900 to-amber-950 border-b-4 border-double border-amber-400 shadow-[0_8px_32px_rgba(180,120,0,0.4)]">
+		<div class="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(90deg,transparent,transparent_12px,rgba(255,215,0,0.15)_12px,rgba(255,215,0,0.15)_14px)]"></div>
+		<div class="relative max-w-7xl mx-auto px-4 pt-4 pb-2 flex flex-wrap items-center justify-center gap-1 md:gap-4">
 			{nav.map((item: any) => (
-				<a href={item.href} class="px-5 py-2 font-bold text-amber-100 uppercase tracking-widest text-sm hover:text-white hover:bg-amber-700/50 rounded-sm transition-all duration-300 border border-transparent hover:border-amber-400">
+				<a href={item.href} class="px-5 py-2 font-bold text-amber-200 uppercase tracking-[0.25em] text-xs hover:text-white hover:bg-amber-700/60 rounded-sm transition-all duration-300 border border-transparent hover:border-amber-300 hover:shadow-lg hover:shadow-amber-500/20">
 					{item.label}
 				</a>
 			))}
 		</div>
-		<div class="text-center text-amber-400 text-xs tracking-[0.5em] py-1">✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦</div>
+		<div class="relative text-center text-amber-500 text-xs tracking-[0.6em] py-1.5 border-t border-amber-700/50">❧ ✦ ◆ ★ ◆ ✦ ❧ ✦ ◆ ★ ◆ ✦ ❧</div>
 	</nav>
 
 	<main>
-		<!-- Hero Section -->
-		<section class="relative bg-gradient-to-b from-purple-950 via-indigo-950 to-emerald-950 py-20 md:py-32 px-4 text-center overflow-hidden">
-			<div class="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(45deg,transparent,transparent_20px,rgba(255,215,0,0.1)_20px,rgba(255,215,0,0.1)_22px)]"></div>
+		<!-- ═══════════════════ HERO — Deep Sapphire ═══════════════════ -->
+		<section class="relative bg-gradient-to-b from-indigo-950 via-blue-950 to-purple-950 py-24 md:py-40 px-4 text-center overflow-hidden">
+			<!-- Diagonal gold pinstripe texture -->
+			<div class="absolute inset-0 opacity-[0.06] bg-[repeating-linear-gradient(45deg,transparent,transparent_18px,rgba(255,215,0,0.3)_18px,rgba(255,215,0,0.3)_20px)]"></div>
+			<!-- Radial glow -->
+			<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.15)_0%,transparent_70%)]"></div>
+
 			<div class="relative max-w-5xl mx-auto">
-				<p class="text-amber-400 tracking-[0.4em] uppercase text-sm md:text-base mb-4 font-semibold">❧ ✦ ❧ ✦ ❧</p>
-				<h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 mb-6 leading-tight drop-shadow-lg">
-					{sanctuary.name}
-				</h1>
-				<p class="text-xl md:text-3xl text-purple-200 font-serif italic mb-10 max-w-3xl mx-auto leading-relaxed">
+				<p class="text-amber-500 tracking-[0.5em] uppercase text-xs md:text-sm mb-6 font-semibold">❧ ✦ ◆ ★ ◆ ✦ ❧</p>
+
+				<!-- Triple-framed title block -->
+				<div class="border-2 border-amber-600/30 p-3 md:p-5 mx-auto max-w-4xl">
+					<div class="border border-amber-500/20 p-4 md:p-6">
+						<h1 class="font-serif text-5xl md:text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-400 leading-none drop-shadow-2xl tracking-tight">
+							{sanctuary.name}
+						</h1>
+					</div>
+				</div>
+
+				<p class="text-2xl md:text-4xl text-blue-200 font-serif italic mt-8 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
 					{sanctuary.tagline}
 				</p>
-				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-					<a href={`/${lang}/${style}/cats`} class="px-10 py-4 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-amber-950 font-black uppercase tracking-widest text-lg rounded-sm shadow-2xl shadow-amber-500/40 hover:from-amber-500 hover:via-yellow-400 hover:to-amber-500 transition-all duration-300 border-2 border-amber-300">
+
+				<div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+					<a href={`/${lang}/${style}/cats`} class="group relative px-12 py-5 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-amber-950 font-black uppercase tracking-[0.2em] text-lg shadow-[0_0_40px_rgba(245,158,11,0.35)] hover:shadow-[0_0_60px_rgba(245,158,11,0.5)] transition-all duration-500 border-2 border-amber-300">
+						<span class="absolute -top-1 -left-1 -right-1 -bottom-1 border border-amber-400/40"></span>
 						★ {t.home.meetCats} ★
 					</a>
-					<a href={`/${lang}/${style}/donate`} class="px-10 py-4 bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700 text-emerald-50 font-black uppercase tracking-widest text-lg rounded-sm shadow-2xl shadow-emerald-700/40 hover:from-emerald-600 hover:via-emerald-500 hover:to-emerald-600 transition-all duration-300 border-2 border-emerald-400">
+					<a href={`/${lang}/${style}/donate`} class="group relative px-12 py-5 bg-gradient-to-b from-emerald-700 via-emerald-600 to-emerald-800 text-emerald-50 font-black uppercase tracking-[0.2em] text-lg shadow-[0_0_40px_rgba(16,185,129,0.2)] hover:shadow-[0_0_60px_rgba(16,185,129,0.35)] transition-all duration-500 border-2 border-emerald-400">
+						<span class="absolute -top-1 -left-1 -right-1 -bottom-1 border border-emerald-400/40"></span>
 						✿ {t.home.donate} ✿
 					</a>
 				</div>
-				<p class="text-amber-400 tracking-[0.4em] uppercase text-sm mt-10">❧ ✦ ❧ ✦ ❧</p>
+
+				<p class="text-amber-500/60 tracking-[0.5em] uppercase text-xs mt-12">❧ ✦ ◆ ★ ◆ ✦ ❧</p>
 			</div>
 		</section>
 
-		<!-- Ornamental Divider -->
-		<div class="text-center py-4 bg-gradient-to-r from-transparent via-amber-800/30 to-transparent">
-			<span class="text-amber-500 text-2xl tracking-[0.3em]">║ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ║</span>
+		<!-- ═══════ Ornamental Divider — Sapphire to Emerald ═══════ -->
+		<div class="relative py-5 bg-gradient-to-r from-emerald-950 via-amber-900/20 to-emerald-950">
+			<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent"></div>
+			<div class="text-center">
+				<span class="text-amber-400 text-2xl tracking-[0.4em]">║ ❋ ◆ ★ ✦ ★ ◆ ❋ ║</span>
+			</div>
+			<div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent"></div>
 		</div>
 
-		<!-- Mission Section -->
-		<section class="bg-gradient-to-br from-emerald-950 via-teal-950 to-emerald-900 py-16 md:py-24 px-4 border-y-2 border-emerald-700/50">
-			<div class="max-w-4xl mx-auto text-center">
-				<p class="text-emerald-400 tracking-[0.3em] text-sm mb-4">✦ ✦ ✦</p>
-				<h2 class="font-serif text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-400 mb-8">
+		<!-- ═══════════════════ MISSION — Rich Emerald ═══════════════════ -->
+		<section class="relative bg-gradient-to-br from-emerald-950 via-green-950 to-teal-950 py-20 md:py-28 px-4 overflow-hidden">
+			<!-- Crosshatch texture -->
+			<div class="absolute inset-0 opacity-[0.04] bg-[repeating-linear-gradient(0deg,transparent,transparent_24px,rgba(52,211,153,0.2)_24px,rgba(52,211,153,0.2)_26px),repeating-linear-gradient(90deg,transparent,transparent_24px,rgba(52,211,153,0.2)_24px,rgba(52,211,153,0.2)_26px)]"></div>
+
+			<div class="relative max-w-4xl mx-auto text-center">
+				<p class="text-emerald-400 tracking-[0.4em] text-xs mb-5">✦ ✿ ✦ ✿ ✦</p>
+				<h2 class="font-serif text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-200 to-teal-300 mb-10">
 					{t.home.mission}
 				</h2>
-				<p class="text-emerald-100 text-lg md:text-xl leading-relaxed font-serif italic border-l-4 border-r-4 border-amber-500 px-6 md:px-12 py-6 bg-emerald-900/50 rounded-sm shadow-inner">
-					{sanctuary.mission}
-				</p>
-				<p class="text-emerald-400 tracking-[0.3em] text-sm mt-8">✦ ✦ ✦</p>
+
+				<!-- Ornate quote frame -->
+				<div class="relative border-2 border-emerald-600/40 p-2">
+					<div class="border border-emerald-500/25 p-2">
+						<div class="bg-gradient-to-br from-emerald-900/70 via-green-900/50 to-emerald-900/70 border border-amber-600/30 px-8 md:px-14 py-8 shadow-[inset_0_2px_20px_rgba(0,0,0,0.3)]">
+							<span class="block text-amber-500 text-3xl mb-4 font-serif">&#8220;</span>
+							<p class="text-emerald-100 text-lg md:text-2xl leading-relaxed font-serif italic">
+								{sanctuary.mission}
+							</p>
+							<span class="block text-amber-500 text-3xl mt-4 font-serif text-right">&#8221;</span>
+						</div>
+					</div>
+				</div>
+
+				<p class="text-emerald-400 tracking-[0.4em] text-xs mt-8">✦ ✿ ✦ ✿ ✦</p>
 			</div>
 		</section>
 
-		<!-- Stats Section -->
-		<section class="bg-gradient-to-r from-purple-950 via-indigo-900 to-purple-950 py-16 md:py-20 px-4">
-			<div class="max-w-6xl mx-auto">
-				<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-					{sanctuary.stats.map((stat: any) => (
-						<div class="bg-gradient-to-b from-purple-800/60 to-indigo-900/60 border-2 border-amber-500/50 rounded-sm p-6 md:p-8 text-center shadow-xl shadow-purple-900/50 hover:border-amber-400 hover:shadow-amber-500/20 transition-all duration-300">
-							<span class="block font-serif text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-300 to-yellow-500 mb-2">
-								{stat.value}
-							</span>
-							<span class="block text-purple-200 uppercase tracking-widest text-xs md:text-sm font-bold">
-								{stat.label}
-							</span>
+		<!-- ═══════ Ornamental Divider — Emerald to Ruby ═══════ -->
+		<div class="relative py-5 bg-gradient-to-r from-purple-950 via-amber-900/20 to-purple-950">
+			<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent"></div>
+			<div class="text-center">
+				<span class="text-amber-400 text-2xl tracking-[0.4em]">★ ◆ ❧ ✦ ❧ ◆ ★</span>
+			</div>
+			<div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent"></div>
+		</div>
+
+		<!-- ═══════════════════ STATS — Royal Purple with Gilded Medallions ═══════════════════ -->
+		<section class="relative bg-gradient-to-br from-purple-950 via-violet-950 to-indigo-950 py-20 md:py-28 px-4 overflow-hidden">
+			<!-- Diamond lattice texture -->
+			<div class="absolute inset-0 opacity-[0.05] bg-[repeating-conic-gradient(rgba(168,85,247,0.4)_0%_25%,transparent_0%_50%)] bg-[length:30px_30px]"></div>
+
+			<div class="relative max-w-6xl mx-auto">
+				<div class="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
+					{sanctuary.stats.map((stat: any, i: number) => (
+						<div class="group relative">
+							<!-- Outer ornamental frame -->
+							<div class="absolute -inset-1 border border-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+							<div class="relative bg-gradient-to-b from-purple-800/50 via-violet-900/60 to-purple-950/80 border-2 border-amber-500/40 p-6 md:p-8 text-center shadow-[0_8px_32px_rgba(88,28,135,0.5),0_0_60px_rgba(180,120,0,0.08)] hover:shadow-[0_12px_48px_rgba(88,28,135,0.6),0_0_80px_rgba(180,120,0,0.15)] transition-all duration-500">
+								<!-- Corner ornaments -->
+								<span class="absolute top-2 left-2 text-amber-500/40 text-xs">◆</span>
+								<span class="absolute top-2 right-2 text-amber-500/40 text-xs">◆</span>
+								<span class="absolute bottom-2 left-2 text-amber-500/40 text-xs">◆</span>
+								<span class="absolute bottom-2 right-2 text-amber-500/40 text-xs">◆</span>
+
+								<span class="block font-serif text-4xl md:text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-300 via-yellow-200 to-amber-500 mb-3 drop-shadow-lg">
+									{stat.value}
+								</span>
+								<div class="w-12 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-3"></div>
+								<span class="block text-purple-200 uppercase tracking-[0.2em] text-xs md:text-sm font-bold">
+									{stat.label}
+								</span>
+							</div>
 						</div>
 					))}
 				</div>
 			</div>
 		</section>
 
-		<!-- Ornamental Divider -->
-		<div class="text-center py-4 bg-gradient-to-r from-transparent via-rose-800/30 to-transparent">
-			<span class="text-rose-400 text-2xl tracking-[0.3em]">❋ ✦ ★ ✦ ❋ ✦ ★ ✦ ❋</span>
+		<!-- ═══════ Ornamental Divider — Purple to Rose ═══════ -->
+		<div class="relative py-5 bg-gradient-to-r from-rose-950 via-amber-900/20 to-rose-950">
+			<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-rose-400/40 to-transparent"></div>
+			<div class="text-center">
+				<span class="text-rose-400 text-2xl tracking-[0.4em]">❋ ✦ ★ ✿ ★ ✦ ❋</span>
+			</div>
+			<div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-rose-400/40 to-transparent"></div>
 		</div>
 
-		<!-- About Section -->
-		<section class="bg-gradient-to-br from-rose-950 via-pink-950 to-rose-900 py-16 md:py-24 px-4 border-y-2 border-rose-700/50">
-			<div class="max-w-4xl mx-auto">
-				<div class="text-center mb-12">
-					<p class="text-rose-400 tracking-[0.3em] text-sm mb-4">◆ ◆ ◆</p>
-					<h2 class="font-serif text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-200 to-rose-400">
+		<!-- ═══════════════════ ABOUT — Deep Ruby / Garnet ═══════════════════ -->
+		<section class="relative bg-gradient-to-br from-rose-950 via-red-950 to-pink-950 py-20 md:py-28 px-4 overflow-hidden">
+			<!-- Herringbone texture -->
+			<div class="absolute inset-0 opacity-[0.04] bg-[repeating-linear-gradient(135deg,transparent,transparent_8px,rgba(251,113,133,0.2)_8px,rgba(251,113,133,0.2)_10px,transparent_10px,transparent_18px,rgba(251,113,133,0.2)_18px,rgba(251,113,133,0.2)_20px)]"></div>
+
+			<div class="relative max-w-4xl mx-auto">
+				<div class="text-center mb-14">
+					<p class="text-rose-400 tracking-[0.4em] text-xs mb-5">◆ ❋ ★ ❋ ◆</p>
+					<h2 class="font-serif text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-200 to-rose-400 drop-shadow-lg">
 						{t.home.aboutUs}
 					</h2>
-					<p class="text-rose-400 tracking-[0.3em] text-sm mt-4">◆ ◆ ◆</p>
+					<p class="text-rose-400 tracking-[0.4em] text-xs mt-5">◆ ❋ ★ ❋ ◆</p>
 				</div>
-				<div class="space-y-6">
-					{sanctuary.about.map((paragraph: string) => (
-						<p class="text-rose-100 text-lg leading-relaxed bg-rose-900/40 border-l-4 border-amber-500 pl-6 pr-4 py-4 shadow-lg rounded-r-sm">
-							{paragraph}
-						</p>
+
+				<div class="space-y-8">
+					{sanctuary.about.map((paragraph: string, i: number) => (
+						<div class="relative group">
+							<div class="absolute -inset-0.5 bg-gradient-to-r from-amber-600/20 via-transparent to-amber-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+							<div class="relative bg-gradient-to-r from-rose-900/60 via-red-900/40 to-rose-900/60 border-l-4 border-r-4 border-amber-500 pl-8 pr-6 py-6 shadow-[4px_4px_20px_rgba(0,0,0,0.3),-4px_0_20px_rgba(0,0,0,0.2)]">
+								<span class="absolute top-3 left-2 text-amber-500/50 text-xs">❧</span>
+								<p class="text-rose-100 text-lg md:text-xl leading-relaxed">
+									{paragraph}
+								</p>
+							</div>
+						</div>
 					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- ═══════ Ornamental Divider — Rose to Contact ═══════ -->
+		<div class="relative py-5 bg-gradient-to-r from-indigo-950 via-amber-900/20 to-indigo-950">
+			<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent"></div>
+			<div class="text-center">
+				<span class="text-amber-400 text-2xl tracking-[0.4em]">✦ ★ ❧ ◆ ❧ ★ ✦</span>
+			</div>
+			<div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent"></div>
+		</div>
+
+		<!-- ═══════════════════ CONTACT — Midnight Sapphire ═══════════════════ -->
+		<section class="relative bg-gradient-to-br from-blue-950 via-indigo-950 to-slate-950 py-16 md:py-20 px-4 overflow-hidden">
+			<div class="absolute inset-0 opacity-[0.04] bg-[repeating-linear-gradient(0deg,transparent,transparent_30px,rgba(99,102,241,0.2)_30px,rgba(99,102,241,0.2)_32px)]"></div>
+			<div class="relative max-w-2xl mx-auto text-center">
+				<div class="border-2 border-indigo-600/40 p-3">
+					<div class="border border-amber-500/25 bg-gradient-to-b from-indigo-900/50 to-blue-950/60 p-8 md:p-12 shadow-[inset_0_2px_30px_rgba(0,0,0,0.3)]">
+						<p class="text-amber-400 tracking-[0.3em] text-xs mb-4">✿ ◆ ✿</p>
+						<p class="text-indigo-200 text-lg md:text-xl font-serif italic leading-relaxed">
+							{sanctuary.contact}
+						</p>
+						<p class="text-amber-400 tracking-[0.3em] text-xs mt-4">✿ ◆ ✿</p>
+					</div>
 				</div>
 			</div>
 		</section>
 	</main>
 
-	<!-- Footer -->
-	<footer class="bg-gradient-to-r from-amber-900 via-yellow-900 to-amber-900 border-t-4 border-amber-400 py-8 px-4 text-center">
-		<div class="text-amber-400 tracking-[0.3em] text-sm mb-4">✦ ◆ ✦ ◆ ✦</div>
-		<p class="text-amber-200 font-serif text-sm tracking-wide">
-			&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.
-		</p>
-		<div class="text-amber-400 tracking-[0.3em] text-sm mt-4">✦ ◆ ✦ ◆ ✦</div>
+	<!-- Footer — Grand Gilded Bar -->
+	<footer class="relative bg-gradient-to-r from-amber-950 via-yellow-900 to-amber-950 border-t-4 border-double border-amber-400 py-10 px-4 text-center overflow-hidden">
+		<div class="absolute inset-0 opacity-[0.06] bg-[repeating-linear-gradient(90deg,transparent,transparent_12px,rgba(255,215,0,0.15)_12px,rgba(255,215,0,0.15)_14px)]"></div>
+		<div class="relative">
+			<div class="text-amber-500 tracking-[0.4em] text-xs mb-4">❧ ✦ ◆ ★ ✿ ★ ◆ ✦ ❧</div>
+			<p class="text-amber-200 font-serif text-sm tracking-wide">
+				&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.
+			</p>
+			<div class="text-amber-500 tracking-[0.4em] text-xs mt-4">❧ ✦ ◆ ★ ✿ ★ ◆ ✦ ❧</div>
+		</div>
 	</footer>
 </div>
