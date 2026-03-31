@@ -2,16 +2,27 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-fuchsia-600 font-mono overflow-x-hidden">
-	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-yellow-300 border-b-8 border-black">
+<div class="min-h-screen bg-fuchsia-600 overflow-x-hidden relative">
+	<!-- Chaos background shapes -->
+	<div class="absolute inset-0 pointer-events-none overflow-hidden">
+		<div class="absolute -top-32 left-[10%] w-64 h-64 bg-lime-400 opacity-15 rotate-45 blur-xl"></div>
+		<div class="absolute top-[40%] -right-20 w-96 h-48 bg-orange-500 opacity-20 -rotate-12 blur-lg"></div>
+		<div class="absolute bottom-[10%] left-[30%] w-80 h-80 bg-cyan-400 opacity-10 rotate-6 blur-2xl"></div>
+		<div class="absolute top-[20%] left-[-5%] w-40 h-96 bg-yellow-300 opacity-10 -rotate-45 blur-sm"></div>
+	</div>
+
+	<!-- NAV: scattered randomly around the page edges -->
+	<nav class="absolute inset-0 pointer-events-none z-20">
 		{nav.map((item: any, i: number) => (
 			<a
 				href={item.href}
 				class:list={[
-					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
-					i % 3 === 0 && "bg-black text-lime-400 font-serif text-lg rotate-2",
-					i % 3 === 1 && "bg-fuchsia-600 text-yellow-300 font-mono text-xs -rotate-1 uppercase tracking-widest",
-					i % 3 === 2 && "bg-cyan-400 text-black font-sans text-base rotate-1 border-2 border-orange-500",
+					"pointer-events-auto absolute px-2 py-1 md:px-3 md:py-2 font-bold no-underline hover:scale-125 transition-all text-xs md:text-sm",
+					i % 5 === 0 && "bg-lime-400 text-black font-mono rotate-12 top-4 left-4",
+					i % 5 === 1 && "bg-black text-cyan-400 font-serif -rotate-6 top-4 right-4 md:right-[20%]",
+					i % 5 === 2 && "bg-yellow-300 text-fuchsia-700 font-sans rotate-3 bottom-4 left-[10%]",
+					i % 5 === 3 && "bg-fuchsia-800 text-lime-400 font-mono -rotate-12 bottom-4 right-4",
+					i % 5 === 4 && "bg-orange-500 text-white font-serif rotate-6 top-[50%] left-2 md:left-4",
 				]}
 			>
 				{item.label}
@@ -19,36 +30,38 @@ const { lang, style, nav, t } = Astro.props;
 		))}
 	</nav>
 
-	<main class="flex items-center justify-center min-h-[80vh] px-4 py-8">
-		<section class="relative text-center max-w-3xl">
-			<div class="absolute -top-10 left-1/4 w-40 h-40 bg-lime-400 opacity-30 rotate-12 -z-10"></div>
-			<div class="absolute -bottom-8 right-1/4 w-32 h-32 bg-cyan-400 opacity-30 -rotate-12 -z-10"></div>
-			<div class="absolute top-1/2 -left-8 w-20 h-48 bg-orange-500 opacity-25 rotate-6 -z-10"></div>
-
-			<h1 class="text-[10rem] md:text-[16rem] font-black font-serif text-yellow-300 -rotate-6 leading-none drop-shadow-[8px_8px_0_black] mb-0">
+	<main class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-12">
+		<!-- 404: ABSURDLY large, fills the viewport -->
+		<div class="relative mb-[-2rem] md:mb-[-6rem]">
+			<h1 class="text-[8rem] md:text-[20rem] lg:text-[28rem] font-black font-serif text-yellow-300 -rotate-12 leading-none drop-shadow-[12px_12px_0_theme(colors.black)] select-none">
 				{t.notFound.title}
 			</h1>
-			<h2 class="text-4xl md:text-6xl font-black font-sans text-lime-400 rotate-3 mb-6 -mt-8 md:-mt-12 drop-shadow-[3px_3px_0_black]">
-				{t.notFound.heading}
-			</h2>
-			<p class="text-xl md:text-2xl font-serif text-white -rotate-1 mb-12 bg-black/40 inline-block px-8 py-4 border-4 border-cyan-400">
-				{t.notFound.description}
-			</p>
+		</div>
 
-			<div class="flex flex-wrap justify-center gap-6">
-				<a
-					href={`/${lang}/${style}/`}
-					class="inline-block px-8 py-5 bg-lime-400 text-black font-black text-xl md:text-2xl font-sans border-4 border-black rotate-3 hover:-rotate-1 transition-transform no-underline uppercase"
-				>
-					{t.notFound.backHome}
-				</a>
-				<a
-					href={`/${lang}/${style}/cats`}
-					class="inline-block px-8 py-5 bg-yellow-300 text-fuchsia-700 font-black text-xl md:text-2xl font-mono border-4 border-fuchsia-600 -rotate-2 hover:rotate-2 transition-transform no-underline uppercase"
-				>
-					{t.notFound.meetCats}
-				</a>
-			</div>
-		</section>
+		<!-- Heading: overlapping the 404 -->
+		<h2 class="relative text-3xl md:text-6xl lg:text-8xl font-black font-sans text-lime-400 rotate-6 drop-shadow-[4px_4px_0_black] mb-4 md:mb-8 z-10 bg-black/40 px-4 md:px-8 py-2 md:py-4 border-4 border-orange-500">
+			{t.notFound.heading}
+		</h2>
+
+		<!-- Description: off to one side -->
+		<p class="relative text-base md:text-2xl font-serif text-white -rotate-3 mb-8 md:mb-16 bg-black/60 px-6 py-4 md:px-12 md:py-6 border-l-[12px] border-r-[12px] border-l-cyan-400 border-r-fuchsia-400 max-w-lg md:max-w-2xl text-center backdrop-blur-sm z-10">
+			{t.notFound.description}
+		</p>
+
+		<!-- Buttons: different sizes, scattered -->
+		<div class="relative flex flex-col md:flex-row items-center gap-4 md:gap-12 z-10">
+			<a
+				href={`/${lang}/${style}/`}
+				class="inline-block px-10 py-6 md:px-16 md:py-8 bg-lime-400 text-black font-black text-xl md:text-3xl font-sans border-8 border-black rotate-6 hover:-rotate-3 transition-all no-underline uppercase shadow-[8px_8px_0_theme(colors.fuchsia.500)] hover:shadow-[12px_12px_0_theme(colors.cyan.400)]"
+			>
+				{t.notFound.backHome}
+			</a>
+			<a
+				href={`/${lang}/${style}/cats`}
+				class="inline-block px-4 py-2 md:px-6 md:py-3 bg-fuchsia-800 text-yellow-300 font-black text-xs md:text-sm font-mono border-4 border-cyan-400 -rotate-12 hover:rotate-6 transition-all no-underline uppercase tracking-[0.4em] shadow-[-4px_4px_0_theme(colors.lime.400)] hover:shadow-[-8px_8px_0_theme(colors.orange.500)]"
+			>
+				{t.notFound.meetCats}
+			</a>
+		</div>
 	</main>
 </div>

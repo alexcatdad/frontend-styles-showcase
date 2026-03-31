@@ -2,70 +2,82 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-lime-400 font-mono overflow-x-hidden">
-	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-orange-500 border-b-8 border-black">
+<div class="min-h-screen overflow-x-hidden bg-lime-400">
+	<!-- NAV: scattered across the top like dropped scrabble tiles -->
+	<nav class="relative h-16 md:h-24 bg-transparent z-30">
 		{nav.map((item: any, i: number) => (
 			<a
 				href={item.href}
 				class:list={[
-					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
-					i % 3 === 0 && "bg-cyan-400 text-black font-serif text-lg -rotate-2",
-					i % 3 === 1 && "bg-fuchsia-600 text-yellow-300 font-mono text-xs rotate-1 uppercase tracking-widest",
-					i % 3 === 2 && "bg-lime-400 text-fuchsia-800 font-sans text-base rotate-2 border-2 border-black",
+					"absolute px-2 py-1 font-bold no-underline hover:scale-125 transition-transform text-xs md:text-sm",
+					i % 4 === 0 && `bg-fuchsia-600 text-yellow-300 font-mono rotate-6 top-2 left-[${5 + i * 12}%]`,
+					i % 4 === 1 && `bg-black text-lime-400 font-serif -rotate-3 top-6 md:top-10 left-[${10 + i * 11}%]`,
+					i % 4 === 2 && `bg-orange-500 text-white font-sans rotate-2 top-1 left-[${8 + i * 13}%]`,
+					i % 4 === 3 && `bg-cyan-400 text-black font-mono -rotate-6 top-8 md:top-14 left-[${3 + i * 10}%]`,
 				]}
+				style={`left: ${5 + i * 15}%`}
 			>
 				{item.label}
 			</a>
 		))}
 	</nav>
 
-	<main class="px-4 md:px-8 py-8">
+	<main class="px-3 md:px-8 py-4 md:py-8">
+		<!-- Back button: tiny, rotated, in the corner -->
 		<a
 			href={`/${lang}/${style}/blog`}
-			class="inline-block mb-8 px-4 py-2 bg-fuchsia-600 text-yellow-300 font-black text-lg font-mono no-underline -rotate-1 border-4 border-lime-400 hover:rotate-1 transition-transform"
+			class="inline-block mb-6 px-3 py-1 bg-black text-fuchsia-400 font-black text-[10px] md:text-xs font-mono no-underline rotate-6 border-2 border-lime-400 hover:-rotate-3 transition-transform uppercase tracking-[0.3em]"
 		>
 			&larr; {t.blog.backToBlog}
 		</a>
 
-		<article class="relative bg-black text-white p-6 md:p-12 border-8 border-fuchsia-500 rotate-0.5 mb-12">
-			<header class="mb-10">
+		<article class="relative">
+			<!-- Date and author: stacked vertically on the right, rotated -->
+			<div class="absolute -right-1 md:right-4 top-0 z-20 rotate-6 md:rotate-12">
 				<time
 					datetime={post.date}
-					class="inline-block text-xs font-black uppercase tracking-widest mb-4 px-3 py-1 bg-cyan-400 text-black rotate-2 font-mono"
+					class="block text-[10px] md:text-xs font-black uppercase tracking-[0.3em] px-2 py-1 bg-orange-500 text-white font-mono border-2 border-black mb-1"
 				>
 					{post.date}
 				</time>
-				<h1 class="text-5xl md:text-8xl font-black font-serif text-lime-400 -rotate-2 mb-4 drop-shadow-[4px_4px_0_fuchsia] leading-tight">
-					{post.title}
-				</h1>
-				<span class="inline-block text-lg font-bold font-sans text-fuchsia-400 rotate-1 bg-white/10 px-3 py-1 mb-4">
+				<span class="block text-[10px] md:text-xs font-bold font-serif text-right bg-cyan-400 text-fuchsia-700 px-2 py-1 border-2 border-fuchsia-600">
 					{t.blog.by} {post.author}
 				</span>
-				<div class="flex flex-wrap gap-2 mt-2">
-					{post.tags.map((tag: string, i: number) => (
-						<span
-							class:list={[
-								"px-3 py-1 text-xs font-black uppercase border-2",
-								i % 3 === 0 && "bg-fuchsia-500 text-white border-lime-400 rotate-3",
-								i % 3 === 1 && "bg-yellow-300 text-black border-fuchsia-600 -rotate-2",
-								i % 3 === 2 && "bg-orange-500 text-white border-cyan-400 rotate-1",
-							]}
-						>
-							{tag}
-						</span>
-					))}
-				</div>
-			</header>
+			</div>
 
-			<div class="space-y-6 max-w-4xl">
+			<!-- Title: MASSIVE, spanning past the viewport edge -->
+			<h1 class="text-5xl md:text-[8rem] lg:text-[11rem] font-black font-serif text-fuchsia-700 -rotate-3 leading-[0.85] mb-6 md:mb-12 max-w-[90%] drop-shadow-[4px_4px_0_theme(colors.black)]">
+				{post.title}
+			</h1>
+
+			<!-- Tags: scattered like pills -->
+			<div class="flex flex-wrap gap-2 md:gap-3 mb-8 md:mb-12 ml-4 md:ml-[10%] rotate-1">
+				{post.tags.map((tag: string, i: number) => (
+					<span
+						class:list={[
+							"px-3 py-1 font-black uppercase border-2",
+							i % 4 === 0 && "bg-black text-lime-400 border-fuchsia-500 text-xs rotate-6 font-mono shadow-[3px_3px_0_theme(colors.cyan.400)]",
+							i % 4 === 1 && "bg-fuchsia-600 text-yellow-300 border-lime-400 text-sm -rotate-3 font-serif",
+							i % 4 === 2 && "bg-cyan-400 text-black border-orange-500 text-[10px] rotate-2 font-sans tracking-[0.3em]",
+							i % 4 === 3 && "bg-yellow-300 text-fuchsia-700 border-black text-xs -rotate-6 font-mono",
+						]}
+					>
+						{tag}
+					</span>
+				))}
+			</div>
+
+			<!-- Content: each paragraph in a wildly different container -->
+			<div class="max-w-5xl space-y-6 md:space-y-8">
 				{post.content.map((paragraph: string, i: number) => (
 					<p
 						class:list={[
-							"text-base md:text-lg leading-relaxed p-4",
-							i % 4 === 0 && "font-serif bg-fuchsia-900/40 rotate-0.5 border-l-8 border-lime-400 text-lime-100 ml-0",
-							i % 4 === 1 && "font-sans bg-cyan-900/40 -rotate-0.5 border-r-8 border-orange-400 text-cyan-100 ml-6 md:ml-16",
-							i % 4 === 2 && "font-mono bg-orange-900/30 rotate-0.5 border-l-8 border-fuchsia-400 text-orange-100 ml-2 md:ml-8",
-							i % 4 === 3 && "font-serif bg-lime-900/30 -rotate-0.5 border-r-8 border-yellow-400 text-lime-100 ml-10 md:ml-24",
+							"leading-relaxed",
+							i % 5 === 0 && "font-serif text-base md:text-xl bg-black text-lime-100 p-6 md:p-10 rotate-0.5 border-l-[16px] border-fuchsia-500 ml-0 shadow-[8px_8px_0_theme(colors.orange.500)]",
+							i % 5 === 1 && "font-sans text-sm md:text-base bg-fuchsia-800 text-cyan-200 p-4 md:p-8 -rotate-1 border-r-[12px] border-lime-400 ml-[10%] md:ml-[20%] mr-0",
+							i % 5 === 2 && "font-mono text-xs md:text-sm bg-orange-500 text-black p-4 md:p-6 rotate-1 border-4 border-dashed border-black md:w-2/3 shadow-[-6px_6px_0_theme(colors.cyan.400)]",
+							i % 5 === 3 && "font-serif text-base md:text-lg bg-cyan-800 text-yellow-200 p-6 md:p-10 -rotate-0.5 border-t-[12px] border-b-[12px] border-t-fuchsia-500 border-b-lime-400 md:w-4/5 ml-auto",
+							i % 5 === 4 && "font-sans text-sm md:text-base bg-yellow-300 text-fuchsia-800 p-4 md:p-8 rotate-0.5 border-l-8 border-r-8 border-l-black border-r-orange-500 md:w-3/4 ml-[5%]",
 						]}
 					>
 						{paragraph}
@@ -74,23 +86,24 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 			</div>
 		</article>
 
-		<section class="bg-fuchsia-600 p-6 md:p-10 border-8 border-yellow-300 -rotate-0.5">
-			<h2 class="text-3xl md:text-5xl font-black font-serif text-lime-400 rotate-2 mb-8 underline decoration-cyan-400 decoration-8">
+		<!-- More stories: grid that fights itself -->
+		<section class="mt-12 md:mt-20 bg-fuchsia-700 p-4 md:p-10 border-8 border-yellow-300 rotate-1 relative">
+			<h2 class="text-2xl md:text-5xl font-black font-mono text-lime-400 -rotate-3 mb-6 md:mb-10 underline decoration-orange-500 decoration-wavy decoration-4">
 				{t.blog.moreStories}
 			</h2>
-			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
 				{otherPosts.map((p: any, i: number) => (
 					<a
 						href={`/${lang}/${style}/blog/${p.slug}`}
 						class:list={[
-							"block p-5 no-underline border-4 transition-transform hover:scale-105",
-							i % 3 === 0 && "bg-black text-cyan-400 border-lime-400 -rotate-2 hover:rotate-1",
-							i % 3 === 1 && "bg-yellow-300 text-fuchsia-700 border-black rotate-2 hover:-rotate-1",
-							i % 3 === 2 && "bg-cyan-400 text-black border-orange-500 -rotate-1 hover:rotate-2",
+							"block p-4 md:p-6 no-underline border-4 transition-all hover:scale-105",
+							i % 3 === 0 && "bg-black text-orange-400 border-lime-400 -rotate-3 hover:rotate-1 shadow-[6px_6px_0_theme(colors.cyan.400)] md:translate-y-6",
+							i % 3 === 1 && "bg-yellow-300 text-fuchsia-700 border-fuchsia-600 rotate-2 hover:-rotate-1 shadow-[-4px_6px_0_theme(colors.lime.400)]",
+							i % 3 === 2 && "bg-cyan-400 text-black border-orange-500 -rotate-1 hover:rotate-3 shadow-[4px_-4px_0_theme(colors.fuchsia.500)] md:-translate-y-4",
 						]}
 					>
-						<h3 class="text-2xl font-black font-serif mb-2">{p.title}</h3>
-						<p class="text-sm font-mono">{p.excerpt}</p>
+						<h3 class="text-lg md:text-2xl font-black font-serif mb-2">{p.title}</h3>
+						<p class="text-xs md:text-sm font-mono leading-relaxed">{p.excerpt}</p>
 					</a>
 				))}
 			</div>
