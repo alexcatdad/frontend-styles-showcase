@@ -2,113 +2,154 @@
 const { lang, style, nav, meta, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gray-100 font-sans">
-	<!-- Nav -->
-	<nav class="bg-blue-500 px-4 py-4 sm:px-8">
-		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
-			<div class="flex flex-wrap items-center gap-1 sm:gap-4">
-				{nav.map((item: any) => (
-					<a href={item.href} class="rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors">
+<div class="min-h-screen bg-white font-sans">
+	<!-- Nav — colored pill tabs -->
+	<nav class="bg-white px-4 py-5 sm:px-8">
+		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any, i: number) => (
+					<a href={item.href} class={`rounded-full px-5 py-2 text-sm font-bold transition-colors ${
+						i % 4 === 0
+							? 'bg-blue-500 text-white hover:bg-blue-600'
+							: i % 4 === 1
+								? 'bg-rose-500 text-white hover:bg-rose-600'
+								: i % 4 === 2
+									? 'bg-teal-500 text-white hover:bg-teal-600'
+									: 'bg-amber-400 text-amber-900 hover:bg-amber-500'
+					}`}>
 						{item.label}
 					</a>
 				))}
 			</div>
-			<span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-500 uppercase tracking-wide">
+			<span class="rounded-full bg-gray-800 px-4 py-1.5 text-xs font-bold text-white uppercase tracking-wider">
 				{meta.name}
 			</span>
 		</div>
 	</nav>
 
-	<main class="px-4 py-12 sm:px-8">
-		<div class="mx-auto max-w-6xl">
-			<!-- Header -->
-			<div class="mb-12 text-center">
-				<h1 class="mb-3 text-4xl font-extrabold text-gray-800 sm:text-5xl">{t.donate.title}</h1>
-				<p class="text-lg text-gray-500">{t.donate.subtitle}</p>
-				<div class="mx-auto mt-4 flex justify-center gap-2">
-					<div class="h-2 w-8 rounded-full bg-rose-500"></div>
-					<div class="h-2 w-8 rounded-full bg-amber-400"></div>
-					<div class="h-2 w-8 rounded-full bg-teal-500"></div>
-				</div>
+	<!-- Header — blue hero block -->
+	<section class="bg-blue-500 px-4 py-20 sm:px-8">
+		<div class="mx-auto max-w-4xl text-center">
+			<div class="mb-6 flex items-center justify-center gap-3">
+				<div class="h-6 w-6 rounded-full bg-rose-400"></div>
+				<div class="h-1.5 w-16 rounded-full bg-white/40"></div>
+				<div class="h-6 w-6 rounded-lg bg-amber-400"></div>
+				<div class="h-1.5 w-16 rounded-full bg-white/40"></div>
+				<div class="h-6 w-6 rotate-45 rounded-sm bg-teal-400"></div>
 			</div>
+			<h1 class="mb-4 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">{t.donate.title}</h1>
+			<p class="text-lg font-medium text-blue-100 sm:text-xl">{t.donate.subtitle}</p>
+		</div>
+	</section>
 
-			<!-- Monthly Tiers -->
-			<section class="mb-14">
-				<h2 class="mb-6 text-center text-2xl font-extrabold text-gray-800">{t.donate.monthly}</h2>
+	<main>
+		<!-- Monthly Tiers — teal section -->
+		<section class="bg-teal-500 px-4 py-16 sm:px-8">
+			<div class="mx-auto max-w-6xl">
+				<div class="mb-10 text-center">
+					<div class="mb-3 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2">
+						<div class="h-3 w-3 rounded-full bg-teal-500"></div>
+						<span class="text-sm font-extrabold text-teal-600 uppercase tracking-wider">{t.donate.monthly}</span>
+					</div>
+				</div>
 				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{monthlyTiers.map((tier: any) => (
-						<div class={`relative rounded-2xl p-6 ${
+						<div class={`relative rounded-2xl p-6 sm:p-8 ${
 							tier.highlighted
-								? 'bg-blue-500 text-white'
-								: 'bg-white text-gray-800'
+								? 'bg-amber-400'
+								: 'bg-white'
 						}`}>
 							{tier.highlighted && (
-								<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 px-4 py-1 text-xs font-bold text-amber-900 uppercase tracking-wide">
+								<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-rose-500 px-5 py-1 text-xs font-bold text-white uppercase tracking-wide">
 									{t.donate.mostPopular}
 								</span>
 							)}
-							<h3 class={`mb-2 text-xl font-extrabold ${tier.highlighted ? 'text-white' : 'text-gray-800'}`}>
+							<!-- Price circle -->
+							<div class={`mb-5 flex h-20 w-20 items-center justify-center rounded-full ${
+								tier.highlighted
+									? 'bg-amber-900'
+									: 'bg-teal-500'
+							}`}>
+								<span class="text-2xl font-extrabold text-white">${tier.amount}</span>
+							</div>
+							<h3 class={`mb-2 text-xl font-extrabold ${tier.highlighted ? 'text-amber-900' : 'text-gray-800'}`}>
 								{tier.name}
 							</h3>
-							<p class="mb-3">
-								<span class={`text-4xl font-extrabold ${tier.highlighted ? 'text-white' : 'text-blue-500'}`}>
-									${tier.amount}
-								</span>
-								<span class={`text-sm ${tier.highlighted ? 'text-blue-100' : 'text-gray-400'}`}>
-									{t.donate.perMonth}
-								</span>
+							<p class={`mb-1 text-sm font-bold uppercase tracking-wide ${tier.highlighted ? 'text-amber-700' : 'text-gray-400'}`}>
+								{t.donate.perMonth}
 							</p>
-							<p class={`mb-4 text-sm ${tier.highlighted ? 'text-blue-100' : 'text-gray-500'}`}>
+							<p class={`mb-5 text-sm ${tier.highlighted ? 'text-amber-800' : 'text-gray-500'}`}>
 								{tier.description}
 							</p>
 							<ul class="mb-6 space-y-2">
 								{tier.perks.map((perk: string) => (
-									<li class={`flex items-start gap-2 text-sm ${tier.highlighted ? 'text-blue-100' : 'text-gray-600'}`}>
+									<li class={`flex items-start gap-2 text-sm ${tier.highlighted ? 'text-amber-800' : 'text-gray-600'}`}>
 										<span class={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
 											tier.highlighted
-												? 'bg-white text-blue-500'
+												? 'bg-amber-900 text-amber-400'
 												: 'bg-teal-500 text-white'
 										}`}>&#10003;</span>
 										{perk}
 									</li>
 								))}
 							</ul>
-							<button type="button" class={`w-full rounded-xl px-6 py-3 text-sm font-bold transition-colors ${
+							<button type="button" class={`w-full rounded-2xl px-6 py-3.5 text-sm font-extrabold transition-colors ${
 								tier.highlighted
-									? 'bg-white text-blue-500 hover:bg-blue-50'
-									: 'bg-blue-500 text-white hover:bg-blue-600'
+									? 'bg-amber-900 text-white hover:bg-amber-800'
+									: 'bg-teal-500 text-white hover:bg-teal-600'
 							}`}>
 								{t.donate.choose} {tier.name}
 							</button>
 						</div>
 					))}
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<!-- One-Time Tiers -->
-			<section>
-				<h2 class="mb-6 text-center text-2xl font-extrabold text-gray-800">{t.donate.oneTime}</h2>
+		<!-- Decorative strip -->
+		<section class="bg-rose-500 px-4 py-5 sm:px-8">
+			<div class="mx-auto flex max-w-4xl items-center justify-center gap-3">
+				<div class="h-3 w-3 rounded-full bg-white"></div>
+				<div class="h-3 w-3 rounded-lg bg-rose-300"></div>
+				<div class="h-3 w-3 rotate-45 rounded-sm bg-amber-400"></div>
+				<div class="h-3 w-3 rounded-full bg-white"></div>
+				<div class="h-3 w-3 rounded-lg bg-rose-300"></div>
+			</div>
+		</section>
+
+		<!-- One-Time Tiers — amber section -->
+		<section class="bg-amber-400 px-4 py-16 sm:px-8">
+			<div class="mx-auto max-w-6xl">
+				<div class="mb-10 text-center">
+					<div class="mb-3 inline-flex items-center gap-2 rounded-full bg-amber-900 px-5 py-2">
+						<div class="h-3 w-3 rounded-full bg-amber-400"></div>
+						<span class="text-sm font-extrabold text-white uppercase tracking-wider">{t.donate.oneTime}</span>
+					</div>
+				</div>
 				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{oneTimeTiers.map((tier: any) => (
-						<div class={`relative rounded-2xl p-6 ${
+						<div class={`relative rounded-2xl p-6 sm:p-8 ${
 							tier.highlighted
-								? 'bg-rose-500 text-white'
-								: 'bg-white text-gray-800'
+								? 'bg-rose-500'
+								: 'bg-white'
 						}`}>
 							{tier.highlighted && (
-								<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 px-4 py-1 text-xs font-bold text-amber-900 uppercase tracking-wide">
+								<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-blue-500 px-5 py-1 text-xs font-bold text-white uppercase tracking-wide">
 									{t.donate.greatestImpact}
 								</span>
 							)}
+							<!-- Price square -->
+							<div class={`mb-5 flex h-20 w-20 items-center justify-center rounded-2xl ${
+								tier.highlighted
+									? 'bg-white'
+									: 'bg-amber-400'
+							}`}>
+								<span class={`text-2xl font-extrabold ${tier.highlighted ? 'text-rose-500' : 'text-amber-900'}`}>${tier.amount}</span>
+							</div>
 							<h3 class={`mb-2 text-xl font-extrabold ${tier.highlighted ? 'text-white' : 'text-gray-800'}`}>
 								{tier.name}
 							</h3>
-							<p class="mb-3">
-								<span class={`text-4xl font-extrabold ${tier.highlighted ? 'text-white' : 'text-rose-500'}`}>
-									${tier.amount}
-								</span>
-							</p>
-							<p class={`mb-4 text-sm ${tier.highlighted ? 'text-rose-100' : 'text-gray-500'}`}>
+							<p class={`mb-5 text-sm ${tier.highlighted ? 'text-rose-100' : 'text-gray-500'}`}>
 								{tier.description}
 							</p>
 							<ul class="mb-6 space-y-2">
@@ -123,7 +164,7 @@ const { lang, style, nav, meta, monthlyTiers, oneTimeTiers, t } = Astro.props;
 									</li>
 								))}
 							</ul>
-							<button type="button" class={`w-full rounded-xl px-6 py-3 text-sm font-bold transition-colors ${
+							<button type="button" class={`w-full rounded-2xl px-6 py-3.5 text-sm font-extrabold transition-colors ${
 								tier.highlighted
 									? 'bg-white text-rose-500 hover:bg-rose-50'
 									: 'bg-rose-500 text-white hover:bg-rose-600'
@@ -133,7 +174,7 @@ const { lang, style, nav, meta, monthlyTiers, oneTimeTiers, t } = Astro.props;
 						</div>
 					))}
 				</div>
-			</section>
-		</div>
+			</div>
+		</section>
 	</main>
 </div>

@@ -1,74 +1,97 @@
 ---
 const { lang, style, nav, meta, cats, t } = Astro.props;
+
+const cardColors = [
+	{ bg: 'bg-blue-500', text: 'text-white', badge: 'bg-white text-blue-500', avatarBg: 'bg-white', avatarText: 'text-blue-500', metaText: 'text-blue-100', descText: 'text-blue-100', traitBg: 'bg-blue-400 text-white', hoverBg: 'hover:bg-blue-600' },
+	{ bg: 'bg-rose-500', text: 'text-white', badge: 'bg-white text-rose-500', avatarBg: 'bg-white', avatarText: 'text-rose-500', metaText: 'text-rose-100', descText: 'text-rose-100', traitBg: 'bg-rose-400 text-white', hoverBg: 'hover:bg-rose-600' },
+	{ bg: 'bg-teal-500', text: 'text-white', badge: 'bg-white text-teal-500', avatarBg: 'bg-white', avatarText: 'text-teal-500', metaText: 'text-teal-100', descText: 'text-teal-100', traitBg: 'bg-teal-400 text-white', hoverBg: 'hover:bg-teal-600' },
+	{ bg: 'bg-amber-400', text: 'text-amber-900', badge: 'bg-amber-900 text-white', avatarBg: 'bg-amber-900', avatarText: 'text-amber-400', metaText: 'text-amber-800', descText: 'text-amber-800', traitBg: 'bg-amber-500 text-amber-900', hoverBg: 'hover:bg-amber-500' },
+];
 ---
 
-<div class="min-h-screen bg-gray-100 font-sans">
-	<!-- Nav -->
-	<nav class="bg-blue-500 px-4 py-4 sm:px-8">
-		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
-			<div class="flex flex-wrap items-center gap-1 sm:gap-4">
-				{nav.map((item: any) => (
-					<a href={item.href} class="rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors">
+<div class="min-h-screen bg-white font-sans">
+	<!-- Nav — colored pill tabs -->
+	<nav class="bg-white px-4 py-5 sm:px-8">
+		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any, i: number) => (
+					<a href={item.href} class={`rounded-full px-5 py-2 text-sm font-bold transition-colors ${
+						i % 4 === 0
+							? 'bg-blue-500 text-white hover:bg-blue-600'
+							: i % 4 === 1
+								? 'bg-rose-500 text-white hover:bg-rose-600'
+								: i % 4 === 2
+									? 'bg-teal-500 text-white hover:bg-teal-600'
+									: 'bg-amber-400 text-amber-900 hover:bg-amber-500'
+					}`}>
 						{item.label}
 					</a>
 				))}
 			</div>
-			<span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-500 uppercase tracking-wide">
+			<span class="rounded-full bg-gray-800 px-4 py-1.5 text-xs font-bold text-white uppercase tracking-wider">
 				{meta.name}
 			</span>
 		</div>
 	</nav>
 
-	<main class="px-4 py-12 sm:px-8">
-		<div class="mx-auto max-w-6xl">
-			<!-- Header -->
-			<div class="mb-10 text-center">
-				<h1 class="mb-3 text-4xl font-extrabold text-gray-800 sm:text-5xl">{t.cats.title}</h1>
-				<p class="text-lg text-gray-500">{t.cats.subtitle}</p>
-				<div class="mt-4 flex justify-center gap-2">
-					<div class="h-2 w-12 rounded-full bg-blue-500"></div>
-					<div class="h-2 w-12 rounded-full bg-rose-500"></div>
-					<div class="h-2 w-12 rounded-full bg-teal-500"></div>
-				</div>
+	<!-- Header strip — rose background -->
+	<section class="bg-rose-500 px-4 py-16 sm:px-8">
+		<div class="mx-auto max-w-6xl text-center">
+			<div class="mb-5 flex items-center justify-center gap-3">
+				<div class="h-5 w-5 rounded-full bg-white"></div>
+				<div class="h-5 w-5 rounded-lg bg-rose-300"></div>
+				<div class="h-5 w-5 rotate-45 rounded-sm bg-amber-400"></div>
 			</div>
+			<h1 class="mb-3 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">{t.cats.title}</h1>
+			<p class="text-lg font-medium text-rose-100 sm:text-xl">{t.cats.subtitle}</p>
+		</div>
+	</section>
 
-			<!-- Cat Grid -->
+	<!-- Cat grid — equal-weight cards on neutral background -->
+	<main class="bg-gray-50 px-4 py-14 sm:px-8">
+		<div class="mx-auto max-w-6xl">
 			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{cats.map((cat: any) => (
-					<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block">
-						<div class="rounded-2xl bg-white p-6 transition-colors hover:bg-blue-50">
-							<!-- Cat avatar circle -->
-							<div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-teal-500 text-2xl font-extrabold text-white">
-								{cat.name.charAt(0)}
+				{cats.map((cat: any, index: number) => {
+					const c = cardColors[index % cardColors.length];
+					return (
+						<a href={`/${lang}/${style}/cats/${cat.id}`} class={`group block rounded-2xl ${c.bg} p-6 transition-colors ${c.hoverBg}`}>
+							<!-- Avatar circle + status -->
+							<div class="mb-5 flex items-center justify-between">
+								<div class={`flex h-16 w-16 items-center justify-center rounded-full ${c.avatarBg} text-2xl font-extrabold ${c.avatarText}`}>
+									{cat.name.charAt(0)}
+								</div>
+								<span class={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${
+									cat.status === 'available'
+										? c.badge
+										: cat.status === 'adopted'
+											? 'bg-gray-800 text-white'
+											: 'bg-gray-300 text-gray-700'
+								}`}>
+									{cat.status}
+								</span>
 							</div>
-							<h2 class="mb-1 text-xl font-extrabold text-gray-800 group-hover:text-blue-500">
+							<!-- Name + meta -->
+							<h2 class={`mb-1 text-xl font-extrabold ${c.text}`}>
 								{cat.name}
 							</h2>
-							<p class="mb-3 text-sm font-medium text-gray-400">
+							<p class={`mb-4 text-sm font-semibold ${c.metaText}`}>
 								{cat.breed} &middot; {cat.age} &middot; {cat.gender}
 							</p>
-							<p class="mb-4 text-sm leading-relaxed text-gray-600">
+							<!-- Description -->
+							<p class={`mb-5 text-sm leading-relaxed ${c.descText}`}>
 								{cat.description.slice(0, 100)}...
 							</p>
-							<div class="mb-4 flex flex-wrap gap-2">
+							<!-- Personality tags -->
+							<div class="flex flex-wrap gap-2">
 								{cat.personality.map((trait: string) => (
-									<span class="rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-amber-900">
+									<span class={`rounded-full px-3 py-1 text-xs font-bold ${c.traitBg}`}>
 										{trait}
 									</span>
 								))}
 							</div>
-							<span class={`inline-block rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${
-								cat.status === 'available'
-									? 'bg-teal-500 text-white'
-									: cat.status === 'adopted'
-										? 'bg-rose-500 text-white'
-										: 'bg-gray-300 text-gray-700'
-							}`}>
-								{cat.status}
-							</span>
-						</div>
-					</a>
-				))}
+						</a>
+					);
+				})}
 			</div>
 		</div>
 	</main>

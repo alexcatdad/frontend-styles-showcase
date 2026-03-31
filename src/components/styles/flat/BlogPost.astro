@@ -3,77 +3,117 @@ const { lang, style, nav, meta, post, otherPosts, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-white font-sans">
-	<!-- Nav -->
-	<nav class="bg-blue-500 px-4 py-4 sm:px-8">
-		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
-			<div class="flex flex-wrap items-center gap-1 sm:gap-4">
-				{nav.map((item: any) => (
-					<a href={item.href} class="rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors">
+	<!-- Nav — colored pill tabs -->
+	<nav class="bg-white px-4 py-5 sm:px-8">
+		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any, i: number) => (
+					<a href={item.href} class={`rounded-full px-5 py-2 text-sm font-bold transition-colors ${
+						i % 4 === 0
+							? 'bg-blue-500 text-white hover:bg-blue-600'
+							: i % 4 === 1
+								? 'bg-rose-500 text-white hover:bg-rose-600'
+								: i % 4 === 2
+									? 'bg-teal-500 text-white hover:bg-teal-600'
+									: 'bg-amber-400 text-amber-900 hover:bg-amber-500'
+					}`}>
 						{item.label}
 					</a>
 				))}
 			</div>
-			<span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-500 uppercase tracking-wide">
+			<span class="rounded-full bg-gray-800 px-4 py-1.5 text-xs font-bold text-white uppercase tracking-wider">
 				{meta.name}
 			</span>
 		</div>
 	</nav>
 
-	<main class="px-4 py-10 sm:px-8">
+	<!-- Post header — bold blue block -->
+	<section class="bg-blue-500 px-4 pb-20 pt-10 sm:px-8">
 		<div class="mx-auto max-w-3xl">
 			<!-- Back link -->
-			<a href={`/${lang}/${style}/blog`} class="mb-8 inline-block rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-200 transition-colors">
+			<a href={`/${lang}/${style}/blog`} class="mb-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-bold text-blue-500 transition-colors hover:bg-blue-50">
 				&larr; {t.blog.backToBlog}
 			</a>
 
-			<article>
-				<!-- Header -->
-				<header class="mb-10 rounded-2xl bg-blue-500 p-8 sm:p-10">
-					<div class="mb-4 flex flex-wrap items-center gap-3">
-						<time datetime={post.date} class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-500">
-							{post.date}
-						</time>
-						<span class="text-sm font-medium text-blue-100">{t.blog.by} {post.author}</span>
-					</div>
-					<h1 class="mb-4 text-3xl font-extrabold text-white sm:text-4xl">
-						{post.title}
-					</h1>
-					<div class="flex flex-wrap gap-2">
-						{post.tags.map((tag: string) => (
-							<span class="rounded-full bg-blue-400 px-3 py-1 text-xs font-bold text-white">
-								{tag}
-							</span>
-						))}
-					</div>
-				</header>
-
-				<!-- Content -->
-				<div class="mb-12 space-y-5">
-					{post.content.map((paragraph: string) => (
-						<p class="text-lg leading-relaxed text-gray-700">{paragraph}</p>
+			<header>
+				<div class="mb-5 flex flex-wrap items-center gap-3">
+					<time datetime={post.date} class="rounded-full bg-amber-400 px-4 py-1.5 text-xs font-bold text-amber-900">
+						{post.date}
+					</time>
+					<span class="text-sm font-semibold text-blue-100">{t.blog.by} {post.author}</span>
+				</div>
+				<h1 class="mb-5 text-3xl font-extrabold text-white sm:text-4xl md:text-5xl">
+					{post.title}
+				</h1>
+				<div class="flex flex-wrap gap-2">
+					{post.tags.map((tag: string) => (
+						<span class="rounded-full bg-blue-400 px-4 py-1.5 text-xs font-bold text-white">
+							{tag}
+						</span>
 					))}
 				</div>
-			</article>
+			</header>
+		</div>
+	</section>
 
-			<!-- Decorative divider -->
-			<div class="mb-10 flex items-center gap-3">
-				<div class="h-1.5 flex-1 rounded-full bg-amber-400"></div>
-				<div class="h-4 w-4 rounded-full bg-rose-500"></div>
-				<div class="h-1.5 flex-1 rounded-full bg-teal-500"></div>
+	<main>
+		<!-- Content — white with card-wrapped paragraphs -->
+		<section class="bg-white px-4 py-16 sm:px-8">
+			<div class="mx-auto max-w-3xl">
+				<article class="space-y-6">
+					{post.content.map((paragraph: string, i: number) => (
+						<div class={`rounded-2xl p-6 sm:p-8 ${
+							i % 4 === 0
+								? 'bg-gray-50'
+								: i % 4 === 1
+									? 'bg-blue-50'
+									: i % 4 === 2
+										? 'bg-rose-50'
+										: 'bg-teal-50'
+						}`}>
+							<p class="text-lg leading-relaxed text-gray-700">{paragraph}</p>
+						</div>
+					))}
+				</article>
 			</div>
+		</section>
 
-			<!-- More Stories -->
-			<section>
-				<h2 class="mb-6 text-2xl font-extrabold text-gray-800">{t.blog.moreStories}</h2>
-				<div class="grid gap-4 sm:grid-cols-2">
-					{otherPosts.map((p: any) => (
-						<a href={`/${lang}/${style}/blog/${p.slug}`} class="group rounded-2xl bg-gray-100 p-6 transition-colors hover:bg-rose-500">
-							<h3 class="mb-2 text-lg font-extrabold text-gray-800 group-hover:text-white">{p.title}</h3>
-							<p class="text-sm text-gray-500 group-hover:text-rose-100">{p.excerpt}</p>
+		<!-- Decorative strip -->
+		<section class="bg-amber-400 px-4 py-6 sm:px-8">
+			<div class="mx-auto flex max-w-3xl items-center justify-center gap-4">
+				<div class="h-4 w-4 rounded-full bg-white"></div>
+				<div class="h-1.5 flex-1 rounded-full bg-amber-300"></div>
+				<div class="h-4 w-4 rounded-lg bg-rose-500"></div>
+				<div class="h-1.5 flex-1 rounded-full bg-amber-300"></div>
+				<div class="h-4 w-4 rotate-45 rounded-sm bg-blue-500"></div>
+			</div>
+		</section>
+
+		<!-- More Stories — rose block with card grid -->
+		<section class="bg-rose-500 px-4 py-16 sm:px-8">
+			<div class="mx-auto max-w-3xl">
+				<h2 class="mb-8 text-center text-3xl font-extrabold text-white">{t.blog.moreStories}</h2>
+				<div class="grid gap-5 sm:grid-cols-2">
+					{otherPosts.map((p: any, i: number) => (
+						<a href={`/${lang}/${style}/blog/${p.slug}`} class={`group rounded-2xl p-6 transition-colors ${
+							i % 2 === 0
+								? 'bg-white hover:bg-rose-50'
+								: 'bg-rose-400 hover:bg-rose-300'
+						}`}>
+							<h3 class={`mb-2 text-lg font-extrabold ${
+								i % 2 === 0
+									? 'text-gray-800 group-hover:text-rose-500'
+									: 'text-white'
+							}`}>{p.title}</h3>
+							<p class={`text-sm leading-relaxed ${
+								i % 2 === 0
+									? 'text-gray-500'
+									: 'text-rose-100'
+							}`}>{p.excerpt}</p>
 						</a>
 					))}
 				</div>
-			</section>
-		</div>
+			</div>
+		</section>
 	</main>
 </div>

@@ -2,18 +2,26 @@
 const { lang, style, nav, meta, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-blue-500 font-sans">
-	<!-- Nav -->
-	<nav class="bg-blue-500 px-4 py-4 sm:px-8">
-		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
-			<div class="flex flex-wrap items-center gap-1 sm:gap-4">
-				{nav.map((item: any) => (
-					<a href={item.href} class="rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors">
+<div class="min-h-screen bg-teal-500 font-sans">
+	<!-- Nav — colored pill tabs -->
+	<nav class="bg-teal-500 px-4 py-5 sm:px-8">
+		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any, i: number) => (
+					<a href={item.href} class={`rounded-full px-5 py-2 text-sm font-bold transition-colors ${
+						i % 4 === 0
+							? 'bg-white text-teal-500 hover:bg-teal-50'
+							: i % 4 === 1
+								? 'bg-teal-400 text-white hover:bg-teal-300'
+								: i % 4 === 2
+									? 'bg-rose-500 text-white hover:bg-rose-600'
+									: 'bg-amber-400 text-amber-900 hover:bg-amber-500'
+					}`}>
 						{item.label}
 					</a>
 				))}
 			</div>
-			<span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-500 uppercase tracking-wide">
+			<span class="rounded-full bg-white px-4 py-1.5 text-xs font-bold text-teal-500 uppercase tracking-wider">
 				{meta.name}
 			</span>
 		</div>
@@ -21,74 +29,90 @@ const { lang, style, nav, meta, t } = Astro.props;
 
 	<main class="flex items-center justify-center px-4 py-12 sm:px-8">
 		<div class="w-full max-w-md">
-			<!-- Decorative shapes -->
-			<div class="mb-6 flex justify-center gap-3">
-				<div class="h-5 w-5 rounded-full bg-amber-400"></div>
-				<div class="h-5 w-5 rounded-sm bg-rose-400"></div>
-				<div class="h-5 w-5 rotate-45 bg-teal-400"></div>
+			<!-- Geometric shapes decoration -->
+			<div class="mb-8 flex items-center justify-center gap-5">
+				<div class="h-8 w-8 rounded-full bg-amber-400"></div>
+				<div class="h-8 w-8 rounded-2xl bg-rose-500"></div>
+				<div class="h-8 w-8 rotate-45 rounded-lg bg-blue-500"></div>
 			</div>
 
+			<!-- Auth card -->
 			<div class="rounded-2xl bg-white p-8 sm:p-10">
+				<!-- Header -->
 				<div class="mb-8 text-center">
+					<div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-teal-500">
+						<div class="h-6 w-6 rounded-full bg-white"></div>
+					</div>
 					<h1 class="mb-2 text-3xl font-extrabold text-gray-800">{t.auth.title}</h1>
 					<p class="text-gray-500">{t.auth.subtitle}</p>
 				</div>
 
 				<form class="space-y-5">
 					<div>
-						<label for="email" class="mb-1.5 block text-sm font-bold text-gray-700">{t.auth.email}</label>
+						<label for="email" class="mb-2 block text-sm font-bold text-gray-700">{t.auth.email}</label>
 						<input
 							type="email"
 							id="email"
 							name="email"
 							placeholder="you@example.com"
-							class="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none"
+							class="w-full rounded-2xl border-2 border-gray-200 bg-gray-50 px-5 py-3.5 text-sm text-gray-800 placeholder-gray-400 focus:border-teal-500 focus:bg-white focus:outline-none"
 						/>
 					</div>
 					<div>
-						<label for="password" class="mb-1.5 block text-sm font-bold text-gray-700">{t.auth.password}</label>
+						<label for="password" class="mb-2 block text-sm font-bold text-gray-700">{t.auth.password}</label>
 						<input
 							type="password"
 							id="password"
 							name="password"
 							placeholder="••••••••"
-							class="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none"
+							class="w-full rounded-2xl border-2 border-gray-200 bg-gray-50 px-5 py-3.5 text-sm text-gray-800 placeholder-gray-400 focus:border-teal-500 focus:bg-white focus:outline-none"
 						/>
 					</div>
 					<div class="flex items-center justify-between">
 						<label class="flex items-center gap-2 text-sm text-gray-600">
-							<input type="checkbox" name="remember" class="h-4 w-4 rounded border-gray-300 accent-blue-500" />
+							<input type="checkbox" name="remember" class="h-4 w-4 rounded border-gray-300 accent-teal-500" />
 							{t.auth.rememberMe}
 						</label>
-						<a href="#" class="text-sm font-semibold text-blue-500 hover:text-blue-600">{t.auth.forgotPassword}</a>
+						<a href="#" class="text-sm font-bold text-rose-500 hover:text-rose-600">{t.auth.forgotPassword}</a>
 					</div>
-					<button type="submit" class="w-full rounded-xl bg-blue-500 px-6 py-3 text-sm font-bold text-white hover:bg-blue-600 transition-colors">
+					<button type="submit" class="w-full rounded-2xl bg-teal-500 px-6 py-4 text-sm font-extrabold text-white transition-colors hover:bg-teal-600">
 						{t.auth.signIn}
 					</button>
 				</form>
 
-				<!-- Divider -->
-				<div class="my-6 flex items-center gap-4">
+				<!-- Divider with geometric shapes -->
+				<div class="my-8 flex items-center gap-4">
 					<div class="h-0.5 flex-1 bg-gray-200"></div>
-					<span class="text-xs font-semibold text-gray-400 uppercase">{t.auth.continueWith}</span>
+					<div class="flex items-center gap-2">
+						<div class="h-2.5 w-2.5 rounded-full bg-amber-400"></div>
+						<span class="text-xs font-bold text-gray-400 uppercase tracking-wider">{t.auth.continueWith}</span>
+						<div class="h-2.5 w-2.5 rounded-full bg-rose-500"></div>
+					</div>
 					<div class="h-0.5 flex-1 bg-gray-200"></div>
 				</div>
 
 				<!-- Social buttons -->
-				<div class="grid grid-cols-2 gap-3">
-					<button type="button" class="rounded-xl bg-gray-100 px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-200 transition-colors">
+				<div class="grid grid-cols-2 gap-4">
+					<button type="button" class="rounded-2xl bg-blue-500 px-4 py-3.5 text-sm font-extrabold text-white transition-colors hover:bg-blue-600">
 						Google
 					</button>
-					<button type="button" class="rounded-xl bg-gray-800 px-4 py-3 text-sm font-bold text-white hover:bg-gray-700 transition-colors">
+					<button type="button" class="rounded-2xl bg-gray-800 px-4 py-3.5 text-sm font-extrabold text-white transition-colors hover:bg-gray-700">
 						Apple
 					</button>
 				</div>
 
 				<!-- Sign up link -->
-				<p class="mt-6 text-center text-sm text-gray-500">
+				<p class="mt-8 text-center text-sm text-gray-500">
 					{t.auth.noAccount}{" "}
-					<a href="#" class="font-bold text-rose-500 hover:text-rose-600">{t.auth.signUp}</a>
+					<a href="#" class="font-extrabold text-amber-500 hover:text-amber-600">{t.auth.signUp}</a>
 				</p>
+			</div>
+
+			<!-- Bottom decoration -->
+			<div class="mt-6 flex justify-center gap-2">
+				<div class="h-2 w-10 rounded-full bg-white/40"></div>
+				<div class="h-2 w-10 rounded-full bg-amber-400/60"></div>
+				<div class="h-2 w-10 rounded-full bg-rose-400/60"></div>
 			</div>
 		</div>
 	</main>
