@@ -2,18 +2,53 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-fuchsia-600 font-mono overflow-x-hidden">
+	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-yellow-300 border-b-8 border-black">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
+					i % 3 === 0 && "bg-black text-lime-400 font-serif text-lg rotate-2",
+					i % 3 === 1 && "bg-fuchsia-600 text-yellow-300 font-mono text-xs -rotate-1 uppercase tracking-widest",
+					i % 3 === 2 && "bg-cyan-400 text-black font-sans text-base rotate-1 border-2 border-orange-500",
+				]}
+			>
+				{item.label}
+			</a>
+		))}
+	</nav>
 
-<main>
-	<section>
-		<h1>{t.notFound.title}</h1>
-		<h2>{t.notFound.heading}</h2>
-		<p>{t.notFound.description}</p>
-		<a href={`/${lang}/${style}/`}>{t.notFound.backHome}</a>
-		<a href={`/${lang}/${style}/cats`}>{t.notFound.meetCats}</a>
-	</section>
-</main>
+	<main class="flex items-center justify-center min-h-[80vh] px-4 py-8">
+		<section class="relative text-center max-w-3xl">
+			<div class="absolute -top-10 left-1/4 w-40 h-40 bg-lime-400 opacity-30 rotate-12 -z-10"></div>
+			<div class="absolute -bottom-8 right-1/4 w-32 h-32 bg-cyan-400 opacity-30 -rotate-12 -z-10"></div>
+			<div class="absolute top-1/2 -left-8 w-20 h-48 bg-orange-500 opacity-25 rotate-6 -z-10"></div>
+
+			<h1 class="text-[10rem] md:text-[16rem] font-black font-serif text-yellow-300 -rotate-6 leading-none drop-shadow-[8px_8px_0_black] mb-0">
+				{t.notFound.title}
+			</h1>
+			<h2 class="text-4xl md:text-6xl font-black font-sans text-lime-400 rotate-3 mb-6 -mt-8 md:-mt-12 drop-shadow-[3px_3px_0_black]">
+				{t.notFound.heading}
+			</h2>
+			<p class="text-xl md:text-2xl font-serif text-white -rotate-1 mb-12 bg-black/40 inline-block px-8 py-4 border-4 border-cyan-400">
+				{t.notFound.description}
+			</p>
+
+			<div class="flex flex-wrap justify-center gap-6">
+				<a
+					href={`/${lang}/${style}/`}
+					class="inline-block px-8 py-5 bg-lime-400 text-black font-black text-xl md:text-2xl font-sans border-4 border-black rotate-3 hover:-rotate-1 transition-transform no-underline uppercase"
+				>
+					{t.notFound.backHome}
+				</a>
+				<a
+					href={`/${lang}/${style}/cats`}
+					class="inline-block px-8 py-5 bg-yellow-300 text-fuchsia-700 font-black text-xl md:text-2xl font-mono border-4 border-fuchsia-600 -rotate-2 hover:rotate-2 transition-transform no-underline uppercase"
+				>
+					{t.notFound.meetCats}
+				</a>
+			</div>
+		</section>
+	</main>
+</div>
