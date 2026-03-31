@@ -2,106 +2,163 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-white text-black font-mono selection:bg-pink-500 selection:text-white">
+<div class="min-h-screen bg-white text-black font-mono selection:bg-pink-500 selection:text-white overflow-x-hidden">
 
-	<nav class="bg-black text-white px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 border-b-4 border-yellow-400">
-		{nav.map((item: any, i: number) => (
-			<a
-				href={item.href}
-				class:list={[
-					"uppercase tracking-widest font-black no-underline hover:underline decoration-wavy decoration-pink-500",
-					i % 3 === 0 ? "text-yellow-300 text-sm" : i % 3 === 1 ? "text-pink-400 text-base" : "text-orange-400 text-xs",
-					i % 2 === 0 ? "-rotate-1" : "rotate-1",
-				]}
-			>
-				{i % 2 === 0 ? "★ " : "✕ "}{item.label}
-			</a>
-		))}
+	<!-- NAV: scattered links, each one a separate scrap taped to the top -->
+	<nav class="relative bg-black px-3 py-4 md:py-5 border-b-[6px] border-yellow-400 overflow-visible">
+		<div class="flex flex-wrap items-start gap-x-2 gap-y-3 md:gap-x-4">
+			{nav.map((item: any, i: number) => (
+				<a
+					href={item.href}
+					class:list={[
+						"inline-block uppercase font-black no-underline hover:scale-110 transition-transform relative",
+						i % 5 === 0 ? "text-yellow-300 text-xs tracking-[0.3em] -rotate-3 bg-pink-600/30 px-2 py-1" :
+						i % 5 === 1 ? "text-pink-400 text-lg tracking-widest rotate-2 border-b-2 border-pink-400 px-1" :
+						i % 5 === 2 ? "text-orange-400 text-[10px] -rotate-1 bg-yellow-400/20 px-3 py-2 border border-orange-400" :
+						i % 5 === 3 ? "text-white text-sm rotate-3 underline decoration-yellow-400 decoration-wavy px-1" :
+						"text-yellow-400 text-base -rotate-2 border-2 border-yellow-400 px-2 py-0.5",
+						i === 0 ? "mt-2" : i === 2 ? "mt-4" : i === 3 ? "-mt-1" : "",
+					]}
+				>
+					{i % 4 === 0 ? "★ " : i % 4 === 1 ? "✕ " : i % 4 === 2 ? "→ " : "‼ "}{item.label}
+				</a>
+			))}
+		</div>
+		<!-- tape strip across nav -->
+		<div class="absolute -bottom-2 left-8 w-24 h-3 bg-pink-500/70 rotate-2"></div>
+		<div class="absolute -bottom-1 right-12 w-16 h-2 bg-yellow-400/60 -rotate-3"></div>
 	</nav>
 
 	<main>
-		<!-- HERO -->
-		<section class="relative bg-black text-white px-4 py-16 md:py-24 border-b-8 border-pink-500 overflow-hidden">
-			<div class="absolute top-2 right-4 text-6xl md:text-9xl font-black text-pink-500/20 select-none -rotate-12">★★★</div>
-			<div class="max-w-4xl mx-auto">
-				<h1 class="text-5xl md:text-8xl font-black uppercase leading-none tracking-tighter -rotate-1 mb-4">
-					<span class="bg-yellow-400 text-black px-2 inline-block rotate-1">{sanctuary.name}</span>
+		<!-- HERO: collage-style, elements overlapping like pasted scraps -->
+		<section class="relative bg-black text-white px-4 py-16 md:py-28 border-b-[10px] border-pink-500 overflow-hidden">
+			<!-- background noise marks -->
+			<div class="absolute top-3 right-6 text-7xl md:text-[10rem] font-black text-pink-500/10 select-none -rotate-12 leading-none">★★★</div>
+			<div class="absolute bottom-8 left-4 text-5xl md:text-8xl font-black text-yellow-400/10 select-none rotate-6 leading-none">✕✕✕</div>
+			<div class="absolute top-1/2 right-1/4 w-32 h-4 bg-orange-500/20 rotate-12 hidden md:block"></div>
+
+			<div class="max-w-5xl mx-auto relative">
+				<!-- sanctuary name: huge, stamped, crooked -->
+				<h1 class="text-5xl md:text-[7rem] lg:text-[9rem] font-black uppercase leading-[0.85] tracking-tighter -rotate-2 mb-6 relative">
+					<span class="bg-yellow-400 text-black px-3 md:px-5 py-1 inline-block rotate-1 border-4 border-yellow-400">{sanctuary.name}</span>
 				</h1>
-				<p class="text-xl md:text-3xl font-bold mt-6 rotate-1 bg-pink-500 text-white inline-block px-3 py-1 border-2 border-white">
-					{sanctuary.tagline}
-				</p>
-				<div class="flex flex-wrap gap-4 mt-10">
+
+				<!-- tagline: separate piece, taped on at a different angle -->
+				<div class="relative inline-block ml-4 md:ml-12 -mt-2">
+					<p class="text-lg md:text-3xl font-black rotate-2 bg-pink-500 text-white px-4 py-2 border-4 border-white uppercase tracking-wide">
+						{sanctuary.tagline}
+					</p>
+					<!-- tape piece on tagline -->
+					<div class="absolute -top-2 left-6 w-14 h-3 bg-yellow-400/70 -rotate-6"></div>
+				</div>
+
+				<!-- CTA buttons: scattered, not aligned -->
+				<div class="flex flex-wrap gap-5 mt-12 md:mt-16 items-start">
 					<a
 						href={`/${lang}/${style}/cats`}
-						class="bg-yellow-400 text-black font-black uppercase text-lg md:text-xl px-6 py-3 border-4 border-black -rotate-2 hover:rotate-0 transition-transform inline-block no-underline"
+						class="bg-yellow-400 text-black font-black uppercase text-base md:text-xl px-5 py-3 border-4 border-black -rotate-3 hover:rotate-0 transition-transform inline-block no-underline shadow-[4px_4px_0_black]"
 					>
-						→ {t.home.meetCats}
+						→ {t.home.meetCats} ★
 					</a>
 					<a
 						href={`/${lang}/${style}/donate`}
-						class="bg-orange-500 text-white font-black uppercase text-lg md:text-xl px-6 py-3 border-4 border-black rotate-2 hover:rotate-0 transition-transform inline-block no-underline"
+						class="bg-orange-500 text-white font-black uppercase text-lg md:text-2xl px-7 py-4 border-4 border-white rotate-2 hover:rotate-0 transition-transform inline-block no-underline mt-2 md:mt-6 shadow-[4px_4px_0_white]"
 					>
-						‼ {t.home.donate}
+						‼ {t.home.donate} ‼
 					</a>
 				</div>
 			</div>
 		</section>
 
-		<!-- MISSION -->
-		<section class="px-4 py-12 md:py-16 border-b-4 border-black bg-yellow-400">
+		<!-- MISSION: torn-out page, taped onto yellow background -->
+		<section class="relative px-3 py-10 md:py-16 border-b-[6px] border-black bg-yellow-400 overflow-hidden">
+			<!-- decorative tape strips -->
+			<div class="absolute top-4 right-8 w-20 h-3 bg-pink-500/60 rotate-6"></div>
+			<div class="absolute bottom-6 left-4 w-16 h-2 bg-black/30 -rotate-3"></div>
+
 			<div class="max-w-3xl mx-auto">
-				<h2 class="text-3xl md:text-5xl font-black uppercase -rotate-1 mb-6 inline-block bg-black text-yellow-400 px-3 py-1">
-					★ {t.home.mission}
+				<h2 class="text-2xl md:text-5xl font-black uppercase -rotate-2 mb-8 inline-block bg-black text-yellow-400 px-4 py-2 border-2 border-yellow-400 shadow-[3px_3px_0_rgba(0,0,0,0.3)]">
+					★ {t.home.mission} ★
 				</h2>
-				<p class="text-lg md:text-xl font-bold leading-relaxed rotate-1 border-4 border-black bg-white p-4 md:p-6">
-					{sanctuary.mission}
-				</p>
+				<div class="relative rotate-1 md:ml-6">
+					<p class="text-base md:text-xl font-bold leading-relaxed border-4 border-black bg-white p-5 md:p-8 shadow-[6px_6px_0_black]">
+						{sanctuary.mission}
+					</p>
+					<!-- tape holding the paper down -->
+					<div class="absolute -top-2 left-10 w-20 h-4 bg-pink-500/50 -rotate-3"></div>
+					<div class="absolute -bottom-2 right-8 w-16 h-3 bg-orange-500/40 rotate-6"></div>
+				</div>
 			</div>
 		</section>
 
-		<!-- STATS -->
-		<section class="px-4 py-12 md:py-16 bg-black text-white border-b-8 border-orange-500">
-			<div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-				{sanctuary.stats.map((stat: any, i: number) => (
-					<div
-						class:list={[
-							"border-4 p-4 text-center",
-							i % 4 === 0 ? "border-yellow-400 bg-yellow-400 text-black -rotate-2" :
-							i % 4 === 1 ? "border-pink-500 bg-pink-500 text-white rotate-2" :
-							i % 4 === 2 ? "border-orange-500 bg-orange-500 text-white -rotate-1" :
-							"border-white bg-white text-black rotate-3",
-						]}
-					>
-						<span class="block text-4xl md:text-6xl font-black">{stat.value}</span>
-						<span class="block text-xs md:text-sm font-bold uppercase tracking-widest mt-2">{stat.label}</span>
-					</div>
-				))}
+		<!-- STATS: hand-stamped numbers on torn scraps, scattered -->
+		<section class="relative px-3 py-10 md:py-16 bg-black text-white border-b-[10px] border-orange-500 overflow-hidden">
+			<div class="absolute top-2 left-2 text-6xl font-black text-white/5 select-none rotate-12">★</div>
+			<div class="max-w-5xl mx-auto">
+				<div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+					{sanctuary.stats.map((stat: any, i: number) => (
+						<div
+							class:list={[
+								"relative p-3 md:p-5 border-4",
+								i % 4 === 0 ? "border-yellow-400 bg-yellow-400 text-black -rotate-3 shadow-[4px_4px_0_rgba(255,255,255,0.3)]" :
+								i % 4 === 1 ? "border-pink-500 bg-pink-500 text-white rotate-2 mt-4 shadow-[4px_4px_0_rgba(236,72,153,0.3)]" :
+								i % 4 === 2 ? "border-orange-500 bg-orange-500 text-white -rotate-1 -mt-2 shadow-[-3px_4px_0_rgba(249,115,22,0.3)]" :
+								"border-white bg-white text-black rotate-3 mt-2 shadow-[4px_4px_0_rgba(255,255,255,0.2)]",
+							]}
+						>
+							<!-- stamped number look -->
+							<span class="block text-4xl md:text-7xl font-black leading-none tracking-tighter">{stat.value}</span>
+							<span class="block text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mt-2 border-t-2 border-current pt-1">{stat.label}</span>
+							<!-- tape on some -->
+							{i % 2 === 0 && (
+								<div class="absolute -top-1.5 right-3 w-10 h-2 bg-white/40 rotate-12"></div>
+							)}
+						</div>
+					))}
+				</div>
 			</div>
 		</section>
 
-		<!-- ABOUT -->
-		<section class="px-4 py-12 md:py-16 bg-white border-b-4 border-black">
+		<!-- ABOUT: paragraphs as separate pasted clippings at different angles -->
+		<section class="relative px-3 py-10 md:py-16 bg-white border-b-[6px] border-black overflow-hidden">
+			<!-- background crosses -->
+			<div class="absolute top-6 right-10 text-8xl font-black text-gray-100 select-none -rotate-12">✕</div>
+			<div class="absolute bottom-8 left-6 text-6xl font-black text-gray-100 select-none rotate-6">★</div>
+
 			<div class="max-w-3xl mx-auto">
-				<h2 class="text-3xl md:text-5xl font-black uppercase rotate-1 mb-8 inline-block bg-pink-500 text-white px-3 py-1 border-4 border-black">
+				<h2 class="text-2xl md:text-5xl font-black uppercase rotate-2 mb-10 inline-block bg-pink-500 text-white px-4 py-2 border-4 border-black shadow-[4px_4px_0_black]">
 					← {t.home.aboutUs} →
 				</h2>
-				{sanctuary.about.map((paragraph: string, i: number) => (
-					<p
-						class:list={[
-							"text-base md:text-lg leading-relaxed mb-4 p-3 border-2 border-black",
-							i % 2 === 0 ? "-rotate-1 bg-gray-100" : "rotate-1 bg-yellow-100",
-						]}
-					>
-						{paragraph}
-					</p>
-				))}
+				<div class="space-y-5 md:space-y-6">
+					{sanctuary.about.map((paragraph: string, i: number) => (
+						<div
+							class:list={[
+								"relative p-4 md:p-5 border-2 border-black",
+								i % 4 === 0 ? "-rotate-1 bg-gray-100 ml-0 md:mr-12 shadow-[3px_3px_0_black]" :
+								i % 4 === 1 ? "rotate-[1.5deg] bg-yellow-100 ml-4 md:ml-16 border-4 shadow-[-2px_3px_0_black]" :
+								i % 4 === 2 ? "-rotate-[0.8deg] bg-pink-50 mr-4 md:mr-20 border-l-4 border-l-pink-500 shadow-[2px_4px_0_black]" :
+								"rotate-[0.5deg] bg-orange-50 ml-2 md:ml-8 border-r-4 border-r-orange-500 shadow-[-3px_3px_0_black]",
+							]}
+						>
+							<p class="text-sm md:text-base leading-relaxed font-medium">{paragraph}</p>
+							{i % 3 === 0 && (
+								<div class="absolute -top-1.5 left-8 w-12 h-2.5 bg-yellow-400/60 -rotate-6"></div>
+							)}
+							{i % 3 === 1 && (
+								<div class="absolute -bottom-1 right-6 w-14 h-2 bg-pink-500/50 rotate-3"></div>
+							)}
+						</div>
+					))}
+				</div>
 			</div>
 		</section>
 	</main>
 
-	<footer class="bg-black text-white px-4 py-6 border-t-4 border-yellow-400">
-		<p class="text-center text-xs md:text-sm font-bold uppercase tracking-widest rotate-1">
-			✕ &copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}. ✕
+	<!-- FOOTER: torn strip taped at the bottom -->
+	<footer class="relative bg-black text-white px-4 py-6 border-t-[6px] border-yellow-400 overflow-hidden">
+		<div class="absolute top-0 left-16 w-20 h-2.5 bg-pink-500/50 -rotate-2"></div>
+		<p class="text-center text-[10px] md:text-xs font-black uppercase tracking-[0.3em] rotate-1">
+			✕ &copy; 2026 {sanctuary.name} ✕ {t.footer.style}: {meta.name} ★
 		</p>
 	</footer>
 </div>
