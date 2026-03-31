@@ -2,46 +2,50 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
+<nav class="bg-black border-b-4 border-yellow-400 px-4 py-3 flex flex-wrap items-center gap-2 font-mono sticky top-0 z-50">
 	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
+		<a href={item.href} class="text-yellow-400 uppercase font-black text-sm md:text-base tracking-widest border-2 border-yellow-400 px-3 py-1 hover:bg-yellow-400 hover:text-black transition-none cursor-pointer">{item.label}</a>
 	))}
 </nav>
 
-<main>
-	<section>
-		<h1>{t.auth.title}</h1>
-		<p>{t.auth.subtitle}</p>
+<main class="bg-white font-mono text-black min-h-screen flex items-center justify-center px-4 py-12">
+	<section class="w-full max-w-md border-4 border-black">
+		<div class="bg-black text-white px-6 py-8">
+			<h1 class="text-3xl md:text-5xl font-black uppercase tracking-tighter">{t.auth.title}</h1>
+			<p class="text-sm font-bold uppercase tracking-wider mt-2 text-yellow-400">{t.auth.subtitle}</p>
+		</div>
 
-		<form>
+		<form class="px-6 py-8 space-y-6">
 			<div>
-				<label for="email">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" />
+				<label for="email" class="block text-sm font-black uppercase tracking-widest mb-2">{t.auth.email}</label>
+				<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full border-4 border-black px-3 py-2 font-mono text-sm focus:outline-none focus:border-red-600 bg-white" />
 			</div>
 			<div>
-				<label for="password">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" />
+				<label for="password" class="block text-sm font-black uppercase tracking-widest mb-2">{t.auth.password}</label>
+				<input type="password" id="password" name="password" placeholder="••••••••" class="w-full border-4 border-black px-3 py-2 font-mono text-sm focus:outline-none focus:border-red-600 bg-white" />
 			</div>
-			<div>
-				<label>
-					<input type="checkbox" name="remember" />
-					{t.auth.rememberMe}
+			<div class="flex items-center justify-between">
+				<label class="flex items-center gap-2 cursor-pointer">
+					<input type="checkbox" name="remember" class="w-5 h-5 border-4 border-black accent-black cursor-pointer" />
+					<span class="text-xs font-bold uppercase tracking-wider">{t.auth.rememberMe}</span>
 				</label>
-				<a href="#">{t.auth.forgotPassword}</a>
+				<a href="#" class="text-xs font-bold uppercase tracking-wider border-b-2 border-black hover:border-red-600 hover:text-red-600 transition-none cursor-pointer">{t.auth.forgotPassword}</a>
 			</div>
-			<button type="submit">{t.auth.signIn}</button>
+			<button type="submit" class="w-full bg-black text-white uppercase font-black text-base px-4 py-3 border-4 border-black hover:bg-yellow-400 hover:text-black transition-none cursor-pointer tracking-widest">{t.auth.signIn}</button>
 		</form>
 
-		<div>
-			<p>{t.auth.continueWith}</p>
-			<div>
-				<button type="button">Google</button>
-				<button type="button">Apple</button>
+		<div class="border-t-4 border-black px-6 py-6">
+			<p class="text-xs font-black uppercase tracking-widest text-center mb-4">{t.auth.continueWith}</p>
+			<div class="grid grid-cols-2 gap-0">
+				<button type="button" class="border-4 border-black px-4 py-3 font-black uppercase text-sm tracking-widest hover:bg-black hover:text-white transition-none cursor-pointer -mr-1">Google</button>
+				<button type="button" class="border-4 border-black px-4 py-3 font-black uppercase text-sm tracking-widest hover:bg-black hover:text-white transition-none cursor-pointer">Apple</button>
 			</div>
 		</div>
 
-		<p>
-			{t.auth.noAccount} <a href="#">{t.auth.signUp}</a>
-		</p>
+		<div class="border-t-4 border-black px-6 py-4 bg-yellow-400">
+			<p class="text-sm font-bold uppercase tracking-wider text-center">
+				{t.auth.noAccount} <a href="#" class="border-b-2 border-black hover:border-red-600 hover:text-red-600 transition-none cursor-pointer font-black">{t.auth.signUp}</a>
+			</p>
+		</div>
 	</section>
 </main>

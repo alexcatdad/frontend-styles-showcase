@@ -2,42 +2,58 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<nav>
+<nav class="bg-black border-b-4 border-yellow-400 px-4 py-3 flex flex-wrap items-center gap-2 font-mono sticky top-0 z-50">
 	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
+		<a href={item.href} class="text-yellow-400 uppercase font-black text-sm md:text-base tracking-widest border-2 border-yellow-400 px-3 py-1 hover:bg-yellow-400 hover:text-black transition-none cursor-pointer">{item.label}</a>
 	))}
 </nav>
 
-<main>
-	<section>
-		<h1>{sanctuary.name}</h1>
-		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
-	</section>
-
-	<section>
-		<h2>{t.home.mission}</h2>
-		<p>{sanctuary.mission}</p>
-	</section>
-
-	<section>
-		{sanctuary.stats.map((stat: any) => (
-			<div>
-				<span>{stat.value}</span>
-				<span>{stat.label}</span>
+<main class="bg-white font-mono text-black">
+	<!-- HERO -->
+	<section class="border-b-4 border-black px-4 py-16 md:py-24 lg:py-32 bg-yellow-400">
+		<div class="max-w-5xl mx-auto">
+			<h1 class="text-5xl md:text-7xl lg:text-9xl font-black uppercase leading-none tracking-tighter text-black">{sanctuary.name}</h1>
+			<p class="text-xl md:text-3xl font-bold uppercase mt-4 border-l-4 border-black pl-4 text-black">{sanctuary.tagline}</p>
+			<div class="flex flex-wrap gap-4 mt-8">
+				<a href={`/${lang}/${style}/cats`} class="bg-black text-white uppercase font-black text-lg md:text-xl px-6 py-3 border-4 border-black hover:bg-white hover:text-black transition-none cursor-pointer tracking-wider">{t.home.meetCats}</a>
+				<a href={`/${lang}/${style}/donate`} class="bg-white text-black uppercase font-black text-lg md:text-xl px-6 py-3 border-4 border-black hover:bg-red-600 hover:text-white hover:border-red-600 transition-none cursor-pointer tracking-wider">{t.home.donate}</a>
 			</div>
-		))}
+		</div>
 	</section>
 
-	<section>
-		<h2>{t.home.aboutUs}</h2>
-		{sanctuary.about.map((paragraph: string) => (
-			<p>{paragraph}</p>
-		))}
+	<!-- MISSION -->
+	<section class="border-b-4 border-black px-4 py-12 md:py-16 bg-white">
+		<div class="max-w-5xl mx-auto">
+			<h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter border-b-4 border-black pb-2 inline-block">{t.home.mission}</h2>
+			<p class="text-lg md:text-2xl font-bold mt-6 leading-relaxed border-l-4 border-red-600 pl-4">{sanctuary.mission}</p>
+		</div>
+	</section>
+
+	<!-- STATS -->
+	<section class="border-b-4 border-black px-4 py-12 md:py-16 bg-black text-white">
+		<div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0">
+			{sanctuary.stats.map((stat: any) => (
+				<div class="border-2 border-white p-4 md:p-6 text-center cursor-pointer hover:bg-yellow-400 hover:text-black transition-none">
+					<span class="block text-4xl md:text-6xl font-black">{stat.value}</span>
+					<span class="block text-sm md:text-base uppercase tracking-widest font-bold mt-2">{stat.label}</span>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- ABOUT -->
+	<section class="px-4 py-12 md:py-16 bg-white border-b-4 border-black">
+		<div class="max-w-5xl mx-auto">
+			<h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter bg-black text-white px-4 py-2 inline-block">{t.home.aboutUs}</h2>
+			<div class="mt-8 space-y-4">
+				{sanctuary.about.map((paragraph: string) => (
+					<p class="text-base md:text-lg font-mono leading-relaxed border-l-4 border-black pl-4">{paragraph}</p>
+				))}
+			</div>
+		</div>
 	</section>
 </main>
 
-<footer>
-	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
+<footer class="bg-black text-white font-mono px-4 py-6 border-t-4 border-yellow-400">
+	<p class="uppercase text-sm tracking-widest text-center">&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
 </footer>
