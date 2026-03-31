@@ -2,42 +2,118 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-sans">
+	<!-- Nav — thick black bar with geometric accent -->
+	<nav class="bg-black text-white flex flex-wrap items-center justify-between px-6 py-4 border-b-4 border-red-600">
+		<div class="flex items-center gap-2">
+			<div class="w-4 h-4 rounded-full bg-yellow-400"></div>
+			<div class="w-4 h-4 bg-red-600"></div>
+			<div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[14px] border-b-blue-600"></div>
+		</div>
+		<div class="flex flex-wrap gap-6">
+			{nav.map((item: any) => (
+				<a href={item.href} class="uppercase text-sm font-bold tracking-widest hover:text-yellow-400 transition-colors">{item.label}</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<section>
-		<h1>{sanctuary.name}</h1>
-		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
-	</section>
+	<main>
+		<!-- Hero — asymmetric composition with color blocks -->
+		<section class="relative overflow-hidden bg-black text-white">
+			<div class="grid grid-cols-1 md:grid-cols-12 min-h-[70vh]">
+				<!-- Left color block -->
+				<div class="hidden md:block md:col-span-2 bg-red-600"></div>
 
-	<section>
-		<h2>{t.home.mission}</h2>
-		<p>{sanctuary.mission}</p>
-	</section>
+				<!-- Main content -->
+				<div class="md:col-span-7 flex flex-col justify-center px-8 py-16 md:px-12 md:py-24 relative z-10">
+					<h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight leading-none mb-6">
+						{sanctuary.name}
+					</h1>
+					<div class="w-24 h-1 bg-yellow-400 mb-6"></div>
+					<p class="text-xl md:text-2xl font-light max-w-xl mb-10 leading-relaxed">
+						{sanctuary.tagline}
+					</p>
+					<div class="flex flex-wrap gap-4">
+						<a href={`/${lang}/${style}/cats`} class="inline-block bg-yellow-400 text-black font-bold uppercase tracking-widest px-8 py-4 text-sm hover:bg-white transition-colors border-2 border-yellow-400 hover:border-white">
+							{t.home.meetCats}
+						</a>
+						<a href={`/${lang}/${style}/donate`} class="inline-block bg-transparent text-white font-bold uppercase tracking-widest px-8 py-4 text-sm border-2 border-white hover:bg-blue-600 hover:border-blue-600 transition-colors">
+							{t.home.donate}
+						</a>
+					</div>
+				</div>
 
-	<section>
-		{sanctuary.stats.map((stat: any) => (
-			<div>
-				<span>{stat.value}</span>
-				<span>{stat.label}</span>
+				<!-- Right geometric column -->
+				<div class="hidden md:flex md:col-span-3 flex-col">
+					<div class="flex-1 bg-blue-600"></div>
+					<div class="flex-1 bg-yellow-400"></div>
+				</div>
 			</div>
-		))}
-	</section>
+			<!-- Floating circle decoration -->
+			<div class="absolute bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:bottom-12 md:right-[26%] w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-white opacity-20"></div>
+		</section>
 
-	<section>
-		<h2>{t.home.aboutUs}</h2>
-		{sanctuary.about.map((paragraph: string) => (
-			<p>{paragraph}</p>
-		))}
-	</section>
-</main>
+		<!-- Mission — red block with geometric frame -->
+		<section class="bg-red-600 text-white py-16 md:py-24 px-8 md:px-16 relative">
+			<div class="max-w-4xl mx-auto relative">
+				<div class="absolute -top-4 -left-4 w-12 h-12 border-4 border-white"></div>
+				<h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-8">
+					{t.home.mission}
+				</h2>
+				<div class="w-16 h-1 bg-black mb-8"></div>
+				<p class="text-lg md:text-xl leading-relaxed max-w-2xl font-light">
+					{sanctuary.mission}
+				</p>
+				<div class="absolute -bottom-4 -right-4 w-8 h-8 rounded-full bg-yellow-400"></div>
+			</div>
+		</section>
 
-<footer>
-	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
-</footer>
+		<!-- Stats — grid of geometric blocks -->
+		<section class="bg-white py-16 md:py-24 px-8 md:px-16">
+			<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0">
+				{sanctuary.stats.map((stat: any, i: number) => (
+					<div class:list={[
+						"p-8 md:p-12 border-2 border-black flex flex-col items-center justify-center text-center",
+						i === 0 && "bg-blue-600 text-white",
+						i === 1 && "bg-yellow-400 text-black",
+						i === 2 && "bg-red-600 text-white",
+						i === 3 && "bg-black text-white"
+					]}>
+						<span class="text-4xl md:text-6xl font-black block mb-2">{stat.value}</span>
+						<span class="text-xs md:text-sm uppercase tracking-widest font-bold">{stat.label}</span>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- About — asymmetric layout with vertical line -->
+		<section class="bg-black text-white py-16 md:py-24 px-8 md:px-16">
+			<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+				<div class="md:col-span-4 flex flex-col items-start">
+					<h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-6">
+						{t.home.aboutUs}
+					</h2>
+					<div class="w-1 h-24 bg-red-600 hidden md:block"></div>
+					<div class="w-16 h-16 rounded-full bg-yellow-400 mt-8 hidden md:block"></div>
+				</div>
+				<div class="md:col-span-8 border-l-4 border-blue-600 pl-8 flex flex-col gap-6">
+					{sanctuary.about.map((paragraph: string) => (
+						<p class="text-base md:text-lg leading-relaxed font-light">{paragraph}</p>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="bg-black text-white border-t-4 border-yellow-400 px-8 py-6 flex flex-wrap items-center justify-between gap-4">
+		<div class="flex items-center gap-3">
+			<div class="w-3 h-3 rounded-full bg-red-600"></div>
+			<div class="w-3 h-3 bg-blue-600"></div>
+			<div class="w-3 h-3 bg-yellow-400"></div>
+		</div>
+		<p class="text-xs uppercase tracking-widest font-bold">
+			&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.
+		</p>
+	</footer>
+</div>
