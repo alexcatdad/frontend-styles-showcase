@@ -1,0 +1,35 @@
+---
+import { getPost, postSlugs, posts } from "../../../../data/blog";
+import type { Locale } from "../../../../data/i18n";
+import { locales, ui } from "../../../../data/i18n";
+import { getNavigation } from "../../../../data/navigation";
+import { getStyle, styleSlugs } from "../../../../data/styles";
+import Layout from "../../../../layouts/Layout.astro";
+
+export function getStaticPaths() {
+	return locales.flatMap((lang) =>
+		styleSlugs.flatMap((style) =>
+			postSlugs.map((slug) => ({ params: { lang, style, slug } })),
+		),
+	);
+}
+
+const { lang, style, slug } = Astro.params;
+const t = ui[lang as Locale];
+const nav = getNavigation(lang as Locale, style);
+const meta = getStyle(style)!;
+const post = getPost(lang as Locale, slug)!;
+const otherPosts = posts[lang as Locale]
+	.filter((p) => p.slug !== slug)
+	.slice(0, 2);
+
+const modules = import.meta.glob("/src/components/styles/*/BlogPost.astro", {
+	eager: true,
+});
+const Page = (modules[`/src/components/styles/${style}/BlogPost.astro`] as any)
+	.default;
+---
+
+<Layout title={post.title} style={style} lang={lang}>
+	<Page lang={lang} style={style} nav={nav} meta={meta} post={post} otherPosts={otherPosts} t={t} />
+</Layout>

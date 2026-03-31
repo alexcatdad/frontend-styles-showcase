@@ -1,11 +1,58 @@
 ---
-import Welcome from "../components/Welcome.astro";
+import { localeLabels, locales } from "../data/i18n";
+import { styles } from "../data/styles";
 import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const grouped = Object.groupBy(styles, (s) => s.category);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Style Showcase">
+	<main class="min-h-screen bg-white px-8 py-16 max-w-4xl mx-auto">
+		<h1 class="text-4xl font-bold mb-2">Frontend Styles Showcase</h1>
+		<p class="text-lg text-gray-600 mb-4">
+			The same cat sanctuary website rendered in {styles.length} different
+			visual styles. Pick a language, then a style.
+		</p>
+
+		<div class="flex gap-3 mb-12">
+			{locales.map((lang) => (
+				<a
+					href={`#${lang}`}
+					class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
+				>
+					{localeLabels[lang]}
+				</a>
+			))}
+		</div>
+
+		{
+			Object.entries(grouped).map(([category, items]) => (
+				<section class="mb-10">
+					<h2 class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
+						{category}
+					</h2>
+					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+						{items?.map((style) => (
+							<div class="p-5 border border-gray-200 rounded-lg">
+								<h3 class="font-semibold text-lg">{style.name}</h3>
+								<p class="text-sm text-gray-500 mt-1 mb-3">
+									{style.description}
+								</p>
+								<div class="flex gap-2">
+									{locales.map((lang) => (
+										<a
+											href={`/${lang}/${style.slug}/`}
+											class="text-sm px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
+										>
+											{localeLabels[lang]}
+										</a>
+									))}
+								</div>
+							</div>
+						))}
+					</div>
+				</section>
+			))
+		}
+	</main>
 </Layout>

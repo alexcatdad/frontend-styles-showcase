@@ -1,0 +1,43 @@
+---
+const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+---
+
+<nav>
+	{nav.map((item: any) => (
+		<a href={item.href}>{item.label}</a>
+	))}
+</nav>
+
+<main>
+	<section>
+		<h1>{sanctuary.name}</h1>
+		<p>{sanctuary.tagline}</p>
+		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
+		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
+	</section>
+
+	<section>
+		<h2>{t.home.mission}</h2>
+		<p>{sanctuary.mission}</p>
+	</section>
+
+	<section>
+		{sanctuary.stats.map((stat: any) => (
+			<div>
+				<span>{stat.value}</span>
+				<span>{stat.label}</span>
+			</div>
+		))}
+	</section>
+
+	<section>
+		<h2>{t.home.aboutUs}</h2>
+		{sanctuary.about.map((paragraph: string) => (
+			<p>{paragraph}</p>
+		))}
+	</section>
+</main>
+
+<footer>
+	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
+</footer>

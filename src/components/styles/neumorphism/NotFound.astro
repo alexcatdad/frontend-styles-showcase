@@ -1,0 +1,19 @@
+---
+const { lang, style, nav, t } = Astro.props;
+---
+
+<nav>
+	{nav.map((item: any) => (
+		<a href={item.href}>{item.label}</a>
+	))}
+</nav>
+
+<main>
+	<section>
+		<h1>{t.notFound.title}</h1>
+		<h2>{t.notFound.heading}</h2>
+		<p>{t.notFound.description}</p>
+		<a href={`/${lang}/${style}/`}>{t.notFound.backHome}</a>
+		<a href={`/${lang}/${style}/cats`}>{t.notFound.meetCats}</a>
+	</section>
+</main>

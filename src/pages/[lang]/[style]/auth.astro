@@ -1,0 +1,28 @@
+---
+import type { Locale } from "../../../data/i18n";
+import { locales, ui } from "../../../data/i18n";
+import { getNavigation } from "../../../data/navigation";
+import { getStyle, styleSlugs } from "../../../data/styles";
+import Layout from "../../../layouts/Layout.astro";
+
+export function getStaticPaths() {
+	return locales.flatMap((lang) =>
+		styleSlugs.map((style) => ({ params: { lang, style } })),
+	);
+}
+
+const { lang, style } = Astro.params;
+const t = ui[lang as Locale];
+const nav = getNavigation(lang as Locale, style);
+const meta = getStyle(style)!;
+
+const modules = import.meta.glob("/src/components/styles/*/Auth.astro", {
+	eager: true,
+});
+const Page = (modules[`/src/components/styles/${style}/Auth.astro`] as any)
+	.default;
+---
+
+<Layout title={t.nav.login} style={style} lang={lang}>
+	<Page lang={lang} style={style} nav={nav} meta={meta} t={t} />
+</Layout>

@@ -1,0 +1,32 @@
+---
+const { lang, style, nav, cats, t } = Astro.props;
+---
+
+<nav>
+	{nav.map((item: any) => (
+		<a href={item.href}>{item.label}</a>
+	))}
+</nav>
+
+<main>
+	<h1>{t.cats.title}</h1>
+	<p>{t.cats.subtitle}</p>
+
+	<div>
+		{cats.map((cat: any) => (
+			<a href={`/${lang}/${style}/cats/${cat.id}`}>
+				<div>
+					<h2>{cat.name}</h2>
+					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
+					<p>{cat.description.slice(0, 100)}...</p>
+					<div>
+						{cat.personality.map((trait: string) => (
+							<span>{trait}</span>
+						))}
+					</div>
+					<span>{cat.status}</span>
+				</div>
+			</a>
+		))}
+	</div>
+</main>

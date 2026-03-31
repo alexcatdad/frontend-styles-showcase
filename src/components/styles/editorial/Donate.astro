@@ -1,0 +1,58 @@
+---
+const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
+---
+
+<nav>
+	{nav.map((item: any) => (
+		<a href={item.href}>{item.label}</a>
+	))}
+</nav>
+
+<main>
+	<h1>{t.donate.title}</h1>
+	<p>{t.donate.subtitle}</p>
+
+	<section>
+		<h2>{t.donate.monthly}</h2>
+		<div>
+			{monthlyTiers.map((tier: any) => (
+				<div data-highlighted={tier.highlighted}>
+					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
+					<h3>{tier.name}</h3>
+					<p>
+						<span>${tier.amount}</span>{t.donate.perMonth}
+					</p>
+					<p>{tier.description}</p>
+					<ul>
+						{tier.perks.map((perk: string) => (
+							<li>{perk}</li>
+						))}
+					</ul>
+					<button type="button">{t.donate.choose} {tier.name}</button>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<section>
+		<h2>{t.donate.oneTime}</h2>
+		<div>
+			{oneTimeTiers.map((tier: any) => (
+				<div data-highlighted={tier.highlighted}>
+					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
+					<h3>{tier.name}</h3>
+					<p>
+						<span>${tier.amount}</span>
+					</p>
+					<p>{tier.description}</p>
+					<ul>
+						{tier.perks.map((perk: string) => (
+							<li>{perk}</li>
+						))}
+					</ul>
+					<button type="button">{t.donate.give} ${tier.amount}</button>
+				</div>
+			))}
+		</div>
+	</section>
+</main>

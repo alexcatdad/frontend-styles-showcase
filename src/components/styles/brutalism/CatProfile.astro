@@ -1,0 +1,48 @@
+---
+const { lang, style, nav, cat, otherCats, t } = Astro.props;
+---
+
+<nav>
+	{nav.map((item: any) => (
+		<a href={item.href}>{item.label}</a>
+	))}
+</nav>
+
+<main>
+	<a href={`/${lang}/${style}/cats`}>&larr; {t.cats.backToAll}</a>
+
+	<article>
+		<h1>{cat.name}</h1>
+
+		<dl>
+			<dt>{t.cats.breed}</dt><dd>{cat.breed}</dd>
+			<dt>{t.cats.age}</dt><dd>{cat.age}</dd>
+			<dt>{t.cats.gender}</dt><dd>{cat.gender}</dd>
+			<dt>{t.cats.color}</dt><dd>{cat.color}</dd>
+			<dt>{t.cats.arrived}</dt><dd>{cat.arrivalDate}</dd>
+			<dt>{t.cats.status}</dt><dd>{cat.status}</dd>
+		</dl>
+
+		<div>
+			{cat.personality.map((trait: string) => (
+				<span>{trait}</span>
+			))}
+		</div>
+
+		<p>{cat.description}</p>
+
+		<a href={`/${lang}/${style}/auth`}>{t.cats.adopt} {cat.name}</a>
+	</article>
+
+	<section>
+		<h2>{t.cats.otherCats}</h2>
+		<div>
+			{otherCats.map((c: any) => (
+				<a href={`/${lang}/${style}/cats/${c.id}`}>
+					<h3>{c.name}</h3>
+					<p>{c.breed} · {c.age}</p>
+				</a>
+			))}
+		</div>
+	</section>
+</main>

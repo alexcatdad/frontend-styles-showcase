@@ -1,0 +1,44 @@
+---
+const { lang, style, nav, post, otherPosts, t } = Astro.props;
+---
+
+<nav>
+	{nav.map((item: any) => (
+		<a href={item.href}>{item.label}</a>
+	))}
+</nav>
+
+<main>
+	<a href={`/${lang}/${style}/blog`}>&larr; {t.blog.backToBlog}</a>
+
+	<article>
+		<header>
+			<time datetime={post.date}>{post.date}</time>
+			<h1>{post.title}</h1>
+			<span>{t.blog.by} {post.author}</span>
+			<div>
+				{post.tags.map((tag: string) => (
+					<span>{tag}</span>
+				))}
+			</div>
+		</header>
+
+		<div>
+			{post.content.map((paragraph: string) => (
+				<p>{paragraph}</p>
+			))}
+		</div>
+	</article>
+
+	<section>
+		<h2>{t.blog.moreStories}</h2>
+		<div>
+			{otherPosts.map((p: any) => (
+				<a href={`/${lang}/${style}/blog/${p.slug}`}>
+					<h3>{p.title}</h3>
+					<p>{p.excerpt}</p>
+				</a>
+			))}
+		</div>
+	</section>
+</main>
