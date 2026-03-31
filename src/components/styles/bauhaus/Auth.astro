@@ -2,46 +2,93 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-sans">
+	<!-- Nav -->
+	<nav class="bg-black text-white flex flex-wrap items-center justify-between px-6 py-4 border-b-4 border-red-600">
+		<div class="flex items-center gap-2">
+			<div class="w-4 h-4 rounded-full bg-yellow-400"></div>
+			<div class="w-4 h-4 bg-red-600"></div>
+			<div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[14px] border-b-blue-600"></div>
+		</div>
+		<div class="flex flex-wrap gap-6">
+			{nav.map((item: any) => (
+				<a href={item.href} class="uppercase text-sm font-bold tracking-widest hover:text-yellow-400 transition-colors">{item.label}</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<section>
-		<h1>{t.auth.title}</h1>
-		<p>{t.auth.subtitle}</p>
-
-		<form>
-			<div>
-				<label for="email">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" />
+	<main class="min-h-[calc(100vh-64px)] grid grid-cols-1 md:grid-cols-12">
+		<!-- Left: Geometric composition panel -->
+		<div class="hidden md:flex md:col-span-5 flex-col">
+			<div class="flex-1 bg-red-600 relative overflow-hidden flex items-center justify-center">
+				<div class="w-48 h-48 rounded-full border-4 border-white opacity-30"></div>
+				<div class="absolute top-8 left-8 w-16 h-16 bg-yellow-400"></div>
+				<div class="absolute bottom-12 right-12 w-20 h-20 bg-blue-600"></div>
+				<div class="absolute top-1/3 right-1/4 w-12 h-12 border-4 border-white rounded-full"></div>
 			</div>
-			<div>
-				<label for="password">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" />
-			</div>
-			<div>
-				<label>
-					<input type="checkbox" name="remember" />
-					{t.auth.rememberMe}
-				</label>
-				<a href="#">{t.auth.forgotPassword}</a>
-			</div>
-			<button type="submit">{t.auth.signIn}</button>
-		</form>
-
-		<div>
-			<p>{t.auth.continueWith}</p>
-			<div>
-				<button type="button">Google</button>
-				<button type="button">Apple</button>
+			<div class="h-4 bg-yellow-400"></div>
+			<div class="h-32 bg-blue-600 relative overflow-hidden">
+				<div class="absolute -right-4 -top-4 w-24 h-24 bg-black rounded-full opacity-30"></div>
 			</div>
 		</div>
 
-		<p>
-			{t.auth.noAccount} <a href="#">{t.auth.signUp}</a>
-		</p>
-	</section>
-</main>
+		<!-- Right: Form -->
+		<div class="md:col-span-7 flex items-center justify-center p-8 md:p-16">
+			<section class="w-full max-w-md">
+				<h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight mb-2">
+					{t.auth.title}
+				</h1>
+				<div class="w-12 h-1 bg-red-600 mb-4"></div>
+				<p class="text-base font-light text-neutral-600 mb-10">{t.auth.subtitle}</p>
+
+				<form class="flex flex-col gap-6">
+					<div>
+						<label for="email" class="block text-xs uppercase tracking-widest font-black mb-2">{t.auth.email}</label>
+						<input type="email" id="email" name="email" placeholder="you@example.com"
+							class="w-full border-2 border-black bg-white px-4 py-3 text-sm font-bold focus:border-blue-600 focus:outline-none transition-colors" />
+					</div>
+					<div>
+						<label for="password" class="block text-xs uppercase tracking-widest font-black mb-2">{t.auth.password}</label>
+						<input type="password" id="password" name="password" placeholder="••••••••"
+							class="w-full border-2 border-black bg-white px-4 py-3 text-sm font-bold focus:border-blue-600 focus:outline-none transition-colors" />
+					</div>
+					<div class="flex items-center justify-between">
+						<label class="flex items-center gap-2 cursor-pointer">
+							<input type="checkbox" name="remember" class="w-4 h-4 accent-red-600" />
+							<span class="text-xs uppercase tracking-widest font-bold">{t.auth.rememberMe}</span>
+						</label>
+						<a href="#" class="text-xs uppercase tracking-widest font-bold text-blue-600 hover:text-red-600 transition-colors">
+							{t.auth.forgotPassword}
+						</a>
+					</div>
+					<button type="submit" class="w-full bg-black text-white font-black uppercase tracking-widest py-4 text-sm border-2 border-black hover:bg-red-600 hover:border-red-600 transition-colors">
+						{t.auth.signIn}
+					</button>
+				</form>
+
+				<!-- Divider -->
+				<div class="flex items-center gap-4 my-8">
+					<div class="flex-1 h-0.5 bg-black"></div>
+					<p class="text-xs uppercase tracking-widest font-bold text-neutral-500 shrink-0">{t.auth.continueWith}</p>
+					<div class="flex-1 h-0.5 bg-black"></div>
+				</div>
+
+				<!-- Social buttons -->
+				<div class="grid grid-cols-2 gap-0">
+					<button type="button" class="border-2 border-black py-3 font-black uppercase tracking-widest text-sm hover:bg-yellow-400 transition-colors">
+						Google
+					</button>
+					<button type="button" class="border-2 border-black py-3 font-black uppercase tracking-widest text-sm hover:bg-blue-600 hover:text-white transition-colors">
+						Apple
+					</button>
+				</div>
+
+				<!-- Sign up link -->
+				<p class="mt-8 text-center text-sm">
+					<span class="font-light">{t.auth.noAccount}</span>
+					<a href="#" class="font-black uppercase tracking-widest text-red-600 hover:text-blue-600 transition-colors ml-1">{t.auth.signUp}</a>
+				</p>
+			</section>
+		</div>
+	</main>
+</div>

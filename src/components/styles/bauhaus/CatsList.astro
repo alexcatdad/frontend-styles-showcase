@@ -2,31 +2,95 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-sans">
+	<!-- Nav -->
+	<nav class="bg-black text-white flex flex-wrap items-center justify-between px-6 py-4 border-b-4 border-red-600">
+		<div class="flex items-center gap-2">
+			<div class="w-4 h-4 rounded-full bg-yellow-400"></div>
+			<div class="w-4 h-4 bg-red-600"></div>
+			<div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[14px] border-b-blue-600"></div>
+		</div>
+		<div class="flex flex-wrap gap-6">
+			{nav.map((item: any) => (
+				<a href={item.href} class="uppercase text-sm font-bold tracking-widest hover:text-yellow-400 transition-colors">{item.label}</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
+	<main>
+		<!-- Header — blue block with strong typography -->
+		<section class="bg-blue-600 text-white py-16 md:py-24 px-8 md:px-16 relative overflow-hidden">
+			<div class="max-w-6xl mx-auto relative z-10">
+				<h1 class="text-5xl md:text-7xl font-black uppercase tracking-tight leading-none mb-4">
+					{t.cats.title}
+				</h1>
+				<div class="w-20 h-1 bg-yellow-400 mb-6"></div>
+				<p class="text-lg md:text-xl font-light max-w-xl">{t.cats.subtitle}</p>
+			</div>
+			<!-- Decorative circle -->
+			<div class="absolute -right-16 -top-16 w-64 h-64 rounded-full border-4 border-white opacity-15"></div>
+			<div class="absolute right-12 bottom-8 w-12 h-12 bg-yellow-400"></div>
+		</section>
 
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
-						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
-						))}
-					</div>
-					<span>{cat.status}</span>
-				</div>
-			</a>
-		))}
-	</div>
-</main>
+		<!-- Cat cards — grid with geometric card design -->
+		<section class="bg-white py-12 md:py-20 px-8 md:px-16">
+			<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+				{cats.map((cat: any, i: number) => (
+					<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block border-2 border-black hover:border-red-600 transition-colors relative">
+						<!-- Color accent bar — cycles through primary colors -->
+						<div class:list={[
+							"h-2",
+							i % 3 === 0 && "bg-red-600",
+							i % 3 === 1 && "bg-blue-600",
+							i % 3 === 2 && "bg-yellow-400"
+						]}></div>
+
+						<div class="p-6 md:p-8">
+							<div class="flex items-start justify-between mb-4">
+								<h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight group-hover:text-red-600 transition-colors">
+									{cat.name}
+								</h2>
+								<!-- Geometric shape per card -->
+								<div class:list={[
+									"w-8 h-8 shrink-0 mt-1",
+									i % 3 === 0 && "rounded-full bg-red-600",
+									i % 3 === 1 && "bg-blue-600",
+									i % 3 === 2 && "bg-yellow-400 rotate-45"
+								]}></div>
+							</div>
+
+							<p class="text-sm uppercase tracking-widest font-bold text-neutral-500 mb-4 border-b-2 border-black pb-4">
+								{cat.breed} · {cat.age} · {cat.gender}
+							</p>
+
+							<p class="text-sm leading-relaxed mb-6 font-light">
+								{cat.description.slice(0, 100)}...
+							</p>
+
+							<!-- Personality tags -->
+							<div class="flex flex-wrap gap-2 mb-4">
+								{cat.personality.map((trait: string) => (
+									<span class="text-xs uppercase tracking-widest font-bold bg-black text-white px-3 py-1">
+										{trait}
+									</span>
+								))}
+							</div>
+
+							<!-- Status -->
+							<div class="mt-4 pt-4 border-t-2 border-black">
+								<span class:list={[
+									"text-xs uppercase tracking-widest font-black px-3 py-1",
+									cat.status === "available" && "bg-yellow-400 text-black",
+									cat.status === "adopted" && "bg-blue-600 text-white",
+									cat.status !== "available" && cat.status !== "adopted" && "bg-red-600 text-white"
+								]}>
+									{cat.status}
+								</span>
+							</div>
+						</div>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

@@ -2,57 +2,161 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
-
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
-				</div>
+<div class="min-h-screen bg-white text-black font-sans">
+	<!-- Nav -->
+	<nav class="bg-black text-white flex flex-wrap items-center justify-between px-6 py-4 border-b-4 border-red-600">
+		<div class="flex items-center gap-2">
+			<div class="w-4 h-4 rounded-full bg-yellow-400"></div>
+			<div class="w-4 h-4 bg-red-600"></div>
+			<div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[14px] border-b-blue-600"></div>
+		</div>
+		<div class="flex flex-wrap gap-6">
+			{nav.map((item: any) => (
+				<a href={item.href} class="uppercase text-sm font-bold tracking-widest hover:text-yellow-400 transition-colors">{item.label}</a>
 			))}
 		</div>
-	</section>
+	</nav>
 
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
+	<main>
+		<!-- Header — red block -->
+		<section class="bg-red-600 text-white py-16 md:py-24 px-8 md:px-16 relative overflow-hidden">
+			<div class="max-w-6xl mx-auto relative z-10">
+				<h1 class="text-5xl md:text-7xl font-black uppercase tracking-tight leading-none mb-4">
+					{t.donate.title}
+				</h1>
+				<div class="w-20 h-1 bg-yellow-400 mb-6"></div>
+				<p class="text-lg md:text-xl font-light max-w-xl">{t.donate.subtitle}</p>
+			</div>
+			<div class="absolute -left-8 -bottom-8 w-48 h-48 rounded-full border-4 border-white opacity-15"></div>
+			<div class="absolute right-8 top-8 w-10 h-10 bg-blue-600"></div>
+		</section>
+
+		<!-- Monthly tiers -->
+		<section class="bg-white py-12 md:py-20 px-8 md:px-16">
+			<div class="max-w-6xl mx-auto">
+				<div class="flex items-center gap-4 mb-10">
+					<div class="w-8 h-8 bg-blue-600"></div>
+					<h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">{t.donate.monthly}</h2>
 				</div>
-			))}
-		</div>
-	</section>
-</main>
+
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+					{monthlyTiers.map((tier: any, i: number) => (
+						<div class:list={[
+							"border-2 border-black flex flex-col relative",
+							tier.highlighted ? "bg-black text-white" : "bg-white text-black"
+						]}>
+							{tier.highlighted && (
+								<div class="bg-yellow-400 text-black text-xs uppercase tracking-widest font-black text-center py-2">
+									{t.donate.mostPopular}
+								</div>
+							)}
+
+							<div class="p-6 md:p-8 flex flex-col flex-1">
+								<!-- Geometric accent -->
+								<div class:list={[
+									"w-8 h-8 mb-4",
+									i % 3 === 0 && "rounded-full bg-red-600",
+									i % 3 === 1 && "bg-blue-600",
+									i % 3 === 2 && "bg-yellow-400"
+								]}></div>
+
+								<h3 class="text-xl font-black uppercase tracking-tight mb-2">{tier.name}</h3>
+
+								<p class="mb-4">
+									<span class="text-4xl md:text-5xl font-black">${tier.amount}</span>
+									<span class="text-sm uppercase tracking-widest font-bold opacity-60">{t.donate.perMonth}</span>
+								</p>
+
+								<p class:list={[
+									"text-sm font-light leading-relaxed mb-6",
+									tier.highlighted ? "text-neutral-300" : "text-neutral-600"
+								]}>{tier.description}</p>
+
+								<ul class="flex flex-col gap-2 mb-8 flex-1">
+									{tier.perks.map((perk: string) => (
+										<li class="flex items-start gap-2 text-sm">
+											<div class:list={[
+												"w-2 h-2 shrink-0 mt-1.5",
+												tier.highlighted ? "bg-yellow-400" : "bg-red-600"
+											]}></div>
+											{perk}
+										</li>
+									))}
+								</ul>
+
+								<button type="button" class:list={[
+									"w-full uppercase tracking-widest font-black text-sm py-4 border-2 transition-colors",
+									tier.highlighted
+										? "bg-yellow-400 text-black border-yellow-400 hover:bg-white hover:border-white"
+										: "bg-black text-white border-black hover:bg-red-600 hover:border-red-600"
+								]}>
+									{t.donate.choose} {tier.name}
+								</button>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- One-time tiers -->
+		<section class="bg-black text-white py-12 md:py-20 px-8 md:px-16">
+			<div class="max-w-6xl mx-auto">
+				<div class="flex items-center gap-4 mb-10">
+					<div class="w-8 h-8 rounded-full bg-yellow-400"></div>
+					<h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">{t.donate.oneTime}</h2>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+					{oneTimeTiers.map((tier: any, i: number) => (
+						<div class:list={[
+							"border-2 flex flex-col relative",
+							tier.highlighted ? "border-yellow-400 bg-neutral-900" : "border-white bg-black"
+						]}>
+							{tier.highlighted && (
+								<div class="bg-red-600 text-white text-xs uppercase tracking-widest font-black text-center py-2">
+									{t.donate.greatestImpact}
+								</div>
+							)}
+
+							<div class="p-6 md:p-8 flex flex-col flex-1">
+								<div class:list={[
+									"w-8 h-8 mb-4",
+									i % 3 === 0 && "bg-red-600",
+									i % 3 === 1 && "rounded-full bg-blue-600",
+									i % 3 === 2 && "bg-yellow-400 rotate-45"
+								]}></div>
+
+								<h3 class="text-xl font-black uppercase tracking-tight mb-2">{tier.name}</h3>
+
+								<p class="mb-4">
+									<span class="text-4xl md:text-5xl font-black">${tier.amount}</span>
+								</p>
+
+								<p class="text-sm font-light leading-relaxed mb-6 text-neutral-400">{tier.description}</p>
+
+								<ul class="flex flex-col gap-2 mb-8 flex-1">
+									{tier.perks.map((perk: string) => (
+										<li class="flex items-start gap-2 text-sm">
+											<div class="w-2 h-2 bg-yellow-400 shrink-0 mt-1.5"></div>
+											{perk}
+										</li>
+									))}
+								</ul>
+
+								<button type="button" class:list={[
+									"w-full uppercase tracking-widest font-black text-sm py-4 border-2 transition-colors",
+									tier.highlighted
+										? "bg-yellow-400 text-black border-yellow-400 hover:bg-red-600 hover:text-white hover:border-red-600"
+										: "bg-white text-black border-white hover:bg-blue-600 hover:text-white hover:border-blue-600"
+								]}>
+									{t.donate.give} ${tier.amount}
+								</button>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+</div>
