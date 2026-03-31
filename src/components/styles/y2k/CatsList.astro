@@ -2,31 +2,46 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100">
+	<!-- Nav -->
+	<nav class="sticky top-0 z-50 bg-gradient-to-r from-slate-200/80 via-white/80 to-slate-300/80 backdrop-blur-md border-b border-white/60 shadow-lg shadow-purple-200/30">
+		<div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-center gap-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="px-5 py-2 rounded-full bg-gradient-to-b from-white via-slate-100 to-slate-200 text-slate-600 text-sm font-medium shadow-md shadow-purple-200/40 hover:shadow-lg hover:shadow-pink-300/40 hover:from-pink-100 hover:to-purple-100 transition-all duration-300 border border-white/80">{item.label}</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
+	<main class="max-w-6xl mx-auto px-4 py-8">
+		<!-- Header -->
+		<div class="text-center mb-12">
+			<p class="text-purple-300 text-lg tracking-widest mb-2">✦ ⋆ ✧ ⋆ ✦</p>
+			<h1 class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-300 to-blue-400 bg-clip-text text-transparent mb-4">{t.cats.title}</h1>
+			<p class="text-slate-400 text-lg max-w-xl mx-auto">{t.cats.subtitle}</p>
+		</div>
 
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
-						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
-						))}
+		<!-- Cat Grid -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			{cats.map((cat: any) => (
+				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block rounded-3xl bg-gradient-to-br from-slate-200 via-white to-slate-300 border border-white/80 shadow-lg shadow-purple-200/30 hover:shadow-2xl hover:shadow-pink-300/40 transition-all duration-300 hover:scale-[1.03] overflow-hidden">
+					<div class="relative p-6">
+						<div class="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/50 to-transparent rounded-t-3xl pointer-events-none"></div>
+						<div class="relative">
+							<div class="flex items-center justify-between mb-3">
+								<h2 class="text-xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">{cat.name}</h2>
+								<span class="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-pink-200 to-purple-200 text-purple-600 shadow-sm">{cat.status}</span>
+							</div>
+							<p class="text-slate-400 text-sm mb-3">{cat.breed} · {cat.age} · {cat.gender}</p>
+							<p class="text-slate-500 text-sm leading-relaxed mb-4">{cat.description.slice(0, 100)}...</p>
+							<div class="flex flex-wrap gap-2">
+								{cat.personality.map((trait: string) => (
+									<span class="px-3 py-1 rounded-full text-xs bg-gradient-to-r from-blue-100 to-purple-100 text-purple-500 border border-purple-200/50 shadow-sm">{trait}</span>
+								))}
+							</div>
+						</div>
 					</div>
-					<span>{cat.status}</span>
-				</div>
-			</a>
-		))}
-	</div>
-</main>
+				</a>
+			))}
+		</div>
+	</main>
+</div>
