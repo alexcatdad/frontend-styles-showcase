@@ -1,0 +1,23 @@
+{
+	"name": "frontend-styles-showcase",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"check": "biome check .",
+		"check:fix": "biome check --fix .",
+		"format": "biome format --fix ."
+	},
+	"dependencies": {
+		"astro": "^6.1.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.10"
+	}
+}
