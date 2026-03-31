@@ -2,31 +2,78 @@
 const { lang, style, nav, posts, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.blog.title}</h1>
-	<p>{t.blog.subtitle}</p>
-
-	<div>
-		{posts.map((post: any) => (
-			<a href={`/${lang}/${style}/blog/${post.slug}`}>
-				<article>
-					<time datetime={post.date}>{post.date}</time>
-					<h2>{post.title}</h2>
-					<p>{post.excerpt}</p>
-					<div>
-						{post.tags.map((tag: string) => (
-							<span>{tag}</span>
-						))}
-					</div>
-					<span>{t.blog.by} {post.author}</span>
-				</article>
+<div class="min-h-screen bg-white font-sans">
+	<!-- Navigation bar -->
+	<nav class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-1 flex flex-wrap items-center justify-center gap-1">
+		{nav.map((item: any) => (
+			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 px-3 py-1 text-sm font-bold text-blue-800 no-underline hover:bg-gray-200 active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white">
+				{item.label}
 			</a>
 		))}
+	</nav>
+
+	<!-- Banner -->
+	<div class="bg-blue-700 text-yellow-300 text-center py-2 font-bold text-lg tracking-widest">
+		<span>~*~ Cat Sanctuary Blog ~*~</span>
 	</div>
-</main>
+
+	<main class="max-w-3xl mx-auto px-2 py-4">
+		<!-- Page header -->
+		<div class="text-center mb-4">
+			<h1 class="text-3xl md:text-4xl font-bold text-fuchsia-700 mb-2">{t.blog.title}</h1>
+			<p class="text-lg text-blue-800 font-bold">{t.blog.subtitle}</p>
+		</div>
+
+		<hr class="border-t-2 border-gray-400 my-4" />
+
+		<!-- New badge -->
+		<div class="text-center mb-4">
+			<span class="inline-block bg-red-600 text-white font-bold text-xs px-3 py-1 border-2 border-yellow-400 animate-pulse">*** LATEST POSTS ***</span>
+		</div>
+
+		<!-- Blog posts list -->
+		<div class="space-y-4">
+			{posts.map((post: any) => (
+				<a href={`/${lang}/${style}/blog/${post.slug}`} class="no-underline block group">
+					<article class="bg-gray-200 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 hover:bg-gray-100">
+						<!-- Title bar like a window -->
+						<div class="bg-blue-700 text-white px-3 py-2 flex items-center justify-between">
+							<h2 class="text-lg font-bold">{post.title}</h2>
+							<div class="flex gap-1">
+								<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
+								<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
+							</div>
+						</div>
+
+						<!-- Post content -->
+						<div class="p-3">
+							<time datetime={post.date} class="text-xs font-bold text-gray-500 block mb-1">{post.date}</time>
+							<p class="text-sm text-gray-700 mb-2">{post.excerpt}</p>
+
+							<!-- Tags -->
+							<div class="flex flex-wrap gap-1 mb-2">
+								{post.tags.map((tag: string) => (
+									<span class="bg-yellow-300 text-black text-xs font-bold px-2 py-0.5 border border-yellow-600">{tag}</span>
+								))}
+							</div>
+
+							<div class="flex items-center justify-between">
+								<span class="text-xs text-gray-600 font-bold">{t.blog.by} {post.author}</span>
+								<span class="text-blue-700 text-xs font-bold underline group-hover:text-fuchsia-600">Read More &gt;&gt;</span>
+							</div>
+						</div>
+					</article>
+				</a>
+			))}
+		</div>
+
+		<hr class="border-t-2 border-gray-400 my-6" />
+
+		<!-- Visitor counter -->
+		<div class="text-center mb-4">
+			<div class="inline-block bg-black text-lime-400 font-mono text-xs px-3 py-1 border-2 border-gray-500">
+				Page hits: 009{posts.length}47
+			</div>
+		</div>
+	</main>
+</div>

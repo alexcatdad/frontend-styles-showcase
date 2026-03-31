@@ -2,43 +2,78 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white font-sans">
+	<!-- Navigation bar -->
+	<nav class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-1 flex flex-wrap items-center justify-center gap-1">
+		{nav.map((item: any) => (
+			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 px-3 py-1 text-sm font-bold text-blue-800 no-underline hover:bg-gray-200 active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white">
+				{item.label}
+			</a>
+		))}
+	</nav>
 
-<main>
-	<a href={`/${lang}/${style}/blog`}>&larr; {t.blog.backToBlog}</a>
+	<main class="max-w-3xl mx-auto px-2 py-4">
+		<!-- Back link -->
+		<a href={`/${lang}/${style}/blog`} class="text-blue-700 font-bold underline hover:text-fuchsia-600 text-sm">&larr; {t.blog.backToBlog}</a>
 
-	<article>
-		<header>
-			<time datetime={post.date}>{post.date}</time>
-			<h1>{post.title}</h1>
-			<span>{t.blog.by} {post.author}</span>
-			<div>
-				{post.tags.map((tag: string) => (
-					<span>{tag}</span>
+		<hr class="border-t-2 border-gray-400 my-3" />
+
+		<article>
+			<!-- Post header - window title bar style -->
+			<header class="mb-4">
+				<div class="bg-blue-700 text-white px-4 py-3 border-t-2 border-l-2 border-blue-400 border-b-2 border-r-2 border-b-blue-900 border-r-blue-900">
+					<div class="flex items-center justify-between mb-1">
+						<time datetime={post.date} class="text-xs text-blue-200 font-bold">{post.date}</time>
+						<div class="flex gap-1">
+							<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
+							<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
+							<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
+						</div>
+					</div>
+					<h1 class="text-2xl md:text-3xl font-bold">{post.title}</h1>
+				</div>
+
+				<!-- Author and tags bar -->
+				<div class="bg-gray-200 border-b-2 border-l-2 border-r-2 border-gray-400 px-4 py-2">
+					<span class="text-sm font-bold text-gray-700">{t.blog.by} {post.author}</span>
+					<div class="flex flex-wrap gap-1 mt-2">
+						{post.tags.map((tag: string) => (
+							<span class="bg-lime-300 text-black text-xs font-bold px-2 py-0.5 border border-lime-600">{tag}</span>
+						))}
+					</div>
+				</div>
+			</header>
+
+			<!-- Sparkle divider -->
+			<p class="text-center text-sm text-fuchsia-500 mb-4">* ~ * ~ * ~ * ~ * ~ * ~ *</p>
+
+			<!-- Post content -->
+			<div class="bg-gray-100 border-t-2 border-l-2 border-gray-400 border-b-2 border-r-2 border-b-white border-r-white p-4 mb-4">
+				{post.content.map((paragraph: string) => (
+					<p class="text-gray-800 mb-4 leading-relaxed text-lg">{paragraph}</p>
 				))}
 			</div>
-		</header>
+		</article>
 
-		<div>
-			{post.content.map((paragraph: string) => (
-				<p>{paragraph}</p>
-			))}
-		</div>
-	</article>
+		<hr class="border-t-4 border-double border-gray-400 my-6" />
 
-	<section>
-		<h2>{t.blog.moreStories}</h2>
-		<div>
-			{otherPosts.map((p: any) => (
-				<a href={`/${lang}/${style}/blog/${p.slug}`}>
-					<h3>{p.title}</h3>
-					<p>{p.excerpt}</p>
-				</a>
-			))}
-		</div>
-	</section>
-</main>
+		<!-- More stories section -->
+		<section>
+			<h2 class="text-2xl font-bold text-center text-fuchsia-700 mb-4 underline">{t.blog.moreStories}</h2>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+				{otherPosts.map((p: any) => (
+					<a href={`/${lang}/${style}/blog/${p.slug}`} class="no-underline block group">
+						<div class="bg-yellow-100 border-2 border-gray-500 p-3 hover:bg-yellow-50">
+							<h3 class="text-base font-bold text-blue-800 group-hover:text-fuchsia-600 mb-1">{p.title}</h3>
+							<p class="text-xs text-gray-600">{p.excerpt}</p>
+							<p class="text-xs text-blue-700 font-bold mt-2 underline">Read This &gt;&gt;</p>
+						</div>
+					</a>
+				))}
+			</div>
+		</section>
+
+		<hr class="border-t-2 border-gray-400 my-4" />
+	</main>
+</div>

@@ -2,31 +2,66 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
-
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
-						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
-						))}
-					</div>
-					<span>{cat.status}</span>
-				</div>
+<div class="min-h-screen bg-white font-sans">
+	<!-- Navigation bar - Win95 beveled look -->
+	<nav class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-1 flex flex-wrap items-center justify-center gap-1">
+		{nav.map((item: any) => (
+			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 px-3 py-1 text-sm font-bold text-blue-800 no-underline hover:bg-gray-200 active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white">
+				{item.label}
 			</a>
 		))}
+	</nav>
+
+	<!-- Marquee banner -->
+	<div class="bg-fuchsia-600 text-yellow-300 text-center py-2 font-bold text-lg tracking-widest">
+		<span>~*~ Meet Our Cats! ~*~</span>
 	</div>
-</main>
+
+	<main class="max-w-4xl mx-auto px-2 py-4">
+		<!-- Page header -->
+		<div class="text-center mb-4">
+			<h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2">{t.cats.title}</h1>
+			<p class="text-lg text-fuchsia-600 font-bold">{t.cats.subtitle}</p>
+		</div>
+
+		<hr class="border-t-2 border-gray-400 my-4" />
+
+		<!-- Cats grid - table-style layout -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			{cats.map((cat: any) => (
+				<a href={`/${lang}/${style}/cats/${cat.id}`} class="no-underline block group">
+					<div class="bg-gray-200 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-0 hover:bg-gray-100">
+						<!-- Cat name header bar -->
+						<div class="bg-blue-700 text-white px-3 py-2 flex items-center justify-between">
+							<h2 class="text-lg font-bold">{cat.name}</h2>
+							<span class="bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 border border-yellow-600">{cat.status}</span>
+						</div>
+
+						<!-- Cat details in table format -->
+						<div class="p-3">
+							<p class="text-sm font-bold text-gray-700 mb-2">{cat.breed} &middot; {cat.age} &middot; {cat.gender}</p>
+							<p class="text-sm text-gray-600 mb-3">{cat.description.slice(0, 100)}...</p>
+
+							<!-- Personality traits as badges -->
+							<div class="flex flex-wrap gap-1 mb-2">
+								{cat.personality.map((trait: string) => (
+									<span class="bg-lime-300 text-black text-xs font-bold px-2 py-0.5 border border-lime-600">{trait}</span>
+								))}
+							</div>
+
+							<!-- Click to view link -->
+							<p class="text-blue-700 text-sm font-bold underline group-hover:text-fuchsia-600">Click here to learn more &gt;&gt;</p>
+						</div>
+					</div>
+				</a>
+			))}
+		</div>
+
+		<hr class="border-t-2 border-gray-400 my-6" />
+
+		<!-- Under construction notice -->
+		<div class="text-center mb-4">
+			<span class="inline-block bg-red-600 text-white font-bold text-xs px-3 py-1 border-2 border-yellow-400">More cats coming soon!</span>
+		</div>
+	</main>
+</div>
