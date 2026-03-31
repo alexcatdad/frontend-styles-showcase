@@ -2,78 +2,135 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-white font-sans">
-	<!-- Navigation bar -->
-	<nav class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-1 flex flex-wrap items-center justify-center gap-1">
+<div class="min-h-screen bg-gray-300 font-mono text-center">
+
+	<!-- Browser Chrome Title Bar -->
+	<div class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 text-white px-3 py-1.5 flex items-center justify-between border-b-2 border-blue-900">
+		<span class="text-xs font-bold tracking-wide">:// {post.title} - Netscape Navigator</span>
+		<div class="flex gap-1">
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">_</span>
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">&square;</span>
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">X</span>
+		</div>
+	</div>
+
+	<!-- Navigation -->
+	<nav class="bg-gray-400 border-t-2 border-l-2 border-gray-200 border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 p-2 flex flex-wrap items-center justify-center gap-1.5">
 		{nav.map((item: any) => (
-			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 px-3 py-1 text-sm font-bold text-blue-800 no-underline hover:bg-gray-200 active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white">
+			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-700 border-r-gray-700 px-4 py-1.5 text-xs font-bold text-blue-900 no-underline uppercase tracking-wider hover:bg-gray-200 active:border-t-gray-700 active:border-l-gray-700 active:border-b-white active:border-r-white">
 				{item.label}
 			</a>
 		))}
 	</nav>
 
-	<main class="max-w-3xl mx-auto px-2 py-4">
+	<div class="max-w-4xl mx-auto px-2 py-4">
+
 		<!-- Back link -->
-		<a href={`/${lang}/${style}/blog`} class="text-blue-700 font-bold underline hover:text-fuchsia-600 text-sm">&larr; {t.blog.backToBlog}</a>
+		<div class="text-left mb-3">
+			<a href={`/${lang}/${style}/blog`} class="text-blue-700 font-bold underline text-xs hover:text-fuchsia-600">&lt;&lt; {t.blog.backToBlog} &lt;&lt;</a>
+		</div>
 
-		<hr class="border-t-2 border-gray-400 my-3" />
-
+		<!-- ===== POST HEADER: Full Win95 Window ===== -->
 		<article>
-			<!-- Post header - window title bar style -->
-			<header class="mb-4">
-				<div class="bg-blue-700 text-white px-4 py-3 border-t-2 border-l-2 border-blue-400 border-b-2 border-r-2 border-b-blue-900 border-r-blue-900">
-					<div class="flex items-center justify-between mb-1">
-						<time datetime={post.date} class="text-xs text-blue-200 font-bold">{post.date}</time>
-						<div class="flex gap-1">
-							<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
-							<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
-							<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
-						</div>
+			<header class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300 mb-4">
+				<!-- Title bar -->
+				<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-3 py-1.5 flex items-center justify-between">
+					<span class="text-xs font-bold truncate mr-2">{post.title}</span>
+					<div class="flex gap-0.5 shrink-0">
+						<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">_</span>
+						<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">&square;</span>
+						<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">X</span>
 					</div>
-					<h1 class="text-2xl md:text-3xl font-bold">{post.title}</h1>
 				</div>
 
-				<!-- Author and tags bar -->
-				<div class="bg-gray-200 border-b-2 border-l-2 border-r-2 border-gray-400 px-4 py-2">
-					<span class="text-sm font-bold text-gray-700">{t.blog.by} {post.author}</span>
-					<div class="flex flex-wrap gap-1 mt-2">
+				<!-- Menu bar -->
+				<div class="bg-gray-300 border-b border-gray-400 px-2 py-0.5 flex gap-3 text-[10px] font-bold text-gray-700">
+					<span class="underline">F</span><span>ile</span>
+					<span class="underline">E</span><span>dit</span>
+					<span class="underline">V</span><span>iew</span>
+					<span class="underline">H</span><span>elp</span>
+				</div>
+
+				<!-- Post title area -->
+				<div class="bg-white m-1 border-t-2 border-l-2 border-gray-500 border-b-2 border-r-2 border-b-white border-r-white p-4">
+					<h1 class="text-2xl md:text-3xl font-bold text-fuchsia-700 mb-2 drop-shadow">{post.title}</h1>
+
+					<!-- Meta info table -->
+					<div class="border-2 border-gray-500 inline-block">
+						<div class="grid grid-cols-[auto_auto]">
+							<div class="bg-blue-700 text-white font-bold px-2 py-1 text-[10px] border border-blue-500">Date:</div>
+							<div class="bg-yellow-50 px-2 py-1 text-[10px] font-bold border border-gray-400">
+								<time datetime={post.date}>{post.date}</time>
+							</div>
+							<div class="bg-blue-700 text-white font-bold px-2 py-1 text-[10px] border border-blue-500">Author:</div>
+							<div class="bg-white px-2 py-1 text-[10px] font-bold border border-gray-400">{post.author}</div>
+						</div>
+					</div>
+
+					<!-- Tags -->
+					<div class="flex flex-wrap gap-1 mt-3 justify-center">
 						{post.tags.map((tag: string) => (
-							<span class="bg-lime-300 text-black text-xs font-bold px-2 py-0.5 border border-lime-600">{tag}</span>
+							<span class="bg-lime-300 text-black text-[10px] font-bold px-2 py-0.5 border border-lime-700">{tag}</span>
 						))}
 					</div>
 				</div>
 			</header>
 
 			<!-- Sparkle divider -->
-			<p class="text-center text-sm text-fuchsia-500 mb-4">* ~ * ~ * ~ * ~ * ~ * ~ *</p>
+			<p class="text-xs text-fuchsia-500 my-3">*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*</p>
 
-			<!-- Post content -->
-			<div class="bg-gray-100 border-t-2 border-l-2 border-gray-400 border-b-2 border-r-2 border-b-white border-r-white p-4 mb-4">
-				{post.content.map((paragraph: string) => (
-					<p class="text-gray-800 mb-4 leading-relaxed text-lg">{paragraph}</p>
-				))}
+			<!-- ===== POST CONTENT: Inset frame ===== -->
+			<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300 mb-4">
+				<div class="bg-gradient-to-r from-fuchsia-700 to-fuchsia-500 text-white px-3 py-1 text-xs font-bold">
+					Article Content
+				</div>
+				<div class="bg-white m-1 border-t-2 border-l-2 border-gray-500 border-b-2 border-r-2 border-b-white border-r-white p-4 text-left">
+					{post.content.map((paragraph: string, i: number) => (
+						<>
+							<p class="text-gray-800 mb-3 leading-relaxed text-sm">{paragraph}</p>
+							{i < post.content.length - 1 && i % 2 === 1 && (
+								<p class="text-center text-[10px] text-blue-500 my-2">- - - - -</p>
+							)}
+						</>
+					))}
+				</div>
 			</div>
 		</article>
 
-		<hr class="border-t-4 border-double border-gray-400 my-6" />
+		<hr class="border-t-4 border-double border-gray-500 my-4" />
 
-		<!-- More stories section -->
-		<section>
-			<h2 class="text-2xl font-bold text-center text-fuchsia-700 mb-4 underline">{t.blog.moreStories}</h2>
-
-			<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-				{otherPosts.map((p: any) => (
-					<a href={`/${lang}/${style}/blog/${p.slug}`} class="no-underline block group">
-						<div class="bg-yellow-100 border-2 border-gray-500 p-3 hover:bg-yellow-50">
-							<h3 class="text-base font-bold text-blue-800 group-hover:text-fuchsia-600 mb-1">{p.title}</h3>
-							<p class="text-xs text-gray-600">{p.excerpt}</p>
-							<p class="text-xs text-blue-700 font-bold mt-2 underline">Read This &gt;&gt;</p>
-						</div>
-					</a>
-				))}
+		<!-- ===== MORE STORIES: Grid of framed links ===== -->
+		<section class="mb-4">
+			<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300">
+				<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-yellow-300 px-3 py-1.5 text-sm font-bold flex items-center justify-between">
+					<span>{t.blog.moreStories}</span>
+					<div class="flex gap-0.5">
+						<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">_</span>
+						<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">X</span>
+					</div>
+				</div>
+				<div class="p-2 bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white">
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+						{otherPosts.map((p: any, i: number) => (
+							<a href={`/${lang}/${style}/blog/${p.slug}`} class="no-underline block group">
+								<div class={`border-2 border-gray-500 p-2 text-left hover:bg-fuchsia-50 ${i % 2 === 0 ? 'bg-yellow-50' : 'bg-cyan-50'}`}>
+									<h3 class="text-xs font-bold text-blue-800 group-hover:text-fuchsia-600 mb-1">{p.title}</h3>
+									<p class="text-[10px] text-gray-600 line-clamp-2 mb-1">{p.excerpt}</p>
+									<p class="text-[10px] text-blue-700 font-bold underline">Click Here to Read!! &gt;&gt;</p>
+								</div>
+							</a>
+						))}
+					</div>
+				</div>
 			</div>
 		</section>
 
-		<hr class="border-t-2 border-gray-400 my-4" />
-	</main>
+		<!-- Footer badges -->
+		<div class="flex flex-wrap items-center justify-center gap-3 mb-3">
+			<div class="bg-black text-lime-400 font-mono text-[10px] px-3 py-1 border border-gray-600">
+				Article reads: 00247
+			</div>
+			<span class="bg-yellow-400 text-black font-bold text-[10px] px-2 py-1 border-2 border-yellow-700">Sign our Guestbook!</span>
+		</div>
+	</div>
 </div>
