@@ -2,20 +2,35 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav class="bg-black border-b-4 border-yellow-400 px-4 py-3 flex flex-wrap items-center gap-2 font-mono sticky top-0 z-50">
-	{nav.map((item: any) => (
-		<a href={item.href} class="text-yellow-400 uppercase font-black text-sm md:text-base tracking-widest border-2 border-yellow-400 px-3 py-1 hover:bg-yellow-400 hover:text-black transition-none cursor-pointer">{item.label}</a>
-	))}
-</nav>
+<main class="bg-black font-mono text-white min-h-screen overflow-x-hidden relative">
+	<!-- 404: TAKES OVER EVERYTHING -->
+	<div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+		<span class="text-[12rem] md:text-[24rem] lg:text-[36rem] font-black leading-none tracking-tighter text-red-600 opacity-20">{t.notFound.title}</span>
+	</div>
 
-<main class="bg-white font-mono text-black min-h-screen flex items-center justify-center px-4">
-	<section class="text-center max-w-3xl">
-		<h1 class="text-8xl md:text-[12rem] lg:text-[16rem] font-black leading-none tracking-tighter text-red-600">{t.notFound.title}</h1>
-		<h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter mt-4 bg-black text-white px-4 py-2 inline-block">{t.notFound.heading}</h2>
-		<p class="text-base md:text-xl font-bold mt-6 border-l-4 border-black pl-4 text-left">{t.notFound.description}</p>
-		<div class="flex flex-wrap gap-4 mt-8 justify-center">
-			<a href={`/${lang}/${style}/`} class="bg-black text-white uppercase font-black text-lg px-6 py-3 border-4 border-black hover:bg-yellow-400 hover:text-black transition-none cursor-pointer tracking-wider">{t.notFound.backHome}</a>
-			<a href={`/${lang}/${style}/cats`} class="bg-red-600 text-white uppercase font-black text-lg px-6 py-3 border-4 border-black hover:bg-yellow-400 hover:text-black transition-none cursor-pointer tracking-wider">{t.notFound.meetCats}</a>
+	<!-- CONTENT: SCATTERED ACROSS THE VOID -->
+	<div class="relative z-10 min-h-screen flex flex-col justify-between px-4 py-8">
+		<div class="mt-16 md:mt-24">
+			<h1 class="text-6xl md:text-8xl lg:text-9xl font-black uppercase leading-none tracking-tighter text-red-600">{t.notFound.title}</h1>
+			<h2 class="text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter mt-4 md:mt-6 text-yellow-400">{t.notFound.heading}</h2>
 		</div>
-	</section>
+
+		<div class="md:ml-auto md:max-w-xl md:mr-16 my-12">
+			<p class="text-base md:text-xl lg:text-2xl font-black uppercase leading-relaxed border-l-8 border-red-600 pl-4 md:pl-6">{t.notFound.description}</p>
+		</div>
+
+		<div class="flex flex-col sm:flex-row gap-4 mb-8 md:mb-16">
+			<a href={`/${lang}/${style}/`} class="bg-yellow-400 text-black uppercase font-black text-lg md:text-2xl px-6 md:px-10 py-4 md:py-5 border-4 border-yellow-400 hover:bg-white hover:border-white cursor-pointer tracking-[0.2em] text-center">{t.notFound.backHome}</a>
+			<a href={`/${lang}/${style}/cats`} class="bg-red-600 text-white uppercase font-black text-lg md:text-2xl px-6 md:px-10 py-4 md:py-5 border-4 border-red-600 hover:bg-yellow-400 hover:text-black hover:border-yellow-400 cursor-pointer tracking-[0.2em] text-center">{t.notFound.meetCats}</a>
+		</div>
+	</div>
 </main>
+
+<!-- NAV AT BOTTOM -->
+<nav class="bg-black border-t-8 border-red-600 px-4 py-6 font-mono">
+	<div class="flex flex-wrap gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-red-500 uppercase font-black text-xs md:text-sm tracking-[0.3em] hover:text-white cursor-pointer">{item.label}</a>
+		))}
+	</div>
+</nav>

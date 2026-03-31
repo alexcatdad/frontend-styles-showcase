@@ -2,57 +2,85 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<nav class="bg-black border-b-4 border-yellow-400 px-4 py-3 flex flex-wrap items-center gap-2 font-mono sticky top-0 z-50">
-	{nav.map((item: any) => (
-		<a href={item.href} class="text-yellow-400 uppercase font-black text-sm md:text-base tracking-widest border-2 border-yellow-400 px-3 py-1 hover:bg-yellow-400 hover:text-black transition-none cursor-pointer">{item.label}</a>
-	))}
-</nav>
+<main class="bg-white font-mono text-black overflow-x-hidden">
+	<!-- CAT NAME: TAKES OVER THE VIEWPORT -->
+	<section class="relative bg-black text-white px-4 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
+		<a href={`/${lang}/${style}/cats`} class="inline-block text-yellow-400 uppercase font-black text-xs tracking-[0.3em] mb-8 hover:text-white cursor-pointer border-b-2 border-yellow-400 hover:border-white pb-1">&larr; {t.cats.backToAll}</a>
+		<h1 class="text-7xl md:text-9xl lg:text-[14rem] font-black uppercase leading-none tracking-tighter text-white">{cat.name}</h1>
+		<span class="absolute top-4 right-4 md:top-8 md:right-8 bg-red-600 text-white text-xs md:text-sm font-black uppercase px-4 py-2 tracking-[0.3em] border-4 border-red-600 rotate-3">{cat.status}</span>
+	</section>
 
-<main class="bg-white font-mono text-black min-h-screen">
-	<div class="max-w-5xl mx-auto px-4 py-6">
-		<a href={`/${lang}/${style}/cats`} class="inline-block bg-black text-white uppercase font-black text-sm px-4 py-2 border-4 border-black hover:bg-yellow-400 hover:text-black transition-none cursor-pointer tracking-wider">&larr; {t.cats.backToAll}</a>
-	</div>
-
-	<article class="max-w-5xl mx-auto px-4 pb-12">
-		<h1 class="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter border-b-4 border-black pb-4">{cat.name}</h1>
-
-		<dl class="grid grid-cols-2 md:grid-cols-3 gap-0 mt-6 border-4 border-black">
-			<dt class="bg-black text-white font-black uppercase text-sm px-3 py-2 tracking-widest border-b-2 border-white">{t.cats.breed}</dt>
-			<dd class="font-bold px-3 py-2 border-b-2 border-black col-span-1 md:col-span-2">{cat.breed}</dd>
-			<dt class="bg-black text-white font-black uppercase text-sm px-3 py-2 tracking-widest border-b-2 border-white">{t.cats.age}</dt>
-			<dd class="font-bold px-3 py-2 border-b-2 border-black col-span-1 md:col-span-2">{cat.age}</dd>
-			<dt class="bg-black text-white font-black uppercase text-sm px-3 py-2 tracking-widest border-b-2 border-white">{t.cats.gender}</dt>
-			<dd class="font-bold px-3 py-2 border-b-2 border-black col-span-1 md:col-span-2">{cat.gender}</dd>
-			<dt class="bg-black text-white font-black uppercase text-sm px-3 py-2 tracking-widest border-b-2 border-white">{t.cats.color}</dt>
-			<dd class="font-bold px-3 py-2 border-b-2 border-black col-span-1 md:col-span-2">{cat.color}</dd>
-			<dt class="bg-black text-white font-black uppercase text-sm px-3 py-2 tracking-widest border-b-2 border-white">{t.cats.arrived}</dt>
-			<dd class="font-bold px-3 py-2 border-b-2 border-black col-span-1 md:col-span-2">{cat.arrivalDate}</dd>
-			<dt class="bg-black text-white font-black uppercase text-sm px-3 py-2 tracking-widest">{t.cats.status}</dt>
-			<dd class="font-bold px-3 py-2 col-span-1 md:col-span-2">{cat.status}</dd>
-		</dl>
-
-		<div class="flex flex-wrap gap-2 mt-6">
-			{cat.personality.map((trait: string) => (
-				<span class="bg-yellow-400 text-black text-sm font-black uppercase px-3 py-1 border-4 border-black tracking-wider cursor-pointer hover:bg-black hover:text-yellow-400 transition-none">{trait}</span>
-			))}
-		</div>
-
-		<p class="text-base md:text-lg mt-8 leading-relaxed border-l-4 border-black pl-4 font-mono">{cat.description}</p>
-
-		<a href={`/${lang}/${style}/auth`} class="inline-block mt-8 bg-red-600 text-white uppercase font-black text-xl px-8 py-4 border-4 border-black hover:bg-yellow-400 hover:text-black transition-none cursor-pointer tracking-wider">{t.cats.adopt} {cat.name}</a>
-	</article>
-
-	<section class="border-t-4 border-black px-4 py-12 bg-black text-white">
-		<div class="max-w-5xl mx-auto">
-			<h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter border-b-4 border-yellow-400 pb-2 inline-block text-yellow-400">{t.cats.otherCats}</h2>
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-0 mt-8">
-				{otherCats.map((c: any) => (
-					<a href={`/${lang}/${style}/cats/${c.id}`} class="block border-2 border-white p-4 hover:bg-yellow-400 hover:text-black hover:border-yellow-400 transition-none cursor-pointer">
-						<h3 class="text-xl font-black uppercase tracking-tighter">{c.name}</h3>
-						<p class="text-sm font-bold uppercase tracking-wider mt-1">{c.breed} // {c.age}</p>
-					</a>
-				))}
+	<!-- DATA DUMP: RAW, ASYMMETRIC -->
+	<section class="border-t-8 border-yellow-400 bg-yellow-400 px-4 py-8 md:py-12">
+		<div class="grid grid-cols-2 md:grid-cols-3 gap-0">
+			<div class="border-4 border-black bg-black text-yellow-400 p-3 md:p-6">
+				<span class="block text-xs font-black uppercase tracking-[0.2em]">{t.cats.breed}</span>
+				<span class="block text-lg md:text-2xl font-black uppercase mt-1 leading-tight">{cat.breed}</span>
+			</div>
+			<div class="border-4 border-black bg-white p-3 md:p-6 -ml-1">
+				<span class="block text-xs font-black uppercase tracking-[0.2em]">{t.cats.age}</span>
+				<span class="block text-3xl md:text-5xl font-black leading-none mt-1">{cat.age}</span>
+			</div>
+			<div class="border-4 border-black bg-black text-white p-3 md:p-6 col-span-2 md:col-span-1 -mt-1 md:-mt-0 md:-ml-1">
+				<span class="block text-xs font-black uppercase tracking-[0.2em]">{t.cats.gender}</span>
+				<span class="block text-lg md:text-2xl font-black uppercase mt-1">{cat.gender}</span>
+			</div>
+			<div class="border-4 border-black bg-red-600 text-white p-3 md:p-6 -mt-1">
+				<span class="block text-xs font-black uppercase tracking-[0.2em]">{t.cats.color}</span>
+				<span class="block text-lg md:text-2xl font-black uppercase mt-1">{cat.color}</span>
+			</div>
+			<div class="border-4 border-black bg-white p-3 md:p-6 -mt-1 -ml-1 col-span-1">
+				<span class="block text-xs font-black uppercase tracking-[0.2em]">{t.cats.arrived}</span>
+				<span class="block text-sm md:text-base font-black uppercase mt-1">{cat.arrivalDate}</span>
 			</div>
 		</div>
 	</section>
+
+	<!-- PERSONALITY: SCATTERED TAGS -->
+	<section class="bg-white border-t-8 border-black px-4 py-8 md:py-12">
+		<div class="flex flex-wrap gap-2 md:gap-4">
+			{cat.personality.map((trait: string, i: number) => (
+				<span class={`font-black uppercase tracking-wider border-4 border-black px-3 md:px-5 py-2 md:py-3 cursor-pointer
+					${i % 3 === 0 ? 'bg-yellow-400 text-black text-xl md:text-3xl' : ''}
+					${i % 3 === 1 ? 'bg-black text-white text-base md:text-xl' : ''}
+					${i % 3 === 2 ? 'bg-red-600 text-white text-lg md:text-2xl rotate-1' : ''}
+					hover:bg-black hover:text-yellow-400
+				`}>{trait}</span>
+			))}
+		</div>
+	</section>
+
+	<!-- DESCRIPTION: MASSIVE TEXT BLOCK -->
+	<section class="bg-black text-white px-4 py-12 md:py-20 border-t-8 border-red-600">
+		<p class="text-lg md:text-2xl lg:text-3xl font-black leading-relaxed uppercase max-w-4xl">{cat.description}</p>
+	</section>
+
+	<!-- ADOPT CTA: IMPOSSIBLE TO MISS -->
+	<section class="bg-red-600 text-white px-4 py-12 md:py-16 border-t-8 border-black text-center">
+		<a href={`/${lang}/${style}/auth`} class="inline-block bg-black text-white uppercase font-black text-2xl md:text-4xl lg:text-5xl px-8 md:px-12 py-4 md:py-6 border-4 border-white hover:bg-yellow-400 hover:text-black hover:border-black cursor-pointer tracking-wider">{t.cats.adopt} {cat.name}</a>
+	</section>
+
+	<!-- OTHER CATS: FOOTER MID-PAGE FEEL -->
+	<section class="bg-white border-t-8 border-black px-4 py-12 md:py-16">
+		<h2 class="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-6 md:mb-8">{t.cats.otherCats}</h2>
+		<div class="flex flex-col md:flex-row gap-0">
+			{otherCats.map((c: any, i: number) => (
+				<a href={`/${lang}/${style}/cats/${c.id}`} class={`block border-4 border-black p-4 md:p-6 flex-1 hover:bg-yellow-400 cursor-pointer -mt-1 md:mt-0 md:-ml-1 first:mt-0 first:md:ml-0
+					${i === 0 ? 'bg-black text-white hover:text-black' : 'bg-white'}
+				`}>
+					<h3 class="text-xl md:text-2xl font-black uppercase tracking-tighter">{c.name}</h3>
+					<p class="text-xs font-black uppercase tracking-[0.2em] mt-1">{c.breed} // {c.age}</p>
+				</a>
+			))}
+		</div>
+	</section>
 </main>
+
+<!-- NAV AT BOTTOM -->
+<nav class="bg-black border-t-8 border-yellow-400 px-4 py-6 font-mono">
+	<div class="flex flex-wrap gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-yellow-400 uppercase font-black text-xs md:text-sm tracking-[0.3em] hover:text-white cursor-pointer">{item.label}</a>
+		))}
+	</div>
+</nav>

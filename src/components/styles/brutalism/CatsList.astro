@@ -2,35 +2,47 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav class="bg-black border-b-4 border-yellow-400 px-4 py-3 flex flex-wrap items-center gap-2 font-mono sticky top-0 z-50">
-	{nav.map((item: any) => (
-		<a href={item.href} class="text-yellow-400 uppercase font-black text-sm md:text-base tracking-widest border-2 border-yellow-400 px-3 py-1 hover:bg-yellow-400 hover:text-black transition-none cursor-pointer">{item.label}</a>
-	))}
-</nav>
+<main class="bg-white font-mono text-black overflow-x-hidden">
+	<!-- TITLE: BLEEDS OFF SCREEN -->
+	<section class="bg-black text-white px-4 pt-16 pb-24 md:pt-24 md:pb-32 relative overflow-hidden">
+		<h1 class="text-7xl md:text-9xl lg:text-[12rem] font-black uppercase leading-none tracking-tighter -ml-1 md:-ml-2">{t.cats.title}</h1>
+		<p class="text-base md:text-xl font-black uppercase tracking-[0.3em] mt-4 text-yellow-400">{t.cats.subtitle}</p>
+		<div class="absolute -bottom-6 -right-4 text-[8rem] md:text-[16rem] font-black text-yellow-400 opacity-20 leading-none select-none pointer-events-none">{cats.length}</div>
+	</section>
 
-<main class="bg-white font-mono text-black min-h-screen">
-	<div class="border-b-4 border-black px-4 py-12 md:py-16 bg-yellow-400">
-		<div class="max-w-6xl mx-auto">
-			<h1 class="text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter">{t.cats.title}</h1>
-			<p class="text-lg md:text-2xl font-bold uppercase mt-2 border-l-4 border-black pl-4">{t.cats.subtitle}</p>
-		</div>
-	</div>
-
-	<div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`} class="block border-4 border-black p-4 md:p-6 hover:bg-yellow-400 transition-none cursor-pointer group -mt-1 -ml-1">
-				<div>
-					<h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter">{cat.name}</h2>
-					<p class="text-sm font-bold uppercase tracking-wider mt-1 border-b-2 border-black pb-2">{cat.breed} // {cat.age} // {cat.gender}</p>
-					<p class="text-sm mt-3 leading-snug">{cat.description.slice(0, 100)}...</p>
-					<div class="flex flex-wrap gap-1 mt-3">
-						{cat.personality.map((trait: string) => (
-							<span class="bg-black text-white text-xs font-bold uppercase px-2 py-1 tracking-wider group-hover:bg-white group-hover:text-black border-2 border-black">{trait}</span>
-						))}
+	<!-- CATS: DELIBERATELY BROKEN GRID -->
+	<div class="px-2 md:px-4 py-8 md:py-12">
+		{cats.map((cat: any, i: number) => (
+			<a href={`/${lang}/${style}/cats/${cat.id}`} class={`block border-4 border-black p-4 md:p-6 hover:bg-yellow-400 cursor-pointer group relative
+				${i % 3 === 0 ? 'w-full' : ''}
+				${i % 3 === 1 ? 'w-full md:w-3/4 md:ml-auto' : ''}
+				${i % 3 === 2 ? 'w-full md:w-2/3' : ''}
+				${i > 0 ? '-mt-1' : ''}
+				${i % 5 === 0 ? 'bg-red-600 text-white hover:bg-yellow-400 hover:text-black' : 'bg-white'}
+			`}>
+				<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-8">
+					<div class="flex-1">
+						<h2 class="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none">{cat.name}</h2>
+						<p class="text-xs md:text-sm font-black uppercase tracking-[0.2em] mt-2">{cat.breed} // {cat.age} // {cat.gender}</p>
 					</div>
-					<span class="inline-block mt-3 bg-red-600 text-white text-xs font-black uppercase px-3 py-1 tracking-widest border-2 border-black">{cat.status}</span>
+					<span class={`inline-block self-start text-xs font-black uppercase px-3 py-2 tracking-[0.3em] border-4 border-black ${i % 5 === 0 ? 'bg-black text-red-500 group-hover:bg-black group-hover:text-yellow-400' : 'bg-black text-white group-hover:bg-black group-hover:text-yellow-400'}`}>{cat.status}</span>
+				</div>
+				<p class="text-sm md:text-base mt-4 leading-snug font-bold max-w-2xl">{cat.description.slice(0, 120)}...</p>
+				<div class="flex flex-wrap gap-1 mt-4">
+					{cat.personality.map((trait: string) => (
+						<span class="bg-yellow-400 text-black text-xs font-black uppercase px-2 py-1 tracking-wider border-2 border-black group-hover:bg-black group-hover:text-yellow-400">{trait}</span>
+					))}
 				</div>
 			</a>
 		))}
 	</div>
 </main>
+
+<!-- NAV: RAW LIST AT BOTTOM -->
+<nav class="bg-black border-t-8 border-yellow-400 px-4 py-6 font-mono">
+	<div class="flex flex-wrap gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-yellow-400 uppercase font-black text-xs md:text-sm tracking-[0.3em] hover:text-white cursor-pointer">{item.label}</a>
+		))}
+	</div>
+</nav>
