@@ -2,25 +2,51 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200">
-	<nav class="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-xl">
-		<div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-			<div class="flex items-center gap-1">
+<div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200 antialiased">
+	<nav class="sticky top-0 z-50 border-b border-white/[0.06] bg-[#0a0a0a]/90 backdrop-blur-xl">
+		<div class="mx-auto flex h-12 max-w-[1200px] items-center gap-6 px-4 lg:px-6">
+			<div class="hidden items-center gap-0.5 sm:flex">
 				{nav.map((item: any) => (
-					<a href={item.href} class="rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-white/5 hover:text-white">{item.label}</a>
+					<a href={item.href} class="rounded-md px-2.5 py-1.5 text-[13px] text-gray-500 transition-all duration-150 hover:bg-white/[0.04] hover:text-gray-300">{item.label}</a>
 				))}
 			</div>
 		</div>
 	</nav>
 
-	<main class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
-		<section class="text-center">
-			<p class="mb-4 text-8xl font-bold tracking-tighter text-emerald-500/20 sm:text-9xl">{t.notFound.title}</p>
-			<h2 class="mb-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">{t.notFound.heading}</h2>
-			<p class="mx-auto mb-8 max-w-md text-gray-500">{t.notFound.description}</p>
-			<div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
-				<a href={`/${lang}/${style}/`} class="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-all hover:bg-emerald-400 hover:shadow-emerald-500/30">{t.notFound.backHome}</a>
-				<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-gray-300 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white">{t.notFound.meetCats}</a>
+	<div class="flex items-center gap-1 overflow-x-auto border-b border-white/[0.06] px-4 sm:hidden">
+		{nav.map((item: any) => (
+			<a href={item.href} class="shrink-0 px-3 py-2.5 text-[13px] text-gray-500 transition-colors hover:text-gray-300">{item.label}</a>
+		))}
+	</div>
+
+	<main class="flex min-h-[calc(100vh-49px)] items-center justify-center px-4">
+		<section class="w-full max-w-md text-center">
+			<!-- Error code in monospace -->
+			<div class="mb-6">
+				<span class="font-mono text-[80px] font-bold leading-none tracking-tighter text-white/[0.04] sm:text-[120px]">{t.notFound.title}</span>
+			</div>
+
+			<!-- Terminal-like error box -->
+			<div class="mx-auto mb-8 max-w-sm rounded-lg border border-white/[0.06] bg-[#111111]/50 p-5">
+				<div class="mb-3 flex items-center gap-2">
+					<span class="h-2 w-2 rounded-full bg-red-500/60"></span>
+					<span class="text-[12px] font-semibold uppercase tracking-widest text-gray-500">Error</span>
+				</div>
+				<h2 class="mb-1 text-lg font-semibold tracking-tight text-white">{t.notFound.heading}</h2>
+				<p class="text-[13px] leading-relaxed text-gray-500">{t.notFound.description}</p>
+			</div>
+
+			<div class="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3">
+				<a href={`/${lang}/${style}/`} class="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-[13px] font-semibold text-[#0a0a0a] transition-all duration-150 hover:bg-gray-200">{t.notFound.backHome}</a>
+				<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-gray-400 transition-all duration-150 hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-gray-300">{t.notFound.meetCats}</a>
+			</div>
+
+			<!-- Keyboard hint -->
+			<div class="mt-8 flex items-center justify-center gap-1.5 text-[11px] text-gray-700">
+				<kbd class="rounded border border-white/[0.06] px-1.5 py-0.5 font-mono text-[10px]">Esc</kbd>
+				<span>or</span>
+				<kbd class="rounded border border-white/[0.06] px-1.5 py-0.5 font-mono text-[10px]">&#8984;K</kbd>
+				<span>to navigate</span>
 			</div>
 		</section>
 	</main>
