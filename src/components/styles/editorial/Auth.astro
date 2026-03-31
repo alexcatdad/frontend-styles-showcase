@@ -3,54 +3,84 @@ const { lang, style, nav, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-stone-50 text-stone-800">
-	<nav class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-center gap-8 border-b border-stone-300">
-		{nav.map((item: any) => (
-			<a href={item.href} class="font-serif text-sm tracking-widest uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
-		))}
-	</nav>
+	<!-- Masthead nav -->
+	<header class="max-w-6xl mx-auto px-6 pt-6">
+		<hr class="border-t-2 border-stone-900 mb-1" />
+		<hr class="border-t border-stone-400" />
+		<nav class="flex items-center justify-center gap-6 md:gap-10 py-3 border-b border-stone-300">
+			{nav.map((item: any) => (
+				<a href={item.href} class="font-serif text-xs md:text-sm tracking-[0.25em] uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
+			))}
+		</nav>
+	</header>
 
-	<main class="max-w-md mx-auto px-6 py-20">
-		<section>
-			<div class="text-center mb-10">
-				<h1 class="font-serif text-4xl md:text-5xl font-light text-stone-900 mb-3">{t.auth.title}</h1>
-				<hr class="w-12 mx-auto border-t border-amber-700 mb-4" />
-				<p class="text-stone-500">{t.auth.subtitle}</p>
-			</div>
+	<main class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+		<!-- Asymmetric layout: form + editorial sidebar -->
+		<div class="md:grid md:grid-cols-5 md:gap-16 items-start max-w-4xl mx-auto">
+			<!-- Form column -->
+			<section class="md:col-span-3">
+				<h1 class="font-serif text-5xl md:text-6xl font-light text-stone-900 leading-none tracking-tight mb-3">{t.auth.title}</h1>
+				<p class="text-stone-500 mb-10">{t.auth.subtitle}</p>
+				<hr class="w-12 border-t border-amber-700 mb-10" />
 
-			<form class="space-y-6">
-				<div>
-					<label for="email" class="block text-xs tracking-widest uppercase text-stone-500 mb-2">{t.auth.email}</label>
-					<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full px-4 py-3 bg-white border border-stone-300 text-stone-800 placeholder-stone-300 focus:outline-none focus:border-stone-500 font-serif transition-colors" />
-				</div>
-				<div>
-					<label for="password" class="block text-xs tracking-widest uppercase text-stone-500 mb-2">{t.auth.password}</label>
-					<input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-3 bg-white border border-stone-300 text-stone-800 placeholder-stone-300 focus:outline-none focus:border-stone-500 font-serif transition-colors" />
-				</div>
-				<div class="flex items-center justify-between">
-					<label class="flex items-center gap-2 cursor-pointer">
-						<input type="checkbox" name="remember" class="w-4 h-4 accent-amber-700" />
-						<span class="text-sm text-stone-500">{t.auth.rememberMe}</span>
-					</label>
-					<a href="#" class="text-sm text-stone-400 hover:text-stone-700 transition-colors">{t.auth.forgotPassword}</a>
-				</div>
-				<button type="submit" class="w-full py-3 bg-stone-800 text-stone-50 font-serif text-sm tracking-widest uppercase hover:bg-stone-900 transition-colors">{t.auth.signIn}</button>
-			</form>
+				<form class="space-y-6">
+					<div>
+						<label for="email" class="block text-xs tracking-[0.3em] uppercase text-stone-400 mb-3">{t.auth.email}</label>
+						<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full px-4 py-3 bg-white border border-stone-300 text-stone-800 placeholder-stone-300 focus:outline-none focus:border-stone-600 font-serif transition-colors" />
+					</div>
+					<div>
+						<label for="password" class="block text-xs tracking-[0.3em] uppercase text-stone-400 mb-3">{t.auth.password}</label>
+						<input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-3 bg-white border border-stone-300 text-stone-800 placeholder-stone-300 focus:outline-none focus:border-stone-600 font-serif transition-colors" />
+					</div>
+					<div class="flex items-center justify-between pt-2">
+						<label class="flex items-center gap-2 cursor-pointer">
+							<input type="checkbox" name="remember" class="w-4 h-4 accent-amber-700" />
+							<span class="text-sm text-stone-500">{t.auth.rememberMe}</span>
+						</label>
+						<a href="#" class="text-xs tracking-[0.2em] uppercase text-stone-400 hover:text-stone-700 transition-colors">{t.auth.forgotPassword}</a>
+					</div>
+					<button type="submit" class="w-full py-3 bg-stone-800 text-stone-50 font-serif text-xs tracking-[0.3em] uppercase hover:bg-stone-900 transition-colors">{t.auth.signIn}</button>
+				</form>
 
-			<div class="my-10">
-				<div class="relative">
+				<div class="my-10">
+					<div class="relative">
+						<hr class="border-t border-stone-200" />
+						<p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-stone-50 px-4 text-xs tracking-[0.3em] uppercase text-stone-400">{t.auth.continueWith}</p>
+					</div>
+				</div>
+
+				<div class="grid grid-cols-2 gap-4">
+					<button type="button" class="py-3 border border-stone-300 text-stone-600 font-serif text-xs tracking-[0.25em] uppercase hover:border-stone-500 hover:text-stone-800 transition-colors">Google</button>
+					<button type="button" class="py-3 border border-stone-300 text-stone-600 font-serif text-xs tracking-[0.25em] uppercase hover:border-stone-500 hover:text-stone-800 transition-colors">Apple</button>
+				</div>
+
+				<p class="text-center mt-10 text-sm text-stone-400">
+					{t.auth.noAccount} <a href="#" class="text-stone-700 hover:text-stone-900 transition-colors underline underline-offset-4 decoration-stone-300">{t.auth.signUp}</a>
+				</p>
+			</section>
+
+			<!-- Editorial sidebar -->
+			<aside class="md:col-span-2 md:border-l md:border-stone-300 md:pl-10 mt-12 md:mt-0 hidden md:block">
+				<p class="text-xs tracking-[0.3em] uppercase text-stone-400 mb-6">Member Benefits</p>
+				<div class="space-y-6">
+					<div>
+						<p class="font-serif text-lg text-stone-700 mb-1">Adoption Updates</p>
+						<p class="text-sm text-stone-500 leading-relaxed">Track your favorite cats and receive status notifications.</p>
+					</div>
 					<hr class="border-t border-stone-200" />
-					<p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-stone-50 px-4 text-xs tracking-widest uppercase text-stone-400">{t.auth.continueWith}</p>
+					<div>
+						<p class="font-serif text-lg text-stone-700 mb-1">Exclusive Stories</p>
+						<p class="text-sm text-stone-500 leading-relaxed">Read behind-the-scenes content from our sanctuary team.</p>
+					</div>
+					<hr class="border-t border-stone-200" />
+					<div>
+						<p class="font-serif text-lg text-stone-700 mb-1">Community Access</p>
+						<p class="text-sm text-stone-500 leading-relaxed">Connect with fellow adopters and sanctuary supporters.</p>
+					</div>
 				</div>
-			</div>
-
-			<div class="grid grid-cols-2 gap-4">
-				<button type="button" class="py-3 border border-stone-300 text-stone-600 font-serif text-sm tracking-widest uppercase hover:border-stone-500 hover:text-stone-800 transition-colors">Google</button>
-				<button type="button" class="py-3 border border-stone-300 text-stone-600 font-serif text-sm tracking-widest uppercase hover:border-stone-500 hover:text-stone-800 transition-colors">Apple</button>
-			</div>
-
-			<p class="text-center mt-10 text-sm text-stone-400">
-				{t.auth.noAccount} <a href="#" class="text-stone-700 hover:text-stone-900 transition-colors underline underline-offset-4 decoration-stone-300">{t.auth.signUp}</a>
-			</p>
-		</section>
+				<hr class="border-t border-stone-300 mt-10 mb-6" />
+				<p class="font-serif italic text-stone-500 text-base leading-relaxed">"Every account helps us track and improve the lives of our sanctuary residents."</p>
+			</aside>
+		</div>
 	</main>
 </div>

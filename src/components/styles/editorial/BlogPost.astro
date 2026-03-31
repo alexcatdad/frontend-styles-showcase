@@ -1,55 +1,103 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const midpoint = Math.floor(post.content.length / 2);
 ---
 
 <div class="min-h-screen bg-stone-50 text-stone-800">
-	<nav class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-center gap-8 border-b border-stone-300">
-		{nav.map((item: any) => (
-			<a href={item.href} class="font-serif text-sm tracking-widest uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
-		))}
-	</nav>
+	<!-- Masthead nav -->
+	<header class="max-w-6xl mx-auto px-6 pt-6">
+		<hr class="border-t-2 border-stone-900 mb-1" />
+		<hr class="border-t border-stone-400" />
+		<nav class="flex items-center justify-center gap-6 md:gap-10 py-3 border-b border-stone-300">
+			{nav.map((item: any) => (
+				<a href={item.href} class="font-serif text-xs md:text-sm tracking-[0.25em] uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
+			))}
+		</nav>
+	</header>
 
-	<main class="max-w-4xl mx-auto px-6">
-		<div class="pt-8 pb-4">
-			<a href={`/${lang}/${style}/blog`} class="text-sm tracking-widest uppercase text-stone-400 hover:text-stone-700 transition-colors">&larr; {t.blog.backToBlog}</a>
+	<main class="max-w-6xl mx-auto px-6">
+		<!-- Breadcrumb -->
+		<div class="pt-8 pb-2">
+			<a href={`/${lang}/${style}/blog`} class="text-xs tracking-[0.3em] uppercase text-stone-400 hover:text-stone-700 transition-colors">&larr; {t.blog.backToBlog}</a>
 		</div>
 
-		<article class="pb-16">
-			<header class="text-center pt-8 pb-12 border-b border-stone-200 mb-12">
-				<div class="flex flex-wrap justify-center gap-3 mb-6">
+		<article>
+			<!-- Full-width headline block -->
+			<header class="pt-8 pb-10 border-b border-stone-300">
+				<div class="flex flex-wrap gap-3 mb-5">
 					{post.tags.map((tag: string) => (
-						<span class="text-xs tracking-widest uppercase text-amber-700">{tag}</span>
+						<span class="text-xs tracking-[0.3em] uppercase text-amber-700">{tag}</span>
 					))}
 				</div>
-				<h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-stone-900 leading-tight mb-6 max-w-3xl mx-auto">{post.title}</h1>
-				<hr class="w-16 mx-auto border-t border-stone-300 mb-6" />
-				<div class="flex items-center justify-center gap-4 text-sm text-stone-400">
+				<h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-light text-stone-900 leading-tight tracking-tight mb-6 max-w-4xl">{post.title}</h1>
+				<div class="flex items-baseline gap-4 text-sm text-stone-400">
 					<span class="font-serif italic">{t.blog.by} {post.author}</span>
 					<span class="text-stone-300">|</span>
-					<time datetime={post.date} class="tracking-widest uppercase text-xs">{post.date}</time>
+					<time datetime={post.date} class="tracking-[0.25em] uppercase text-xs">{post.date}</time>
 				</div>
 			</header>
 
-			<div class="max-w-2xl mx-auto">
-				{post.content.map((paragraph: string, i: number) => (
-					<p class:list={[
-						"text-lg leading-loose text-stone-600 mb-8",
-						i === 0 && "first-letter:text-6xl first-letter:font-serif first-letter:font-light first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:leading-none first-letter:text-stone-900",
-						i === Math.floor(post.content.length / 2) && "font-serif text-2xl italic text-stone-700 border-l-2 border-amber-700 pl-8 my-12 leading-relaxed"
-					]}>{paragraph}</p>
-				))}
+			<!-- Article body: asymmetric layout with marginal notes -->
+			<div class="md:grid md:grid-cols-6 md:gap-12 pt-10 pb-16">
+				<!-- Narrow gutter for section label -->
+				<div class="md:col-span-1 hidden md:block">
+					<div class="sticky top-8">
+						<p class="text-xs tracking-[0.3em] uppercase text-stone-400 mb-2">Article</p>
+						<hr class="w-8 border-t border-amber-700" />
+					</div>
+				</div>
+
+				<!-- Main body: narrow measure for readability -->
+				<div class="md:col-span-4">
+					{post.content.map((paragraph: string, i: number) => (
+						i === midpoint ? (
+							<>
+								{/* Pull quote between columns */}
+								<aside class="border-t border-b border-stone-300 py-8 my-10">
+									<p class="font-serif text-2xl md:text-3xl italic text-stone-700 leading-relaxed text-center">{paragraph.slice(0, 120)}...</p>
+								</aside>
+								<p class="text-lg leading-loose text-stone-600 mb-8">{paragraph}</p>
+							</>
+						) : (
+							<p class:list={[
+								"text-lg leading-loose text-stone-600 mb-8",
+								i === 0 && "first-letter:text-7xl first-letter:font-serif first-letter:font-light first-letter:float-left first-letter:mr-4 first-letter:leading-[0.8] first-letter:text-stone-900 first-letter:mt-1"
+							]}>{paragraph}</p>
+						)
+					))}
+				</div>
+
+				<!-- Sidebar: tags and metadata -->
+				<aside class="md:col-span-1 hidden md:block">
+					<div class="sticky top-8">
+						<p class="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4">Tags</p>
+						<div class="space-y-2">
+							{post.tags.map((tag: string) => (
+								<p class="text-xs tracking-[0.2em] uppercase text-stone-500 border-l-2 border-stone-200 pl-3">{tag}</p>
+							))}
+						</div>
+						<hr class="w-6 border-t border-stone-200 my-6" />
+						<p class="text-xs tracking-[0.3em] uppercase text-stone-400 mb-2">Author</p>
+						<p class="font-serif italic text-stone-600 text-sm">{post.author}</p>
+					</div>
+				</aside>
 			</div>
 		</article>
 
-		<section class="border-t border-stone-300 py-16">
-			<h2 class="font-serif text-3xl font-light text-stone-900 text-center mb-3">{t.blog.moreStories}</h2>
-			<hr class="w-12 mx-auto border-t border-amber-700 mb-10" />
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-				{otherPosts.map((p: any) => (
-					<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block">
-						<time datetime={p.date} class="text-xs tracking-widest uppercase text-stone-400 mb-2 block">{p.date}</time>
+		<!-- More stories: newspaper column layout -->
+		<section class="border-t-2 border-stone-900 pt-1">
+			<hr class="border-t border-stone-400 mb-8" />
+			<h2 class="font-serif text-3xl md:text-4xl font-light text-stone-900 mb-8">{t.blog.moreStories}</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-stone-300">
+				{otherPosts.map((p: any, i: number) => (
+					<a href={`/${lang}/${style}/blog/${p.slug}`} class:list={[
+						"group block py-6 px-4",
+						"border-b border-stone-200",
+						i < otherPosts.length - 1 && "md:border-r md:border-stone-200"
+					]}>
+						<time datetime={p.date} class="text-xs tracking-[0.25em] uppercase text-stone-400 mb-2 block">{p.date}</time>
 						<h3 class="font-serif text-xl font-light text-stone-800 mb-2 group-hover:text-amber-800 transition-colors leading-snug">{p.title}</h3>
-						<p class="text-sm text-stone-500 leading-relaxed">{p.excerpt}</p>
+						<p class="text-sm text-stone-500 leading-relaxed">{p.excerpt.slice(0, 80)}...</p>
 					</a>
 				))}
 			</div>

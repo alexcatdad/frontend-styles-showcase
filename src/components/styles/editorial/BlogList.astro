@@ -1,57 +1,81 @@
 ---
 const { lang, style, nav, posts, t } = Astro.props;
+const leadPost = posts[0];
+const remainingPosts = posts.slice(1);
 ---
 
 <div class="min-h-screen bg-stone-50 text-stone-800">
-	<nav class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-center gap-8 border-b border-stone-300">
-		{nav.map((item: any) => (
-			<a href={item.href} class="font-serif text-sm tracking-widest uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
-		))}
-	</nav>
-
-	<main class="max-w-4xl mx-auto px-6">
-		<div class="pt-16 pb-10 text-center">
-			<h1 class="font-serif text-5xl md:text-6xl font-light text-stone-900 mb-3">{t.blog.title}</h1>
-			<hr class="w-12 mx-auto border-t border-amber-700 mb-4" />
-			<p class="text-stone-500 text-lg max-w-xl mx-auto">{t.blog.subtitle}</p>
-		</div>
-
-		<div class="divide-y divide-stone-200">
-			{posts.map((post: any, i: number) => (
-				<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block py-10">
-					<article class={i === 0 ? "max-w-2xl mx-auto text-center" : "md:grid md:grid-cols-4 md:gap-8 items-start"}>
-						{i === 0 ? (
-							<>
-								<time datetime={post.date} class="text-xs tracking-widest uppercase text-stone-400 mb-4 block">{post.date}</time>
-								<h2 class="font-serif text-3xl md:text-4xl font-light text-stone-900 mb-4 group-hover:text-amber-800 transition-colors leading-snug">{post.title}</h2>
-								<p class="text-stone-500 leading-relaxed mb-5 text-lg">{post.excerpt}</p>
-								<div class="flex flex-wrap justify-center gap-3 mb-3">
-									{post.tags.map((tag: string) => (
-										<span class="text-xs tracking-widest uppercase text-stone-400">{tag}</span>
-									))}
-								</div>
-								<span class="text-sm italic text-stone-400 font-serif">{t.blog.by} {post.author}</span>
-							</>
-						) : (
-							<>
-								<div class="md:col-span-1 mb-2 md:mb-0">
-									<time datetime={post.date} class="text-xs tracking-widest uppercase text-stone-400 block">{post.date}</time>
-									<span class="text-sm italic text-stone-400 font-serif">{t.blog.by} {post.author}</span>
-								</div>
-								<div class="md:col-span-3">
-									<h2 class="font-serif text-2xl font-light text-stone-900 mb-2 group-hover:text-amber-800 transition-colors leading-snug">{post.title}</h2>
-									<p class="text-stone-500 leading-relaxed mb-3">{post.excerpt}</p>
-									<div class="flex flex-wrap gap-3">
-										{post.tags.map((tag: string) => (
-											<span class="text-xs tracking-widest uppercase text-stone-400">{tag}</span>
-										))}
-									</div>
-								</div>
-							</>
-						)}
-					</article>
-				</a>
+	<!-- Masthead nav -->
+	<header class="max-w-6xl mx-auto px-6 pt-6">
+		<hr class="border-t-2 border-stone-900 mb-1" />
+		<hr class="border-t border-stone-400" />
+		<nav class="flex items-center justify-center gap-6 md:gap-10 py-3 border-b border-stone-300">
+			{nav.map((item: any) => (
+				<a href={item.href} class="font-serif text-xs md:text-sm tracking-[0.25em] uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
 			))}
+		</nav>
+	</header>
+
+	<main class="max-w-6xl mx-auto px-6">
+		<!-- Section header -->
+		<div class="pt-14 pb-4">
+			<h1 class="font-serif text-6xl md:text-7xl lg:text-8xl font-light text-stone-900 leading-none tracking-tight">{t.blog.title}</h1>
 		</div>
+		<div class="md:flex md:items-baseline md:justify-between pb-8 border-b border-stone-300">
+			<p class="text-stone-500 text-lg max-w-md">{t.blog.subtitle}</p>
+		</div>
+
+		<!-- Lead story: hero treatment -->
+		{leadPost && (
+			<section class="py-10 border-b border-stone-300">
+				<a href={`/${lang}/${style}/blog/${leadPost.slug}`} class="group block md:grid md:grid-cols-5 md:gap-12 items-start">
+					<div class="md:col-span-3">
+						<div class="flex flex-wrap gap-3 mb-4">
+							{leadPost.tags.map((tag: string) => (
+								<span class="text-xs tracking-[0.3em] uppercase text-amber-700">{tag}</span>
+							))}
+						</div>
+						<h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-stone-900 mb-5 group-hover:text-amber-800 transition-colors leading-tight">{leadPost.title}</h2>
+						<p class="text-stone-600 leading-relaxed text-lg max-w-prose mb-6">{leadPost.excerpt}</p>
+					</div>
+					<aside class="md:col-span-2 md:border-l md:border-stone-300 md:pl-10 mt-6 md:mt-0 md:pt-2">
+						<p class="font-serif italic text-stone-500 text-base mb-4">{t.blog.by} {leadPost.author}</p>
+						<time datetime={leadPost.date} class="text-xs tracking-[0.3em] uppercase text-stone-400 block mb-6">{leadPost.date}</time>
+						<hr class="w-8 border-t border-stone-300 mb-6" />
+						<p class="font-serif text-xl italic text-stone-600 leading-relaxed">{leadPost.excerpt.slice(0, 80)}...</p>
+					</aside>
+				</a>
+			</section>
+		)}
+
+		<!-- Remaining posts: compact newspaper listing with columns -->
+		{remainingPosts.length > 0 && (
+			<section class="py-8">
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+					{remainingPosts.map((post: any, i: number) => (
+						<a href={`/${lang}/${style}/blog/${post.slug}`} class:list={[
+							"group block py-6 px-5",
+							"border-b border-stone-200",
+							i % 3 !== 2 && "lg:border-r lg:border-stone-200",
+							i % 2 !== 1 && "md:border-r md:border-stone-200 lg:border-r-0",
+							i % 3 !== 2 && "lg:border-r lg:border-stone-200"
+						]}>
+							<div class="flex items-baseline gap-3 mb-3">
+								<time datetime={post.date} class="text-xs tracking-[0.25em] uppercase text-stone-400 shrink-0">{post.date}</time>
+								<span class="text-stone-300">&middot;</span>
+								<span class="text-xs font-serif italic text-stone-400 truncate">{t.blog.by} {post.author}</span>
+							</div>
+							<h3 class="font-serif text-xl md:text-2xl font-light text-stone-900 mb-2 group-hover:text-amber-800 transition-colors leading-snug">{post.title}</h3>
+							<p class="text-stone-500 leading-relaxed text-sm mb-4">{post.excerpt.slice(0, 100)}...</p>
+							<div class="flex flex-wrap gap-2">
+								{post.tags.map((tag: string) => (
+									<span class="text-xs tracking-[0.2em] uppercase text-stone-400">{tag}</span>
+								))}
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
+		)}
 	</main>
 </div>
