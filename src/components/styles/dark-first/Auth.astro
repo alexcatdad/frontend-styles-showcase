@@ -2,59 +2,79 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200">
-	<nav class="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-xl">
-		<div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-			<div class="flex items-center gap-1">
+<div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200 antialiased">
+	<nav class="sticky top-0 z-50 border-b border-white/[0.06] bg-[#0a0a0a]/90 backdrop-blur-xl">
+		<div class="mx-auto flex h-12 max-w-[1200px] items-center gap-6 px-4 lg:px-6">
+			<div class="hidden items-center gap-0.5 sm:flex">
 				{nav.map((item: any) => (
-					<a href={item.href} class="rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-white/5 hover:text-white">{item.label}</a>
+					<a href={item.href} class="rounded-md px-2.5 py-1.5 text-[13px] text-gray-500 transition-all duration-150 hover:bg-white/[0.04] hover:text-gray-300">{item.label}</a>
 				))}
 			</div>
 		</div>
 	</nav>
 
-	<main class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4 py-12">
-		<section class="w-full max-w-sm">
-			<div class="mb-8 text-center">
-				<h1 class="mb-2 text-2xl font-bold tracking-tight text-white">{t.auth.title}</h1>
-				<p class="text-sm text-gray-500">{t.auth.subtitle}</p>
+	<div class="flex items-center gap-1 overflow-x-auto border-b border-white/[0.06] px-4 sm:hidden">
+		{nav.map((item: any) => (
+			<a href={item.href} class="shrink-0 px-3 py-2.5 text-[13px] text-gray-500 transition-colors hover:text-gray-300">{item.label}</a>
+		))}
+	</div>
+
+	<main class="flex min-h-[calc(100vh-49px)] items-center justify-center px-4 py-12">
+		<section class="w-full max-w-[380px]">
+			<!-- Header -->
+			<div class="mb-6 text-center">
+				<div class="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.03]">
+					<span class="text-[16px] font-bold text-emerald-400/80">S</span>
+				</div>
+				<h1 class="text-xl font-semibold tracking-tight text-white">{t.auth.title}</h1>
+				<p class="mt-1 text-[13px] text-gray-500">{t.auth.subtitle}</p>
 			</div>
 
-			<div class="rounded-xl border border-white/5 bg-gray-900/50 p-6">
+			<!-- Form card -->
+			<div class="rounded-lg border border-white/[0.06] bg-[#111111]/50 p-5">
 				<form class="space-y-4">
 					<div>
-						<label for="email" class="mb-1.5 block text-sm font-medium text-gray-300">{t.auth.email}</label>
-						<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full rounded-lg border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-gray-600 outline-none transition-colors focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30" />
+						<label for="email" class="mb-1.5 block text-[13px] font-medium text-gray-400">{t.auth.email}</label>
+						<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-[13px] text-white placeholder-gray-700 outline-none transition-all duration-150 focus:border-emerald-500/30 focus:bg-white/[0.04] focus:ring-1 focus:ring-emerald-500/20" />
 					</div>
 					<div>
-						<label for="password" class="mb-1.5 block text-sm font-medium text-gray-300">{t.auth.password}</label>
-						<input type="password" id="password" name="password" placeholder="••••••••" class="w-full rounded-lg border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-gray-600 outline-none transition-colors focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30" />
+						<label for="password" class="mb-1.5 block text-[13px] font-medium text-gray-400">{t.auth.password}</label>
+						<input type="password" id="password" name="password" placeholder="••••••••" class="w-full rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-[13px] text-white placeholder-gray-700 outline-none transition-all duration-150 focus:border-emerald-500/30 focus:bg-white/[0.04] focus:ring-1 focus:ring-emerald-500/20" />
 					</div>
 					<div class="flex items-center justify-between">
-						<label class="flex items-center gap-2 text-sm text-gray-400">
-							<input type="checkbox" name="remember" class="h-4 w-4 rounded border-white/10 bg-white/5 text-emerald-500 focus:ring-emerald-500/30" />
+						<label class="flex items-center gap-2 text-[13px] text-gray-500">
+							<input type="checkbox" name="remember" class="h-3.5 w-3.5 rounded border-white/[0.10] bg-white/[0.03] text-emerald-500 focus:ring-emerald-500/20" />
 							{t.auth.rememberMe}
 						</label>
-						<a href="#" class="text-sm text-gray-500 transition-colors hover:text-emerald-400">{t.auth.forgotPassword}</a>
+						<a href="#" class="text-[13px] text-gray-600 transition-colors hover:text-gray-400">{t.auth.forgotPassword}</a>
 					</div>
-					<button type="submit" class="w-full rounded-lg bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-all hover:bg-emerald-400 hover:shadow-emerald-500/30">{t.auth.signIn}</button>
+					<button type="submit" class="w-full rounded-md bg-white px-4 py-2 text-[13px] font-semibold text-[#0a0a0a] transition-all duration-150 hover:bg-gray-200">{t.auth.signIn}</button>
 				</form>
 
-				<div class="my-6 flex items-center gap-3">
-					<div class="h-px flex-1 bg-white/5"></div>
-					<p class="text-xs text-gray-600">{t.auth.continueWith}</p>
-					<div class="h-px flex-1 bg-white/5"></div>
+				<div class="my-5 flex items-center gap-3">
+					<div class="h-px flex-1 bg-white/[0.06]"></div>
+					<p class="text-[11px] uppercase tracking-wider text-gray-700">{t.auth.continueWith}</p>
+					<div class="h-px flex-1 bg-white/[0.06]"></div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-3">
-					<button type="button" class="rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-gray-300 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white">Google</button>
-					<button type="button" class="rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-gray-300 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white">Apple</button>
+				<div class="grid grid-cols-2 gap-2">
+					<button type="button" class="flex items-center justify-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-gray-400 transition-all duration-150 hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-gray-300">Google</button>
+					<button type="button" class="flex items-center justify-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-gray-400 transition-all duration-150 hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-gray-300">Apple</button>
 				</div>
 			</div>
 
-			<p class="mt-6 text-center text-sm text-gray-500">
-				{t.auth.noAccount} <a href="#" class="font-medium text-emerald-400 transition-colors hover:text-emerald-300">{t.auth.signUp}</a>
+			<p class="mt-5 text-center text-[13px] text-gray-600">
+				{t.auth.noAccount} <a href="#" class="font-medium text-gray-400 transition-colors hover:text-white">{t.auth.signUp}</a>
 			</p>
+
+			<!-- Keyboard hint -->
+			<div class="mt-6 flex items-center justify-center gap-1.5 text-[11px] text-gray-700">
+				<kbd class="rounded border border-white/[0.06] px-1.5 py-0.5 font-mono text-[10px]">Tab</kbd>
+				<span>to navigate</span>
+				<span class="mx-1">&middot;</span>
+				<kbd class="rounded border border-white/[0.06] px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd>
+				<span>to submit</span>
+			</div>
 		</section>
 	</main>
 </div>
