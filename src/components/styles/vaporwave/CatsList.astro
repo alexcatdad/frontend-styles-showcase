@@ -2,58 +2,96 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gradient-to-br from-purple-950 via-pink-900 to-cyan-950 text-pink-100 font-sans">
-	<div class="fixed inset-0 pointer-events-none opacity-5 bg-[linear-gradient(rgba(255,255,255,.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.1)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+<div class="min-h-screen bg-[#0a0015] text-pink-100 font-sans overflow-hidden">
+	<!-- Sunset gradient sky -->
+	<div class="fixed inset-0 bg-gradient-to-b from-[#1a0030] via-[#3d0066] via-40% to-[#ff6b9d]/20 pointer-events-none"></div>
 
-	<nav class="relative z-10 flex flex-wrap items-center justify-center gap-2 px-6 py-5 border-b border-pink-500/20 backdrop-blur-sm bg-purple-950/30">
+	<!-- Perspective grid floor -->
+	<div class="fixed bottom-0 left-0 right-0 h-[45vh] pointer-events-none opacity-30" style="background: linear-gradient(transparent 0%, rgba(255,107,157,0.06) 2%, transparent 2.5%, transparent 10%, rgba(255,107,157,0.06) 10.5%, transparent 11%, transparent 20%, rgba(255,107,157,0.06) 20.5%, transparent 21%, transparent 30%, rgba(255,107,157,0.06) 30.5%, transparent 31%, transparent 42%, rgba(255,107,157,0.06) 42.5%, transparent 43%, transparent 56%, rgba(255,107,157,0.06) 56.5%, transparent 57%, transparent 74%, rgba(255,107,157,0.06) 74.5%, transparent 75%), repeating-linear-gradient(90deg, transparent, transparent 8%, rgba(6,182,212,0.08) 8.2%, transparent 8.4%); perspective: 400px; transform: rotateX(55deg); transform-origin: top center;"></div>
+
+	<!-- Floating ambient glyphs -->
+	<div class="fixed top-[22%] right-[10%] text-fuchsia-500/[0.06] text-5xl pointer-events-none select-none font-serif italic">&#9651;</div>
+	<div class="fixed bottom-[35%] left-[5%] text-cyan-400/[0.05] text-4xl pointer-events-none select-none">&#9671;</div>
+
+	<!-- Navigation -->
+	<nav class="relative z-20 flex flex-wrap items-center justify-center gap-1 px-6 py-8 opacity-70 hover:opacity-100 transition-opacity duration-700">
+		<span class="text-fuchsia-500/20 text-xs mr-3 tracking-[0.3em] hidden md:inline">&#9553;</span>
 		{nav.map((item: any) => (
-			<a href={item.href} class="px-4 py-2 text-sm tracking-widest uppercase text-cyan-300 hover:text-pink-300 transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(236,72,153,0.6)]">
+			<a href={item.href} class="px-5 py-2 text-[11px] tracking-[0.35em] uppercase text-cyan-300/60 hover:text-pink-300 transition-all duration-500 hover:drop-shadow-[0_0_12px_rgba(236,72,153,0.5)]">
 				{item.label}
 			</a>
 		))}
+		<span class="text-fuchsia-500/20 text-xs ml-3 tracking-[0.3em] hidden md:inline">&#9553;</span>
 	</nav>
 
 	<main class="relative z-10 max-w-6xl mx-auto px-6 py-16">
-		<div class="text-center mb-16">
-			<p class="text-xs tracking-[0.5em] uppercase text-cyan-400/50 mb-4">&#9651; &#9671; &#9649;</p>
-			<h1 class="text-4xl md:text-6xl font-serif italic font-bold bg-gradient-to-r from-pink-400 via-fuchsia-300 to-cyan-400 bg-clip-text text-transparent">
-				{t.cats.title}
+		<!-- Page header -->
+		<div class="text-center mb-20">
+			<p class="text-[10px] tracking-[0.8em] uppercase text-cyan-400/25 mb-8 select-none">&#9553; &#9671; &#9553;</p>
+
+			<h1 class="relative text-4xl md:text-6xl lg:text-7xl font-serif italic font-bold leading-none">
+				<span class="absolute inset-0 text-cyan-400/20 translate-x-[3px] -translate-y-[2px] blur-[0.5px]" aria-hidden="true">{t.cats.title}</span>
+				<span class="absolute inset-0 text-pink-500/15 -translate-x-[3px] translate-y-[2px] blur-[0.5px]" aria-hidden="true">{t.cats.title}</span>
+				<span class="relative bg-gradient-to-r from-pink-300 via-fuchsia-200 to-cyan-300 bg-clip-text text-transparent">{t.cats.title}</span>
 			</h1>
-			<p class="mt-4 text-lg text-pink-200/60 font-light italic tracking-wide">
+
+			<p class="mt-6 text-lg text-pink-200/35 font-light italic tracking-wider max-w-xl mx-auto">
 				{t.cats.subtitle}
 			</p>
-			<div class="mt-6 w-48 h-px mx-auto bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
+
+			<div class="mt-8 flex items-center justify-center gap-3 select-none">
+				<div class="w-16 h-px bg-gradient-to-r from-transparent to-pink-500/15"></div>
+				<span class="text-fuchsia-500/10 text-[10px] tracking-[0.5em]">&#9651; &#9671; &#9651;</span>
+				<div class="w-16 h-px bg-gradient-to-l from-transparent to-pink-500/15"></div>
+			</div>
 		</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		<!-- Cat cards grid: floating panels -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 			{cats.map((cat: any) => (
-				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block border border-pink-500/20 bg-purple-900/30 backdrop-blur-sm hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all duration-500">
-					<div class="p-6">
-						<div class="flex items-center justify-between mb-4">
-							<h2 class="text-2xl font-serif italic text-fuchsia-300 group-hover:text-cyan-300 transition-colors duration-300">
-								{cat.name}
-							</h2>
-							<span class="text-[10px] tracking-widest uppercase px-3 py-1 border border-cyan-500/30 text-cyan-400/70 bg-cyan-950/30">
+				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block border border-pink-500/[0.08] bg-purple-950/15 backdrop-blur-sm hover:border-cyan-400/25 hover:shadow-[0_0_60px_rgba(6,182,212,0.08)] hover:bg-purple-950/25 transition-all duration-700">
+					<div class="p-7">
+						<!-- Status badge -->
+						<div class="flex items-center justify-between mb-5">
+							<span class="text-[9px] tracking-[0.4em] uppercase px-3 py-1.5 border border-cyan-500/15 text-cyan-400/50 bg-cyan-950/20">
 								{cat.status}
 							</span>
+							<span class="text-fuchsia-500/10 text-xs select-none">&#9671;</span>
 						</div>
-						<p class="text-sm text-pink-300/50 tracking-wide mb-4">
-							{cat.breed} &#183; {cat.age} &#183; {cat.gender}
+
+						<!-- Cat name with subtle glitch -->
+						<h2 class="relative text-2xl font-serif italic mb-4">
+							<span class="absolute inset-0 text-cyan-400/10 translate-x-[1px] -translate-y-[1px]" aria-hidden="true">{cat.name}</span>
+							<span class="relative text-fuchsia-300/80 group-hover:text-cyan-300/90 transition-colors duration-500">{cat.name}</span>
+						</h2>
+
+						<!-- Details -->
+						<p class="text-[11px] text-pink-300/30 tracking-wider mb-5">
+							{cat.breed} &#9553; {cat.age} &#9553; {cat.gender}
 						</p>
-						<p class="text-sm text-pink-200/40 leading-relaxed font-light mb-5">
+
+						<p class="text-sm text-pink-200/30 leading-relaxed font-light mb-6">
 							{cat.description.slice(0, 100)}...
 						</p>
+
+						<!-- Personality traits -->
 						<div class="flex flex-wrap gap-2">
 							{cat.personality.map((trait: string) => (
-								<span class="text-[10px] tracking-widest uppercase px-2 py-1 border border-fuchsia-500/20 text-fuchsia-300/60 bg-fuchsia-950/20">
+								<span class="text-[9px] tracking-[0.25em] uppercase px-3 py-1.5 border border-fuchsia-500/10 text-fuchsia-300/40 bg-fuchsia-950/15">
 									{trait}
 								</span>
 							))}
 						</div>
 					</div>
-					<div class="h-px w-full bg-gradient-to-r from-pink-500/30 via-cyan-500/30 to-pink-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+					<!-- Bottom glow line on hover -->
+					<div class="h-px w-full bg-gradient-to-r from-pink-500/20 via-cyan-500/25 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 				</a>
 			))}
 		</div>
 	</main>
+
+	<footer class="relative z-10 border-t border-pink-500/[0.06] py-10 mt-16 text-center">
+		<p class="text-[10px] text-cyan-500/10 tracking-[0.6em] select-none">&#9553; ア エ ス テ ティック &#9553;</p>
+	</footer>
 </div>

@@ -2,45 +2,77 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gradient-to-br from-purple-950 via-pink-900 to-cyan-950 text-pink-100 font-sans">
-	<div class="fixed inset-0 pointer-events-none opacity-5 bg-[linear-gradient(rgba(255,255,255,.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.1)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+<div class="min-h-screen bg-[#0a0015] text-pink-100 font-sans overflow-hidden">
+	<!-- Sunset gradient sky -->
+	<div class="fixed inset-0 bg-gradient-to-b from-[#1a0030] via-[#3d0066] via-40% to-[#ff6b9d]/20 pointer-events-none"></div>
 
-	<nav class="relative z-10 flex flex-wrap items-center justify-center gap-2 px-6 py-5 border-b border-pink-500/20 backdrop-blur-sm bg-purple-950/30">
+	<!-- Horizontal sun band -->
+	<div class="fixed top-[32%] left-0 right-0 h-36 bg-gradient-to-b from-[#ff2d7b]/15 via-[#ff6b35]/10 to-transparent pointer-events-none blur-sm"></div>
+
+	<!-- Perspective grid floor -->
+	<div class="fixed bottom-0 left-0 right-0 h-[45vh] pointer-events-none opacity-30" style="background: linear-gradient(transparent 0%, rgba(255,107,157,0.06) 2%, transparent 2.5%, transparent 10%, rgba(255,107,157,0.06) 10.5%, transparent 11%, transparent 20%, rgba(255,107,157,0.06) 20.5%, transparent 21%, transparent 30%, rgba(255,107,157,0.06) 30.5%, transparent 31%, transparent 42%, rgba(255,107,157,0.06) 42.5%, transparent 43%, transparent 56%, rgba(255,107,157,0.06) 56.5%, transparent 57%, transparent 74%, rgba(255,107,157,0.06) 74.5%, transparent 75%), repeating-linear-gradient(90deg, transparent, transparent 8%, rgba(6,182,212,0.08) 8.2%, transparent 8.4%); perspective: 400px; transform: rotateX(55deg); transform-origin: top center;"></div>
+
+	<!-- Floating ambient glyphs scattered across the void -->
+	<div class="fixed top-[15%] left-[12%] text-fuchsia-500/[0.06] text-7xl font-serif italic pointer-events-none select-none">&#9651;</div>
+	<div class="fixed top-[25%] right-[10%] text-cyan-400/[0.05] text-6xl pointer-events-none select-none">&#9671;</div>
+	<div class="fixed bottom-[40%] left-[8%] text-pink-400/[0.04] text-5xl pointer-events-none select-none">&#9649;</div>
+	<div class="fixed bottom-[20%] right-[15%] text-fuchsia-400/[0.03] text-4xl font-serif italic pointer-events-none select-none">&#9553;</div>
+
+	<!-- Navigation -->
+	<nav class="relative z-20 flex flex-wrap items-center justify-center gap-1 px-6 py-8 opacity-70 hover:opacity-100 transition-opacity duration-700">
+		<span class="text-fuchsia-500/20 text-xs mr-3 tracking-[0.3em] hidden md:inline">&#9553;</span>
 		{nav.map((item: any) => (
-			<a href={item.href} class="px-4 py-2 text-sm tracking-widest uppercase text-cyan-300 hover:text-pink-300 transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(236,72,153,0.6)]">
+			<a href={item.href} class="px-5 py-2 text-[11px] tracking-[0.35em] uppercase text-cyan-300/60 hover:text-pink-300 transition-all duration-500 hover:drop-shadow-[0_0_12px_rgba(236,72,153,0.5)]">
 				{item.label}
 			</a>
 		))}
+		<span class="text-fuchsia-500/20 text-xs ml-3 tracking-[0.3em] hidden md:inline">&#9553;</span>
 	</nav>
 
 	<main class="relative z-10 flex items-center justify-center px-6 py-24 md:py-40">
 		<section class="text-center max-w-lg">
-			<p class="text-xs tracking-[0.5em] uppercase text-cyan-400/40 mb-6">&#9649; &#9671; &#9651; ア エ ス テ ティック &#9651; &#9671; &#9649;</p>
+			<!-- Ambient Japanese text -->
+			<p class="text-[10px] tracking-[0.8em] uppercase text-cyan-400/15 mb-12 select-none">
+				&#9553; ア エ ス テ ティック &#9553;
+			</p>
 
-			<h1 class="text-8xl md:text-9xl font-serif italic font-bold bg-gradient-to-b from-pink-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-[4px_4px_0px_rgba(6,182,212,0.3)]">
-				{t.notFound.title}
+			<!-- Giant 404 with heavy glitch offset -->
+			<h1 class="relative text-[8rem] md:text-[12rem] lg:text-[14rem] font-serif italic font-bold leading-none">
+				<span class="absolute inset-0 text-cyan-400/25 translate-x-[6px] -translate-y-[4px] blur-[1px]" aria-hidden="true">{t.notFound.title}</span>
+				<span class="absolute inset-0 text-pink-500/20 -translate-x-[6px] translate-y-[4px] blur-[1px]" aria-hidden="true">{t.notFound.title}</span>
+				<span class="absolute inset-0 text-fuchsia-400/10 translate-x-[2px] translate-y-[6px]" aria-hidden="true">{t.notFound.title}</span>
+				<span class="relative bg-gradient-to-b from-pink-300/90 via-fuchsia-200/90 to-cyan-300/90 bg-clip-text text-transparent">{t.notFound.title}</span>
 			</h1>
 
-			<h2 class="mt-6 text-2xl md:text-3xl font-serif italic text-fuchsia-300">
-				{t.notFound.heading}
+			<!-- Subheading -->
+			<h2 class="relative mt-8 text-2xl md:text-4xl font-serif italic">
+				<span class="absolute inset-0 text-cyan-400/10 translate-x-[2px] -translate-y-[1px]" aria-hidden="true">{t.notFound.heading}</span>
+				<span class="relative text-fuchsia-300/70">{t.notFound.heading}</span>
 			</h2>
 
-			<div class="mt-4 w-32 h-px mx-auto bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
+			<!-- Divider -->
+			<div class="mt-8 flex items-center justify-center gap-3 select-none">
+				<div class="w-12 h-px bg-gradient-to-r from-transparent to-pink-500/15"></div>
+				<span class="text-fuchsia-500/[0.08] text-[10px] tracking-[0.5em]">&#9553; &#9671; &#9553;</span>
+				<div class="w-12 h-px bg-gradient-to-l from-transparent to-pink-500/15"></div>
+			</div>
 
-			<p class="mt-6 text-pink-200/50 font-light leading-relaxed">
+			<p class="mt-8 text-pink-200/30 font-light leading-loose tracking-wide">
 				{t.notFound.description}
 			</p>
 
-			<div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-				<a href={`/${lang}/${style}/`} class="px-8 py-3 bg-gradient-to-r from-pink-600 to-fuchsia-600 text-white tracking-widest uppercase text-sm hover:from-pink-500 hover:to-fuchsia-500 hover:shadow-[0_0_25px_rgba(236,72,153,0.4)] transition-all duration-300">
+			<!-- Action buttons -->
+			<div class="mt-14 flex flex-col sm:flex-row gap-5 justify-center">
+				<a href={`/${lang}/${style}/`} class="px-10 py-4 bg-gradient-to-r from-pink-600/80 to-fuchsia-600/80 text-white/90 tracking-[0.3em] uppercase text-xs hover:from-pink-500/90 hover:to-fuchsia-500/90 hover:shadow-[0_0_50px_rgba(236,72,153,0.2)] transition-all duration-500">
 					{t.notFound.backHome}
 				</a>
-				<a href={`/${lang}/${style}/cats`} class="px-8 py-3 border border-cyan-400/40 text-cyan-300 tracking-widest uppercase text-sm hover:bg-cyan-400/10 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all duration-300">
+				<a href={`/${lang}/${style}/cats`} class="px-10 py-4 border border-cyan-400/20 text-cyan-300/50 tracking-[0.3em] uppercase text-xs hover:bg-cyan-400/[0.05] hover:border-cyan-400/35 hover:shadow-[0_0_40px_rgba(6,182,212,0.1)] transition-all duration-500">
 					{t.notFound.meetCats}
 				</a>
 			</div>
 
-			<p class="mt-16 text-xs text-fuchsia-500/30 tracking-[0.3em]">&#9651; &#9671; &#9649;</p>
+			<!-- Bottom ambient drift -->
+			<p class="mt-20 text-[10px] text-fuchsia-500/[0.08] tracking-[0.8em] select-none">&#9651; &#9671; &#9649; ア エ ス &#9649; &#9671; &#9651;</p>
 		</section>
 	</main>
 </div>
