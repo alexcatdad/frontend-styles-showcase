@@ -2,62 +2,83 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white">
+<div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white overflow-x-hidden">
 	<!-- Decorative background orbs -->
 	<div class="fixed inset-0 overflow-hidden pointer-events-none">
-		<div class="absolute top-1/3 -left-10 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl"></div>
-		<div class="absolute bottom-0 right-0 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl"></div>
-		<div class="absolute top-0 right-1/4 w-56 h-56 bg-blue-500/25 rounded-full blur-3xl"></div>
+		<div class="absolute top-0 left-1/4 w-[26rem] h-[26rem] bg-purple-600/20 rounded-full blur-[120px]"></div>
+		<div class="absolute bottom-1/3 -right-16 w-[22rem] h-[22rem] bg-pink-500/15 rounded-full blur-[100px]"></div>
+		<div class="absolute top-1/2 left-0 w-64 h-64 bg-blue-500/15 rounded-full blur-[80px]"></div>
+		<div class="absolute bottom-0 right-1/3 w-48 h-48 bg-cyan-400/10 rounded-full blur-[60px]"></div>
 	</div>
 
 	<div class="relative z-10">
-		<!-- Navigation -->
-		<nav class="backdrop-blur-xl bg-white/10 border-b border-white/10 sticky top-0 z-50">
-			<div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-				<span class="text-xs px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-purple-200">{t.blog.title}</span>
-				<div class="flex items-center gap-1 sm:gap-4">
+		<!-- Floating frosted navigation -->
+		<nav class="sticky top-4 z-50 mx-4 sm:mx-8 lg:mx-auto lg:max-w-5xl mt-4">
+			<div class="backdrop-blur-2xl bg-white/[0.08] border border-white/[0.15] rounded-2xl shadow-lg shadow-black/10 px-5 sm:px-6 py-3 flex items-center justify-between">
+				<span class="text-sm font-semibold px-3 py-1 rounded-full bg-white/10 border border-white/15 text-purple-200 tracking-wide">{t.blog.title}</span>
+				<div class="flex items-center gap-1 sm:gap-2">
 					{nav.map((item: any) => (
-						<a href={item.href} class="text-sm text-white/70 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-white/10">{item.label}</a>
+						<a href={item.href} class="text-sm text-white/60 hover:text-white px-2.5 py-1.5 rounded-xl hover:bg-white/10 transition-all duration-200">{item.label}</a>
 					))}
 				</div>
 			</div>
 		</nav>
 
-		<main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+		<main class="px-4 sm:px-8 lg:px-0 lg:max-w-5xl lg:mx-auto pt-10 sm:pt-16 pb-16">
 			<!-- Back link -->
-			<a href={`/${lang}/${style}/blog`} class="inline-flex items-center gap-1 text-sm text-white/50 hover:text-white/80 transition-colors mb-8">&larr; {t.blog.backToBlog}</a>
+			<a href={`/${lang}/${style}/blog`} class="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors mb-10 group">
+				<span class="group-hover:-translate-x-0.5 transition-transform">&larr;</span> {t.blog.backToBlog}
+			</a>
 
-			<!-- Article -->
-			<article class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 sm:p-10 shadow-lg mb-12">
-				<header class="mb-8 pb-8 border-b border-white/10">
-					<div class="flex flex-wrap items-center gap-3 mb-4">
-						<time datetime={post.date} class="text-sm text-white/40">{post.date}</time>
-						<span class="text-white/20">|</span>
-						<span class="text-sm text-white/40">{t.blog.by} {post.author}</span>
-					</div>
-					<h1 class="text-2xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">{post.title}</h1>
-					<div class="flex flex-wrap gap-2">
-						{post.tags.map((tag: string) => (
-							<span class="text-xs px-2.5 py-0.5 rounded-full bg-white/10 border border-white/10 text-purple-200">{tag}</span>
-						))}
-					</div>
-				</header>
+			<!-- Article layout — asymmetric with sidebar meta and main body overlapping -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-0 mb-16">
+				<!-- Article header + meta sidebar panel (higher z) -->
+				<div class="lg:col-span-4 lg:relative lg:z-20">
+					<div class="backdrop-blur-2xl bg-white/[0.14] border border-white/20 rounded-3xl p-7 sm:p-8 shadow-xl shadow-purple-900/20 lg:sticky lg:top-24">
+						<h1 class="text-2xl sm:text-3xl font-black mb-6 bg-gradient-to-br from-white via-purple-100 to-pink-200 bg-clip-text text-transparent leading-tight">{post.title}</h1>
 
-				<div class="space-y-5">
-					{post.content.map((paragraph: string) => (
-						<p class="text-white/75 leading-relaxed">{paragraph}</p>
-					))}
+						<!-- Meta details as glass items -->
+						<div class="space-y-3 mb-6">
+							<div class="backdrop-blur-md bg-white/[0.06] border border-white/[0.1] rounded-xl px-4 py-3 flex items-center justify-between">
+								<span class="text-xs text-white/40 uppercase tracking-wider">{t.blog.by}</span>
+								<span class="text-white/80 font-medium text-sm">{post.author}</span>
+							</div>
+							<div class="backdrop-blur-md bg-white/[0.06] border border-white/[0.1] rounded-xl px-4 py-3">
+								<time datetime={post.date} class="text-white/80 font-medium text-sm">{post.date}</time>
+							</div>
+						</div>
+
+						<!-- Tags -->
+						<div class="flex flex-wrap gap-2">
+							{post.tags.map((tag: string) => (
+								<span class="text-xs px-3 py-1 rounded-full backdrop-blur-sm bg-gradient-to-r from-purple-500/15 to-pink-500/15 border border-white/[0.12] text-purple-200">{tag}</span>
+							))}
+						</div>
+					</div>
 				</div>
-			</article>
 
-			<!-- More Stories -->
+				<!-- Article body panel (lower z, more transparent, overlaps sidebar) -->
+				<div class="lg:col-span-9 lg:col-start-4 lg:-ml-8 lg:relative lg:z-10 lg:pt-6">
+					<article class="backdrop-blur-xl bg-white/[0.07] border border-white/[0.12] rounded-3xl p-7 sm:p-10 shadow-lg lg:pl-16">
+						<div class="space-y-5">
+							{post.content.map((paragraph: string) => (
+								<p class="text-white/65 leading-relaxed text-[17px]">{paragraph}</p>
+							))}
+						</div>
+					</article>
+				</div>
+			</div>
+
+			<!-- More Stories — floating cards at varied glass opacities -->
 			<section>
-				<h2 class="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">{t.blog.moreStories}</h2>
-				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					{otherPosts.map((p: any) => (
-						<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 shadow-lg hover:bg-white/15 hover:scale-[1.02] transition-all">
-							<h3 class="text-lg font-semibold text-white group-hover:text-purple-200 transition-colors mb-2">{p.title}</h3>
-							<p class="text-sm text-white/50 leading-relaxed">{p.excerpt}</p>
+				<h2 class="text-2xl font-bold mb-8 bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-transparent">{t.blog.moreStories}</h2>
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+					{otherPosts.map((p: any, i: number) => (
+						<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block">
+							<div class={`backdrop-blur-xl border rounded-2xl p-6 sm:p-7 shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-xl ${i % 2 === 0 ? 'bg-white/[0.1] border-white/[0.18]' : 'bg-white/[0.06] border-white/[0.12]'}`}>
+								<h3 class="text-lg font-semibold text-white group-hover:text-purple-200 transition-colors mb-2">{p.title}</h3>
+								<p class="text-sm text-white/45 leading-relaxed">{p.excerpt}</p>
+							</div>
 						</a>
 					))}
 				</div>

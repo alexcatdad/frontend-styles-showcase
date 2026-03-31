@@ -2,70 +2,79 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white">
-	<!-- Decorative background orbs -->
+<div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white overflow-x-hidden">
+	<!-- Decorative background orbs — concentrated around center for the auth card -->
 	<div class="fixed inset-0 overflow-hidden pointer-events-none">
-		<div class="absolute top-1/3 -left-10 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl"></div>
-		<div class="absolute bottom-1/4 right-0 w-72 h-72 bg-pink-500/25 rounded-full blur-3xl"></div>
-		<div class="absolute top-0 left-1/2 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
+		<div class="absolute top-1/4 left-1/4 w-[28rem] h-[28rem] bg-purple-600/25 rounded-full blur-[120px]"></div>
+		<div class="absolute bottom-1/4 right-1/4 w-[24rem] h-[24rem] bg-pink-500/20 rounded-full blur-[100px]"></div>
+		<div class="absolute top-0 right-0 w-72 h-72 bg-blue-500/15 rounded-full blur-[80px]"></div>
+		<div class="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-400/10 rounded-full blur-[70px]"></div>
 	</div>
 
 	<div class="relative z-10">
-		<!-- Navigation -->
-		<nav class="backdrop-blur-xl bg-white/10 border-b border-white/10 sticky top-0 z-50">
-			<div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-				<span class="text-xs px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-purple-200">{t.auth.title}</span>
-				<div class="flex items-center gap-1 sm:gap-4">
+		<!-- Floating frosted navigation -->
+		<nav class="sticky top-4 z-50 mx-4 sm:mx-8 lg:mx-auto lg:max-w-5xl mt-4">
+			<div class="backdrop-blur-2xl bg-white/[0.08] border border-white/[0.15] rounded-2xl shadow-lg shadow-black/10 px-5 sm:px-6 py-3 flex items-center justify-between">
+				<span class="text-sm font-semibold px-3 py-1 rounded-full bg-white/10 border border-white/15 text-purple-200 tracking-wide">{t.auth.title}</span>
+				<div class="flex items-center gap-1 sm:gap-2">
 					{nav.map((item: any) => (
-						<a href={item.href} class="text-sm text-white/70 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-white/10">{item.label}</a>
+						<a href={item.href} class="text-sm text-white/60 hover:text-white px-2.5 py-1.5 rounded-xl hover:bg-white/10 transition-all duration-200">{item.label}</a>
 					))}
 				</div>
 			</div>
 		</nav>
 
-		<main class="max-w-md mx-auto px-4 sm:px-6 py-16 sm:py-24">
-			<section class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-8 shadow-lg">
-				<div class="text-center mb-8">
-					<h1 class="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">{t.auth.title}</h1>
-					<p class="text-white/50 text-sm">{t.auth.subtitle}</p>
-				</div>
+		<!-- Auth card — centered floating glass island with layered depth -->
+		<main class="flex items-center justify-center px-4 sm:px-8 pt-16 sm:pt-24 pb-16">
+			<div class="relative w-full max-w-md">
+				<!-- Decorative glass layers behind the form -->
+				<div class="absolute -top-6 -right-6 w-full h-full backdrop-blur-sm bg-white/[0.03] border border-white/[0.06] rounded-3xl rotate-2 hidden sm:block"></div>
+				<div class="absolute -bottom-4 -left-4 w-full h-full backdrop-blur-sm bg-white/[0.02] border border-white/[0.04] rounded-3xl -rotate-1 hidden sm:block"></div>
 
-				<form class="space-y-5">
-					<div>
-						<label for="email" class="block text-sm text-white/60 mb-1.5">{t.auth.email}</label>
-						<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl backdrop-blur-md bg-white/5 border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-purple-400/50 focus:bg-white/10 transition-all" />
+				<!-- Main auth card — highest z, most opaque -->
+				<section class="relative z-10 backdrop-blur-2xl bg-white/[0.12] border border-white/20 rounded-3xl p-8 sm:p-10 shadow-2xl shadow-purple-900/30">
+					<div class="text-center mb-8">
+						<h1 class="text-2xl sm:text-3xl font-black mb-2 bg-gradient-to-br from-white via-purple-100 to-pink-200 bg-clip-text text-transparent">{t.auth.title}</h1>
+						<p class="text-white/45 text-sm">{t.auth.subtitle}</p>
 					</div>
-					<div>
-						<label for="password" class="block text-sm text-white/60 mb-1.5">{t.auth.password}</label>
-						<input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl backdrop-blur-md bg-white/5 border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-purple-400/50 focus:bg-white/10 transition-all" />
-					</div>
-					<div class="flex items-center justify-between">
-						<label class="flex items-center gap-2 text-sm text-white/60 cursor-pointer">
-							<input type="checkbox" name="remember" class="w-4 h-4 rounded border-white/20 bg-white/5 accent-purple-500" />
-							{t.auth.rememberMe}
-						</label>
-						<a href="#" class="text-sm text-purple-300 hover:text-purple-200 transition-colors">{t.auth.forgotPassword}</a>
-					</div>
-					<button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] transition-all">{t.auth.signIn}</button>
-				</form>
 
-				<!-- Social Login -->
-				<div class="mt-8">
-					<div class="flex items-center gap-3 mb-6">
-						<div class="flex-1 h-px bg-white/10"></div>
-						<p class="text-xs text-white/40 uppercase tracking-wider">{t.auth.continueWith}</p>
-						<div class="flex-1 h-px bg-white/10"></div>
-					</div>
-					<div class="grid grid-cols-2 gap-3">
-						<button type="button" class="py-3 rounded-xl backdrop-blur-md bg-white/5 border border-white/15 text-white/70 font-medium hover:bg-white/10 transition-all">Google</button>
-						<button type="button" class="py-3 rounded-xl backdrop-blur-md bg-white/5 border border-white/15 text-white/70 font-medium hover:bg-white/10 transition-all">Apple</button>
-					</div>
-				</div>
+					<form class="space-y-5">
+						<div>
+							<label for="email" class="block text-sm text-white/55 mb-1.5 font-medium">{t.auth.email}</label>
+							<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full px-4 py-3.5 rounded-2xl backdrop-blur-xl bg-white/[0.06] border border-white/[0.12] text-white placeholder-white/25 focus:outline-none focus:border-purple-400/40 focus:bg-white/[0.1] focus:shadow-lg focus:shadow-purple-500/10 transition-all duration-300" />
+						</div>
+						<div>
+							<label for="password" class="block text-sm text-white/55 mb-1.5 font-medium">{t.auth.password}</label>
+							<input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-3.5 rounded-2xl backdrop-blur-xl bg-white/[0.06] border border-white/[0.12] text-white placeholder-white/25 focus:outline-none focus:border-purple-400/40 focus:bg-white/[0.1] focus:shadow-lg focus:shadow-purple-500/10 transition-all duration-300" />
+						</div>
+						<div class="flex items-center justify-between">
+							<label class="flex items-center gap-2 text-sm text-white/50 cursor-pointer hover:text-white/70 transition-colors">
+								<input type="checkbox" name="remember" class="w-4 h-4 rounded border-white/20 bg-white/5 accent-purple-500" />
+								{t.auth.rememberMe}
+							</label>
+							<a href="#" class="text-sm text-purple-300/80 hover:text-purple-200 transition-colors">{t.auth.forgotPassword}</a>
+						</div>
+						<button type="submit" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-xl shadow-purple-500/25 hover:shadow-purple-500/50 hover:scale-[1.02] transition-all duration-300">{t.auth.signIn}</button>
+					</form>
 
-				<p class="text-center text-sm text-white/40 mt-8">
-					{t.auth.noAccount} <a href="#" class="text-purple-300 hover:text-purple-200 transition-colors">{t.auth.signUp}</a>
-				</p>
-			</section>
+					<!-- Social Login -->
+					<div class="mt-8">
+						<div class="flex items-center gap-3 mb-6">
+							<div class="flex-1 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+							<p class="text-[11px] text-white/35 uppercase tracking-widest">{t.auth.continueWith}</p>
+							<div class="flex-1 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+						</div>
+						<div class="grid grid-cols-2 gap-3">
+							<button type="button" class="py-3.5 rounded-2xl backdrop-blur-xl bg-white/[0.06] border border-white/[0.12] text-white/65 font-medium hover:bg-white/[0.12] hover:text-white/80 transition-all duration-300">Google</button>
+							<button type="button" class="py-3.5 rounded-2xl backdrop-blur-xl bg-white/[0.06] border border-white/[0.12] text-white/65 font-medium hover:bg-white/[0.12] hover:text-white/80 transition-all duration-300">Apple</button>
+						</div>
+					</div>
+
+					<p class="text-center text-sm text-white/35 mt-8">
+						{t.auth.noAccount} <a href="#" class="text-purple-300/80 hover:text-purple-200 transition-colors">{t.auth.signUp}</a>
+					</p>
+				</section>
+			</div>
 		</main>
 	</div>
 </div>

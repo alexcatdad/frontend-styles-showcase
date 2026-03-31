@@ -2,76 +2,87 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white">
-	<!-- Decorative background orbs -->
+<div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white overflow-x-hidden">
+	<!-- Decorative background orbs — layered at varying depths -->
 	<div class="fixed inset-0 overflow-hidden pointer-events-none">
-		<div class="absolute top-1/4 -left-20 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl"></div>
-		<div class="absolute top-3/4 right-0 w-80 h-80 bg-pink-500/20 rounded-full blur-3xl"></div>
-		<div class="absolute top-0 right-1/3 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl"></div>
+		<div class="absolute -top-24 -left-24 w-[32rem] h-[32rem] bg-purple-600/25 rounded-full blur-[120px]"></div>
+		<div class="absolute top-1/2 -right-32 w-[28rem] h-[28rem] bg-pink-500/20 rounded-full blur-[100px]"></div>
+		<div class="absolute bottom-0 left-1/3 w-96 h-96 bg-blue-500/15 rounded-full blur-[100px]"></div>
+		<div class="absolute top-1/4 right-1/4 w-64 h-64 bg-fuchsia-400/10 rounded-full blur-[80px]"></div>
+		<div class="absolute bottom-1/3 -left-10 w-48 h-48 bg-cyan-400/10 rounded-full blur-[60px]"></div>
 	</div>
 
 	<div class="relative z-10">
-		<!-- Navigation -->
-		<nav class="backdrop-blur-xl bg-white/10 border-b border-white/10 sticky top-0 z-50">
-			<div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-				<div class="flex items-center gap-2">
-					<span class="text-lg font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">{sanctuary.name}</span>
-					<span class="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-purple-200">{meta.name}</span>
+		<!-- Floating frosted navigation — detached from edges -->
+		<nav class="sticky top-4 z-50 mx-4 sm:mx-8 lg:mx-auto lg:max-w-5xl mt-4">
+			<div class="backdrop-blur-2xl bg-white/[0.08] border border-white/[0.15] rounded-2xl shadow-lg shadow-black/10 px-5 sm:px-6 py-3 flex items-center justify-between">
+				<div class="flex items-center gap-3">
+					<span class="text-lg font-bold bg-gradient-to-r from-purple-200 via-pink-200 to-purple-300 bg-clip-text text-transparent">{sanctuary.name}</span>
+					<span class="hidden sm:inline-block text-[10px] px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-purple-300/80 tracking-wide uppercase">{meta.name}</span>
 				</div>
-				<div class="flex items-center gap-1 sm:gap-4">
+				<div class="flex items-center gap-1 sm:gap-2">
 					{nav.map((item: any) => (
-						<a href={item.href} class="text-sm text-white/70 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-white/10">{item.label}</a>
+						<a href={item.href} class="text-sm text-white/60 hover:text-white px-2.5 py-1.5 rounded-xl hover:bg-white/10 transition-all duration-200">{item.label}</a>
 					))}
 				</div>
 			</div>
 		</nav>
 
-		<main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
-			<!-- Hero Section -->
-			<section class="text-center py-12 sm:py-24">
-				<h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">{sanctuary.name}</h1>
-				<p class="text-lg sm:text-2xl text-white/70 max-w-2xl mx-auto mb-10">{sanctuary.tagline}</p>
+		<!-- Hero — massive gradient area with floating glass content card -->
+		<section class="relative px-4 sm:px-8 lg:px-0 pt-16 sm:pt-24 pb-20 sm:pb-32 lg:max-w-6xl lg:mx-auto">
+			<!-- Floating decorative glass shards behind hero -->
+			<div class="absolute top-8 right-8 sm:right-16 w-32 h-32 sm:w-48 sm:h-48 backdrop-blur-md bg-white/[0.04] border border-white/[0.08] rounded-3xl rotate-12 hidden md:block"></div>
+			<div class="absolute bottom-12 left-4 sm:left-8 w-24 h-24 sm:w-36 sm:h-36 backdrop-blur-md bg-white/[0.03] border border-white/[0.06] rounded-2xl -rotate-6 hidden md:block"></div>
+
+			<div class="relative text-center max-w-3xl mx-auto">
+				<h1 class="text-5xl sm:text-7xl lg:text-8xl font-black mb-6 bg-gradient-to-br from-white via-purple-100 to-pink-200 bg-clip-text text-transparent leading-tight tracking-tight">{sanctuary.name}</h1>
+				<p class="text-lg sm:text-2xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">{sanctuary.tagline}</p>
 				<div class="flex flex-col sm:flex-row gap-4 justify-center">
-					<a href={`/${lang}/${style}/cats`} class="px-8 py-3 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-105 transition-all">{t.home.meetCats}</a>
-					<a href={`/${lang}/${style}/donate`} class="px-8 py-3 rounded-2xl backdrop-blur-md bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-all">{t.home.donate}</a>
+					<a href={`/${lang}/${style}/cats`} class="group px-10 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-xl shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300">{t.home.meetCats}</a>
+					<a href={`/${lang}/${style}/donate`} class="px-10 py-4 rounded-2xl backdrop-blur-xl bg-white/[0.08] border border-white/20 text-white font-semibold hover:bg-white/[0.15] transition-all duration-300">{t.home.donate}</a>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<!-- Mission Section -->
-			<section class="mb-16">
-				<div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-8 sm:p-12 shadow-lg">
-					<h2 class="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">{t.home.mission}</h2>
-					<p class="text-white/80 text-lg leading-relaxed">{sanctuary.mission}</p>
-				</div>
-			</section>
+		<!-- Stats — floating glass bubbles / pills scattered asymmetrically -->
+		<section class="px-4 sm:px-8 lg:px-0 lg:max-w-5xl lg:mx-auto mb-20">
+			<div class="flex flex-wrap justify-center gap-4 sm:gap-5">
+				{sanctuary.stats.map((stat: any, i: number) => (
+					<div class={`backdrop-blur-xl border border-white/15 rounded-full px-7 sm:px-9 py-4 sm:py-5 shadow-lg hover:scale-105 transition-all duration-300 cursor-default ${i % 3 === 0 ? 'bg-white/[0.12] shadow-purple-500/10' : i % 3 === 1 ? 'bg-white/[0.08] shadow-pink-500/10' : 'bg-white/[0.06] shadow-blue-500/10'}`}>
+						<span class="block text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-transparent leading-none">{stat.value}</span>
+						<span class="block text-xs text-white/50 mt-1.5 tracking-wide">{stat.label}</span>
+					</div>
+				))}
+			</div>
+		</section>
 
-			<!-- Stats Section -->
-			<section class="mb-16">
-				<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-					{sanctuary.stats.map((stat: any) => (
-						<div class="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 text-center shadow-lg hover:bg-white/15 transition-all">
-							<span class="block text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">{stat.value}</span>
-							<span class="block text-sm text-white/60 mt-2">{stat.label}</span>
-						</div>
-					))}
-				</div>
-			</section>
-
-			<!-- About Section -->
-			<section class="mb-16">
-				<div class="backdrop-blur-lg bg-white/5 border border-white/10 rounded-2xl p-8 sm:p-12 shadow-lg">
-					<h2 class="text-2xl sm:text-3xl font-bold mb-6 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">{t.home.aboutUs}</h2>
-					<div class="space-y-4">
-						{sanctuary.about.map((paragraph: string) => (
-							<p class="text-white/70 leading-relaxed">{paragraph}</p>
-						))}
+		<!-- Mission + About — asymmetric overlapping glass panels -->
+		<section class="px-4 sm:px-8 lg:px-0 lg:max-w-6xl lg:mx-auto mb-24">
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-0 items-start">
+				<!-- Mission panel — wider, sits higher -->
+				<div class="lg:col-span-7 lg:relative lg:z-20">
+					<div class="backdrop-blur-2xl bg-white/[0.12] border border-white/20 rounded-3xl p-8 sm:p-12 shadow-xl shadow-purple-900/20">
+						<h2 class="text-2xl sm:text-3xl font-bold mb-5 bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-transparent">{t.home.mission}</h2>
+						<p class="text-white/75 text-lg leading-relaxed">{sanctuary.mission}</p>
 					</div>
 				</div>
-			</section>
-		</main>
 
-		<footer class="border-t border-white/10 backdrop-blur-md bg-white/5">
-			<div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 text-center text-sm text-white/40">
+				<!-- About panel — overlaps the mission panel, sits lower, slightly transparent -->
+				<div class="lg:col-span-7 lg:-ml-16 lg:col-start-6 lg:relative lg:z-10 lg:mt-12">
+					<div class="backdrop-blur-xl bg-white/[0.06] border border-white/[0.12] rounded-3xl p-8 sm:p-12 shadow-lg">
+						<h2 class="text-2xl sm:text-3xl font-bold mb-6 bg-gradient-to-r from-pink-200 to-purple-200 bg-clip-text text-transparent">{t.home.aboutUs}</h2>
+						<div class="space-y-4">
+							{sanctuary.about.map((paragraph: string) => (
+								<p class="text-white/60 leading-relaxed">{paragraph}</p>
+							))}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<footer class="relative z-10 mx-4 sm:mx-8 lg:mx-auto lg:max-w-5xl mb-6">
+			<div class="backdrop-blur-xl bg-white/[0.05] border border-white/[0.1] rounded-2xl px-6 py-5 text-center text-sm text-white/35">
 				<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
 			</div>
 		</footer>
