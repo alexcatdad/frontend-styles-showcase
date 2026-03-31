@@ -2,57 +2,130 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-mono selection:bg-pink-500 selection:text-white">
 
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
+	<nav class="bg-black text-white px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 border-b-4 border-yellow-400">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"uppercase tracking-widest font-black no-underline hover:underline decoration-wavy decoration-pink-500",
+					i % 3 === 0 ? "text-yellow-300 text-sm" : i % 3 === 1 ? "text-pink-400 text-base" : "text-orange-400 text-xs",
+					i % 2 === 0 ? "-rotate-1" : "rotate-1",
+				]}
+			>
+				{i % 2 === 0 ? "★ " : "✕ "}{item.label}
+			</a>
+		))}
+	</nav>
 
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
+	<main class="px-4 py-8 md:py-12">
+		<div class="max-w-6xl mx-auto">
+			<div class="mb-10 md:mb-14">
+				<h1 class="text-4xl md:text-7xl font-black uppercase -rotate-2 inline-block bg-pink-500 text-white px-4 py-2 border-4 border-black">
+					‼ {t.donate.title}
+				</h1>
+				<p class="text-lg md:text-2xl font-bold mt-4 rotate-1 bg-yellow-400 text-black inline-block px-3 py-1 border-2 border-black">
+					{t.donate.subtitle}
+				</p>
+			</div>
+
+			<!-- MONTHLY TIERS -->
+			<section class="mb-16">
+				<h2 class="text-2xl md:text-4xl font-black uppercase rotate-1 inline-block bg-black text-yellow-400 px-3 py-1 mb-8 border-2 border-yellow-400">
+					★ {t.donate.monthly}
+				</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{monthlyTiers.map((tier: any, i: number) => (
+						<div
+							class:list={[
+								"border-4 border-black p-4 md:p-6 relative",
+								tier.highlighted
+									? "bg-pink-500 text-white -rotate-1 scale-105 z-10 border-yellow-400 border-8"
+									: i % 2 === 0
+										? "bg-yellow-100 rotate-1"
+										: "bg-gray-100 -rotate-1",
+							]}
+						>
+							{tier.highlighted && (
+								<span class="absolute -top-4 -right-3 bg-yellow-400 text-black font-black uppercase text-xs px-3 py-1 border-2 border-black rotate-6">
+									★ {t.donate.mostPopular} ★
+								</span>
+							)}
+							<h3 class="text-xl md:text-2xl font-black uppercase mb-2">{tier.name}</h3>
+							<p class="mb-3">
+								<span class="text-4xl md:text-5xl font-black">${tier.amount}</span>
+								<span class="text-sm font-bold uppercase">{t.donate.perMonth}</span>
+							</p>
+							<p class="text-sm font-bold mb-4 border-b-2 border-current pb-3">{tier.description}</p>
+							<ul class="space-y-2 mb-6">
+								{tier.perks.map((perk: string) => (
+									<li class="text-sm font-bold">✕ {perk}</li>
+								))}
+							</ul>
+							<button
+								type="button"
+								class:list={[
+									"w-full font-black uppercase text-sm px-4 py-3 border-4 border-black cursor-pointer hover:scale-105 transition-transform",
+									tier.highlighted
+										? "bg-yellow-400 text-black"
+										: "bg-black text-white",
+								]}
+							>
+								→ {t.donate.choose} {tier.name}
+							</button>
+						</div>
+					))}
 				</div>
-			))}
-		</div>
-	</section>
+			</section>
 
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
+			<!-- ONE-TIME TIERS -->
+			<section>
+				<h2 class="text-2xl md:text-4xl font-black uppercase -rotate-1 inline-block bg-orange-500 text-white px-3 py-1 mb-8 border-2 border-black">
+					→ {t.donate.oneTime}
+				</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{oneTimeTiers.map((tier: any, i: number) => (
+						<div
+							class:list={[
+								"border-4 border-black p-4 md:p-6 relative",
+								tier.highlighted
+									? "bg-orange-500 text-white rotate-1 scale-105 z-10 border-yellow-400 border-8"
+									: i % 2 === 0
+										? "bg-pink-100 -rotate-2"
+										: "bg-yellow-100 rotate-2",
+							]}
+						>
+							{tier.highlighted && (
+								<span class="absolute -top-4 -left-3 bg-yellow-400 text-black font-black uppercase text-xs px-3 py-1 border-2 border-black -rotate-6">
+									‼ {t.donate.greatestImpact} ‼
+								</span>
+							)}
+							<h3 class="text-xl md:text-2xl font-black uppercase mb-2">{tier.name}</h3>
+							<p class="mb-3">
+								<span class="text-4xl md:text-5xl font-black">${tier.amount}</span>
+							</p>
+							<p class="text-sm font-bold mb-4 border-b-2 border-current pb-3">{tier.description}</p>
+							<ul class="space-y-2 mb-6">
+								{tier.perks.map((perk: string) => (
+									<li class="text-sm font-bold">★ {perk}</li>
+								))}
+							</ul>
+							<button
+								type="button"
+								class:list={[
+									"w-full font-black uppercase text-sm px-4 py-3 border-4 border-black cursor-pointer hover:scale-105 transition-transform",
+									tier.highlighted
+										? "bg-yellow-400 text-black"
+										: "bg-black text-white",
+								]}
+							>
+								→ {t.donate.give} ${tier.amount}
+							</button>
+						</div>
+					))}
 				</div>
-			))}
+			</section>
 		</div>
-	</section>
-</main>
+	</main>
+</div>
