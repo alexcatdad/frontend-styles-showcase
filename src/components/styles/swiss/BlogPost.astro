@@ -2,43 +2,57 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-sans">
+	<nav class="border-b border-black px-6 md:px-12 lg:px-24 py-4 flex flex-wrap items-center gap-x-8 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-xs uppercase tracking-widest text-black hover:text-red-600 transition-colors">{item.label}</a>
+		))}
+	</nav>
 
-<main>
-	<a href={`/${lang}/${style}/blog`}>&larr; {t.blog.backToBlog}</a>
+	<main class="px-6 md:px-12 lg:px-24">
+		<div class="pt-8 pb-4">
+			<a href={`/${lang}/${style}/blog`} class="text-xs uppercase tracking-widest text-neutral-500 hover:text-black transition-colors">&larr; {t.blog.backToBlog}</a>
+		</div>
 
-	<article>
-		<header>
-			<time datetime={post.date}>{post.date}</time>
-			<h1>{post.title}</h1>
-			<span>{t.blog.by} {post.author}</span>
-			<div>
-				{post.tags.map((tag: string) => (
-					<span>{tag}</span>
+		<article class="border-t border-black">
+			<header class="pt-12 pb-10 md:pt-16 md:pb-12 border-b border-black">
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
+					<div class="md:col-span-8">
+						<time datetime={post.date} class="text-xs tracking-widest text-neutral-400 font-mono">{post.date}</time>
+						<h1 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-left">{post.title}</h1>
+						<div class="mt-6 flex flex-wrap items-center gap-4">
+							<span class="text-xs uppercase tracking-widest text-neutral-500">{t.blog.by} {post.author}</span>
+							<span class="hidden md:inline text-neutral-300">|</span>
+							<div class="flex flex-wrap gap-2">
+								{post.tags.map((tag: string) => (
+									<span class="text-xs uppercase tracking-widest text-neutral-400 border border-neutral-300 px-2 py-0.5">{tag}</span>
+								))}
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<div class="grid grid-cols-1 md:grid-cols-12 gap-8 py-12 md:py-16">
+				<div class="md:col-span-2"></div>
+				<div class="md:col-span-6 space-y-6">
+					{post.content.map((paragraph: string) => (
+						<p class="text-sm leading-relaxed text-neutral-700 text-left">{paragraph}</p>
+					))}
+				</div>
+			</div>
+		</article>
+
+		<section class="border-t border-black py-12 md:py-16">
+			<h2 class="text-xs uppercase tracking-widest font-bold mb-8 text-left">{t.blog.moreStories}</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-black">
+				{otherPosts.map((p: any) => (
+					<a href={`/${lang}/${style}/blog/${p.slug}`} class="group bg-white p-6 md:p-8 hover:bg-neutral-50 transition-colors">
+						<h3 class="text-lg font-bold tracking-tight text-left group-hover:text-red-600 transition-colors">{p.title}</h3>
+						<p class="mt-2 text-sm text-neutral-600 leading-relaxed text-left">{p.excerpt}</p>
+					</a>
 				))}
 			</div>
-		</header>
-
-		<div>
-			{post.content.map((paragraph: string) => (
-				<p>{paragraph}</p>
-			))}
-		</div>
-	</article>
-
-	<section>
-		<h2>{t.blog.moreStories}</h2>
-		<div>
-			{otherPosts.map((p: any) => (
-				<a href={`/${lang}/${style}/blog/${p.slug}`}>
-					<h3>{p.title}</h3>
-					<p>{p.excerpt}</p>
-				</a>
-			))}
-		</div>
-	</section>
-</main>
+		</section>
+	</main>
+</div>
