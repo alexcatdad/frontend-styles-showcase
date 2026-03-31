@@ -2,50 +2,61 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav class="bg-black border-b-4 border-yellow-400 px-4 py-3 flex flex-wrap items-center gap-2 font-mono sticky top-0 z-50">
-	{nav.map((item: any) => (
-		<a href={item.href} class="text-yellow-400 uppercase font-black text-sm md:text-base tracking-widest border-2 border-yellow-400 px-3 py-1 hover:bg-yellow-400 hover:text-black transition-none cursor-pointer">{item.label}</a>
-	))}
-</nav>
+<main class="bg-black font-mono text-white min-h-screen overflow-x-hidden relative">
+	<!-- TITLE: MASSIVE, FILLS BACKGROUND -->
+	<div class="absolute top-0 left-0 w-full px-4 pt-8 md:pt-12 pointer-events-none select-none">
+		<h1 class="text-7xl md:text-9xl lg:text-[12rem] font-black uppercase leading-none tracking-tighter text-white opacity-10">{t.auth.title}</h1>
+	</div>
 
-<main class="bg-white font-mono text-black min-h-screen flex items-center justify-center px-4 py-12">
-	<section class="w-full max-w-md border-4 border-black">
-		<div class="bg-black text-white px-6 py-8">
-			<h1 class="text-3xl md:text-5xl font-black uppercase tracking-tighter">{t.auth.title}</h1>
-			<p class="text-sm font-bold uppercase tracking-wider mt-2 text-yellow-400">{t.auth.subtitle}</p>
-		</div>
+	<!-- FORM: RAW, OVERSIZED, OFF-CENTER -->
+	<div class="relative z-10 min-h-screen flex items-center px-4 py-12 md:py-16">
+		<section class="w-full max-w-lg md:ml-auto md:mr-16 lg:mr-24">
+			<div class="mb-8 md:mb-12">
+				<h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-yellow-400">{t.auth.title}</h2>
+				<p class="text-sm font-black uppercase tracking-[0.3em] mt-2 text-red-500">{t.auth.subtitle}</p>
+			</div>
 
-		<form class="px-6 py-8 space-y-6">
-			<div>
-				<label for="email" class="block text-sm font-black uppercase tracking-widest mb-2">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full border-4 border-black px-3 py-2 font-mono text-sm focus:outline-none focus:border-red-600 bg-white" />
-			</div>
-			<div>
-				<label for="password" class="block text-sm font-black uppercase tracking-widest mb-2">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" class="w-full border-4 border-black px-3 py-2 font-mono text-sm focus:outline-none focus:border-red-600 bg-white" />
-			</div>
-			<div class="flex items-center justify-between">
-				<label class="flex items-center gap-2 cursor-pointer">
-					<input type="checkbox" name="remember" class="w-5 h-5 border-4 border-black accent-black cursor-pointer" />
-					<span class="text-xs font-bold uppercase tracking-wider">{t.auth.rememberMe}</span>
-				</label>
-				<a href="#" class="text-xs font-bold uppercase tracking-wider border-b-2 border-black hover:border-red-600 hover:text-red-600 transition-none cursor-pointer">{t.auth.forgotPassword}</a>
-			</div>
-			<button type="submit" class="w-full bg-black text-white uppercase font-black text-base px-4 py-3 border-4 border-black hover:bg-yellow-400 hover:text-black transition-none cursor-pointer tracking-widest">{t.auth.signIn}</button>
-		</form>
+			<form class="space-y-6 md:space-y-8">
+				<div>
+					<label for="email" class="block text-xs font-black uppercase tracking-[0.3em] mb-3 text-yellow-400">{t.auth.email}</label>
+					<input type="email" id="email" name="email" placeholder="YOU@EXAMPLE.COM" class="w-full border-4 border-white bg-black text-white px-4 py-4 md:py-5 font-mono text-lg md:text-xl font-black uppercase tracking-wider focus:outline-none focus:border-yellow-400 placeholder:text-white/30" />
+				</div>
+				<div>
+					<label for="password" class="block text-xs font-black uppercase tracking-[0.3em] mb-3 text-yellow-400">{t.auth.password}</label>
+					<input type="password" id="password" name="password" placeholder="********" class="w-full border-4 border-white bg-black text-white px-4 py-4 md:py-5 font-mono text-lg md:text-xl font-black uppercase tracking-wider focus:outline-none focus:border-yellow-400 placeholder:text-white/30" />
+				</div>
+				<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+					<label class="flex items-center gap-3 cursor-pointer">
+						<input type="checkbox" name="remember" class="w-6 h-6 border-4 border-white accent-yellow-400 cursor-pointer bg-black" />
+						<span class="text-xs font-black uppercase tracking-[0.2em]">{t.auth.rememberMe}</span>
+					</label>
+					<a href="#" class="text-xs font-black uppercase tracking-[0.2em] text-red-500 hover:text-yellow-400 cursor-pointer border-b-2 border-red-500 hover:border-yellow-400 pb-1">{t.auth.forgotPassword}</a>
+				</div>
+				<button type="submit" class="w-full bg-yellow-400 text-black uppercase font-black text-lg md:text-xl px-4 py-4 md:py-5 border-4 border-yellow-400 hover:bg-red-600 hover:text-white hover:border-red-600 cursor-pointer tracking-[0.2em]">{t.auth.signIn}</button>
+			</form>
 
-		<div class="border-t-4 border-black px-6 py-6">
-			<p class="text-xs font-black uppercase tracking-widest text-center mb-4">{t.auth.continueWith}</p>
-			<div class="grid grid-cols-2 gap-0">
-				<button type="button" class="border-4 border-black px-4 py-3 font-black uppercase text-sm tracking-widest hover:bg-black hover:text-white transition-none cursor-pointer -mr-1">Google</button>
-				<button type="button" class="border-4 border-black px-4 py-3 font-black uppercase text-sm tracking-widest hover:bg-black hover:text-white transition-none cursor-pointer">Apple</button>
+			<div class="mt-8 md:mt-12 border-t-4 border-white pt-8">
+				<p class="text-xs font-black uppercase tracking-[0.3em] text-center mb-6">{t.auth.continueWith}</p>
+				<div class="grid grid-cols-2 gap-0">
+					<button type="button" class="border-4 border-white px-4 py-4 font-black uppercase text-base md:text-lg tracking-[0.2em] hover:bg-white hover:text-black cursor-pointer -mr-1">GOOGLE</button>
+					<button type="button" class="border-4 border-white px-4 py-4 font-black uppercase text-base md:text-lg tracking-[0.2em] hover:bg-white hover:text-black cursor-pointer">APPLE</button>
+				</div>
 			</div>
-		</div>
 
-		<div class="border-t-4 border-black px-6 py-4 bg-yellow-400">
-			<p class="text-sm font-bold uppercase tracking-wider text-center">
-				{t.auth.noAccount} <a href="#" class="border-b-2 border-black hover:border-red-600 hover:text-red-600 transition-none cursor-pointer font-black">{t.auth.signUp}</a>
-			</p>
-		</div>
-	</section>
+			<div class="mt-8 bg-yellow-400 text-black border-4 border-yellow-400 px-4 py-4">
+				<p class="text-sm font-black uppercase tracking-[0.2em] text-center">
+					{t.auth.noAccount} <a href="#" class="border-b-4 border-black hover:border-red-600 hover:text-red-600 cursor-pointer">{t.auth.signUp}</a>
+				</p>
+			</div>
+		</section>
+	</div>
 </main>
+
+<!-- NAV AT BOTTOM -->
+<nav class="bg-black border-t-8 border-yellow-400 px-4 py-6 font-mono">
+	<div class="flex flex-wrap gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-yellow-400 uppercase font-black text-xs md:text-sm tracking-[0.3em] hover:text-white cursor-pointer">{item.label}</a>
+		))}
+	</div>
+</nav>

@@ -2,47 +2,63 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<nav class="bg-black border-b-4 border-yellow-400 px-4 py-3 flex flex-wrap items-center gap-2 font-mono sticky top-0 z-50">
-	{nav.map((item: any) => (
-		<a href={item.href} class="text-yellow-400 uppercase font-black text-sm md:text-base tracking-widest border-2 border-yellow-400 px-3 py-1 hover:bg-yellow-400 hover:text-black transition-none cursor-pointer">{item.label}</a>
-	))}
-</nav>
-
-<main class="bg-white font-mono text-black min-h-screen">
-	<div class="max-w-4xl mx-auto px-4 py-6">
-		<a href={`/${lang}/${style}/blog`} class="inline-block bg-black text-white uppercase font-black text-sm px-4 py-2 border-4 border-black hover:bg-fuchsia-500 hover:text-white transition-none cursor-pointer tracking-wider">&larr; {t.blog.backToBlog}</a>
+<main class="bg-white font-mono text-black overflow-x-hidden">
+	<!-- BACK LINK: FLOATING -->
+	<div class="bg-black px-4 py-4">
+		<a href={`/${lang}/${style}/blog`} class="text-red-500 uppercase font-black text-xs tracking-[0.3em] hover:text-yellow-400 cursor-pointer border-b-2 border-red-500 hover:border-yellow-400 pb-1">&larr; {t.blog.backToBlog}</a>
 	</div>
 
-	<article class="max-w-4xl mx-auto px-4 pb-12">
-		<header class="border-b-4 border-black pb-6">
-			<time datetime={post.date} class="text-xs font-black uppercase tracking-widest bg-black text-white px-2 py-1 inline-block">{post.date}</time>
-			<h1 class="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter mt-4 leading-none">{post.title}</h1>
-			<span class="block mt-3 text-base font-bold uppercase tracking-wider">{t.blog.by} {post.author}</span>
-			<div class="flex flex-wrap gap-1 mt-4">
-				{post.tags.map((tag: string) => (
-					<span class="border-2 border-black bg-yellow-400 text-black text-xs font-black uppercase px-2 py-1 tracking-wider">{tag}</span>
-				))}
-			</div>
-		</header>
-
-		<div class="mt-8 space-y-6">
-			{post.content.map((paragraph: string) => (
-				<p class="text-base md:text-lg leading-relaxed border-l-4 border-black pl-4">{paragraph}</p>
+	<!-- TITLE: VIEWPORT DOMINATION -->
+	<header class="bg-red-600 text-white px-4 py-12 md:py-20 relative overflow-hidden">
+		<h1 class="text-5xl md:text-7xl lg:text-9xl font-black uppercase leading-none tracking-tighter">{post.title}</h1>
+		<div class="mt-6 md:mt-8 flex flex-col md:flex-row md:items-center gap-4">
+			<span class="text-base md:text-xl font-black uppercase tracking-[0.2em]">{t.blog.by} {post.author}</span>
+			<time datetime={post.date} class="bg-black text-red-500 text-xs font-black uppercase tracking-[0.3em] px-4 py-2 inline-block">{post.date}</time>
+		</div>
+		<div class="flex flex-wrap gap-2 mt-6">
+			{post.tags.map((tag: string) => (
+				<span class="border-4 border-white text-white text-xs font-black uppercase px-3 py-1 tracking-wider">{tag}</span>
 			))}
 		</div>
+	</header>
+
+	<!-- CONTENT: RAW TEXT BLOCKS, ALTERNATING TREATMENT -->
+	<article class="px-4 py-0">
+		{post.content.map((paragraph: string, i: number) => (
+			<div class={`py-6 md:py-10 border-b-4 border-black
+				${i === 0 ? 'bg-yellow-400 -mx-4 px-4 md:px-8' : ''}
+				${i > 0 && i % 3 === 0 ? 'bg-black text-white -mx-4 px-4 md:px-8' : ''}
+				${i % 3 === 1 ? 'md:w-4/5 md:ml-auto' : ''}
+				${i % 3 === 2 ? 'md:w-5/6' : ''}
+			`}>
+				<p class={`text-base md:text-lg lg:text-xl font-black leading-relaxed uppercase
+					${i === 0 ? 'text-xl md:text-2xl lg:text-3xl' : ''}
+				`}>{paragraph}</p>
+			</div>
+		))}
 	</article>
 
-	<section class="border-t-4 border-black px-4 py-12 bg-black text-white">
-		<div class="max-w-4xl mx-auto">
-			<h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-fuchsia-400 border-b-4 border-fuchsia-400 pb-2 inline-block">{t.blog.moreStories}</h2>
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-0 mt-8">
-				{otherPosts.map((p: any) => (
-					<a href={`/${lang}/${style}/blog/${p.slug}`} class="block border-2 border-white p-6 hover:bg-fuchsia-500 transition-none cursor-pointer">
-						<h3 class="text-xl font-black uppercase tracking-tighter">{p.title}</h3>
-						<p class="text-sm mt-2 leading-snug opacity-80">{p.excerpt}</p>
-					</a>
-				))}
-			</div>
+	<!-- OTHER POSTS: STACKED AGGRESSIVELY -->
+	<section class="bg-black text-white border-t-8 border-red-600 px-4 py-12 md:py-16">
+		<h2 class="text-3xl md:text-5xl lg:text-7xl font-black uppercase tracking-tighter text-red-500 mb-6 md:mb-10">{t.blog.moreStories}</h2>
+		<div class="space-y-0">
+			{otherPosts.map((p: any, i: number) => (
+				<a href={`/${lang}/${style}/blog/${p.slug}`} class={`block border-4 border-white p-4 md:p-6 hover:bg-red-600 hover:border-red-600 cursor-pointer -mt-1 first:mt-0
+					${i % 2 === 0 ? 'md:w-3/4' : 'md:w-3/4 md:ml-auto'}
+				`}>
+					<h3 class="text-xl md:text-3xl font-black uppercase tracking-tighter leading-none">{p.title}</h3>
+					<p class="text-sm mt-2 leading-snug font-bold">{p.excerpt}</p>
+				</a>
+			))}
 		</div>
 	</section>
 </main>
+
+<!-- NAV AT BOTTOM -->
+<nav class="bg-black border-t-8 border-red-600 px-4 py-6 font-mono">
+	<div class="flex flex-wrap gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-red-500 uppercase font-black text-xs md:text-sm tracking-[0.3em] hover:text-white cursor-pointer">{item.label}</a>
+		))}
+	</div>
+</nav>
