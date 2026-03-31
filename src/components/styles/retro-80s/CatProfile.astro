@@ -2,47 +2,116 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<a href={`/${lang}/${style}/cats`}>&larr; {t.cats.backToAll}</a>
-
-	<article>
-		<h1>{cat.name}</h1>
-
-		<dl>
-			<dt>{t.cats.breed}</dt><dd>{cat.breed}</dd>
-			<dt>{t.cats.age}</dt><dd>{cat.age}</dd>
-			<dt>{t.cats.gender}</dt><dd>{cat.gender}</dd>
-			<dt>{t.cats.color}</dt><dd>{cat.color}</dd>
-			<dt>{t.cats.arrived}</dt><dd>{cat.arrivalDate}</dd>
-			<dt>{t.cats.status}</dt><dd>{cat.status}</dd>
-		</dl>
-
-		<div>
-			{cat.personality.map((trait: string) => (
-				<span>{trait}</span>
-			))}
-		</div>
-
-		<p>{cat.description}</p>
-
-		<a href={`/${lang}/${style}/auth`}>{t.cats.adopt} {cat.name}</a>
-	</article>
-
-	<section>
-		<h2>{t.cats.otherCats}</h2>
-		<div>
-			{otherCats.map((c: any) => (
-				<a href={`/${lang}/${style}/cats/${c.id}`}>
-					<h3>{c.name}</h3>
-					<p>{c.breed} · {c.age}</p>
+<div class="min-h-screen bg-gray-950 text-white font-sans">
+	<!-- Nav -->
+	<nav class="border-b border-fuchsia-500/30 bg-gray-950/90 backdrop-blur-sm sticky top-0 z-50">
+		<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
+			{nav.map((item: any) => (
+				<a
+					href={item.href}
+					class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-fuchsia-300 hover:text-white hover:bg-fuchsia-500/20 rounded transition-all duration-300 hover:shadow-[0_0_15px_#ff00ff55]"
+				>
+					{item.label}
 				</a>
 			))}
 		</div>
-	</section>
-</main>
+	</nav>
+
+	<main class="max-w-4xl mx-auto px-4 py-12">
+		<!-- Back link -->
+		<a
+			href={`/${lang}/${style}/cats`}
+			class="inline-flex items-center gap-2 text-fuchsia-400 hover:text-fuchsia-300 font-bold uppercase tracking-widest text-sm transition-colors mb-10 group"
+		>
+			<span class="group-hover:-translate-x-1 transition-transform">&larr;</span>
+			{t.cats.backToAll}
+		</a>
+
+		<article class="rounded-lg border border-fuchsia-500/40 bg-gray-900/60 overflow-hidden shadow-[0_0_20px_#ff00ff33]">
+			<!-- Header glow bar -->
+			<div class="h-1 bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 shadow-[0_0_15px_#ff00ff]"></div>
+
+			<div class="p-6 sm:p-10">
+				<h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent mb-8">
+					{cat.name}
+				</h1>
+
+				<!-- Details grid -->
+				<dl class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
+						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.breed}</dt>
+						<dd class="text-cyan-200 font-semibold">{cat.breed}</dd>
+					</div>
+					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
+						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.age}</dt>
+						<dd class="text-cyan-200 font-semibold">{cat.age}</dd>
+					</div>
+					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
+						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.gender}</dt>
+						<dd class="text-cyan-200 font-semibold">{cat.gender}</dd>
+					</div>
+					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
+						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.color}</dt>
+						<dd class="text-cyan-200 font-semibold">{cat.color}</dd>
+					</div>
+					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
+						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.arrived}</dt>
+						<dd class="text-cyan-200 font-semibold">{cat.arrivalDate}</dd>
+					</div>
+					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
+						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.status}</dt>
+						<dd class="text-cyan-200 font-semibold">{cat.status}</dd>
+					</div>
+				</dl>
+
+				<!-- Personality traits -->
+				<div class="flex flex-wrap gap-2 mb-8">
+					{cat.personality.map((trait: string) => (
+						<span class="px-4 py-1.5 text-sm font-bold uppercase tracking-widest rounded-full bg-fuchsia-500/15 border border-fuchsia-500/40 text-fuchsia-300 shadow-[0_0_8px_#ff00ff22]">
+							{trait}
+						</span>
+					))}
+				</div>
+
+				<!-- Neon divider -->
+				<div class="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_8px_#00ffff] mb-8"></div>
+
+				<!-- Description -->
+				<p class="text-gray-300 text-lg leading-relaxed mb-10">
+					{cat.description}
+				</p>
+
+				<!-- Adopt CTA -->
+				<a
+					href={`/${lang}/${style}/auth`}
+					class="inline-block px-8 py-4 bg-fuchsia-600 text-white font-black uppercase tracking-widest rounded border border-fuchsia-400 shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44] hover:shadow-[0_0_30px_#ff00ff,0_0_60px_#ff00ff66] hover:bg-fuchsia-500 transition-all duration-300 text-lg"
+				>
+					{t.cats.adopt} {cat.name}
+				</a>
+			</div>
+		</article>
+
+		<!-- Other Cats -->
+		<section class="mt-20">
+			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-wider text-center text-cyan-300 mb-2">
+				{t.cats.otherCats}
+			</h2>
+			<div class="h-0.5 w-24 mx-auto mb-10 bg-fuchsia-500 shadow-[0_0_10px_#ff00ff]"></div>
+			<div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+				{otherCats.map((c: any) => (
+					<a
+						href={`/${lang}/${style}/cats/${c.id}`}
+						class="group block p-6 rounded-lg border border-fuchsia-500/30 bg-gray-900/60 shadow-[0_0_10px_#ff00ff22] hover:shadow-[0_0_20px_#ff00ff55] hover:border-fuchsia-400/50 transition-all duration-300 hover:-translate-y-1"
+					>
+						<h3 class="text-xl font-black uppercase text-cyan-300 group-hover:text-cyan-200 tracking-wide mb-1">
+							{c.name}
+						</h3>
+						<p class="text-sm text-fuchsia-300/70 font-semibold tracking-wide">
+							{c.breed} &middot; {c.age}
+						</p>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

@@ -2,57 +2,149 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
-
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
-				</div>
+<div class="min-h-screen bg-gray-950 text-white font-sans">
+	<!-- Nav -->
+	<nav class="border-b border-fuchsia-500/30 bg-gray-950/90 backdrop-blur-sm sticky top-0 z-50">
+		<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
+			{nav.map((item: any) => (
+				<a
+					href={item.href}
+					class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-fuchsia-300 hover:text-white hover:bg-fuchsia-500/20 rounded transition-all duration-300 hover:shadow-[0_0_15px_#ff00ff55]"
+				>
+					{item.label}
+				</a>
 			))}
 		</div>
-	</section>
+	</nav>
 
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
-				</div>
-			))}
+	<main class="max-w-6xl mx-auto px-4 py-16">
+		<!-- Header -->
+		<div class="text-center mb-16">
+			<h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent">
+				{t.donate.title}
+			</h1>
+			<div class="h-1 w-32 mx-auto my-6 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent shadow-[0_0_20px_#ff00ff]"></div>
+			<p class="text-lg text-cyan-300/80 tracking-wide max-w-2xl mx-auto">{t.donate.subtitle}</p>
 		</div>
-	</section>
-</main>
+
+		<!-- Monthly Tiers -->
+		<section class="mb-20">
+			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-wider text-center text-fuchsia-400 mb-2">
+				{t.donate.monthly}
+			</h2>
+			<div class="h-0.5 w-24 mx-auto mb-10 bg-cyan-400 shadow-[0_0_10px_#00ffff]"></div>
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				{monthlyTiers.map((tier: any) => (
+					<div
+						class={`relative rounded-lg overflow-hidden flex flex-col ${
+							tier.highlighted
+								? "border-2 border-fuchsia-400 bg-gray-900/80 shadow-[0_0_30px_#ff00ff55,0_0_60px_#ff00ff22]"
+								: "border border-fuchsia-500/30 bg-gray-900/60 shadow-[0_0_10px_#ff00ff22]"
+						}`}
+					>
+						{tier.highlighted && (
+							<div class="bg-gradient-to-r from-fuchsia-600 via-fuchsia-500 to-fuchsia-600 py-2 text-center">
+								<span class="text-xs font-black uppercase tracking-widest text-white">
+									{t.donate.mostPopular}
+								</span>
+							</div>
+						)}
+						<div class="p-6 flex flex-col flex-1">
+							<h3 class="text-xl font-black uppercase tracking-wide text-cyan-300 mb-3">
+								{tier.name}
+							</h3>
+							<p class="mb-4">
+								<span class="text-4xl font-black bg-gradient-to-b from-cyan-300 to-cyan-500 bg-clip-text text-transparent">
+									${tier.amount}
+								</span>
+								<span class="text-sm text-fuchsia-300/60 tracking-wide ml-1">{t.donate.perMonth}</span>
+							</p>
+							<p class="text-gray-400 text-sm leading-relaxed mb-5">
+								{tier.description}
+							</p>
+							<ul class="space-y-2 mb-6 flex-1">
+								{tier.perks.map((perk: string) => (
+									<li class="flex items-start gap-2 text-sm text-gray-300">
+										<span class="text-fuchsia-400 mt-0.5 shrink-0">&raquo;</span>
+										{perk}
+									</li>
+								))}
+							</ul>
+							<button
+								type="button"
+								class={`w-full py-3 font-bold uppercase tracking-widest text-sm rounded transition-all duration-300 ${
+									tier.highlighted
+										? "bg-fuchsia-600 text-white border border-fuchsia-400 shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44] hover:shadow-[0_0_30px_#ff00ff,0_0_60px_#ff00ff66] hover:bg-fuchsia-500"
+										: "bg-transparent text-fuchsia-300 border border-fuchsia-500/40 hover:bg-fuchsia-500/10 hover:shadow-[0_0_15px_#ff00ff44]"
+								}`}
+							>
+								{t.donate.choose} {tier.name}
+							</button>
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- Neon divider -->
+		<div class="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_10px_#00ffff] mb-20"></div>
+
+		<!-- One-Time Tiers -->
+		<section>
+			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-wider text-center text-cyan-300 mb-2">
+				{t.donate.oneTime}
+			</h2>
+			<div class="h-0.5 w-24 mx-auto mb-10 bg-fuchsia-500 shadow-[0_0_10px_#ff00ff]"></div>
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				{oneTimeTiers.map((tier: any) => (
+					<div
+						class={`relative rounded-lg overflow-hidden flex flex-col ${
+							tier.highlighted
+								? "border-2 border-cyan-400 bg-gray-900/80 shadow-[0_0_30px_#00ffff44,0_0_60px_#00ffff22]"
+								: "border border-cyan-500/30 bg-gray-900/60 shadow-[0_0_10px_#00ffff22]"
+						}`}
+					>
+						{tier.highlighted && (
+							<div class="bg-gradient-to-r from-cyan-600 via-cyan-500 to-cyan-600 py-2 text-center">
+								<span class="text-xs font-black uppercase tracking-widest text-white">
+									{t.donate.greatestImpact}
+								</span>
+							</div>
+						)}
+						<div class="p-6 flex flex-col flex-1">
+							<h3 class="text-xl font-black uppercase tracking-wide text-fuchsia-300 mb-3">
+								{tier.name}
+							</h3>
+							<p class="mb-4">
+								<span class="text-4xl font-black bg-gradient-to-b from-fuchsia-300 to-fuchsia-500 bg-clip-text text-transparent">
+									${tier.amount}
+								</span>
+							</p>
+							<p class="text-gray-400 text-sm leading-relaxed mb-5">
+								{tier.description}
+							</p>
+							<ul class="space-y-2 mb-6 flex-1">
+								{tier.perks.map((perk: string) => (
+									<li class="flex items-start gap-2 text-sm text-gray-300">
+										<span class="text-cyan-400 mt-0.5 shrink-0">&raquo;</span>
+										{perk}
+									</li>
+								))}
+							</ul>
+							<button
+								type="button"
+								class={`w-full py-3 font-bold uppercase tracking-widest text-sm rounded transition-all duration-300 ${
+									tier.highlighted
+										? "bg-cyan-600 text-white border border-cyan-400 shadow-[0_0_20px_#00ffff,0_0_40px_#00ffff44] hover:shadow-[0_0_30px_#00ffff,0_0_60px_#00ffff66] hover:bg-cyan-500"
+										: "bg-transparent text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/10 hover:shadow-[0_0_15px_#00ffff44]"
+								}`}
+							>
+								{t.donate.give} ${tier.amount}
+							</button>
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

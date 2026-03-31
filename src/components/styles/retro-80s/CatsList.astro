@@ -2,31 +2,65 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-gray-950 text-white font-sans">
+	<!-- Nav -->
+	<nav class="border-b border-fuchsia-500/30 bg-gray-950/90 backdrop-blur-sm sticky top-0 z-50">
+		<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
+			{nav.map((item: any) => (
+				<a
+					href={item.href}
+					class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-fuchsia-300 hover:text-white hover:bg-fuchsia-500/20 rounded transition-all duration-300 hover:shadow-[0_0_15px_#ff00ff55]"
+				>
+					{item.label}
+				</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
+	<main class="max-w-6xl mx-auto px-4 py-16">
+		<!-- Header -->
+		<div class="text-center mb-16">
+			<h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent">
+				{t.cats.title}
+			</h1>
+			<div class="h-1 w-32 mx-auto my-6 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent shadow-[0_0_20px_#ff00ff]"></div>
+			<p class="text-lg text-cyan-300/80 tracking-wide">{t.cats.subtitle}</p>
+		</div>
 
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
-						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
-						))}
+		<!-- Cat Grid -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			{cats.map((cat: any) => (
+				<a
+					href={`/${lang}/${style}/cats/${cat.id}`}
+					class="group block rounded-lg border border-fuchsia-500/30 bg-gray-900/70 overflow-hidden shadow-[0_0_10px_#ff00ff22] hover:shadow-[0_0_25px_#ff00ff66,0_0_50px_#ff00ff22] transition-all duration-500 hover:border-fuchsia-400/60 hover:-translate-y-1"
+				>
+					<div class="p-6">
+						<div class="flex items-center justify-between mb-3">
+							<h2 class="text-2xl font-black uppercase tracking-wide text-cyan-300 group-hover:text-cyan-200 transition-colors">
+								{cat.name}
+							</h2>
+							<span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-cyan-400/50 text-cyan-400 bg-cyan-400/10 shadow-[0_0_8px_#00ffff33]">
+								{cat.status}
+							</span>
+						</div>
+						<p class="text-sm text-fuchsia-300/80 font-semibold tracking-wide mb-3">
+							{cat.breed} &middot; {cat.age} &middot; {cat.gender}
+						</p>
+						<p class="text-gray-400 text-sm leading-relaxed mb-4">
+							{cat.description.slice(0, 100)}...
+						</p>
+						<div class="flex flex-wrap gap-2">
+							{cat.personality.map((trait: string) => (
+								<span class="text-xs px-3 py-1 rounded-full bg-fuchsia-500/15 border border-fuchsia-500/30 text-fuchsia-300 font-semibold tracking-wide">
+									{trait}
+								</span>
+							))}
+						</div>
 					</div>
-					<span>{cat.status}</span>
-				</div>
-			</a>
-		))}
-	</div>
-</main>
+					<!-- Bottom neon glow line -->
+					<div class="h-0.5 bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+				</a>
+			))}
+		</div>
+	</main>
+</div>

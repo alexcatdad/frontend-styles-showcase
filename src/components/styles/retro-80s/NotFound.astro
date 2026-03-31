@@ -2,18 +2,60 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-gray-950 text-white font-sans">
+	<!-- Nav -->
+	<nav class="border-b border-fuchsia-500/30 bg-gray-950/90 backdrop-blur-sm sticky top-0 z-50">
+		<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
+			{nav.map((item: any) => (
+				<a
+					href={item.href}
+					class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-fuchsia-300 hover:text-white hover:bg-fuchsia-500/20 rounded transition-all duration-300 hover:shadow-[0_0_15px_#ff00ff55]"
+				>
+					{item.label}
+				</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<section>
-		<h1>{t.notFound.title}</h1>
-		<h2>{t.notFound.heading}</h2>
-		<p>{t.notFound.description}</p>
-		<a href={`/${lang}/${style}/`}>{t.notFound.backHome}</a>
-		<a href={`/${lang}/${style}/cats`}>{t.notFound.meetCats}</a>
-	</section>
-</main>
+	<main class="flex items-center justify-center px-4 py-24 sm:py-36">
+		<section class="text-center max-w-xl">
+			<!-- Glitch-style 404 -->
+			<h1 class="text-8xl sm:text-9xl font-black uppercase tracking-tighter bg-gradient-to-b from-fuchsia-400 via-fuchsia-500 to-purple-900 bg-clip-text text-transparent drop-shadow-lg mb-4">
+				{t.notFound.title}
+			</h1>
+
+			<!-- Neon divider -->
+			<div class="h-1 w-48 mx-auto mb-8 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44]"></div>
+
+			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-wider text-cyan-300 mb-4">
+				{t.notFound.heading}
+			</h2>
+
+			<p class="text-gray-400 text-lg mb-12 leading-relaxed">
+				{t.notFound.description}
+			</p>
+
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a
+					href={`/${lang}/${style}/`}
+					class="px-8 py-4 bg-fuchsia-600 text-white font-bold uppercase tracking-widest rounded border border-fuchsia-400 shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44] hover:shadow-[0_0_30px_#ff00ff,0_0_60px_#ff00ff66] hover:bg-fuchsia-500 transition-all duration-300"
+				>
+					{t.notFound.backHome}
+				</a>
+				<a
+					href={`/${lang}/${style}/cats`}
+					class="px-8 py-4 bg-transparent text-cyan-300 font-bold uppercase tracking-widest rounded border border-cyan-400 shadow-[0_0_15px_#00ffff44] hover:shadow-[0_0_25px_#00ffff,0_0_50px_#00ffff44] hover:bg-cyan-500/10 transition-all duration-300"
+				>
+					{t.notFound.meetCats}
+				</a>
+			</div>
+
+			<!-- Decorative grid lines -->
+			<div class="mt-20 opacity-20">
+				<div class="h-px bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent mb-2"></div>
+				<div class="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent mb-2"></div>
+				<div class="h-px bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent"></div>
+			</div>
+		</section>
+	</main>
+</div>

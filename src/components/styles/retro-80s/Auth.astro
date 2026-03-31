@@ -2,46 +2,116 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<section>
-		<h1>{t.auth.title}</h1>
-		<p>{t.auth.subtitle}</p>
-
-		<form>
-			<div>
-				<label for="email">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" />
-			</div>
-			<div>
-				<label for="password">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" />
-			</div>
-			<div>
-				<label>
-					<input type="checkbox" name="remember" />
-					{t.auth.rememberMe}
-				</label>
-				<a href="#">{t.auth.forgotPassword}</a>
-			</div>
-			<button type="submit">{t.auth.signIn}</button>
-		</form>
-
-		<div>
-			<p>{t.auth.continueWith}</p>
-			<div>
-				<button type="button">Google</button>
-				<button type="button">Apple</button>
-			</div>
+<div class="min-h-screen bg-gray-950 text-white font-sans">
+	<!-- Nav -->
+	<nav class="border-b border-fuchsia-500/30 bg-gray-950/90 backdrop-blur-sm sticky top-0 z-50">
+		<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
+			{nav.map((item: any) => (
+				<a
+					href={item.href}
+					class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-fuchsia-300 hover:text-white hover:bg-fuchsia-500/20 rounded transition-all duration-300 hover:shadow-[0_0_15px_#ff00ff55]"
+				>
+					{item.label}
+				</a>
+			))}
 		</div>
+	</nav>
 
-		<p>
-			{t.auth.noAccount} <a href="#">{t.auth.signUp}</a>
-		</p>
-	</section>
-</main>
+	<main class="flex items-center justify-center px-4 py-16 sm:py-24">
+		<section class="w-full max-w-md">
+			<!-- Card -->
+			<div class="rounded-lg border border-fuchsia-500/40 bg-gray-900/70 overflow-hidden shadow-[0_0_30px_#ff00ff33,0_0_60px_#ff00ff11]">
+				<!-- Top glow bar -->
+				<div class="h-1 bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 shadow-[0_0_15px_#ff00ff]"></div>
+
+				<div class="p-8">
+					<!-- Header -->
+					<div class="text-center mb-8">
+						<h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent">
+							{t.auth.title}
+						</h1>
+						<p class="mt-2 text-sm text-fuchsia-300/60 tracking-wide">{t.auth.subtitle}</p>
+					</div>
+
+					<!-- Form -->
+					<form class="space-y-5">
+						<div>
+							<label for="email" class="block text-xs font-bold uppercase tracking-widest text-fuchsia-400 mb-2">
+								{t.auth.email}
+							</label>
+							<input
+								type="email"
+								id="email"
+								name="email"
+								placeholder="you@example.com"
+								class="w-full px-4 py-3 rounded bg-gray-950 border border-fuchsia-500/30 text-cyan-200 placeholder-gray-600 focus:border-fuchsia-400 focus:shadow-[0_0_15px_#ff00ff44] focus:outline-none transition-all duration-300"
+							/>
+						</div>
+						<div>
+							<label for="password" class="block text-xs font-bold uppercase tracking-widest text-fuchsia-400 mb-2">
+								{t.auth.password}
+							</label>
+							<input
+								type="password"
+								id="password"
+								name="password"
+								placeholder="••••••••"
+								class="w-full px-4 py-3 rounded bg-gray-950 border border-fuchsia-500/30 text-cyan-200 placeholder-gray-600 focus:border-fuchsia-400 focus:shadow-[0_0_15px_#ff00ff44] focus:outline-none transition-all duration-300"
+							/>
+						</div>
+						<div class="flex items-center justify-between">
+							<label class="flex items-center gap-2 cursor-pointer">
+								<input
+									type="checkbox"
+									name="remember"
+									class="w-4 h-4 rounded border-fuchsia-500/50 bg-gray-950 accent-fuchsia-500"
+								/>
+								<span class="text-sm text-gray-400">{t.auth.rememberMe}</span>
+							</label>
+							<a href="#" class="text-sm text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
+								{t.auth.forgotPassword}
+							</a>
+						</div>
+						<button
+							type="submit"
+							class="w-full py-3.5 bg-fuchsia-600 text-white font-black uppercase tracking-widest rounded border border-fuchsia-400 shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44] hover:shadow-[0_0_30px_#ff00ff,0_0_60px_#ff00ff66] hover:bg-fuchsia-500 transition-all duration-300"
+						>
+							{t.auth.signIn}
+						</button>
+					</form>
+
+					<!-- Divider -->
+					<div class="flex items-center gap-4 my-8">
+						<div class="flex-1 h-px bg-gradient-to-r from-transparent to-fuchsia-500/40"></div>
+						<p class="text-xs text-gray-500 uppercase tracking-widest font-bold">{t.auth.continueWith}</p>
+						<div class="flex-1 h-px bg-gradient-to-l from-transparent to-fuchsia-500/40"></div>
+					</div>
+
+					<!-- Social buttons -->
+					<div class="grid grid-cols-2 gap-4">
+						<button
+							type="button"
+							class="py-3 rounded border border-cyan-500/30 bg-gray-950/80 text-cyan-300 font-bold uppercase tracking-widest text-sm hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_15px_#00ffff44] transition-all duration-300"
+						>
+							Google
+						</button>
+						<button
+							type="button"
+							class="py-3 rounded border border-cyan-500/30 bg-gray-950/80 text-cyan-300 font-bold uppercase tracking-widest text-sm hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_15px_#00ffff44] transition-all duration-300"
+						>
+							Apple
+						</button>
+					</div>
+
+					<!-- Sign up link -->
+					<p class="mt-8 text-center text-sm text-gray-500">
+						{t.auth.noAccount}
+						<a href="#" class="text-fuchsia-400 hover:text-fuchsia-300 font-bold ml-1 transition-colors">
+							{t.auth.signUp}
+						</a>
+					</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>
