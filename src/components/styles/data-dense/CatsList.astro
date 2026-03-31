@@ -2,31 +2,83 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-gray-50 text-gray-800 text-sm">
+	<!-- Compact top bar -->
+	<nav class="bg-white border-b border-gray-200 px-3 py-1.5 flex items-center gap-4 text-xs sticky top-0 z-50">
+		<span class="font-semibold text-gray-900 tracking-tight text-sm mr-2">{t.cats.title}</span>
+		<div class="flex items-center gap-3">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-gray-500 hover:text-gray-900 transition-colors">{item.label}</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
+	<main class="max-w-6xl mx-auto px-3 py-3">
+		<!-- Header row -->
+		<div class="flex items-baseline justify-between mb-2">
+			<div>
+				<h1 class="text-base font-bold text-gray-900 leading-tight">{t.cats.title}</h1>
+				<p class="text-xs text-gray-500 mt-0.5">{t.cats.subtitle}</p>
+			</div>
+			<span class="text-xs text-gray-400 font-mono">{cats.length} records</span>
+		</div>
 
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
-						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
-						))}
+		<!-- Table view - spreadsheet style -->
+		<div class="bg-white border border-gray-200 rounded overflow-x-auto">
+			<table class="w-full text-xs">
+				<thead>
+					<tr class="bg-gray-50 border-b border-gray-200">
+						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px]">{t.cats.status}</th>
+						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px]">Name</th>
+						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden sm:table-cell">{t.cats.breed}</th>
+						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden md:table-cell">{t.cats.age}</th>
+						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden md:table-cell">{t.cats.gender}</th>
+						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden lg:table-cell">{t.cats.color}</th>
+						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden lg:table-cell">Traits</th>
+						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden xl:table-cell">{t.cats.arrived}</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-gray-100">
+					{cats.map((cat: any) => (
+						<tr class="hover:bg-blue-50/50 transition-colors group">
+							<td class="px-2 py-1.5">
+								<span class={`inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${cat.status === 'Available' ? 'bg-green-50 text-green-700' : cat.status === 'Adopted' ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-700'}`}>
+									<span class={`w-1.5 h-1.5 rounded-full ${cat.status === 'Available' ? 'bg-green-400' : cat.status === 'Adopted' ? 'bg-blue-400' : 'bg-amber-400'}`}></span>
+									{cat.status}
+								</span>
+							</td>
+							<td class="px-2 py-1.5">
+								<a href={`/${lang}/${style}/cats/${cat.id}`} class="font-medium text-blue-600 hover:text-blue-800 hover:underline group-hover:text-blue-800">{cat.name}</a>
+							</td>
+							<td class="px-2 py-1.5 text-gray-600 hidden sm:table-cell">{cat.breed}</td>
+							<td class="px-2 py-1.5 text-gray-600 font-mono hidden md:table-cell">{cat.age}</td>
+							<td class="px-2 py-1.5 text-gray-600 hidden md:table-cell">{cat.gender}</td>
+							<td class="px-2 py-1.5 text-gray-600 hidden lg:table-cell">{cat.color}</td>
+							<td class="px-2 py-1.5 hidden lg:table-cell">
+								<div class="flex flex-wrap gap-0.5">
+									{cat.personality.map((trait: string) => (
+										<span class="bg-gray-100 text-gray-600 text-[10px] px-1 py-0 rounded">{trait}</span>
+									))}
+								</div>
+							</td>
+							<td class="px-2 py-1.5 text-gray-400 font-mono text-[10px] hidden xl:table-cell">{cat.arrivalDate}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Compact card fallback for very small screens - visible summary below table on mobile -->
+		<div class="mt-2 sm:hidden space-y-1">
+			{cats.map((cat: any) => (
+				<a href={`/${lang}/${style}/cats/${cat.id}`} class="block bg-white border border-gray-200 rounded px-2 py-1.5 hover:border-blue-300 transition-colors">
+					<div class="flex items-center justify-between">
+						<span class="font-medium text-xs text-gray-900">{cat.name}</span>
+						<span class={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${cat.status === 'Available' ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700'}`}>{cat.status}</span>
 					</div>
-					<span>{cat.status}</span>
-				</div>
-			</a>
-		))}
-	</div>
-</main>
+					<div class="text-[10px] text-gray-500 mt-0.5">{cat.breed} · {cat.age} · {cat.gender}</div>
+				</a>
+			))}
+		</div>
+	</main>
+</div>
