@@ -2,29 +2,33 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
+<nav class="bg-black border-b-4 border-yellow-400 px-4 py-3 flex flex-wrap items-center gap-2 font-mono sticky top-0 z-50">
 	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
+		<a href={item.href} class="text-yellow-400 uppercase font-black text-sm md:text-base tracking-widest border-2 border-yellow-400 px-3 py-1 hover:bg-yellow-400 hover:text-black transition-none cursor-pointer">{item.label}</a>
 	))}
 </nav>
 
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
+<main class="bg-white font-mono text-black min-h-screen">
+	<div class="border-b-4 border-black px-4 py-12 md:py-16 bg-yellow-400">
+		<div class="max-w-6xl mx-auto">
+			<h1 class="text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter">{t.cats.title}</h1>
+			<p class="text-lg md:text-2xl font-bold uppercase mt-2 border-l-4 border-black pl-4">{t.cats.subtitle}</p>
+		</div>
+	</div>
 
-	<div>
+	<div class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
 		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
+			<a href={`/${lang}/${style}/cats/${cat.id}`} class="block border-4 border-black p-4 md:p-6 hover:bg-yellow-400 transition-none cursor-pointer group -mt-1 -ml-1">
 				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
+					<h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter">{cat.name}</h2>
+					<p class="text-sm font-bold uppercase tracking-wider mt-1 border-b-2 border-black pb-2">{cat.breed} // {cat.age} // {cat.gender}</p>
+					<p class="text-sm mt-3 leading-snug">{cat.description.slice(0, 100)}...</p>
+					<div class="flex flex-wrap gap-1 mt-3">
 						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
+							<span class="bg-black text-white text-xs font-bold uppercase px-2 py-1 tracking-wider group-hover:bg-white group-hover:text-black border-2 border-black">{trait}</span>
 						))}
 					</div>
-					<span>{cat.status}</span>
+					<span class="inline-block mt-3 bg-red-600 text-white text-xs font-black uppercase px-3 py-1 tracking-widest border-2 border-black">{cat.status}</span>
 				</div>
 			</a>
 		))}
