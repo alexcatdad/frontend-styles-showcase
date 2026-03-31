@@ -2,47 +2,100 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white font-sans">
+	<!-- Navigation bar -->
+	<nav class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-1 flex flex-wrap items-center justify-center gap-1">
+		{nav.map((item: any) => (
+			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 px-3 py-1 text-sm font-bold text-blue-800 no-underline hover:bg-gray-200 active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white">
+				{item.label}
+			</a>
+		))}
+	</nav>
 
-<main>
-	<a href={`/${lang}/${style}/cats`}>&larr; {t.cats.backToAll}</a>
+	<main class="max-w-3xl mx-auto px-2 py-4">
+		<!-- Back link -->
+		<a href={`/${lang}/${style}/cats`} class="text-blue-700 font-bold underline hover:text-fuchsia-600 text-sm">&larr; {t.cats.backToAll}</a>
 
-	<article>
-		<h1>{cat.name}</h1>
+		<hr class="border-t-2 border-gray-400 my-3" />
 
-		<dl>
-			<dt>{t.cats.breed}</dt><dd>{cat.breed}</dd>
-			<dt>{t.cats.age}</dt><dd>{cat.age}</dd>
-			<dt>{t.cats.gender}</dt><dd>{cat.gender}</dd>
-			<dt>{t.cats.color}</dt><dd>{cat.color}</dd>
-			<dt>{t.cats.arrived}</dt><dd>{cat.arrivalDate}</dd>
-			<dt>{t.cats.status}</dt><dd>{cat.status}</dd>
-		</dl>
+		<article>
+			<!-- Cat name banner -->
+			<div class="bg-fuchsia-600 text-white text-center py-3 px-4 border-4 border-double border-yellow-300 mb-4">
+				<h1 class="text-3xl md:text-4xl font-bold">{cat.name}</h1>
+			</div>
 
-		<div>
-			{cat.personality.map((trait: string) => (
-				<span>{trait}</span>
-			))}
-		</div>
+			<!-- Sparkle divider -->
+			<p class="text-center text-lg mb-3">~ * ~ * ~ * ~ * ~</p>
 
-		<p>{cat.description}</p>
+			<!-- Details table - real table-like grid with visible borders -->
+			<div class="border-2 border-gray-600 mb-4">
+				<div class="grid grid-cols-2">
+					<dl class="contents">
+						<dt class="bg-blue-700 text-white font-bold p-2 text-sm border border-gray-400">{t.cats.breed}</dt>
+						<dd class="bg-yellow-50 p-2 text-sm font-bold border border-gray-400">{cat.breed}</dd>
 
-		<a href={`/${lang}/${style}/auth`}>{t.cats.adopt} {cat.name}</a>
-	</article>
+						<dt class="bg-blue-700 text-white font-bold p-2 text-sm border border-gray-400">{t.cats.age}</dt>
+						<dd class="bg-yellow-50 p-2 text-sm font-bold border border-gray-400">{cat.age}</dd>
 
-	<section>
-		<h2>{t.cats.otherCats}</h2>
-		<div>
-			{otherCats.map((c: any) => (
-				<a href={`/${lang}/${style}/cats/${c.id}`}>
-					<h3>{c.name}</h3>
-					<p>{c.breed} · {c.age}</p>
+						<dt class="bg-blue-700 text-white font-bold p-2 text-sm border border-gray-400">{t.cats.gender}</dt>
+						<dd class="bg-yellow-50 p-2 text-sm font-bold border border-gray-400">{cat.gender}</dd>
+
+						<dt class="bg-blue-700 text-white font-bold p-2 text-sm border border-gray-400">{t.cats.color}</dt>
+						<dd class="bg-yellow-50 p-2 text-sm font-bold border border-gray-400">{cat.color}</dd>
+
+						<dt class="bg-blue-700 text-white font-bold p-2 text-sm border border-gray-400">{t.cats.arrived}</dt>
+						<dd class="bg-yellow-50 p-2 text-sm font-bold border border-gray-400">{cat.arrivalDate}</dd>
+
+						<dt class="bg-blue-700 text-white font-bold p-2 text-sm border border-gray-400">{t.cats.status}</dt>
+						<dd class="bg-yellow-50 p-2 text-sm font-bold border border-gray-400">{cat.status}</dd>
+					</dl>
+				</div>
+			</div>
+
+			<!-- Personality traits -->
+			<div class="mb-4 text-center">
+				<p class="text-sm font-bold text-blue-800 mb-2 underline">Personality:</p>
+				<div class="flex flex-wrap gap-2 justify-center">
+					{cat.personality.map((trait: string) => (
+						<span class="bg-lime-400 text-black font-bold text-sm px-3 py-1 border-t-2 border-l-2 border-lime-200 border-b-2 border-r-2 border-b-lime-700 border-r-lime-700">{trait}</span>
+					))}
+				</div>
+			</div>
+
+			<hr class="border-t-2 border-gray-400 my-4" />
+
+			<!-- Description -->
+			<div class="bg-gray-200 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-4 mb-4">
+				<p class="text-gray-800 leading-relaxed text-lg">{cat.description}</p>
+			</div>
+
+			<!-- Adopt button -->
+			<div class="text-center mb-4">
+				<a href={`/${lang}/${style}/auth`} class="inline-block bg-fuchsia-500 text-white font-bold text-xl px-8 py-4 no-underline border-t-3 border-l-3 border-fuchsia-300 border-b-3 border-r-3 border-b-fuchsia-800 border-r-fuchsia-800 hover:bg-fuchsia-400 active:border-t-fuchsia-800 active:border-l-fuchsia-800 active:border-b-fuchsia-300 active:border-r-fuchsia-300">
+					{t.cats.adopt} {cat.name}
 				</a>
-			))}
-		</div>
-	</section>
-</main>
+			</div>
+		</article>
+
+		<hr class="border-t-4 border-double border-gray-400 my-6" />
+
+		<!-- Other cats section -->
+		<section>
+			<h2 class="text-2xl font-bold text-center text-blue-800 mb-4 underline decoration-wavy decoration-fuchsia-500">{t.cats.otherCats}</h2>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+				{otherCats.map((c: any) => (
+					<a href={`/${lang}/${style}/cats/${c.id}`} class="no-underline block group">
+						<div class="bg-yellow-100 border-2 border-gray-500 p-3 text-center hover:bg-yellow-50">
+							<h3 class="text-lg font-bold text-fuchsia-700 group-hover:text-blue-700">{c.name}</h3>
+							<p class="text-sm text-gray-600">{c.breed} &middot; {c.age}</p>
+							<p class="text-xs text-blue-700 font-bold mt-1 underline">Visit Page &gt;&gt;</p>
+						</div>
+					</a>
+				))}
+			</div>
+		</section>
+
+		<hr class="border-t-2 border-gray-400 my-4" />
+	</main>
+</div>
