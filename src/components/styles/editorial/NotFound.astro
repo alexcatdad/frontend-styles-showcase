@@ -2,18 +2,23 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-stone-50 text-stone-800 flex flex-col">
+	<nav class="max-w-5xl mx-auto w-full px-6 py-6 flex items-center justify-center gap-8 border-b border-stone-300">
+		{nav.map((item: any) => (
+			<a href={item.href} class="font-serif text-sm tracking-widest uppercase text-stone-500 hover:text-stone-900 transition-colors">{item.label}</a>
+		))}
+	</nav>
 
-<main>
-	<section>
-		<h1>{t.notFound.title}</h1>
-		<h2>{t.notFound.heading}</h2>
-		<p>{t.notFound.description}</p>
-		<a href={`/${lang}/${style}/`}>{t.notFound.backHome}</a>
-		<a href={`/${lang}/${style}/cats`}>{t.notFound.meetCats}</a>
-	</section>
-</main>
+	<main class="flex-1 flex items-center justify-center px-6">
+		<section class="text-center py-20 max-w-lg">
+			<h1 class="font-serif text-8xl md:text-9xl font-light text-stone-200 mb-4">{t.notFound.title}</h1>
+			<h2 class="font-serif text-3xl md:text-4xl font-light text-stone-900 mb-3">{t.notFound.heading}</h2>
+			<hr class="w-12 mx-auto border-t border-amber-700 mb-6" />
+			<p class="text-stone-500 leading-relaxed mb-10">{t.notFound.description}</p>
+			<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+				<a href={`/${lang}/${style}/`} class="px-8 py-3 bg-stone-800 text-stone-50 font-serif text-sm tracking-widest uppercase hover:bg-stone-900 transition-colors">{t.notFound.backHome}</a>
+				<a href={`/${lang}/${style}/cats`} class="px-8 py-3 border border-stone-400 text-stone-700 font-serif text-sm tracking-widest uppercase hover:border-stone-800 hover:text-stone-900 transition-colors">{t.notFound.meetCats}</a>
+			</div>
+		</section>
+	</main>
+</div>
