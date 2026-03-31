@@ -3,77 +3,91 @@ const { lang, style, nav, posts, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-white text-black font-sans">
-	<!-- Nav -->
-	<nav class="bg-black text-white flex flex-wrap items-center justify-between px-6 py-4 border-b-4 border-red-600">
-		<div class="flex items-center gap-2">
-			<div class="w-4 h-4 rounded-full bg-yellow-400"></div>
-			<div class="w-4 h-4 bg-red-600"></div>
-			<div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[14px] border-b-blue-600"></div>
+	<!-- Nav — geometric composition strip -->
+	<nav class="relative z-50 flex flex-wrap items-stretch">
+		<div class="bg-red-600 w-16 md:w-24 shrink-0"></div>
+		<div class="flex-1 bg-black text-white flex flex-wrap items-center justify-between px-6 py-4">
+			<div class="flex items-center gap-3">
+				<div class="w-5 h-5 rounded-full bg-yellow-400"></div>
+				<div class="w-5 h-5 bg-red-600 rotate-45"></div>
+				<div class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[18px] border-b-blue-600"></div>
+			</div>
+			<div class="flex flex-wrap gap-6">
+				{nav.map((item: any) => (
+					<a href={item.href} class="uppercase text-xs font-black tracking-[0.25em] hover:text-yellow-400 transition-colors">{item.label}</a>
+				))}
+			</div>
 		</div>
-		<div class="flex flex-wrap gap-6">
-			{nav.map((item: any) => (
-				<a href={item.href} class="uppercase text-sm font-bold tracking-widest hover:text-yellow-400 transition-colors">{item.label}</a>
-			))}
-		</div>
+		<div class="bg-blue-600 w-10 md:w-16 shrink-0"></div>
 	</nav>
 
 	<main>
-		<!-- Header — yellow block -->
-		<section class="bg-yellow-400 text-black py-16 md:py-24 px-8 md:px-16 relative overflow-hidden">
-			<div class="max-w-6xl mx-auto relative z-10">
-				<h1 class="text-5xl md:text-7xl font-black uppercase tracking-tight leading-none mb-4">
+		<!-- Header — yellow poster block with constructivist composition -->
+		<section class="relative bg-yellow-400 text-black overflow-hidden min-h-[40vh] flex items-center">
+			<!-- Geometric overlays -->
+			<div class="absolute -left-16 -bottom-16 w-64 h-64 rounded-full bg-red-600 opacity-20"></div>
+			<div class="absolute right-0 top-0 w-32 h-full bg-black opacity-10"></div>
+			<div class="absolute right-16 bottom-8 w-12 h-12 bg-blue-600"></div>
+			<div class="absolute left-1/3 top-8 w-0 h-0 border-l-[24px] border-l-transparent border-r-[24px] border-r-transparent border-b-[42px] border-b-black opacity-15 hidden md:block"></div>
+
+			<div class="relative z-10 px-8 md:px-16 py-16 md:py-24 max-w-6xl">
+				<div class="flex items-center gap-4 mb-6">
+					<div class="w-12 h-12 bg-black"></div>
+					<div class="w-16 h-1 bg-red-600"></div>
+				</div>
+				<h1 class="text-5xl md:text-7xl lg:text-[8rem] font-black uppercase tracking-tighter leading-[0.85] mb-6">
 					{t.blog.title}
 				</h1>
-				<div class="w-20 h-1 bg-black mb-6"></div>
-				<p class="text-lg md:text-xl font-light max-w-xl">{t.blog.subtitle}</p>
+				<p class="text-lg md:text-2xl font-light max-w-xl">{t.blog.subtitle}</p>
 			</div>
-			<div class="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-red-600 opacity-30"></div>
-			<div class="absolute right-16 top-8 w-8 h-8 bg-blue-600"></div>
 		</section>
 
-		<!-- Blog posts — constructivist poster layout -->
-		<section class="bg-white py-12 md:py-20 px-8 md:px-16">
-			<div class="max-w-6xl mx-auto flex flex-col gap-0">
-				{posts.map((post: any, i: number) => (
-					<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block border-2 border-black hover:border-red-600 transition-colors">
-						<article class="grid grid-cols-1 md:grid-cols-12">
-							<!-- Color accent column -->
+		<!-- Blog posts — poster-strip layout -->
+		<section class="bg-white">
+			{posts.map((post: any, i: number) => (
+				<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block border-b-4 border-black hover:border-red-600 transition-colors">
+					<article class="grid grid-cols-1 md:grid-cols-12">
+						<!-- Color accent column with date and geometric shape -->
+						<div class:list={[
+							"md:col-span-3 lg:col-span-2 p-6 md:p-8 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-center gap-4 relative overflow-hidden",
+							i % 3 === 0 && "bg-red-600 text-white",
+							i % 3 === 1 && "bg-blue-600 text-white",
+							i % 3 === 2 && "bg-yellow-400 text-black"
+						]}>
+							<!-- Geometric shape background -->
 							<div class:list={[
-								"md:col-span-2 p-6 md:p-8 flex flex-col items-center justify-center",
-								i % 3 === 0 && "bg-red-600 text-white",
-								i % 3 === 1 && "bg-blue-600 text-white",
-								i % 3 === 2 && "bg-yellow-400 text-black"
-							]}>
-								<time datetime={post.date} class="text-xs uppercase tracking-widest font-bold">{post.date}</time>
-								<div class:list={[
-									"w-10 h-10 mt-4 hidden md:block",
-									i % 3 === 0 && "rounded-full border-2 border-white",
-									i % 3 === 1 && "border-2 border-white",
-									i % 3 === 2 && "rounded-full bg-black"
-								]}></div>
-							</div>
+								"absolute -right-6 -bottom-6 opacity-20",
+								i % 3 === 0 && "w-24 h-24 rounded-full border-4 border-white",
+								i % 3 === 1 && "w-20 h-20 bg-yellow-400 rotate-45",
+								i % 3 === 2 && "w-0 h-0 border-l-[40px] border-l-transparent border-r-[40px] border-r-transparent border-b-[70px] border-b-red-600"
+							]}></div>
 
-							<!-- Content -->
-							<div class="md:col-span-10 p-6 md:p-8">
-								<h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-3 group-hover:text-red-600 transition-colors">
-									{post.title}
-								</h2>
-								<p class="text-base font-light leading-relaxed mb-4 max-w-2xl">{post.excerpt}</p>
-								<div class="flex flex-wrap items-center gap-3 mb-3">
-									{post.tags.map((tag: string) => (
-										<span class="text-xs uppercase tracking-widest font-bold bg-black text-white px-3 py-1">
-											{tag}
-										</span>
-									))}
-								</div>
-								<span class="text-xs uppercase tracking-widest font-bold text-neutral-500">
-									{t.blog.by} {post.author}
-								</span>
+							<time datetime={post.date} class="text-xs uppercase tracking-[0.3em] font-black relative z-10">{post.date}</time>
+							<span class="text-xs uppercase tracking-[0.2em] font-bold opacity-75 relative z-10">{t.blog.by} {post.author}</span>
+						</div>
+
+						<!-- Content -->
+						<div class="md:col-span-9 lg:col-span-10 p-6 md:p-8 lg:p-10">
+							<h2 class="text-2xl md:text-4xl font-black uppercase tracking-tighter leading-[0.9] mb-4 group-hover:text-red-600 transition-colors">
+								{post.title}
+							</h2>
+							<p class="text-base font-light leading-relaxed mb-6 max-w-3xl">{post.excerpt}</p>
+							<div class="flex flex-wrap items-center gap-2">
+								{post.tags.map((tag: string, j: number) => (
+									<span class:list={[
+										"text-[0.65rem] uppercase tracking-[0.2em] font-black px-3 py-1 border-2",
+										j % 3 === 0 && "border-black bg-black text-white",
+										j % 3 === 1 && "border-red-600 text-red-600",
+										j % 3 === 2 && "border-blue-600 text-blue-600"
+									]}>
+										{tag}
+									</span>
+								))}
 							</div>
-						</article>
-					</a>
-				))}
-			</div>
+						</div>
+					</article>
+				</a>
+			))}
 		</section>
 	</main>
 </div>

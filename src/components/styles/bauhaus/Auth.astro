@@ -2,91 +2,111 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-white text-black font-sans">
-	<!-- Nav -->
-	<nav class="bg-black text-white flex flex-wrap items-center justify-between px-6 py-4 border-b-4 border-red-600">
-		<div class="flex items-center gap-2">
-			<div class="w-4 h-4 rounded-full bg-yellow-400"></div>
-			<div class="w-4 h-4 bg-red-600"></div>
-			<div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[14px] border-b-blue-600"></div>
+<div class="min-h-screen bg-black text-white font-sans">
+	<!-- Nav — geometric composition strip -->
+	<nav class="relative z-50 flex flex-wrap items-stretch">
+		<div class="bg-red-600 w-16 md:w-24 shrink-0"></div>
+		<div class="flex-1 bg-black text-white flex flex-wrap items-center justify-between px-6 py-4">
+			<div class="flex items-center gap-3">
+				<div class="w-5 h-5 rounded-full bg-yellow-400"></div>
+				<div class="w-5 h-5 bg-red-600 rotate-45"></div>
+				<div class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[18px] border-b-blue-600"></div>
+			</div>
+			<div class="flex flex-wrap gap-6">
+				{nav.map((item: any) => (
+					<a href={item.href} class="uppercase text-xs font-black tracking-[0.25em] hover:text-yellow-400 transition-colors">{item.label}</a>
+				))}
+			</div>
 		</div>
-		<div class="flex flex-wrap gap-6">
-			{nav.map((item: any) => (
-				<a href={item.href} class="uppercase text-sm font-bold tracking-widest hover:text-yellow-400 transition-colors">{item.label}</a>
-			))}
-		</div>
+		<div class="bg-blue-600 w-10 md:w-16 shrink-0"></div>
 	</nav>
 
-	<main class="min-h-[calc(100vh-64px)] grid grid-cols-1 md:grid-cols-12">
-		<!-- Left: Geometric composition panel -->
-		<div class="hidden md:flex md:col-span-5 flex-col">
-			<div class="flex-1 bg-red-600 relative overflow-hidden flex items-center justify-center">
-				<div class="w-48 h-48 rounded-full border-4 border-white opacity-30"></div>
-				<div class="absolute top-8 left-8 w-16 h-16 bg-yellow-400"></div>
-				<div class="absolute bottom-12 right-12 w-20 h-20 bg-blue-600"></div>
-				<div class="absolute top-1/3 right-1/4 w-12 h-12 border-4 border-white rounded-full"></div>
-			</div>
-			<div class="h-4 bg-yellow-400"></div>
-			<div class="h-32 bg-blue-600 relative overflow-hidden">
-				<div class="absolute -right-4 -top-4 w-24 h-24 bg-black rounded-full opacity-30"></div>
-			</div>
+	<main class="min-h-[calc(100vh-56px)] grid grid-cols-1 md:grid-cols-12">
+		<!-- Left: Full geometric poster panel -->
+		<div class="hidden md:block md:col-span-5 relative overflow-hidden">
+			<!-- Base layers -->
+			<div class="absolute inset-0 bg-red-600"></div>
+			<!-- Large off-center circle -->
+			<div class="absolute -left-16 top-1/4 w-72 h-72 rounded-full bg-yellow-400"></div>
+			<!-- Overlapping square -->
+			<div class="absolute right-8 top-16 w-40 h-40 bg-blue-600 rotate-12"></div>
+			<!-- Black triangle -->
+			<div class="absolute left-1/3 bottom-12 w-0 h-0 border-l-[60px] border-l-transparent border-r-[60px] border-r-transparent border-b-[104px] border-b-black"></div>
+			<!-- White line cross -->
+			<div class="absolute top-0 left-1/2 w-1 h-full bg-white opacity-30"></div>
+			<div class="absolute top-1/2 left-0 w-full h-1 bg-white opacity-30"></div>
+			<!-- Small accent circle -->
+			<div class="absolute bottom-20 right-16 w-16 h-16 rounded-full border-4 border-white"></div>
+			<!-- Bottom yellow bar -->
+			<div class="absolute bottom-0 left-0 w-full h-12 bg-yellow-400"></div>
 		</div>
 
-		<!-- Right: Form -->
-		<div class="md:col-span-7 flex items-center justify-center p-8 md:p-16">
+		<!-- Right: Form on black -->
+		<div class="md:col-span-7 flex items-center justify-center p-8 md:p-16 relative">
+			<!-- Subtle geometric background element -->
+			<div class="absolute top-8 right-8 w-24 h-24 rounded-full border-4 border-white opacity-5 hidden md:block"></div>
+
 			<section class="w-full max-w-md">
-				<h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight mb-2">
+				<!-- Title with geometric accent -->
+				<div class="flex items-center gap-4 mb-2">
+					<div class="w-8 h-8 rounded-full bg-red-600"></div>
+					<div class="w-8 h-8 bg-yellow-400"></div>
+					<div class="w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-b-[24px] border-b-blue-600"></div>
+				</div>
+				<h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.85] mt-6 mb-2">
 					{t.auth.title}
 				</h1>
-				<div class="w-12 h-1 bg-red-600 mb-4"></div>
-				<p class="text-base font-light text-neutral-600 mb-10">{t.auth.subtitle}</p>
+				<div class="w-16 h-1 bg-red-600 mb-4"></div>
+				<p class="text-sm font-light text-neutral-400 mb-10 tracking-wide">{t.auth.subtitle}</p>
 
 				<form class="flex flex-col gap-6">
 					<div>
-						<label for="email" class="block text-xs uppercase tracking-widest font-black mb-2">{t.auth.email}</label>
+						<label for="email" class="block text-[0.65rem] uppercase tracking-[0.3em] font-black mb-3 text-yellow-400">{t.auth.email}</label>
 						<input type="email" id="email" name="email" placeholder="you@example.com"
-							class="w-full border-2 border-black bg-white px-4 py-3 text-sm font-bold focus:border-blue-600 focus:outline-none transition-colors" />
+							class="w-full border-4 border-white bg-black text-white px-4 py-3 text-sm font-black uppercase tracking-wide focus:border-yellow-400 focus:outline-none transition-colors placeholder:text-neutral-600 placeholder:normal-case placeholder:font-light placeholder:tracking-normal" />
 					</div>
 					<div>
-						<label for="password" class="block text-xs uppercase tracking-widest font-black mb-2">{t.auth.password}</label>
+						<label for="password" class="block text-[0.65rem] uppercase tracking-[0.3em] font-black mb-3 text-yellow-400">{t.auth.password}</label>
 						<input type="password" id="password" name="password" placeholder="••••••••"
-							class="w-full border-2 border-black bg-white px-4 py-3 text-sm font-bold focus:border-blue-600 focus:outline-none transition-colors" />
+							class="w-full border-4 border-white bg-black text-white px-4 py-3 text-sm font-black focus:border-yellow-400 focus:outline-none transition-colors placeholder:text-neutral-600 placeholder:font-light" />
 					</div>
 					<div class="flex items-center justify-between">
-						<label class="flex items-center gap-2 cursor-pointer">
+						<label class="flex items-center gap-3 cursor-pointer">
 							<input type="checkbox" name="remember" class="w-4 h-4 accent-red-600" />
-							<span class="text-xs uppercase tracking-widest font-bold">{t.auth.rememberMe}</span>
+							<span class="text-[0.65rem] uppercase tracking-[0.25em] font-black">{t.auth.rememberMe}</span>
 						</label>
-						<a href="#" class="text-xs uppercase tracking-widest font-bold text-blue-600 hover:text-red-600 transition-colors">
+						<a href="#" class="text-[0.65rem] uppercase tracking-[0.25em] font-black text-blue-600 hover:text-yellow-400 transition-colors">
 							{t.auth.forgotPassword}
 						</a>
 					</div>
-					<button type="submit" class="w-full bg-black text-white font-black uppercase tracking-widest py-4 text-sm border-2 border-black hover:bg-red-600 hover:border-red-600 transition-colors">
+					<button type="submit" class="w-full bg-red-600 text-white font-black uppercase tracking-[0.25em] py-4 text-sm border-4 border-red-600 hover:bg-yellow-400 hover:text-black hover:border-yellow-400 transition-colors">
 						{t.auth.signIn}
 					</button>
 				</form>
 
 				<!-- Divider -->
-				<div class="flex items-center gap-4 my-8">
-					<div class="flex-1 h-0.5 bg-black"></div>
-					<p class="text-xs uppercase tracking-widest font-bold text-neutral-500 shrink-0">{t.auth.continueWith}</p>
-					<div class="flex-1 h-0.5 bg-black"></div>
+				<div class="flex items-center gap-4 my-10">
+					<div class="flex-1 h-1 bg-white"></div>
+					<div class="w-4 h-4 bg-yellow-400 rotate-45 shrink-0"></div>
+					<p class="text-[0.6rem] uppercase tracking-[0.3em] font-black text-neutral-500 shrink-0">{t.auth.continueWith}</p>
+					<div class="w-4 h-4 bg-yellow-400 rotate-45 shrink-0"></div>
+					<div class="flex-1 h-1 bg-white"></div>
 				</div>
 
-				<!-- Social buttons -->
+				<!-- Social buttons — geometric style -->
 				<div class="grid grid-cols-2 gap-0">
-					<button type="button" class="border-2 border-black py-3 font-black uppercase tracking-widest text-sm hover:bg-yellow-400 transition-colors">
+					<button type="button" class="border-4 border-white py-4 font-black uppercase tracking-[0.2em] text-sm hover:bg-yellow-400 hover:text-black hover:border-yellow-400 transition-colors">
 						Google
 					</button>
-					<button type="button" class="border-2 border-black py-3 font-black uppercase tracking-widest text-sm hover:bg-blue-600 hover:text-white transition-colors">
+					<button type="button" class="border-4 border-white py-4 font-black uppercase tracking-[0.2em] text-sm hover:bg-blue-600 hover:border-blue-600 transition-colors">
 						Apple
 					</button>
 				</div>
 
 				<!-- Sign up link -->
-				<p class="mt-8 text-center text-sm">
-					<span class="font-light">{t.auth.noAccount}</span>
-					<a href="#" class="font-black uppercase tracking-widest text-red-600 hover:text-blue-600 transition-colors ml-1">{t.auth.signUp}</a>
+				<p class="mt-10 text-center text-sm">
+					<span class="font-light text-neutral-400">{t.auth.noAccount}</span>
+					<a href="#" class="font-black uppercase tracking-[0.2em] text-yellow-400 hover:text-red-600 transition-colors ml-2">{t.auth.signUp}</a>
 				</p>
 			</section>
 		</div>
