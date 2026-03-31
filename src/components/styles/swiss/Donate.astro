@@ -2,57 +2,78 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-sans">
+	<nav class="border-b border-black px-6 md:px-12 lg:px-24 py-4 flex flex-wrap items-center gap-x-8 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-xs uppercase tracking-widest text-black hover:text-red-600 transition-colors">{item.label}</a>
+		))}
+	</nav>
 
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
+	<main class="px-6 md:px-12 lg:px-24">
+		<section class="pt-16 pb-12 md:pt-24 md:pb-16 border-b border-black">
+			<h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-none text-left">{t.donate.title}</h1>
+			<p class="mt-4 text-lg text-neutral-600 max-w-lg text-left">{t.donate.subtitle}</p>
+		</section>
 
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
+		<section class="py-12 md:py-16 border-b border-black">
+			<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+				<div class="md:col-span-3">
+					<h2 class="text-xs uppercase tracking-widest font-bold text-left">{t.donate.monthly}</h2>
 				</div>
-			))}
-		</div>
-	</section>
-
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
+				<div class="md:col-span-9">
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-black">
+						{monthlyTiers.map((tier: any) => (
+							<div class={`bg-white p-6 md:p-8 flex flex-col ${tier.highlighted ? 'bg-neutral-50' : ''}`}>
+								{tier.highlighted && (
+									<span class="text-xs uppercase tracking-widest text-red-600 font-bold mb-4">{t.donate.mostPopular}</span>
+								)}
+								<h3 class="text-lg font-bold tracking-tight text-left">{tier.name}</h3>
+								<p class="mt-2">
+									<span class="text-4xl font-bold tracking-tight">${tier.amount}</span>
+									<span class="text-xs uppercase tracking-widest text-neutral-400 ml-1">{t.donate.perMonth}</span>
+								</p>
+								<p class="mt-3 text-sm text-neutral-600 leading-relaxed text-left">{tier.description}</p>
+								<ul class="mt-4 space-y-2 flex-1">
+									{tier.perks.map((perk: string) => (
+										<li class="text-xs text-neutral-500 pl-3 border-l border-neutral-300">{perk}</li>
+									))}
+								</ul>
+								<button type="button" class={`mt-6 w-full text-xs uppercase tracking-widest px-6 py-3 transition-colors ${tier.highlighted ? 'bg-red-600 text-white hover:bg-red-700' : 'border border-black text-black hover:bg-black hover:text-white'}`}>{t.donate.choose} {tier.name}</button>
+							</div>
 						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
+					</div>
 				</div>
-			))}
-		</div>
-	</section>
-</main>
+			</div>
+		</section>
+
+		<section class="py-12 md:py-16 border-b border-black">
+			<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+				<div class="md:col-span-3">
+					<h2 class="text-xs uppercase tracking-widest font-bold text-left">{t.donate.oneTime}</h2>
+				</div>
+				<div class="md:col-span-9">
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-black">
+						{oneTimeTiers.map((tier: any) => (
+							<div class={`bg-white p-6 md:p-8 flex flex-col ${tier.highlighted ? 'bg-neutral-50' : ''}`}>
+								{tier.highlighted && (
+									<span class="text-xs uppercase tracking-widest text-red-600 font-bold mb-4">{t.donate.greatestImpact}</span>
+								)}
+								<h3 class="text-lg font-bold tracking-tight text-left">{tier.name}</h3>
+								<p class="mt-2">
+									<span class="text-4xl font-bold tracking-tight">${tier.amount}</span>
+								</p>
+								<p class="mt-3 text-sm text-neutral-600 leading-relaxed text-left">{tier.description}</p>
+								<ul class="mt-4 space-y-2 flex-1">
+									{tier.perks.map((perk: string) => (
+										<li class="text-xs text-neutral-500 pl-3 border-l border-neutral-300">{perk}</li>
+									))}
+								</ul>
+								<button type="button" class={`mt-6 w-full text-xs uppercase tracking-widest px-6 py-3 transition-colors ${tier.highlighted ? 'bg-red-600 text-white hover:bg-red-700' : 'border border-black text-black hover:bg-black hover:text-white'}`}>{t.donate.give} ${tier.amount}</button>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>

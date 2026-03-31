@@ -2,46 +2,57 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-black font-sans">
+	<nav class="border-b border-black px-6 md:px-12 lg:px-24 py-4 flex flex-wrap items-center gap-x-8 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-xs uppercase tracking-widest text-black hover:text-red-600 transition-colors">{item.label}</a>
+		))}
+	</nav>
 
-<main>
-	<section>
-		<h1>{t.auth.title}</h1>
-		<p>{t.auth.subtitle}</p>
+	<main class="px-6 md:px-12 lg:px-24">
+		<section class="pt-16 md:pt-24">
+			<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+				<div class="md:col-span-5 md:col-start-2">
+					<h1 class="text-4xl md:text-5xl font-bold tracking-tight leading-none text-left">{t.auth.title}</h1>
+					<p class="mt-4 text-sm text-neutral-600 text-left">{t.auth.subtitle}</p>
 
-		<form>
-			<div>
-				<label for="email">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" />
-			</div>
-			<div>
-				<label for="password">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" />
-			</div>
-			<div>
-				<label>
-					<input type="checkbox" name="remember" />
-					{t.auth.rememberMe}
-				</label>
-				<a href="#">{t.auth.forgotPassword}</a>
-			</div>
-			<button type="submit">{t.auth.signIn}</button>
-		</form>
+					<hr class="border-red-600 border-t-2 mt-8 mb-10 w-16" />
 
-		<div>
-			<p>{t.auth.continueWith}</p>
-			<div>
-				<button type="button">Google</button>
-				<button type="button">Apple</button>
-			</div>
-		</div>
+					<form class="space-y-6">
+						<div>
+							<label for="email" class="block text-xs uppercase tracking-widest font-bold mb-2">{t.auth.email}</label>
+							<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full border border-black px-4 py-3 text-sm font-sans bg-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-red-600 focus:border-red-600" />
+						</div>
+						<div>
+							<label for="password" class="block text-xs uppercase tracking-widest font-bold mb-2">{t.auth.password}</label>
+							<input type="password" id="password" name="password" placeholder="••••••••" class="w-full border border-black px-4 py-3 text-sm font-sans bg-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-red-600 focus:border-red-600" />
+						</div>
+						<div class="flex items-center justify-between">
+							<label class="flex items-center gap-2 cursor-pointer">
+								<input type="checkbox" name="remember" class="w-4 h-4 border-black accent-red-600" />
+								<span class="text-xs uppercase tracking-widest">{t.auth.rememberMe}</span>
+							</label>
+							<a href="#" class="text-xs uppercase tracking-widest text-neutral-500 hover:text-black transition-colors">{t.auth.forgotPassword}</a>
+						</div>
+						<button type="submit" class="w-full bg-red-600 text-white text-xs uppercase tracking-widest px-6 py-3 hover:bg-red-700 transition-colors">{t.auth.signIn}</button>
+					</form>
 
-		<p>
-			{t.auth.noAccount} <a href="#">{t.auth.signUp}</a>
-		</p>
-	</section>
-</main>
+					<div class="mt-10 pt-8 border-t border-neutral-200">
+						<p class="text-xs uppercase tracking-widest text-neutral-400 mb-4">{t.auth.continueWith}</p>
+						<div class="grid grid-cols-2 gap-px bg-black">
+							<button type="button" class="bg-white text-xs uppercase tracking-widest px-6 py-3 hover:bg-neutral-50 transition-colors">Google</button>
+							<button type="button" class="bg-white text-xs uppercase tracking-widest px-6 py-3 hover:bg-neutral-50 transition-colors">Apple</button>
+						</div>
+					</div>
+
+					<p class="mt-8 text-xs text-neutral-500 text-left">
+						{t.auth.noAccount} <a href="#" class="text-black font-bold uppercase tracking-widest hover:text-red-600 transition-colors">{t.auth.signUp}</a>
+					</p>
+				</div>
+				<div class="hidden md:block md:col-span-4 md:col-start-8">
+					<div class="w-full aspect-3/4 bg-neutral-200 grayscale"></div>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>
