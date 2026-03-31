@@ -2,47 +2,74 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<a href={`/${lang}/${style}/cats`}>&larr; {t.cats.backToAll}</a>
-
-	<article>
-		<h1>{cat.name}</h1>
-
-		<dl>
-			<dt>{t.cats.breed}</dt><dd>{cat.breed}</dd>
-			<dt>{t.cats.age}</dt><dd>{cat.age}</dd>
-			<dt>{t.cats.gender}</dt><dd>{cat.gender}</dd>
-			<dt>{t.cats.color}</dt><dd>{cat.color}</dd>
-			<dt>{t.cats.arrived}</dt><dd>{cat.arrivalDate}</dd>
-			<dt>{t.cats.status}</dt><dd>{cat.status}</dd>
-		</dl>
-
-		<div>
-			{cat.personality.map((trait: string) => (
-				<span>{trait}</span>
+<div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
+	<nav class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
+		<div class="flex items-center gap-2">
+			<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-semibold uppercase tracking-widest text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">Neumorphism</span>
+		</div>
+		<div class="flex flex-wrap items-center gap-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
 			))}
 		</div>
+	</nav>
 
-		<p>{cat.description}</p>
+	<main class="mx-auto max-w-5xl space-y-10 px-4 py-8 sm:px-6">
+		<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-xl bg-[#e0e5ec] px-5 py-2.5 text-sm font-medium text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">&larr; {t.cats.backToAll}</a>
 
-		<a href={`/${lang}/${style}/auth`}>{t.cats.adopt} {cat.name}</a>
-	</article>
+		<article class="rounded-2xl bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-10">
+			<h1 class="mb-8 text-4xl font-bold tracking-tight text-[#3a4a5c]">{cat.name}</h1>
 
-	<section>
-		<h2>{t.cats.otherCats}</h2>
-		<div>
-			{otherCats.map((c: any) => (
-				<a href={`/${lang}/${style}/cats/${c.id}`}>
-					<h3>{c.name}</h3>
-					<p>{c.breed} · {c.age}</p>
-				</a>
-			))}
-		</div>
-	</section>
-</main>
+			<dl class="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
+				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.breed}</dt>
+					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.breed}</dd>
+				</div>
+				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.age}</dt>
+					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.age}</dd>
+				</div>
+				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.gender}</dt>
+					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.gender}</dd>
+				</div>
+				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.color}</dt>
+					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.color}</dd>
+				</div>
+				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.arrived}</dt>
+					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.arrivalDate}</dd>
+				</div>
+				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.status}</dt>
+					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.status}</dd>
+				</div>
+			</dl>
+
+			<div class="mb-8 flex flex-wrap gap-2">
+				{cat.personality.map((trait: string) => (
+					<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">{trait}</span>
+				))}
+			</div>
+
+			<div class="mb-8 rounded-xl bg-[#e0e5ec] p-6 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+				<p class="text-[#5a6a7c] leading-relaxed">{cat.description}</p>
+			</div>
+
+			<a href={`/${lang}/${style}/auth`} class="inline-block rounded-xl bg-[#e0e5ec] px-8 py-3 font-semibold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.cats.adopt} {cat.name}</a>
+		</article>
+
+		<section>
+			<h2 class="mb-6 text-2xl font-bold text-[#3a4a5c]">{t.cats.otherCats}</h2>
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{otherCats.map((c: any) => (
+					<a href={`/${lang}/${style}/cats/${c.id}`} class="group block rounded-2xl bg-[#e0e5ec] p-6 shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+						<h3 class="text-lg font-bold text-[#3a4a5c] group-hover:text-[#6b8aab] transition-colors duration-200">{c.name}</h3>
+						<p class="mt-1 text-sm font-medium text-[#6b7b8d]">{c.breed} · {c.age}</p>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>
