@@ -2,95 +2,127 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-black text-white font-mono selection:bg-yellow-400 selection:text-black">
+<div class="min-h-screen bg-black text-white font-mono selection:bg-yellow-400 selection:text-black overflow-x-hidden">
 
-	<nav class="bg-black text-white px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2 border-b-4 border-yellow-400">
-		{nav.map((item: any, i: number) => (
-			<a
-				href={item.href}
-				class:list={[
-					"uppercase tracking-widest font-black no-underline hover:underline decoration-wavy decoration-pink-500",
-					i % 3 === 0 ? "text-yellow-300 text-sm" : i % 3 === 1 ? "text-pink-400 text-base" : "text-orange-400 text-xs",
-					i % 2 === 0 ? "-rotate-1" : "rotate-1",
-				]}
-			>
-				{i % 2 === 0 ? "★ " : "✕ "}{item.label}
-			</a>
-		))}
+	<!-- NAV: scattered scraps -->
+	<nav class="relative bg-black px-3 py-4 md:py-5 border-b-[6px] border-yellow-400 overflow-visible">
+		<div class="flex flex-wrap items-start gap-x-2 gap-y-3 md:gap-x-4">
+			{nav.map((item: any, i: number) => (
+				<a
+					href={item.href}
+					class:list={[
+						"inline-block uppercase font-black no-underline hover:scale-110 transition-transform relative",
+						i % 5 === 0 ? "text-yellow-300 text-xs tracking-[0.3em] -rotate-3 bg-pink-600/30 px-2 py-1" :
+						i % 5 === 1 ? "text-pink-400 text-lg tracking-widest rotate-2 border-b-2 border-pink-400 px-1" :
+						i % 5 === 2 ? "text-orange-400 text-[10px] -rotate-1 bg-yellow-400/20 px-3 py-2 border border-orange-400" :
+						i % 5 === 3 ? "text-white text-sm rotate-3 underline decoration-yellow-400 decoration-wavy px-1" :
+						"text-yellow-400 text-base -rotate-2 border-2 border-yellow-400 px-2 py-0.5",
+						i === 0 ? "mt-2" : i === 2 ? "mt-4" : i === 3 ? "-mt-1" : "",
+					]}
+				>
+					{i % 4 === 0 ? "★ " : i % 4 === 1 ? "✕ " : i % 4 === 2 ? "→ " : "‼ "}{item.label}
+				</a>
+			))}
+		</div>
+		<div class="absolute -bottom-2 left-8 w-24 h-3 bg-pink-500/70 rotate-2"></div>
+		<div class="absolute -bottom-1 right-12 w-16 h-2 bg-yellow-400/60 -rotate-3"></div>
 	</nav>
 
-	<main class="px-4 py-12 md:py-20 flex items-center justify-center">
-		<section class="w-full max-w-md">
-			<h1 class="text-4xl md:text-6xl font-black uppercase -rotate-2 mb-2 inline-block bg-pink-500 text-white px-4 py-2 border-4 border-yellow-400">
-				✕ {t.auth.title}
-			</h1>
-			<p class="text-sm md:text-base font-bold uppercase tracking-wider text-gray-400 rotate-1 mb-10 mt-3">
-				{t.auth.subtitle}
-			</p>
+	<main class="px-3 py-12 md:py-20 flex items-center justify-center relative">
+		<!-- background noise -->
+		<div class="absolute top-10 right-10 text-8xl font-black text-white/5 select-none -rotate-12 hidden md:block">★</div>
+		<div class="absolute bottom-16 left-8 text-6xl font-black text-white/5 select-none rotate-6 hidden md:block">✕✕</div>
 
-			<form class="bg-white text-black border-4 border-yellow-400 p-6 md:p-8 -rotate-1">
-				<div class="mb-5">
-					<label for="email" class="block text-xs font-black uppercase tracking-widest mb-2 bg-black text-yellow-400 inline-block px-2 py-1">
-						{t.auth.email}
-					</label>
-					<input
-						type="email"
-						id="email"
-						name="email"
-						placeholder="you@example.com"
-						class="w-full border-4 border-black px-3 py-2 font-mono font-bold text-sm bg-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-pink-500 focus:bg-yellow-50"
-					/>
-				</div>
-				<div class="mb-5">
-					<label for="password" class="block text-xs font-black uppercase tracking-widest mb-2 bg-black text-pink-400 inline-block px-2 py-1">
-						{t.auth.password}
-					</label>
-					<input
-						type="password"
-						id="password"
-						name="password"
-						placeholder="••••••••"
-						class="w-full border-4 border-black px-3 py-2 font-mono font-bold text-sm bg-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-pink-500 focus:bg-yellow-50"
-					/>
-				</div>
-				<div class="flex items-center justify-between mb-6">
-					<label class="flex items-center gap-2 text-xs font-bold uppercase cursor-pointer">
-						<input type="checkbox" name="remember" class="w-4 h-4 accent-pink-500" />
-						{t.auth.rememberMe}
-					</label>
-					<a href="#" class="text-xs font-black uppercase text-pink-500 hover:underline decoration-wavy no-underline">
-						{t.auth.forgotPassword}
-					</a>
-				</div>
-				<button
-					type="submit"
-					class="w-full bg-pink-500 text-white font-black uppercase text-lg px-4 py-3 border-4 border-black cursor-pointer hover:scale-105 hover:bg-yellow-400 hover:text-black transition-all"
-				>
-					→ {t.auth.signIn} ←
-				</button>
-			</form>
+		<section class="w-full max-w-md relative">
+			<!-- Title: slapped on at an angle, like a gig poster -->
+			<div class="mb-10 relative">
+				<h1 class="text-4xl md:text-6xl font-black uppercase -rotate-3 inline-block bg-pink-500 text-white px-5 py-3 border-[6px] border-yellow-400 shadow-[6px_6px_0_rgba(234,179,8,0.5)]">
+					✕ {t.auth.title}
+				</h1>
+				<div class="absolute -top-2 left-16 w-14 h-3 bg-orange-500/50 rotate-6"></div>
+				<p class="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-gray-500 rotate-2 mt-4 ml-8">
+					{t.auth.subtitle}
+				</p>
+			</div>
 
-			<div class="mt-8 rotate-1">
-				<p class="text-xs font-black uppercase tracking-widest text-gray-500 mb-4 text-center">{t.auth.continueWith}</p>
+			<!-- Form: a pasted-on white sheet, crooked, taped down -->
+			<div class="relative -rotate-1">
+				<form class="bg-white text-black border-[6px] border-black p-5 md:p-8 shadow-[8px_8px_0_rgba(236,72,153,0.4)]">
+					<div class="mb-6">
+						<label for="email" class="block text-[10px] font-black uppercase tracking-[0.3em] mb-2 bg-black text-yellow-400 inline-block px-2 py-1 -rotate-1">
+							{t.auth.email}
+						</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="you@example.com"
+							class="w-full border-4 border-black px-3 py-2.5 font-mono font-bold text-sm bg-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-pink-500 focus:bg-yellow-50 rotate-[0.3deg]"
+						/>
+					</div>
+					<div class="mb-6">
+						<label for="password" class="block text-[10px] font-black uppercase tracking-[0.3em] mb-2 bg-black text-pink-400 inline-block px-2 py-1 rotate-1">
+							{t.auth.password}
+						</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="••••••••"
+							class="w-full border-4 border-black px-3 py-2.5 font-mono font-bold text-sm bg-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-pink-500 focus:bg-yellow-50 -rotate-[0.3deg]"
+						/>
+					</div>
+
+					<!-- Remember / forgot: messy inline layout -->
+					<div class="flex items-center justify-between mb-6 flex-wrap gap-2">
+						<label class="flex items-center gap-2 text-[10px] font-black uppercase cursor-pointer -rotate-1">
+							<input type="checkbox" name="remember" class="w-4 h-4 accent-pink-500" />
+							{t.auth.rememberMe}
+						</label>
+						<a href="#" class="text-[10px] font-black uppercase text-pink-500 hover:underline decoration-wavy no-underline rotate-1 border-b border-pink-500/50">
+							{t.auth.forgotPassword}
+						</a>
+					</div>
+
+					<!-- Submit: big punk button -->
+					<button
+						type="submit"
+						class="w-full bg-pink-500 text-white font-black uppercase text-lg px-4 py-3.5 border-4 border-black cursor-pointer hover:scale-105 hover:bg-yellow-400 hover:text-black transition-all shadow-[4px_4px_0_black] hover:shadow-[2px_2px_0_black] hover:translate-x-0.5 hover:translate-y-0.5"
+					>
+						→ {t.auth.signIn} ←
+					</button>
+				</form>
+
+				<!-- tape holding the form down -->
+				<div class="absolute -top-2 left-8 w-16 h-3 bg-yellow-400/60 -rotate-6"></div>
+				<div class="absolute -top-1.5 right-6 w-12 h-2.5 bg-orange-500/50 rotate-3"></div>
+				<div class="absolute -bottom-1.5 left-1/3 w-14 h-2 bg-pink-500/40 rotate-1"></div>
+			</div>
+
+			<!-- Social login: separate torn scraps below -->
+			<div class="mt-10 rotate-1 relative">
+				<p class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 mb-4 text-center">{t.auth.continueWith}</p>
 				<div class="flex gap-3">
 					<button
 						type="button"
-						class="flex-1 bg-yellow-400 text-black font-black uppercase text-sm px-4 py-3 border-4 border-black cursor-pointer hover:scale-105 transition-transform -rotate-1"
+						class="flex-1 bg-yellow-400 text-black font-black uppercase text-xs md:text-sm px-4 py-3 border-4 border-black cursor-pointer hover:scale-105 transition-transform -rotate-2 shadow-[3px_3px_0_black] hover:shadow-[1px_1px_0_black]"
 					>
 						★ Google
 					</button>
 					<button
 						type="button"
-						class="flex-1 bg-orange-500 text-white font-black uppercase text-sm px-4 py-3 border-4 border-black cursor-pointer hover:scale-105 transition-transform rotate-1"
+						class="flex-1 bg-orange-500 text-white font-black uppercase text-xs md:text-sm px-4 py-3 border-4 border-black cursor-pointer hover:scale-105 transition-transform rotate-2 shadow-[-2px_3px_0_black] hover:shadow-[-1px_1px_0_black]"
 					>
 						★ Apple
 					</button>
 				</div>
+				<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rotate-3"></div>
 			</div>
 
-			<p class="text-sm font-bold text-center mt-8 -rotate-1 text-gray-400">
+			<!-- Sign up nudge -->
+			<p class="text-xs font-bold text-center mt-10 -rotate-1 text-gray-500">
 				{t.auth.noAccount}
-				<a href="#" class="text-yellow-400 font-black uppercase hover:underline decoration-wavy no-underline">
+				<a href="#" class="text-yellow-400 font-black uppercase hover:underline decoration-wavy no-underline border-b border-yellow-400/50 ml-1">
 					{t.auth.signUp} →
 				</a>
 			</p>
