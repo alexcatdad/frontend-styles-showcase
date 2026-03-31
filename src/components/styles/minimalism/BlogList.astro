@@ -2,31 +2,47 @@
 const { lang, style, nav, posts, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
+	<!-- Nav -->
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
+			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{t.blog.title}</a>
+			<div class="flex items-center gap-8">
+				{nav.map((item: any) => (
+					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.blog.title}</h1>
-	<p>{t.blog.subtitle}</p>
+	<main>
+		<!-- Header -->
+		<section class="pt-40 pb-20 px-6 lg:px-8 max-w-4xl mx-auto">
+			<h1 class="text-4xl md:text-6xl font-extralight tracking-tight mb-6">{t.blog.title}</h1>
+			<p class="text-lg font-light text-neutral-500 max-w-xl leading-relaxed">{t.blog.subtitle}</p>
+		</section>
 
-	<div>
-		{posts.map((post: any) => (
-			<a href={`/${lang}/${style}/blog/${post.slug}`}>
-				<article>
-					<time datetime={post.date}>{post.date}</time>
-					<h2>{post.title}</h2>
-					<p>{post.excerpt}</p>
-					<div>
-						{post.tags.map((tag: string) => (
-							<span>{tag}</span>
-						))}
-					</div>
-					<span>{t.blog.by} {post.author}</span>
-				</article>
-			</a>
-		))}
-	</div>
-</main>
+		<!-- Post List -->
+		<section class="px-6 lg:px-8 pb-32">
+			<div class="max-w-4xl mx-auto divide-y divide-neutral-100">
+				{posts.map((post: any) => (
+					<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block py-12 first:pt-0">
+						<article>
+							<time datetime={post.date} class="text-[10px] tracking-widest uppercase text-stone-400 block mb-4">{post.date}</time>
+							<h2 class="text-2xl md:text-3xl font-light tracking-tight mb-4 group-hover:text-neutral-500 transition-colors duration-300">{post.title}</h2>
+							<p class="text-sm font-light text-neutral-500 leading-relaxed mb-6 max-w-2xl">{post.excerpt}</p>
+							<div class="flex items-center gap-6">
+								<span class="text-xs font-light text-neutral-400">{t.blog.by} {post.author}</span>
+								<div class="flex gap-3">
+									{post.tags.map((tag: string) => (
+										<span class="text-[10px] tracking-widest uppercase text-stone-400">{tag}</span>
+									))}
+								</div>
+							</div>
+						</article>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

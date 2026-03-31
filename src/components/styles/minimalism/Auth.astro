@@ -2,46 +2,58 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<section>
-		<h1>{t.auth.title}</h1>
-		<p>{t.auth.subtitle}</p>
-
-		<form>
-			<div>
-				<label for="email">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" />
-			</div>
-			<div>
-				<label for="password">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" />
-			</div>
-			<div>
-				<label>
-					<input type="checkbox" name="remember" />
-					{t.auth.rememberMe}
-				</label>
-				<a href="#">{t.auth.forgotPassword}</a>
-			</div>
-			<button type="submit">{t.auth.signIn}</button>
-		</form>
-
-		<div>
-			<p>{t.auth.continueWith}</p>
-			<div>
-				<button type="button">Google</button>
-				<button type="button">Apple</button>
+<div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
+	<!-- Nav -->
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
+			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{t.auth.title}</a>
+			<div class="flex items-center gap-8">
+				{nav.map((item: any) => (
+					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+				))}
 			</div>
 		</div>
+	</nav>
 
-		<p>
-			{t.auth.noAccount} <a href="#">{t.auth.signUp}</a>
-		</p>
-	</section>
-</main>
+	<main class="flex items-center justify-center min-h-screen px-6">
+		<section class="w-full max-w-sm pt-16">
+			<h1 class="text-3xl md:text-4xl font-extralight tracking-tight mb-3">{t.auth.title}</h1>
+			<p class="text-sm font-light text-neutral-500 mb-16">{t.auth.subtitle}</p>
+
+			<form class="space-y-8">
+				<div>
+					<label for="email" class="block text-[10px] tracking-widest uppercase text-stone-400 mb-3">{t.auth.email}</label>
+					<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full border-b border-neutral-200 pb-3 text-sm font-light focus:border-neutral-900 focus:outline-none transition-colors duration-300 bg-transparent" />
+				</div>
+				<div>
+					<label for="password" class="block text-[10px] tracking-widest uppercase text-stone-400 mb-3">{t.auth.password}</label>
+					<input type="password" id="password" name="password" placeholder="--------" class="w-full border-b border-neutral-200 pb-3 text-sm font-light focus:border-neutral-900 focus:outline-none transition-colors duration-300 bg-transparent" />
+				</div>
+				<div class="flex items-center justify-between pt-2">
+					<label class="flex items-center gap-3 cursor-pointer">
+						<input type="checkbox" name="remember" class="w-3.5 h-3.5 border border-neutral-300 rounded-none accent-neutral-900" />
+						<span class="text-xs font-light text-neutral-500">{t.auth.rememberMe}</span>
+					</label>
+					<a href="#" class="text-xs font-light text-neutral-400 hover:text-neutral-900 transition-colors duration-300">{t.auth.forgotPassword}</a>
+				</div>
+				<button type="submit" class="w-full border border-neutral-900 py-3.5 text-xs tracking-widest uppercase hover:bg-neutral-900 hover:text-white transition-colors duration-300 mt-4">{t.auth.signIn}</button>
+			</form>
+
+			<!-- Social divider -->
+			<div class="my-12 flex items-center gap-4">
+				<div class="flex-1 h-px bg-neutral-100"></div>
+				<p class="text-[10px] tracking-widest uppercase text-neutral-400">{t.auth.continueWith}</p>
+				<div class="flex-1 h-px bg-neutral-100"></div>
+			</div>
+
+			<div class="grid grid-cols-2 gap-4">
+				<button type="button" class="border border-neutral-200 py-3 text-xs tracking-widest uppercase text-neutral-500 hover:border-neutral-900 hover:text-neutral-900 transition-colors duration-300">Google</button>
+				<button type="button" class="border border-neutral-200 py-3 text-xs tracking-widest uppercase text-neutral-500 hover:border-neutral-900 hover:text-neutral-900 transition-colors duration-300">Apple</button>
+			</div>
+
+			<p class="text-center text-xs font-light text-neutral-400 mt-16 mb-8">
+				{t.auth.noAccount} <a href="#" class="text-neutral-900 hover:text-neutral-500 transition-colors duration-300">{t.auth.signUp}</a>
+			</p>
+		</section>
+	</main>
+</div>
