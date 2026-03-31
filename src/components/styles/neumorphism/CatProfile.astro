@@ -3,70 +3,103 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
-	<nav class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
-		<div class="flex items-center gap-2">
-			<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-semibold uppercase tracking-widest text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">Neumorphism</span>
-		</div>
-		<div class="flex flex-wrap items-center gap-2">
-			{nav.map((item: any) => (
-				<a href={item.href} class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
-			))}
+	<!-- Floating pill navigation -->
+	<nav class="sticky top-4 z-50 mx-auto max-w-4xl px-6 py-4">
+		<div class="flex flex-wrap items-center justify-between gap-4 rounded-full bg-[#e0e5ec] px-6 py-3 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+			<span class="rounded-full bg-[#e0e5ec] px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">Neumorphism</span>
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-full bg-[#e0e5ec] px-5 py-2 text-sm font-medium text-[#5a6a7c] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
+				))}
+			</div>
 		</div>
 	</nav>
 
-	<main class="mx-auto max-w-5xl space-y-10 px-4 py-8 sm:px-6">
-		<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-xl bg-[#e0e5ec] px-5 py-2.5 text-sm font-medium text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">&larr; {t.cats.backToAll}</a>
+	<main class="mx-auto max-w-5xl space-y-12 px-6 pb-16 pt-8">
+		<!-- Back button pill -->
+		<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-full bg-[#e0e5ec] px-6 py-2.5 text-sm font-semibold text-[#6b8aab] shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+			<span class="text-lg leading-none">&larr;</span> {t.cats.backToAll}
+		</a>
 
-		<article class="rounded-2xl bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-10">
-			<h1 class="mb-8 text-4xl font-bold tracking-tight text-[#3a4a5c]">{cat.name}</h1>
+		<!-- Two-column: sidebar with avatar + stats, main with description -->
+		<div class="grid gap-10 lg:grid-cols-[300px_1fr]">
+			<!-- Sidebar -->
+			<aside class="space-y-8">
+				<!-- Cat avatar: large extruded circle -->
+				<div class="mx-auto flex h-44 w-44 items-center justify-center rounded-full bg-[#e0e5ec] shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff]">
+					<span class="text-6xl font-extrabold text-[#6b8aab]">{cat.name.charAt(0)}</span>
+				</div>
 
-			<dl class="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
-					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.breed}</dt>
-					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.breed}</dd>
-				</div>
-				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
-					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.age}</dt>
-					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.age}</dd>
-				</div>
-				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
-					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.gender}</dt>
-					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.gender}</dd>
-				</div>
-				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
-					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.color}</dt>
-					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.color}</dd>
-				</div>
-				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
-					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.arrived}</dt>
-					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.arrivalDate}</dd>
-				</div>
-				<div class="rounded-xl bg-[#e0e5ec] p-4 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
-					<dt class="text-xs font-semibold uppercase tracking-wide text-[#6b8aab]">{t.cats.status}</dt>
-					<dd class="mt-1 font-medium text-[#3a4a5c]">{cat.status}</dd>
-				</div>
-			</dl>
+				<h1 class="text-center text-3xl font-extrabold tracking-tight text-[#3a4a5c] sm:text-4xl">{cat.name}</h1>
 
-			<div class="mb-8 flex flex-wrap gap-2">
-				{cat.personality.map((trait: string) => (
-					<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">{trait}</span>
-				))}
-			</div>
+				<!-- Status pill: raised -->
+				<div class="text-center">
+					<span class="inline-block rounded-full bg-[#e0e5ec] px-6 py-2 text-xs font-bold uppercase tracking-widest text-[#6b8aab] shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff]">{cat.status}</span>
+				</div>
 
-			<div class="mb-8 rounded-xl bg-[#e0e5ec] p-6 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
-				<p class="text-[#5a6a7c] leading-relaxed">{cat.description}</p>
-			</div>
+				<!-- Detail pills: inset -->
+				<div class="space-y-3">
+					<div class="rounded-2xl bg-[#e0e5ec] px-5 py-4 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+						<span class="block text-[10px] font-bold uppercase tracking-widest text-[#6b8aab]">{t.cats.breed}</span>
+						<span class="mt-1 block text-sm font-semibold text-[#3a4a5c]">{cat.breed}</span>
+					</div>
+					<div class="rounded-2xl bg-[#e0e5ec] px-5 py-4 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+						<span class="block text-[10px] font-bold uppercase tracking-widest text-[#6b8aab]">{t.cats.age}</span>
+						<span class="mt-1 block text-sm font-semibold text-[#3a4a5c]">{cat.age}</span>
+					</div>
+					<div class="rounded-2xl bg-[#e0e5ec] px-5 py-4 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+						<span class="block text-[10px] font-bold uppercase tracking-widest text-[#6b8aab]">{t.cats.gender}</span>
+						<span class="mt-1 block text-sm font-semibold text-[#3a4a5c]">{cat.gender}</span>
+					</div>
+					<div class="rounded-2xl bg-[#e0e5ec] px-5 py-4 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+						<span class="block text-[10px] font-bold uppercase tracking-widest text-[#6b8aab]">{t.cats.color}</span>
+						<span class="mt-1 block text-sm font-semibold text-[#3a4a5c]">{cat.color}</span>
+					</div>
+					<div class="rounded-2xl bg-[#e0e5ec] px-5 py-4 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+						<span class="block text-[10px] font-bold uppercase tracking-widest text-[#6b8aab]">{t.cats.arrived}</span>
+						<span class="mt-1 block text-sm font-semibold text-[#3a4a5c]">{cat.arrivalDate}</span>
+					</div>
+				</div>
+			</aside>
 
-			<a href={`/${lang}/${style}/auth`} class="inline-block rounded-xl bg-[#e0e5ec] px-8 py-3 font-semibold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.cats.adopt} {cat.name}</a>
-		</article>
+			<!-- Main content -->
+			<article class="space-y-8">
+				<!-- Personality: extruded pills row -->
+				<div class="rounded-[1.5rem] bg-[#e0e5ec] p-6 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+					<div class="flex flex-wrap gap-3">
+						{cat.personality.map((trait: string) => (
+							<span class="rounded-full bg-[#e0e5ec] px-5 py-2 text-sm font-semibold text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">{trait}</span>
+						))}
+					</div>
+				</div>
 
-		<section>
-			<h2 class="mb-6 text-2xl font-bold text-[#3a4a5c]">{t.cats.otherCats}</h2>
-			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				<!-- Description: raised panel with inset text well -->
+				<div class="rounded-[1.5rem] bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-10">
+					<div class="rounded-2xl bg-[#e0e5ec] p-6 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+						<p class="text-base leading-relaxed text-[#5a6a7c]">{cat.description}</p>
+					</div>
+				</div>
+
+				<!-- Adopt button: large tactile -->
+				<div class="text-center lg:text-left">
+					<a href={`/${lang}/${style}/auth`} class="inline-block rounded-full bg-[#e0e5ec] px-12 py-4 text-lg font-bold text-[#6b8aab] shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] transition-all duration-300 hover:shadow-[inset_5px_5px_10px_#b8bec7,inset_-5px_-5px_10px_#ffffff] active:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]">{t.cats.adopt} {cat.name}</a>
+				</div>
+			</article>
+		</div>
+
+		<!-- Other cats -->
+		<section class="space-y-8">
+			<h2 class="text-center text-2xl font-extrabold text-[#3a4a5c] lg:text-left">{t.cats.otherCats}</h2>
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 				{otherCats.map((c: any) => (
-					<a href={`/${lang}/${style}/cats/${c.id}`} class="group block rounded-2xl bg-[#e0e5ec] p-6 shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
-						<h3 class="text-lg font-bold text-[#3a4a5c] group-hover:text-[#6b8aab] transition-colors duration-200">{c.name}</h3>
-						<p class="mt-1 text-sm font-medium text-[#6b7b8d]">{c.breed} · {c.age}</p>
+					<a href={`/${lang}/${style}/cats/${c.id}`} class="group flex items-center gap-4 rounded-2xl bg-[#e0e5ec] p-5 shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff]">
+						<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-300 group-hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+							<span class="text-lg font-extrabold text-[#6b8aab]">{c.name.charAt(0)}</span>
+						</div>
+						<div>
+							<h3 class="text-lg font-bold text-[#3a4a5c] transition-colors duration-300 group-hover:text-[#6b8aab]">{c.name}</h3>
+							<p class="mt-0.5 text-xs font-medium text-[#7a8a9c]">{c.breed} &middot; {c.age}</p>
+						</div>
 					</a>
 				))}
 			</div>

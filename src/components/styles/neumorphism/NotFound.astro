@@ -3,25 +3,39 @@ const { lang, style, nav, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
-	<nav class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
-		<div class="flex items-center gap-2">
-			<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-semibold uppercase tracking-widest text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">Neumorphism</span>
-		</div>
-		<div class="flex flex-wrap items-center gap-2">
-			{nav.map((item: any) => (
-				<a href={item.href} class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
-			))}
+	<!-- Floating pill navigation -->
+	<nav class="sticky top-4 z-50 mx-auto max-w-4xl px-6 py-4">
+		<div class="flex flex-wrap items-center justify-between gap-4 rounded-full bg-[#e0e5ec] px-6 py-3 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+			<span class="rounded-full bg-[#e0e5ec] px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">Neumorphism</span>
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-full bg-[#e0e5ec] px-5 py-2 text-sm font-medium text-[#5a6a7c] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
+				))}
+			</div>
 		</div>
 	</nav>
 
-	<main class="mx-auto flex max-w-2xl items-center justify-center px-4 py-20 sm:px-6">
-		<section class="w-full rounded-2xl bg-[#e0e5ec] p-10 text-center shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-14">
-			<h1 class="mb-4 text-7xl font-bold text-[#6b8aab] sm:text-8xl">{t.notFound.title}</h1>
-			<h2 class="mb-4 text-2xl font-bold text-[#3a4a5c] sm:text-3xl">{t.notFound.heading}</h2>
-			<p class="mb-10 text-[#5a6a7c] leading-relaxed">{t.notFound.description}</p>
-			<div class="flex flex-wrap justify-center gap-4">
-				<a href={`/${lang}/${style}/`} class="rounded-xl bg-[#e0e5ec] px-8 py-3 font-semibold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.notFound.backHome}</a>
-				<a href={`/${lang}/${style}/cats`} class="rounded-xl bg-[#e0e5ec] px-8 py-3 font-semibold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.notFound.meetCats}</a>
+	<main class="flex min-h-[calc(100vh-120px)] items-center justify-center px-6 py-16">
+		<section class="w-full max-w-lg text-center">
+			<!-- Giant 404 in inset depression -->
+			<div class="mx-auto mb-10 flex h-48 w-48 items-center justify-center rounded-full bg-[#e0e5ec] shadow-[inset_8px_8px_16px_#b8bec7,inset_-8px_-8px_16px_#ffffff]">
+				<span class="text-7xl font-black text-[#6b8aab] sm:text-8xl">{t.notFound.title}</span>
+			</div>
+
+			<!-- Raised message slab -->
+			<div class="rounded-[2rem] bg-[#e0e5ec] px-8 py-10 shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff] sm:px-12">
+				<h2 class="mb-4 text-2xl font-extrabold text-[#3a4a5c] sm:text-3xl">{t.notFound.heading}</h2>
+
+				<!-- Description in recessed well -->
+				<div class="mx-auto mb-10 max-w-sm rounded-2xl bg-[#e0e5ec] p-5 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+					<p class="text-sm leading-relaxed text-[#5a6a7c]">{t.notFound.description}</p>
+				</div>
+
+				<!-- Action buttons -->
+				<div class="flex flex-wrap justify-center gap-5">
+					<a href={`/${lang}/${style}/`} class="rounded-full bg-[#e0e5ec] px-10 py-4 text-base font-bold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] active:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]">{t.notFound.backHome}</a>
+					<a href={`/${lang}/${style}/cats`} class="rounded-full bg-[#e0e5ec] px-10 py-4 text-base font-bold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] active:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]">{t.notFound.meetCats}</a>
+				</div>
 			</div>
 		</section>
 	</main>

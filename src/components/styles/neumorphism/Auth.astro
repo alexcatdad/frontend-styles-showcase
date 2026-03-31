@@ -3,58 +3,92 @@ const { lang, style, nav, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
-	<nav class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
-		<div class="flex items-center gap-2">
-			<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-semibold uppercase tracking-widest text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">Neumorphism</span>
-		</div>
-		<div class="flex flex-wrap items-center gap-2">
-			{nav.map((item: any) => (
-				<a href={item.href} class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
-			))}
+	<!-- Floating pill navigation -->
+	<nav class="sticky top-4 z-50 mx-auto max-w-4xl px-6 py-4">
+		<div class="flex flex-wrap items-center justify-between gap-4 rounded-full bg-[#e0e5ec] px-6 py-3 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+			<span class="rounded-full bg-[#e0e5ec] px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">Neumorphism</span>
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-full bg-[#e0e5ec] px-5 py-2 text-sm font-medium text-[#5a6a7c] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
+				))}
+			</div>
 		</div>
 	</nav>
 
-	<main class="mx-auto flex max-w-md items-center justify-center px-4 py-12 sm:px-6">
-		<section class="w-full rounded-2xl bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-10">
-			<div class="mb-8 text-center">
-				<h1 class="mb-2 text-3xl font-bold tracking-tight text-[#3a4a5c]">{t.auth.title}</h1>
-				<p class="text-sm font-medium text-[#6b7b8d]">{t.auth.subtitle}</p>
-			</div>
+	<main class="flex min-h-[calc(100vh-120px)] items-center justify-center px-6 py-12">
+		<div class="w-full max-w-md">
+			<!-- Auth card: massive extruded slab -->
+			<section class="rounded-[2rem] bg-[#e0e5ec] p-8 shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff] sm:p-10">
+				<!-- Header with icon circle -->
+				<div class="mb-8 text-center">
+					<div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]">
+						<span class="text-3xl text-[#6b8aab]">&#128062;</span>
+					</div>
+					<h1 class="mb-2 text-3xl font-extrabold tracking-tight text-[#3a4a5c]">{t.auth.title}</h1>
+					<p class="text-sm font-medium text-[#7a8a9c]">{t.auth.subtitle}</p>
+				</div>
 
-			<form class="space-y-5">
-				<div>
-					<label for="email" class="mb-2 block text-sm font-semibold text-[#3a4a5c]">{t.auth.email}</label>
-					<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full rounded-xl bg-[#e0e5ec] px-4 py-3 text-sm font-medium text-[#3a4a5c] shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] outline-none placeholder:text-[#9ca3af] focus:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]" />
-				</div>
-				<div>
-					<label for="password" class="mb-2 block text-sm font-semibold text-[#3a4a5c]">{t.auth.password}</label>
-					<input type="password" id="password" name="password" placeholder="••••••••" class="w-full rounded-xl bg-[#e0e5ec] px-4 py-3 text-sm font-medium text-[#3a4a5c] shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] outline-none placeholder:text-[#9ca3af] focus:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]" />
-				</div>
-				<div class="flex items-center justify-between">
-					<label class="flex items-center gap-2 text-sm font-medium text-[#5a6a7c]">
-						<input type="checkbox" name="remember" class="h-5 w-5 appearance-none rounded-lg bg-[#e0e5ec] shadow-[inset_2px_2px_4px_#b8bec7,inset_-2px_-2px_4px_#ffffff] checked:bg-[#6b8aab]" />
-						{t.auth.rememberMe}
-					</label>
-					<a href="#" class="text-sm font-medium text-[#6b8aab] transition-colors duration-200 hover:text-[#4a7a9b]">{t.auth.forgotPassword}</a>
-				</div>
-				<button type="submit" class="w-full rounded-xl bg-[#e0e5ec] px-6 py-3 font-bold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] active:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]">{t.auth.signIn}</button>
-			</form>
+				<form class="space-y-6">
+					<!-- Email field -->
+					<div>
+						<label for="email" class="mb-2.5 block text-xs font-bold uppercase tracking-widest text-[#6b8aab]">{t.auth.email}</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="you@example.com"
+							class="w-full rounded-2xl bg-[#e0e5ec] px-5 py-3.5 text-sm font-medium text-[#3a4a5c] shadow-[inset_5px_5px_10px_#b8bec7,inset_-5px_-5px_10px_#ffffff] outline-none transition-shadow duration-300 placeholder:text-[#a0aab4] focus:shadow-[inset_6px_6px_14px_#b0b6bf,inset_-6px_-6px_14px_#ffffff]"
+						/>
+					</div>
 
-			<div class="my-8">
-				<div class="relative flex items-center justify-center">
-					<div class="h-px flex-1 bg-[#c8ced6]"></div>
-					<p class="px-4 text-xs font-semibold uppercase tracking-wide text-[#6b7b8d]">{t.auth.continueWith}</p>
-					<div class="h-px flex-1 bg-[#c8ced6]"></div>
-				</div>
-				<div class="mt-5 grid grid-cols-2 gap-4">
-					<button type="button" class="rounded-xl bg-[#e0e5ec] px-4 py-3 text-sm font-semibold text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">Google</button>
-					<button type="button" class="rounded-xl bg-[#e0e5ec] px-4 py-3 text-sm font-semibold text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">Apple</button>
-				</div>
-			</div>
+					<!-- Password field -->
+					<div>
+						<label for="password" class="mb-2.5 block text-xs font-bold uppercase tracking-widest text-[#6b8aab]">{t.auth.password}</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="••••••••"
+							class="w-full rounded-2xl bg-[#e0e5ec] px-5 py-3.5 text-sm font-medium text-[#3a4a5c] shadow-[inset_5px_5px_10px_#b8bec7,inset_-5px_-5px_10px_#ffffff] outline-none transition-shadow duration-300 placeholder:text-[#a0aab4] focus:shadow-[inset_6px_6px_14px_#b0b6bf,inset_-6px_-6px_14px_#ffffff]"
+						/>
+					</div>
 
-			<p class="text-center text-sm font-medium text-[#6b7b8d]">
-				{t.auth.noAccount} <a href="#" class="font-semibold text-[#6b8aab] transition-colors duration-200 hover:text-[#4a7a9b]">{t.auth.signUp}</a>
-			</p>
-		</section>
+					<!-- Remember + Forgot row -->
+					<div class="flex items-center justify-between">
+						<label class="flex items-center gap-3 text-sm font-medium text-[#5a6a7c]">
+							<div class="relative">
+								<input type="checkbox" name="remember" class="peer sr-only" />
+								<div class="h-6 w-6 rounded-lg bg-[#e0e5ec] shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] transition-all duration-300 peer-checked:shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]"></div>
+								<div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-[#6b8aab] opacity-0 transition-opacity peer-checked:opacity-100">&#10003;</div>
+							</div>
+							{t.auth.rememberMe}
+						</label>
+						<a href="#" class="text-xs font-semibold text-[#6b8aab] transition-colors duration-200 hover:text-[#4a7a9b]">{t.auth.forgotPassword}</a>
+					</div>
+
+					<!-- Sign in button: big tactile -->
+					<button type="submit" class="w-full rounded-full bg-[#e0e5ec] px-8 py-4 text-base font-bold text-[#6b8aab] shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] transition-all duration-300 hover:shadow-[inset_5px_5px_10px_#b8bec7,inset_-5px_-5px_10px_#ffffff] active:shadow-[inset_7px_7px_14px_#b8bec7,inset_-7px_-7px_14px_#ffffff]">{t.auth.signIn}</button>
+				</form>
+
+				<!-- Divider: inset groove -->
+				<div class="my-8 flex items-center gap-4">
+					<div class="h-1 flex-1 rounded-full bg-[#e0e5ec] shadow-[inset_1px_1px_3px_#b8bec7,inset_-1px_-1px_3px_#ffffff]"></div>
+					<span class="text-[10px] font-bold uppercase tracking-widest text-[#7a8a9c]">{t.auth.continueWith}</span>
+					<div class="h-1 flex-1 rounded-full bg-[#e0e5ec] shadow-[inset_1px_1px_3px_#b8bec7,inset_-1px_-1px_3px_#ffffff]"></div>
+				</div>
+
+				<!-- Social buttons -->
+				<div class="grid grid-cols-2 gap-5">
+					<button type="button" class="rounded-2xl bg-[#e0e5ec] px-4 py-3.5 text-sm font-bold text-[#5a6a7c] shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff] transition-all duration-300 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] hover:text-[#6b8aab]">Google</button>
+					<button type="button" class="rounded-2xl bg-[#e0e5ec] px-4 py-3.5 text-sm font-bold text-[#5a6a7c] shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff] transition-all duration-300 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] hover:text-[#6b8aab]">Apple</button>
+				</div>
+
+				<!-- Sign up link -->
+				<p class="mt-8 text-center text-sm font-medium text-[#7a8a9c]">
+					{t.auth.noAccount}{' '}
+					<a href="#" class="font-bold text-[#6b8aab] transition-colors duration-200 hover:text-[#4a7a9b]">{t.auth.signUp}</a>
+				</p>
+			</section>
+		</div>
 	</main>
 </div>

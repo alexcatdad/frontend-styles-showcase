@@ -3,54 +3,85 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
-	<nav class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
-		<div class="flex items-center gap-2">
-			<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-semibold uppercase tracking-widest text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">{meta.name}</span>
-		</div>
-		<div class="flex flex-wrap items-center gap-2">
-			{nav.map((item: any) => (
-				<a href={item.href} class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
-			))}
+	<!-- Floating pill navigation -->
+	<nav class="sticky top-4 z-50 mx-auto max-w-4xl px-6 py-4">
+		<div class="flex flex-wrap items-center justify-between gap-4 rounded-full bg-[#e0e5ec] px-6 py-3 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+			<a href={`/${lang}/${style}/`} class="rounded-full bg-[#e0e5ec] px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">{meta.name}</a>
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-full bg-[#e0e5ec] px-5 py-2 text-sm font-medium text-[#5a6a7c] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
+				))}
+			</div>
 		</div>
 	</nav>
 
-	<main class="mx-auto max-w-5xl space-y-12 px-4 py-8 sm:px-6">
-		<section class="rounded-2xl bg-[#e0e5ec] p-8 text-center shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-12">
-			<h1 class="mb-4 text-4xl font-bold tracking-tight text-[#3a4a5c] sm:text-5xl">{sanctuary.name}</h1>
-			<p class="mx-auto mb-8 max-w-2xl text-lg font-medium text-[#6b7b8d]">{sanctuary.tagline}</p>
-			<div class="flex flex-wrap justify-center gap-4">
-				<a href={`/${lang}/${style}/cats`} class="rounded-xl bg-[#e0e5ec] px-8 py-3 font-semibold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.home.meetCats}</a>
-				<a href={`/${lang}/${style}/donate`} class="rounded-xl bg-[#e0e5ec] px-8 py-3 font-semibold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.home.donate}</a>
+	<main class="mx-auto max-w-5xl space-y-16 px-6 pb-16 pt-8">
+		<!-- Hero: extruded slab with concave tagline well -->
+		<section class="rounded-[2rem] bg-[#e0e5ec] px-8 py-14 text-center shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff] sm:px-14 sm:py-20">
+			<h1 class="mb-6 text-5xl font-extrabold tracking-tight text-[#3a4a5c] sm:text-6xl lg:text-7xl">{sanctuary.name}</h1>
+			<div class="mx-auto mb-10 max-w-xl rounded-full bg-[#e0e5ec] px-8 py-4 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+				<p class="text-base font-medium text-[#6b8aab] sm:text-lg">{sanctuary.tagline}</p>
+			</div>
+			<div class="flex flex-wrap justify-center gap-6">
+				<a href={`/${lang}/${style}/cats`} class="rounded-full bg-[#e0e5ec] px-10 py-4 text-base font-bold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] active:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]">{t.home.meetCats}</a>
+				<a href={`/${lang}/${style}/donate`} class="rounded-full bg-[#e0e5ec] px-10 py-4 text-base font-bold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] active:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]">{t.home.donate}</a>
 			</div>
 		</section>
 
-		<section class="rounded-2xl bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
-			<h2 class="mb-4 text-2xl font-bold text-[#3a4a5c]">{t.home.mission}</h2>
-			<p class="text-[#5a6a7c] leading-relaxed">{sanctuary.mission}</p>
-		</section>
-
-		<section class="grid grid-cols-2 gap-6 sm:grid-cols-4">
-			{sanctuary.stats.map((stat: any) => (
-				<div class="flex flex-col items-center gap-2 rounded-2xl bg-[#e0e5ec] p-6 shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]">
-					<span class="text-3xl font-bold text-[#6b8aab]">{stat.value}</span>
-					<span class="text-sm font-medium text-[#6b7b8d]">{stat.label}</span>
-				</div>
-			))}
-		</section>
-
-		<section class="rounded-2xl bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
-			<h2 class="mb-6 text-2xl font-bold text-[#3a4a5c]">{t.home.aboutUs}</h2>
-			<div class="space-y-4">
-				{sanctuary.about.map((paragraph: string) => (
-					<p class="text-[#5a6a7c] leading-relaxed">{paragraph}</p>
+		<!-- Two-column: sidebar stats + mission content -->
+		<div class="grid gap-10 lg:grid-cols-[280px_1fr]">
+			<!-- Sidebar: circular stats stacked -->
+			<aside class="flex flex-row flex-wrap justify-center gap-8 lg:flex-col lg:items-center lg:gap-10">
+				{sanctuary.stats.map((stat: any) => (
+					<div class="flex h-32 w-32 flex-col items-center justify-center rounded-full bg-[#e0e5ec] shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] transition-all duration-300 hover:shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff]">
+						<span class="text-3xl font-extrabold text-[#6b8aab]">{stat.value}</span>
+						<span class="mt-1 text-xs font-semibold uppercase tracking-wide text-[#7a8a9c]">{stat.label}</span>
+					</div>
 				))}
+			</aside>
+
+			<!-- Main content column -->
+			<div class="space-y-10">
+				<!-- Mission: raised panel -->
+				<section class="rounded-[1.5rem] bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-10">
+					<h2 class="mb-5 text-2xl font-extrabold text-[#3a4a5c] sm:text-3xl">{t.home.mission}</h2>
+					<div class="rounded-2xl bg-[#e0e5ec] p-6 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+						<p class="text-base leading-relaxed text-[#5a6a7c]">{sanctuary.mission}</p>
+					</div>
+				</section>
+
+				<!-- About: raised panel with inset text wells -->
+				<section class="rounded-[1.5rem] bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-10">
+					<h2 class="mb-6 text-2xl font-extrabold text-[#3a4a5c] sm:text-3xl">{t.home.aboutUs}</h2>
+					<div class="space-y-4">
+						{sanctuary.about.map((paragraph: string) => (
+							<div class="rounded-xl bg-[#e0e5ec] p-5 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+								<p class="text-sm leading-relaxed text-[#5a6a7c] sm:text-base">{paragraph}</p>
+							</div>
+						))}
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<!-- Contact: extruded pill chips -->
+		<section class="flex flex-wrap items-center justify-center gap-5">
+			<div class="rounded-full bg-[#e0e5ec] px-7 py-3 shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff]">
+				<span class="text-sm font-semibold text-[#6b8aab]">{sanctuary.contact.email}</span>
+			</div>
+			<div class="rounded-full bg-[#e0e5ec] px-7 py-3 shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff]">
+				<span class="text-sm font-semibold text-[#6b8aab]">{sanctuary.contact.phone}</span>
+			</div>
+			<div class="rounded-full bg-[#e0e5ec] px-7 py-3 shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff]">
+				<span class="text-sm font-semibold text-[#6b8aab]">{sanctuary.contact.address}</span>
 			</div>
 		</section>
 	</main>
 
-	<footer class="mx-auto max-w-5xl px-4 py-8 text-center sm:px-6">
-		<div class="rounded-2xl bg-[#e0e5ec] p-6 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
-			<p class="text-sm font-medium text-[#6b7b8d]">&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
+	<!-- Footer: recessed trough -->
+	<footer class="mx-auto max-w-4xl px-6 pb-10">
+		<div class="rounded-full bg-[#e0e5ec] px-8 py-4 text-center shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+			<p class="text-sm font-medium text-[#7a8a9c]">&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
 		</div>
 	</footer>
 </div>

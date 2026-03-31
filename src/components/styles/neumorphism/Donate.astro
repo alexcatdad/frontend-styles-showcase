@@ -3,83 +3,128 @@ const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
-	<nav class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
-		<div class="flex items-center gap-2">
-			<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-semibold uppercase tracking-widest text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">Neumorphism</span>
-		</div>
-		<div class="flex flex-wrap items-center gap-2">
-			{nav.map((item: any) => (
-				<a href={item.href} class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
-			))}
+	<!-- Floating pill navigation -->
+	<nav class="sticky top-4 z-50 mx-auto max-w-4xl px-6 py-4">
+		<div class="flex flex-wrap items-center justify-between gap-4 rounded-full bg-[#e0e5ec] px-6 py-3 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+			<span class="rounded-full bg-[#e0e5ec] px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">Neumorphism</span>
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-full bg-[#e0e5ec] px-5 py-2 text-sm font-medium text-[#5a6a7c] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
+				))}
+			</div>
 		</div>
 	</nav>
 
-	<main class="mx-auto max-w-5xl space-y-12 px-4 py-8 sm:px-6">
-		<div class="text-center">
-			<h1 class="mb-3 text-4xl font-bold tracking-tight text-[#3a4a5c]">{t.donate.title}</h1>
-			<p class="text-lg font-medium text-[#6b7b8d]">{t.donate.subtitle}</p>
-		</div>
+	<main class="mx-auto max-w-6xl space-y-16 px-6 pb-16 pt-8">
+		<!-- Header slab -->
+		<header class="rounded-[2rem] bg-[#e0e5ec] px-8 py-10 text-center shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff] sm:py-14">
+			<h1 class="mb-3 text-4xl font-extrabold tracking-tight text-[#3a4a5c] sm:text-5xl">{t.donate.title}</h1>
+			<div class="mx-auto mt-5 max-w-xl rounded-full bg-[#e0e5ec] px-6 py-3 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+				<p class="text-sm font-medium text-[#6b8aab]">{t.donate.subtitle}</p>
+			</div>
+		</header>
 
-		<section>
-			<h2 class="mb-6 text-center text-2xl font-bold text-[#3a4a5c]">{t.donate.monthly}</h2>
-			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+		<!-- Monthly tiers -->
+		<section class="space-y-8">
+			<h2 class="text-center text-2xl font-extrabold text-[#3a4a5c]">{t.donate.monthly}</h2>
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
 				{monthlyTiers.map((tier: any) => (
 					<div class:list={[
-						"relative flex flex-col rounded-2xl bg-[#e0e5ec] p-6",
+						"relative flex flex-col rounded-[1.5rem] bg-[#e0e5ec] p-7",
 						tier.highlighted
-							? "shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff] ring-2 ring-[#6b8aab]/30"
-							: "shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]"
+							? "shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff] scale-[1.03]"
+							: "shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]"
 					]}>
 						{tier.highlighted && (
-							<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-lg bg-[#e0e5ec] px-4 py-1 text-xs font-bold uppercase tracking-wide text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">{t.donate.mostPopular}</span>
+							<div class="absolute -top-4 left-1/2 -translate-x-1/2">
+								<span class="rounded-full bg-[#e0e5ec] px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">{t.donate.mostPopular}</span>
+							</div>
 						)}
-						<h3 class="mb-2 text-lg font-bold text-[#3a4a5c]">{tier.name}</h3>
-						<p class="mb-3">
-							<span class="text-3xl font-bold text-[#6b8aab]">${tier.amount}</span>
-							<span class="text-sm font-medium text-[#6b7b8d]">{t.donate.perMonth}</span>
-						</p>
-						<p class="mb-4 text-sm text-[#5a6a7c]">{tier.description}</p>
-						<ul class="mb-6 flex-1 space-y-2">
+
+						<!-- Price circle -->
+						<div class:list={[
+							"mx-auto mb-5 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-[#e0e5ec]",
+							tier.highlighted
+								? "shadow-[inset_5px_5px_10px_#b8bec7,inset_-5px_-5px_10px_#ffffff]"
+								: "shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]"
+						]}>
+							<span class="text-2xl font-extrabold text-[#6b8aab]">${tier.amount}</span>
+							<span class="text-[10px] font-bold text-[#7a8a9c]">{t.donate.perMonth}</span>
+						</div>
+
+						<h3 class="mb-2 text-center text-lg font-extrabold text-[#3a4a5c]">{tier.name}</h3>
+
+						<!-- Description in recessed well -->
+						<div class="mb-5 rounded-xl bg-[#e0e5ec] p-3 shadow-[inset_2px_2px_5px_#b8bec7,inset_-2px_-2px_5px_#ffffff]">
+							<p class="text-center text-xs leading-relaxed text-[#5a6a7c]">{tier.description}</p>
+						</div>
+
+						<!-- Perks -->
+						<ul class="mb-6 flex-1 space-y-2.5">
 							{tier.perks.map((perk: string) => (
-								<li class="flex items-start gap-2 text-sm text-[#5a6a7c]">
-									<span class="mt-0.5 text-[#6b8aab]">&#10003;</span>
-									{perk}
+								<li class="flex items-start gap-2.5 text-sm text-[#5a6a7c]">
+									<span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#e0e5ec] text-[10px] font-bold text-[#6b8aab] shadow-[2px_2px_4px_#b8bec7,-2px_-2px_4px_#ffffff]">&#10003;</span>
+									<span class="text-xs leading-snug">{perk}</span>
 								</li>
 							))}
 						</ul>
-						<button type="button" class="w-full rounded-xl bg-[#e0e5ec] px-6 py-3 font-semibold text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] active:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.donate.choose} {tier.name}</button>
+
+						<!-- CTA button -->
+						<button type="button" class="w-full rounded-full bg-[#e0e5ec] px-6 py-3 text-sm font-bold text-[#6b8aab] shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff] transition-all duration-300 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] active:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]">{t.donate.choose} {tier.name}</button>
 					</div>
 				))}
 			</div>
 		</section>
 
-		<section>
-			<h2 class="mb-6 text-center text-2xl font-bold text-[#3a4a5c]">{t.donate.oneTime}</h2>
-			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+		<!-- Divider: inset groove -->
+		<div class="mx-auto w-2/3 rounded-full py-1 shadow-[inset_2px_2px_4px_#b8bec7,inset_-2px_-2px_4px_#ffffff]"></div>
+
+		<!-- One-time tiers -->
+		<section class="space-y-8">
+			<h2 class="text-center text-2xl font-extrabold text-[#3a4a5c]">{t.donate.oneTime}</h2>
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
 				{oneTimeTiers.map((tier: any) => (
 					<div class:list={[
-						"relative flex flex-col rounded-2xl bg-[#e0e5ec] p-6",
+						"relative flex flex-col rounded-[1.5rem] bg-[#e0e5ec] p-7",
 						tier.highlighted
-							? "shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff] ring-2 ring-[#6b8aab]/30"
-							: "shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]"
+							? "shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff] scale-[1.03]"
+							: "shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]"
 					]}>
 						{tier.highlighted && (
-							<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-lg bg-[#e0e5ec] px-4 py-1 text-xs font-bold uppercase tracking-wide text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">{t.donate.greatestImpact}</span>
+							<div class="absolute -top-4 left-1/2 -translate-x-1/2">
+								<span class="rounded-full bg-[#e0e5ec] px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff]">{t.donate.greatestImpact}</span>
+							</div>
 						)}
-						<h3 class="mb-2 text-lg font-bold text-[#3a4a5c]">{tier.name}</h3>
-						<p class="mb-3">
-							<span class="text-3xl font-bold text-[#6b8aab]">${tier.amount}</span>
-						</p>
-						<p class="mb-4 text-sm text-[#5a6a7c]">{tier.description}</p>
-						<ul class="mb-6 flex-1 space-y-2">
+
+						<!-- Price circle -->
+						<div class:list={[
+							"mx-auto mb-5 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-[#e0e5ec]",
+							tier.highlighted
+								? "shadow-[inset_5px_5px_10px_#b8bec7,inset_-5px_-5px_10px_#ffffff]"
+								: "shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]"
+						]}>
+							<span class="text-2xl font-extrabold text-[#6b8aab]">${tier.amount}</span>
+						</div>
+
+						<h3 class="mb-2 text-center text-lg font-extrabold text-[#3a4a5c]">{tier.name}</h3>
+
+						<!-- Description in recessed well -->
+						<div class="mb-5 rounded-xl bg-[#e0e5ec] p-3 shadow-[inset_2px_2px_5px_#b8bec7,inset_-2px_-2px_5px_#ffffff]">
+							<p class="text-center text-xs leading-relaxed text-[#5a6a7c]">{tier.description}</p>
+						</div>
+
+						<!-- Perks -->
+						<ul class="mb-6 flex-1 space-y-2.5">
 							{tier.perks.map((perk: string) => (
-								<li class="flex items-start gap-2 text-sm text-[#5a6a7c]">
-									<span class="mt-0.5 text-[#6b8aab]">&#10003;</span>
-									{perk}
+								<li class="flex items-start gap-2.5 text-sm text-[#5a6a7c]">
+									<span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#e0e5ec] text-[10px] font-bold text-[#6b8aab] shadow-[2px_2px_4px_#b8bec7,-2px_-2px_4px_#ffffff]">&#10003;</span>
+									<span class="text-xs leading-snug">{perk}</span>
 								</li>
 							))}
 						</ul>
-						<button type="button" class="w-full rounded-xl bg-[#e0e5ec] px-6 py-3 font-semibold text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] active:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.donate.give} ${tier.amount}</button>
+
+						<!-- CTA button -->
+						<button type="button" class="w-full rounded-full bg-[#e0e5ec] px-6 py-3 text-sm font-bold text-[#6b8aab] shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff] transition-all duration-300 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff] active:shadow-[inset_6px_6px_12px_#b8bec7,inset_-6px_-6px_12px_#ffffff]">{t.donate.give} ${tier.amount}</button>
 					</div>
 				))}
 			</div>
