@@ -1,84 +1,161 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const available = cats.filter((c: any) => c.status === 'Available').length;
+const adopted = cats.filter((c: any) => c.status === 'Adopted').length;
+const pending = cats.filter((c: any) => c.status !== 'Available' && c.status !== 'Adopted').length;
 ---
 
-<div class="min-h-screen bg-gray-50 text-gray-800 text-sm">
-	<!-- Compact top bar -->
-	<nav class="bg-white border-b border-gray-200 px-3 py-1.5 flex items-center gap-4 text-xs sticky top-0 z-50">
-		<span class="font-semibold text-gray-900 tracking-tight text-sm mr-2">{t.cats.title}</span>
-		<div class="flex items-center gap-3">
+<div class="min-h-screen bg-gray-100 text-gray-800 font-sans text-xs leading-tight">
+	<!-- Metrics strip -->
+	<div class="bg-gray-900 text-gray-300 px-2 py-0.5 flex items-center gap-4 text-[10px] font-mono overflow-x-auto">
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="text-gray-500 uppercase">Total:</span>
+			<span class="text-white font-bold">{cats.length}</span>
+		</div>
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span>
+			<span class="text-gray-500">Available:</span>
+			<span class="text-green-400 font-bold">{available}</span>
+		</div>
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="w-1.5 h-1.5 rounded-full bg-blue-400 inline-block"></span>
+			<span class="text-gray-500">Adopted:</span>
+			<span class="text-blue-400 font-bold">{adopted}</span>
+		</div>
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
+			<span class="text-gray-500">Pending:</span>
+			<span class="text-amber-400 font-bold">{pending}</span>
+		</div>
+		<div class="ml-auto flex items-center gap-1 whitespace-nowrap">
+			<span class="w-1 h-1 rounded-full bg-green-400 inline-block animate-pulse"></span>
+			<span class="text-gray-500">LIVE</span>
+		</div>
+	</div>
+
+	<!-- Toolbar with breadcrumbs -->
+	<nav class="bg-white border-b border-gray-300 px-2 py-1 flex items-center gap-1 text-xs sticky top-0 z-50">
+		<a href={`/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
+		<span class="text-gray-300 mx-0.5">/</span>
+		<span class="font-bold text-gray-900 text-[11px]">{t.cats.title}</span>
+		<span class="text-gray-400 font-mono text-[10px] ml-1">({cats.length})</span>
+		<div class="ml-auto flex items-center gap-0.5">
 			{nav.map((item: any) => (
-				<a href={item.href} class="text-gray-500 hover:text-gray-900 transition-colors">{item.label}</a>
+				<a href={item.href} class="text-gray-600 hover:text-white hover:bg-gray-700 px-1.5 py-0.5 rounded transition-colors text-[11px]">{item.label}</a>
 			))}
 		</div>
 	</nav>
 
-	<main class="max-w-6xl mx-auto px-3 py-3">
-		<!-- Header row -->
-		<div class="flex items-baseline justify-between mb-2">
-			<div>
-				<h1 class="text-base font-bold text-gray-900 leading-tight">{t.cats.title}</h1>
-				<p class="text-xs text-gray-500 mt-0.5">{t.cats.subtitle}</p>
+	<!-- Sidebar + Table layout -->
+	<div class="flex min-h-[calc(100vh-52px)]">
+		<!-- Left sidebar: filters/summary -->
+		<aside class="hidden md:block w-44 shrink-0 bg-white border-r border-gray-300 overflow-y-auto">
+			<div class="p-2 border-b border-gray-200">
+				<div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Summary</div>
+				<p class="text-[10px] text-gray-500 leading-relaxed">{t.cats.subtitle}</p>
 			</div>
-			<span class="text-xs text-gray-400 font-mono">{cats.length} records</span>
-		</div>
+			<div class="p-2 border-b border-gray-200">
+				<div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">{t.cats.status}</div>
+				<div class="space-y-0.5">
+					<div class="flex items-center justify-between text-[10px] py-0.5 px-1 rounded hover:bg-gray-50">
+						<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span> Available</span>
+						<span class="font-mono font-bold text-gray-700">{available}</span>
+					</div>
+					<div class="flex items-center justify-between text-[10px] py-0.5 px-1 rounded hover:bg-gray-50">
+						<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 inline-block"></span> Adopted</span>
+						<span class="font-mono font-bold text-gray-700">{adopted}</span>
+					</div>
+					<div class="flex items-center justify-between text-[10px] py-0.5 px-1 rounded hover:bg-gray-50">
+						<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span> Pending</span>
+						<span class="font-mono font-bold text-gray-700">{pending}</span>
+					</div>
+				</div>
+			</div>
+			<div class="p-2">
+				<div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Navigation</div>
+				{nav.map((item: any) => (
+					<a href={item.href} class="flex items-center gap-1.5 py-0.5 px-1 text-[10px] text-gray-600 hover:bg-blue-50 hover:text-blue-700 rounded transition-colors">
+						<span class="w-1 h-1 rounded-full bg-gray-300 inline-block"></span>
+						{item.label}
+					</a>
+				))}
+			</div>
+		</aside>
 
-		<!-- Table view - spreadsheet style -->
-		<div class="bg-white border border-gray-200 rounded overflow-x-auto">
-			<table class="w-full text-xs">
+		<!-- Main: full-width spreadsheet table -->
+		<main class="flex-1 overflow-x-auto">
+			<!-- Column header bar (table toolbar) -->
+			<div class="bg-gray-50 border-b border-gray-200 px-2 py-1 flex items-center justify-between">
+				<div class="flex items-center gap-2">
+					<h1 class="text-xs font-bold text-gray-800">{t.cats.title}</h1>
+					<span class="text-[10px] text-gray-400 font-mono bg-gray-200 px-1 rounded">{cats.length} records</span>
+				</div>
+			</div>
+
+			<!-- Spreadsheet table -->
+			<table class="w-full text-[10px] border-collapse">
 				<thead>
-					<tr class="bg-gray-50 border-b border-gray-200">
-						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px]">{t.cats.status}</th>
-						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px]">Name</th>
-						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden sm:table-cell">{t.cats.breed}</th>
-						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden md:table-cell">{t.cats.age}</th>
-						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden md:table-cell">{t.cats.gender}</th>
-						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden lg:table-cell">{t.cats.color}</th>
-						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden lg:table-cell">Traits</th>
-						<th class="text-left px-2 py-1.5 font-semibold text-gray-500 uppercase tracking-wider text-[10px] hidden xl:table-cell">{t.cats.arrived}</th>
+					<tr class="bg-gray-100 border-b border-gray-300">
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200 whitespace-nowrap" style="font-size:9px">#</th>
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200 whitespace-nowrap" style="font-size:9px">{t.cats.status}</th>
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200 whitespace-nowrap" style="font-size:9px">Name</th>
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200 whitespace-nowrap hidden sm:table-cell" style="font-size:9px">{t.cats.breed}</th>
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200 whitespace-nowrap hidden md:table-cell" style="font-size:9px">{t.cats.age}</th>
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200 whitespace-nowrap hidden md:table-cell" style="font-size:9px">{t.cats.gender}</th>
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200 whitespace-nowrap hidden lg:table-cell" style="font-size:9px">{t.cats.color}</th>
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200 whitespace-nowrap hidden lg:table-cell" style="font-size:9px">Traits</th>
+						<th class="text-left px-2 py-1 font-bold text-gray-600 uppercase tracking-wider whitespace-nowrap hidden xl:table-cell" style="font-size:9px">{t.cats.arrived}</th>
 					</tr>
 				</thead>
-				<tbody class="divide-y divide-gray-100">
-					{cats.map((cat: any) => (
-						<tr class="hover:bg-blue-50/50 transition-colors group">
-							<td class="px-2 py-1.5">
-								<span class={`inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${cat.status === 'Available' ? 'bg-green-50 text-green-700' : cat.status === 'Adopted' ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-700'}`}>
-									<span class={`w-1.5 h-1.5 rounded-full ${cat.status === 'Available' ? 'bg-green-400' : cat.status === 'Adopted' ? 'bg-blue-400' : 'bg-amber-400'}`}></span>
-									{cat.status}
+				<tbody>
+					{cats.map((cat: any, idx: number) => (
+						<tr class={`border-b border-gray-100 hover:bg-blue-50/60 transition-colors group ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}>
+							<td class="px-2 py-0.5 text-gray-400 font-mono border-r border-gray-100">{idx + 1}</td>
+							<td class="px-2 py-0.5 border-r border-gray-100">
+								<span class="inline-flex items-center gap-0.5 whitespace-nowrap">
+									<span class={`w-1.5 h-1.5 rounded-full inline-block ${cat.status === 'Available' ? 'bg-green-400' : cat.status === 'Adopted' ? 'bg-blue-400' : 'bg-amber-400'}`}></span>
+									<span class={`font-medium ${cat.status === 'Available' ? 'text-green-700' : cat.status === 'Adopted' ? 'text-blue-700' : 'text-amber-700'}`}>{cat.status}</span>
 								</span>
 							</td>
-							<td class="px-2 py-1.5">
-								<a href={`/${lang}/${style}/cats/${cat.id}`} class="font-medium text-blue-600 hover:text-blue-800 hover:underline group-hover:text-blue-800">{cat.name}</a>
+							<td class="px-2 py-0.5 border-r border-gray-100">
+								<a href={`/${lang}/${style}/cats/${cat.id}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline">{cat.name}</a>
 							</td>
-							<td class="px-2 py-1.5 text-gray-600 hidden sm:table-cell">{cat.breed}</td>
-							<td class="px-2 py-1.5 text-gray-600 font-mono hidden md:table-cell">{cat.age}</td>
-							<td class="px-2 py-1.5 text-gray-600 hidden md:table-cell">{cat.gender}</td>
-							<td class="px-2 py-1.5 text-gray-600 hidden lg:table-cell">{cat.color}</td>
-							<td class="px-2 py-1.5 hidden lg:table-cell">
+							<td class="px-2 py-0.5 text-gray-600 border-r border-gray-100 hidden sm:table-cell">{cat.breed}</td>
+							<td class="px-2 py-0.5 text-gray-700 font-mono border-r border-gray-100 hidden md:table-cell">{cat.age}</td>
+							<td class="px-2 py-0.5 text-gray-600 border-r border-gray-100 hidden md:table-cell">{cat.gender}</td>
+							<td class="px-2 py-0.5 text-gray-600 border-r border-gray-100 hidden lg:table-cell">{cat.color}</td>
+							<td class="px-2 py-0.5 border-r border-gray-100 hidden lg:table-cell">
 								<div class="flex flex-wrap gap-0.5">
 									{cat.personality.map((trait: string) => (
-										<span class="bg-gray-100 text-gray-600 text-[10px] px-1 py-0 rounded">{trait}</span>
+										<span class="bg-gray-200 text-gray-600 px-1 py-0 rounded text-[9px]">{trait}</span>
 									))}
 								</div>
 							</td>
-							<td class="px-2 py-1.5 text-gray-400 font-mono text-[10px] hidden xl:table-cell">{cat.arrivalDate}</td>
+							<td class="px-2 py-0.5 text-gray-400 font-mono hidden xl:table-cell">{cat.arrivalDate}</td>
 						</tr>
 					))}
 				</tbody>
 			</table>
-		</div>
 
-		<!-- Compact card fallback for very small screens - visible summary below table on mobile -->
-		<div class="mt-2 sm:hidden space-y-1">
-			{cats.map((cat: any) => (
-				<a href={`/${lang}/${style}/cats/${cat.id}`} class="block bg-white border border-gray-200 rounded px-2 py-1.5 hover:border-blue-300 transition-colors">
-					<div class="flex items-center justify-between">
-						<span class="font-medium text-xs text-gray-900">{cat.name}</span>
-						<span class={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${cat.status === 'Available' ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700'}`}>{cat.status}</span>
-					</div>
-					<div class="text-[10px] text-gray-500 mt-0.5">{cat.breed} · {cat.age} · {cat.gender}</div>
-				</a>
-			))}
-		</div>
-	</main>
+			<!-- Table footer -->
+			<div class="bg-gray-50 border-t border-gray-200 px-2 py-1 flex items-center justify-between text-[10px] text-gray-500 font-mono">
+				<span>{cats.length} rows</span>
+				<span>End of dataset</span>
+			</div>
+
+			<!-- Mobile compact list (replaces table on very small screens) -->
+			<div class="sm:hidden p-2 space-y-0.5">
+				{cats.map((cat: any, idx: number) => (
+					<a href={`/${lang}/${style}/cats/${cat.id}`} class="flex items-center justify-between bg-white border border-gray-200 rounded px-2 py-1 hover:border-blue-300 transition-colors">
+						<div class="flex items-center gap-1.5 min-w-0">
+							<span class="text-[9px] text-gray-400 font-mono w-4 shrink-0">{idx + 1}</span>
+							<span class={`w-1.5 h-1.5 rounded-full shrink-0 ${cat.status === 'Available' ? 'bg-green-400' : cat.status === 'Adopted' ? 'bg-blue-400' : 'bg-amber-400'}`}></span>
+							<span class="font-semibold text-[10px] text-gray-900 truncate">{cat.name}</span>
+						</div>
+						<span class="text-[9px] text-gray-400 font-mono shrink-0 ml-1">{cat.breed}</span>
+					</a>
+				))}
+			</div>
+		</main>
+	</div>
 </div>

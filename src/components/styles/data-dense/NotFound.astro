@@ -2,28 +2,146 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gray-50 text-gray-800 text-sm">
-	<nav class="bg-white border-b border-gray-200 px-3 py-1.5 flex items-center gap-4 text-xs sticky top-0 z-50">
-		<span class="font-semibold text-gray-900 tracking-tight text-sm mr-2">Error</span>
-		<div class="flex items-center gap-3">
+<div class="min-h-screen bg-gray-100 text-gray-800 font-sans text-xs leading-tight">
+	<!-- Metrics strip: error state -->
+	<div class="bg-gray-900 text-gray-300 px-2 py-0.5 flex items-center gap-3 text-[10px] font-mono overflow-x-auto">
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="text-gray-500">HTTP:</span>
+			<span class="text-red-400 font-bold">404</span>
+		</div>
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="text-gray-500">Status:</span>
+			<span class="text-red-400">NOT_FOUND</span>
+		</div>
+		<div class="flex items-center gap-1 whitespace-nowrap">
+			<span class="text-gray-500">Path:</span>
+			<span class="text-gray-400">Unknown</span>
+		</div>
+		<div class="ml-auto flex items-center gap-1 whitespace-nowrap">
+			<span class="w-1 h-1 rounded-full bg-red-400 inline-block animate-pulse"></span>
+			<span class="text-red-400">ERROR</span>
+		</div>
+	</div>
+
+	<!-- Toolbar with breadcrumbs -->
+	<nav class="bg-white border-b border-gray-300 px-2 py-1 flex items-center gap-1 text-xs sticky top-0 z-50">
+		<a href={`/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
+		<span class="text-gray-300 mx-0.5">/</span>
+		<span class="font-bold text-red-600 text-[11px]">Error 404</span>
+		<div class="ml-auto flex items-center gap-0.5">
 			{nav.map((item: any) => (
-				<a href={item.href} class="text-gray-500 hover:text-gray-900 transition-colors">{item.label}</a>
+				<a href={item.href} class="text-gray-600 hover:text-white hover:bg-gray-700 px-1.5 py-0.5 rounded transition-colors text-[11px]">{item.label}</a>
 			))}
 		</div>
 	</nav>
 
-	<main class="max-w-6xl mx-auto px-3 py-3">
-		<div class="bg-white border border-gray-200 rounded p-3 max-w-md mx-auto text-center">
-			<div class="flex items-center justify-center gap-2 mb-2">
-				<span class="w-2 h-2 rounded-full bg-red-400 inline-block"></span>
-				<span class="font-mono text-2xl font-bold text-gray-900">{t.notFound.title}</span>
+	<!-- Sidebar + Main -->
+	<div class="flex min-h-[calc(100vh-52px)]">
+		<!-- Left sidebar -->
+		<aside class="hidden md:block w-44 shrink-0 bg-white border-r border-gray-300 overflow-y-auto">
+			<div class="p-2 border-b border-gray-200">
+				<div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Error Details</div>
+				<table class="w-full text-[10px]">
+					<tbody>
+						<tr class="border-b border-gray-100">
+							<td class="py-0.5 text-gray-400">Code</td>
+							<td class="py-0.5 text-right font-mono text-red-600 font-bold">404</td>
+						</tr>
+						<tr class="border-b border-gray-100">
+							<td class="py-0.5 text-gray-400">Type</td>
+							<td class="py-0.5 text-right text-gray-700">Not Found</td>
+						</tr>
+						<tr>
+							<td class="py-0.5 text-gray-400">Severity</td>
+							<td class="py-0.5 text-right">
+								<span class="inline-flex items-center gap-0.5 text-amber-600">
+									<span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
+									Warning
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<h2 class="text-sm font-semibold text-gray-700 mb-1">{t.notFound.heading}</h2>
-			<p class="text-xs text-gray-500 mb-3">{t.notFound.description}</p>
-			<div class="flex gap-1.5 justify-center">
-				<a href={`/${lang}/${style}/`} class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded hover:bg-blue-700 transition-colors font-medium">{t.notFound.backHome}</a>
-				<a href={`/${lang}/${style}/cats`} class="bg-gray-100 text-gray-700 text-xs px-2.5 py-1 rounded hover:bg-gray-200 border border-gray-200 transition-colors font-medium">{t.notFound.meetCats}</a>
+			<div class="p-2 border-b border-gray-200">
+				<div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Quick Actions</div>
+				<a href={`/${lang}/${style}/`} class="block w-full bg-blue-600 text-white text-[10px] text-center px-2 py-1 rounded hover:bg-blue-700 transition-colors font-semibold mb-1">{t.notFound.backHome}</a>
+				<a href={`/${lang}/${style}/cats`} class="block w-full bg-gray-200 text-gray-700 text-[10px] text-center px-2 py-1 rounded hover:bg-gray-300 transition-colors font-semibold border border-gray-300">{t.notFound.meetCats}</a>
 			</div>
-		</div>
-	</main>
+			<div class="p-2">
+				<div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Navigation</div>
+				{nav.map((item: any) => (
+					<a href={item.href} class="flex items-center gap-1.5 py-0.5 px-1 text-[10px] text-gray-600 hover:bg-blue-50 hover:text-blue-700 rounded transition-colors">
+						<span class="w-1 h-1 rounded-full bg-gray-300 inline-block"></span>
+						{item.label}
+					</a>
+				))}
+			</div>
+		</aside>
+
+		<!-- Main: error display -->
+		<main class="flex-1 p-2 overflow-y-auto">
+			<div class="bg-white border border-gray-300 rounded max-w-xl">
+				<div class="bg-red-50 border-b border-red-200 px-2 py-1 flex items-center gap-1.5">
+					<span class="w-2 h-2 rounded-full bg-red-400 inline-block"></span>
+					<span class="text-[10px] font-bold text-red-700 uppercase tracking-wider">Error Response</span>
+				</div>
+				<div class="p-3">
+					<!-- Error code display -->
+					<div class="flex items-center gap-3 mb-2">
+						<span class="font-mono text-3xl font-black text-gray-900 leading-none">{t.notFound.title}</span>
+						<div>
+							<h2 class="text-sm font-bold text-gray-800 leading-tight">{t.notFound.heading}</h2>
+							<p class="text-[10px] text-gray-500 mt-0.5">{t.notFound.description}</p>
+						</div>
+					</div>
+
+					<!-- Error log style -->
+					<div class="bg-gray-900 rounded p-2 font-mono text-[10px] text-gray-400 mb-3">
+						<div><span class="text-gray-600">[ERR]</span> <span class="text-red-400">HTTP 404</span> - Resource not found</div>
+						<div><span class="text-gray-600">[INF]</span> Requested path does not match any known route</div>
+						<div><span class="text-gray-600">[INF]</span> Suggested: Return to homepage or browse cats</div>
+					</div>
+
+					<!-- Actions -->
+					<div class="flex gap-1.5">
+						<a href={`/${lang}/${style}/`} class="bg-blue-600 text-white text-[10px] px-3 py-1 rounded hover:bg-blue-700 transition-colors font-semibold">{t.notFound.backHome}</a>
+						<a href={`/${lang}/${style}/cats`} class="bg-gray-200 text-gray-700 text-[10px] px-3 py-1 rounded hover:bg-gray-300 transition-colors font-semibold border border-gray-300">{t.notFound.meetCats}</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- System log table -->
+			<div class="mt-2 bg-white border border-gray-300 rounded max-w-xl">
+				<div class="bg-gray-50 border-b border-gray-200 px-2 py-1">
+					<span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Available Routes</span>
+				</div>
+				<table class="w-full text-[10px] border-collapse">
+					<thead>
+						<tr class="bg-gray-100 border-b border-gray-200">
+							<th class="text-left px-2 py-0.5 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200" style="font-size:9px">Status</th>
+							<th class="text-left px-2 py-0.5 font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200" style="font-size:9px">Route</th>
+							<th class="text-left px-2 py-0.5 font-bold text-gray-600 uppercase tracking-wider" style="font-size:9px">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						{nav.map((item: any, i: number) => (
+							<tr class={`border-b border-gray-100 hover:bg-blue-50/60 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}>
+								<td class="px-2 py-0.5 border-r border-gray-100">
+									<span class="inline-flex items-center gap-0.5 text-green-700">
+										<span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span>
+										200
+									</span>
+								</td>
+								<td class="px-2 py-0.5 border-r border-gray-100">
+									<a href={item.href} class="font-mono text-blue-600 hover:text-blue-800 hover:underline">{item.href}</a>
+								</td>
+								<td class="px-2 py-0.5 text-gray-600">{item.label}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</div>
 </div>
