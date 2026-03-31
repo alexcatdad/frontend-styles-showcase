@@ -2,42 +2,107 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<section>
-		<h1>{sanctuary.name}</h1>
-		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
-	</section>
-
-	<section>
-		<h2>{t.home.mission}</h2>
-		<p>{sanctuary.mission}</p>
-	</section>
-
-	<section>
-		{sanctuary.stats.map((stat: any) => (
-			<div>
-				<span>{stat.value}</span>
-				<span>{stat.label}</span>
+<div class="min-h-screen bg-white font-sans">
+	<!-- Nav -->
+	<nav class="bg-blue-500 px-4 py-4 sm:px-8">
+		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
+			<div class="flex flex-wrap items-center gap-1 sm:gap-4">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors">
+						{item.label}
+					</a>
+				))}
 			</div>
-		))}
-	</section>
+			<span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-500 uppercase tracking-wide">
+				{meta.name}
+			</span>
+		</div>
+	</nav>
 
-	<section>
-		<h2>{t.home.aboutUs}</h2>
-		{sanctuary.about.map((paragraph: string) => (
-			<p>{paragraph}</p>
-		))}
-	</section>
-</main>
+	<main>
+		<!-- Hero -->
+		<section class="bg-blue-500 px-4 pb-20 pt-16 sm:px-8">
+			<div class="mx-auto max-w-4xl text-center">
+				<div class="mb-6 flex justify-center gap-3">
+					<div class="h-4 w-4 rounded-full bg-amber-400"></div>
+					<div class="h-4 w-4 rounded-full bg-rose-400"></div>
+					<div class="h-4 w-4 rounded-full bg-teal-400"></div>
+				</div>
+				<h1 class="mb-4 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
+					{sanctuary.name}
+				</h1>
+				<p class="mb-10 text-lg text-blue-100 sm:text-xl">
+					{sanctuary.tagline}
+				</p>
+				<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+					<a href={`/${lang}/${style}/cats`} class="rounded-xl bg-amber-400 px-8 py-3 text-lg font-bold text-amber-900 hover:bg-amber-300 transition-colors">
+						{t.home.meetCats}
+					</a>
+					<a href={`/${lang}/${style}/donate`} class="rounded-xl bg-white px-8 py-3 text-lg font-bold text-blue-500 hover:bg-blue-50 transition-colors">
+						{t.home.donate}
+					</a>
+				</div>
+			</div>
+		</section>
 
-<footer>
-	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
-</footer>
+		<!-- Stats -->
+		<section class="bg-teal-500 px-4 py-14 sm:px-8">
+			<div class="mx-auto grid max-w-5xl grid-cols-2 gap-6 md:grid-cols-4">
+				{sanctuary.stats.map((stat: any) => (
+					<div class="rounded-2xl bg-teal-600 px-4 py-6 text-center">
+						<span class="block text-3xl font-extrabold text-white sm:text-4xl">{stat.value}</span>
+						<span class="mt-1 block text-sm font-semibold text-teal-100 uppercase tracking-wide">{stat.label}</span>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- Mission -->
+		<section class="bg-white px-4 py-16 sm:px-8">
+			<div class="mx-auto max-w-3xl text-center">
+				<div class="mb-4 inline-block rounded-full bg-rose-500 px-5 py-1.5 text-sm font-bold text-white uppercase tracking-wide">
+					{t.home.mission}
+				</div>
+				<p class="text-xl leading-relaxed text-gray-700 sm:text-2xl">
+					{sanctuary.mission}
+				</p>
+			</div>
+		</section>
+
+		<!-- About -->
+		<section class="bg-gray-100 px-4 py-16 sm:px-8">
+			<div class="mx-auto max-w-3xl">
+				<h2 class="mb-8 text-center text-3xl font-extrabold text-gray-800 sm:text-4xl">
+					{t.home.aboutUs}
+				</h2>
+				<div class="space-y-4">
+					{sanctuary.about.map((paragraph: string) => (
+						<p class="text-lg leading-relaxed text-gray-600">{paragraph}</p>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- Contact CTA -->
+		<section class="bg-amber-400 px-4 py-14 sm:px-8">
+			<div class="mx-auto max-w-3xl text-center">
+				<div class="mb-3 flex justify-center gap-2">
+					<div class="h-3 w-3 rounded-sm bg-amber-600"></div>
+					<div class="h-3 w-3 rotate-45 bg-amber-600"></div>
+					<div class="h-3 w-3 rounded-full bg-amber-600"></div>
+				</div>
+				<p class="text-lg font-semibold text-amber-900">
+					{sanctuary.contact.email} &middot; {sanctuary.contact.phone}
+				</p>
+				<p class="mt-1 text-amber-800">{sanctuary.contact.address}</p>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="bg-gray-800 px-4 py-6 text-center sm:px-8">
+		<p class="text-sm text-gray-400">
+			&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.
+		</p>
+	</footer>
+</div>
