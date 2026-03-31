@@ -2,101 +2,127 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-lime-400 font-mono overflow-x-hidden">
-	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-fuchsia-600 border-b-8 border-yellow-300 rotate-0.5">
-		{nav.map((item: any, i: number) => (
-			<a
-				href={item.href}
-				class:list={[
-					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
-					i % 3 === 0 && "bg-cyan-400 text-black font-serif text-lg -rotate-2",
-					i % 3 === 1 && "bg-orange-500 text-white font-mono text-xs rotate-1 uppercase tracking-widest",
-					i % 3 === 2 && "bg-lime-300 text-fuchsia-800 font-sans text-base -rotate-1 border-2 border-black",
-				]}
-			>
-				{item.label}
-			</a>
-		))}
-	</nav>
-
-	<main>
-		<section class="relative px-6 py-16 md:py-24 bg-black text-lime-400 border-b-12 border-fuchsia-500 overflow-hidden">
-			<div class="absolute top-4 right-4 w-32 h-32 bg-orange-500 rounded-full opacity-30 -rotate-12"></div>
-			<div class="absolute bottom-8 left-8 w-20 h-20 bg-cyan-400 opacity-40 rotate-6"></div>
-			<h1 class="relative text-5xl md:text-8xl lg:text-9xl font-black font-serif tracking-tighter -rotate-2 mb-4 text-fuchsia-400 leading-none">
+<div class="min-h-screen overflow-x-hidden bg-[repeating-linear-gradient(45deg,#000,#000_20px,#1a1a1a_20px,#1a1a1a_40px)]">
+	<!-- NAV: shoved into the middle of the page, not at the top where you'd expect -->
+	<div class="relative">
+		<section class="relative px-4 pt-20 pb-40 md:pt-32 md:pb-56">
+			<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+				<div class="absolute -top-20 -left-20 w-96 h-96 bg-fuchsia-500 rounded-full opacity-20 blur-3xl"></div>
+				<div class="absolute top-1/3 right-0 w-72 h-72 bg-lime-400 opacity-15 blur-2xl rotate-45"></div>
+				<div class="absolute bottom-0 left-1/3 w-80 h-40 bg-cyan-400 opacity-20 blur-xl -rotate-12"></div>
+			</div>
+			<h1 class="relative text-7xl md:text-[12rem] lg:text-[16rem] font-black font-serif text-fuchsia-500 -rotate-6 leading-none tracking-tighter ml-[-2%]">
 				{sanctuary.name}
 			</h1>
-			<p class="relative text-xl md:text-3xl font-mono text-cyan-300 rotate-1 ml-4 md:ml-12 mb-10 max-w-2xl">
+			<p class="relative text-base md:text-4xl font-mono text-lime-400 rotate-3 mt-4 md:mt-0 md:ml-[30%] max-w-xl border-b-4 border-orange-500 pb-2 inline-block">
 				{sanctuary.tagline}
 			</p>
-			<div class="relative flex flex-wrap gap-4 ml-2">
-				<a
-					href={`/${lang}/${style}/cats`}
-					class="inline-block px-8 py-4 bg-lime-400 text-black font-black text-xl md:text-2xl font-sans border-4 border-white rotate-2 hover:-rotate-1 transition-transform no-underline"
-				>
-					{t.home.meetCats}
-				</a>
-				<a
-					href={`/${lang}/${style}/donate`}
-					class="inline-block px-8 py-4 bg-fuchsia-500 text-yellow-300 font-black text-xl md:text-2xl font-serif border-4 border-cyan-400 -rotate-3 hover:rotate-1 transition-transform no-underline"
-				>
-					{t.home.donate}
-				</a>
-			</div>
 		</section>
 
-		<section class="px-6 py-12 bg-cyan-400 text-black border-b-8 border-orange-500 -rotate-0.5">
-			<h2 class="text-4xl md:text-6xl font-black font-sans rotate-3 mb-6 text-fuchsia-700 underline decoration-yellow-400 decoration-8 underline-offset-4">
-				{t.home.mission}
+		<!-- NAV lives here, in the MIDDLE, as a vertical strip on the right side -->
+		<nav class="absolute top-8 right-2 md:right-6 flex flex-col gap-1 z-20 max-w-[140px] md:max-w-[200px]">
+			{nav.map((item: any, i: number) => (
+				<a
+					href={item.href}
+					class:list={[
+						"px-2 py-1 md:px-3 md:py-2 font-bold no-underline transition-all hover:scale-110 text-right block",
+						i % 4 === 0 && "bg-lime-400 text-black font-serif text-xs md:text-sm rotate-3 border-l-4 border-fuchsia-600",
+						i % 4 === 1 && "bg-transparent text-orange-500 font-mono text-[10px] md:text-xs -rotate-2 uppercase tracking-[0.3em] border-r-4 border-cyan-400",
+						i % 4 === 2 && "bg-fuchsia-600 text-yellow-300 font-sans text-sm md:text-lg rotate-1 border-b-4 border-lime-400",
+						i % 4 === 3 && "bg-black text-cyan-400 font-mono text-[10px] md:text-xs -rotate-6 border-t-4 border-orange-500 tracking-widest",
+					]}
+				>
+					{item.label}
+				</a>
+			))}
+		</nav>
+	</div>
+
+	<!-- CTA buttons: one huge at top-left, one tiny at bottom-right -->
+	<div class="relative px-4 -mt-24 md:-mt-36 mb-8">
+		<a
+			href={`/${lang}/${style}/cats`}
+			class="inline-block px-12 py-8 md:px-20 md:py-12 bg-lime-400 text-black font-black text-2xl md:text-5xl font-sans border-8 border-fuchsia-600 -rotate-3 hover:rotate-1 transition-transform no-underline shadow-[12px_12px_0_theme(colors.cyan.400)]"
+		>
+			{t.home.meetCats}
+		</a>
+	</div>
+	<div class="text-right px-4 mb-20">
+		<a
+			href={`/${lang}/${style}/donate`}
+			class="inline-block px-3 py-1 bg-fuchsia-500 text-yellow-300 font-black text-[10px] md:text-xs font-serif border-2 border-cyan-400 rotate-6 hover:-rotate-3 transition-transform no-underline uppercase tracking-[0.5em]"
+		>
+			{t.home.donate}
+		</a>
+	</div>
+
+	<!-- MISSION: overlaps with the stats, diagonal slash across the page -->
+	<section class="relative mx-2 md:mx-8 mb-4">
+		<div class="bg-cyan-400 text-black p-6 md:p-12 rotate-1 border-l-[16px] border-b-[16px] border-fuchsia-600 md:w-3/4">
+			<h2 class="text-3xl md:text-7xl font-black font-sans -rotate-3 mb-4 text-fuchsia-700">
+				<span class="font-serif">{t.home.mission.split(' ')[0]}</span>{' '}
+				<span class="font-mono text-lg md:text-4xl align-top text-orange-600">{t.home.mission.split(' ').slice(1).join(' ')}</span>
 			</h2>
-			<p class="text-lg md:text-2xl font-serif max-w-3xl -rotate-1 ml-4 md:ml-16 bg-white/60 p-4 border-l-8 border-fuchsia-600">
+			<p class="text-sm md:text-xl font-serif leading-loose bg-black/10 p-4 md:p-6 rotate-0.5 max-w-2xl ml-auto border-r-8 border-yellow-400">
 				{sanctuary.mission}
 			</p>
-		</section>
+		</div>
+	</section>
 
-		<section class="px-6 py-12 bg-orange-500 border-b-8 border-lime-400">
-			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-				{sanctuary.stats.map((stat: any, i: number) => (
-					<div
-						class:list={[
-							"p-4 md:p-6 text-center border-4",
-							i % 4 === 0 && "bg-black text-lime-400 border-fuchsia-500 rotate-3 font-mono",
-							i % 4 === 1 && "bg-fuchsia-600 text-yellow-300 border-cyan-400 -rotate-2 font-serif",
-							i % 4 === 2 && "bg-cyan-400 text-black border-orange-600 rotate-1 font-sans",
-							i % 4 === 3 && "bg-lime-400 text-fuchsia-700 border-black -rotate-3 font-mono",
-						]}
-					>
-						<span class="block text-4xl md:text-6xl font-black">{stat.value}</span>
-						<span class="block text-sm md:text-base mt-2 uppercase tracking-widest font-bold">{stat.label}</span>
-					</div>
-				))}
-			</div>
-		</section>
+	<!-- STATS: scattered randomly, overlapping with mission section -->
+	<section class="relative px-4 -mt-8 md:-mt-16 mb-16 z-10">
+		<div class="flex flex-wrap gap-3 md:gap-0 justify-around items-start">
+			{sanctuary.stats.map((stat: any, i: number) => (
+				<div
+					class:list={[
+						"p-3 md:p-6 border-4 relative",
+						i % 4 === 0 && "bg-black text-lime-400 border-fuchsia-500 rotate-6 font-mono w-28 md:w-44 mt-0 md:-mt-12 shadow-[6px_6px_0_theme(colors.orange.500)]",
+						i % 4 === 1 && "bg-fuchsia-600 text-yellow-300 border-cyan-400 -rotate-12 font-serif w-32 md:w-52 mt-8 md:mt-4 shadow-[-4px_8px_0_theme(colors.lime.400)]",
+						i % 4 === 2 && "bg-orange-500 text-black border-lime-400 rotate-3 font-sans w-24 md:w-36 mt-2 md:-mt-6 shadow-[8px_-4px_0_theme(colors.cyan.400)]",
+						i % 4 === 3 && "bg-yellow-300 text-fuchsia-700 border-black -rotate-6 font-mono w-36 md:w-48 mt-12 md:mt-8 shadow-[-6px_6px_0_theme(colors.fuchsia.500)]",
+					]}
+				>
+					<span class:list={[
+						"block font-black leading-none",
+						i % 2 === 0 ? "text-5xl md:text-8xl" : "text-2xl md:text-4xl",
+					]}>{stat.value}</span>
+					<span class:list={[
+						"block mt-1 uppercase tracking-widest font-bold",
+						i % 2 === 0 ? "text-[8px] md:text-[10px]" : "text-sm md:text-lg",
+					]}>{stat.label}</span>
+				</div>
+			))}
+		</div>
+	</section>
 
-		<section class="px-6 py-12 bg-fuchsia-700 text-white border-b-8 border-cyan-400 rotate-0.5">
-			<h2 class="text-4xl md:text-5xl font-black font-mono -rotate-2 mb-8 text-yellow-300 line-through decoration-lime-400">
-				{t.home.aboutUs}
-			</h2>
-			<div class="space-y-6 max-w-4xl">
-				{sanctuary.about.map((paragraph: string, i: number) => (
-					<p
-						class:list={[
-							"text-base md:text-lg p-4",
-							i % 3 === 0 && "font-serif bg-black/30 rotate-1 border-l-4 border-lime-400 ml-0",
-							i % 3 === 1 && "font-sans bg-cyan-600/40 -rotate-1 border-r-4 border-orange-400 ml-8 md:ml-24",
-							i % 3 === 2 && "font-mono bg-fuchsia-900/50 rotate-0.5 border-l-4 border-yellow-400 ml-4 md:ml-12",
-						]}
-					>
-						{paragraph}
-					</p>
-				))}
-			</div>
-		</section>
-	</main>
+	<!-- ABOUT: each paragraph is a completely different visual language -->
+	<section class="px-2 md:px-6 py-8 md:py-16">
+		<h2 class="text-2xl md:text-4xl font-black font-mono text-cyan-400 rotate-2 mb-6 md:mb-10 text-right mr-4 md:mr-12 line-through decoration-fuchsia-500 decoration-8">
+			{t.home.aboutUs}
+		</h2>
+		<div class="space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-8 max-w-6xl mx-auto">
+			{sanctuary.about.map((paragraph: string, i: number) => (
+				<p
+					class:list={[
+						"p-4 md:p-6",
+						i % 3 === 0 && "font-serif text-base md:text-2xl text-lime-400 bg-fuchsia-800 rotate-1 border-t-8 border-r-8 border-orange-500 md:col-span-2 md:w-2/3",
+						i % 3 === 1 && "font-mono text-xs md:text-sm text-yellow-300 bg-black border-4 border-dashed border-cyan-400 -rotate-2 ml-auto md:w-full leading-loose tracking-wide uppercase",
+						i % 3 === 2 && "font-sans text-base md:text-lg text-black bg-lime-400 rotate-0.5 border-l-[12px] border-fuchsia-600 md:w-full md:-mt-4 shadow-[8px_8px_0_theme(colors.cyan.400)]",
+					]}
+				>
+					{paragraph}
+				</p>
+			))}
+		</div>
+	</section>
 
-	<footer class="px-6 py-8 bg-yellow-300 text-black border-t-8 border-fuchsia-600 -rotate-0.5">
-		<p class="text-center font-black font-serif text-lg md:text-xl rotate-2">
-			&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.
+	<!-- FOOTER: not at the bottom, it's a sideways strip -->
+	<footer class="mx-4 md:mx-8 mb-8 bg-yellow-300 text-black border-4 border-black p-3 md:p-4 rotate-2 inline-block max-w-sm md:max-w-md">
+		<p class="font-black font-serif text-xs md:text-sm -rotate-1">
+			&copy; 2026 {sanctuary.name}
+		</p>
+		<p class="font-mono text-[8px] md:text-[10px] text-fuchsia-700 uppercase tracking-[0.3em] mt-1">
+			{t.footer.style}: {meta.name}
 		</p>
 	</footer>
 </div>

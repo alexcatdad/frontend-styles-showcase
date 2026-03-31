@@ -2,16 +2,17 @@
 const { lang, style, nav, posts, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-yellow-300 font-mono overflow-x-hidden">
-	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-lime-400 border-b-8 border-fuchsia-600">
+<div class="min-h-screen bg-[conic-gradient(from_45deg,#000_0%,#1a1a1a_25%,#0d0d0d_50%,#1a1a1a_75%,#000_100%)] overflow-x-hidden">
+	<!-- NAV: centered vertically, floating over everything on the left -->
+	<nav class="fixed left-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-1 bg-fuchsia-600/90 backdrop-blur-sm p-1 md:p-2 border-r-4 border-y-4 border-lime-400 rounded-r-lg max-w-[100px] md:max-w-[160px]">
 		{nav.map((item: any, i: number) => (
 			<a
 				href={item.href}
 				class:list={[
-					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
-					i % 3 === 0 && "bg-fuchsia-600 text-yellow-300 font-serif text-lg rotate-2",
-					i % 3 === 1 && "bg-black text-lime-400 font-mono text-xs -rotate-1 uppercase tracking-widest",
-					i % 3 === 2 && "bg-orange-500 text-white font-sans text-base rotate-1 border-2 border-cyan-400",
+					"px-2 py-1 font-bold no-underline transition-all hover:translate-x-2 block text-[10px] md:text-xs truncate",
+					i % 3 === 0 && "bg-black text-lime-400 font-mono rotate-1",
+					i % 3 === 1 && "text-yellow-300 font-serif -rotate-1 bg-transparent",
+					i % 3 === 2 && "bg-cyan-400 text-black font-sans rotate-2",
 				]}
 			>
 				{item.label}
@@ -19,65 +20,84 @@ const { lang, style, nav, posts, t } = Astro.props;
 		))}
 	</nav>
 
-	<main class="px-4 md:px-8 py-8">
-		<div class="mb-12">
-			<h1 class="text-6xl md:text-9xl font-black font-serif text-fuchsia-600 rotate-2 mb-2 drop-shadow-[6px_6px_0_black]">
+	<main class="pl-8 md:pl-24 pr-3 md:pr-8 py-8">
+		<!-- Title: enormous, running off the right edge -->
+		<div class="mb-16 md:mb-24 overflow-visible">
+			<h1 class="text-6xl md:text-[11rem] font-black font-serif text-fuchsia-500 -rotate-3 leading-none whitespace-nowrap md:ml-[-2%]">
 				{t.blog.title}
 			</h1>
-			<p class="text-xl md:text-2xl font-sans text-black -rotate-1 ml-8 md:ml-20 bg-cyan-400/70 inline-block px-6 py-3 border-4 border-fuchsia-600">
+			<p class="text-sm md:text-2xl font-mono text-cyan-400 rotate-2 mt-2 md:mt-[-2rem] ml-[20%] md:ml-[40%] bg-black/80 inline-block px-4 py-2 border-4 border-orange-500">
 				{t.blog.subtitle}
 			</p>
 		</div>
 
-		<div class="space-y-8">
+		<!-- Posts: alternating full-width and side-by-side, each wildly different -->
+		<div class="space-y-6 md:space-y-10">
 			{posts.map((post: any, i: number) => (
 				<a
 					href={`/${lang}/${style}/blog/${post.slug}`}
 					class:list={[
-						"block p-6 md:p-8 border-4 no-underline transition-transform hover:scale-[1.02]",
-						i % 4 === 0 && "bg-black text-lime-400 border-fuchsia-500 rotate-1 font-mono hover:-rotate-1",
-						i % 4 === 1 && "bg-fuchsia-600 text-yellow-300 border-cyan-400 -rotate-1 font-serif hover:rotate-1",
-						i % 4 === 2 && "bg-cyan-400 text-black border-orange-500 rotate-2 font-sans hover:-rotate-2",
-						i % 4 === 3 && "bg-orange-500 text-white border-lime-400 -rotate-2 font-mono hover:rotate-2",
+						"block no-underline transition-all group",
+						i % 4 === 0 && "md:w-[110%] md:-ml-[5%] rotate-1 hover:-rotate-0.5",
+						i % 4 === 1 && "md:w-2/3 md:ml-auto -rotate-1 hover:rotate-0.5",
+						i % 4 === 2 && "md:w-3/4 rotate-0.5 hover:-rotate-1",
+						i % 4 === 3 && "md:w-1/2 md:ml-[25%] -rotate-2 hover:rotate-1",
 					]}
 				>
-					<article>
-						<time
-							datetime={post.date}
-							class:list={[
-								"inline-block text-xs font-black uppercase tracking-widest mb-2 px-2 py-1",
-								i % 2 === 0 ? "bg-yellow-300 text-black -rotate-2" : "bg-lime-400 text-fuchsia-700 rotate-1",
-							]}
-						>
-							{post.date}
-						</time>
-						<h2 class="text-3xl md:text-5xl font-black mb-3 underline decoration-4">{post.title}</h2>
+					<article
+						class:list={[
+							"p-4 md:p-8 border-4 transition-shadow",
+							i % 4 === 0 && "bg-lime-400 text-black border-fuchsia-600 shadow-[8px_8px_0_theme(colors.cyan.400)] hover:shadow-[12px_12px_0_theme(colors.orange.500)] border-l-[16px]",
+							i % 4 === 1 && "bg-fuchsia-800 text-lime-400 border-cyan-400 shadow-[-6px_6px_0_theme(colors.lime.400)] hover:shadow-[-10px_10px_0_theme(colors.yellow.300)] border-r-[16px]",
+							i % 4 === 2 && "bg-black text-orange-400 border-orange-500 shadow-[6px_-6px_0_theme(colors.fuchsia.500)] hover:shadow-[10px_-10px_0_theme(colors.cyan.400)] border-t-[16px] border-t-lime-400",
+							i % 4 === 3 && "bg-cyan-400 text-fuchsia-800 border-black shadow-[-8px_-8px_0_theme(colors.orange.500)] hover:shadow-[-12px_-12px_0_theme(colors.lime.400)] border-b-[16px] border-b-fuchsia-600",
+						]}
+					>
+						<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
+							<time
+								datetime={post.date}
+								class:list={[
+									"inline-block text-[10px] md:text-xs font-black uppercase tracking-[0.3em] px-2 py-1 shrink-0",
+									i % 2 === 0 ? "bg-black text-yellow-300 -rotate-2 font-mono" : "bg-yellow-300 text-black rotate-1 font-serif",
+								]}
+							>
+								{post.date}
+							</time>
+							<span class:list={[
+								"text-xs md:text-sm font-bold",
+								i % 2 === 0 ? "font-serif italic rotate-1 text-fuchsia-300" : "font-mono -rotate-1 uppercase tracking-widest",
+							]}>
+								{t.blog.by} {post.author}
+							</span>
+						</div>
+
+						<h2 class:list={[
+							"font-black mb-3",
+							i % 3 === 0 ? "text-3xl md:text-6xl font-serif -rotate-1 underline decoration-wavy decoration-4" : i % 3 === 1 ? "text-xl md:text-3xl font-mono uppercase tracking-wide rotate-0.5" : "text-2xl md:text-5xl font-sans -rotate-0.5",
+						]}>{post.title}</h2>
+
 						<p class:list={[
-							"text-base md:text-lg mb-4 leading-relaxed",
-							i % 2 === 0 ? "font-serif" : "font-sans",
+							"mb-4 leading-relaxed",
+							i % 2 === 0 ? "font-serif text-sm md:text-lg" : "font-sans text-xs md:text-base",
 						]}>
 							{post.excerpt}
 						</p>
-						<div class="flex flex-wrap gap-2 mb-3">
+
+						<div class="flex flex-wrap gap-1 md:gap-2">
 							{post.tags.map((tag: string, j: number) => (
 								<span
 									class:list={[
-										"px-2 py-1 text-xs font-black uppercase border-2",
-										j % 3 === 0 && "bg-fuchsia-500 text-white border-lime-400 rotate-2",
-										j % 3 === 1 && "bg-lime-400 text-black border-fuchsia-600 -rotate-1",
-										j % 3 === 2 && "bg-cyan-300 text-black border-orange-500 rotate-1",
+										"px-2 py-0.5 font-black uppercase border-2",
+										j % 4 === 0 && "bg-fuchsia-500 text-white border-lime-400 text-[8px] rotate-3 font-mono",
+										j % 4 === 1 && "bg-lime-400 text-black border-fuchsia-600 text-xs -rotate-2 font-serif",
+										j % 4 === 2 && "bg-orange-500 text-white border-black text-[10px] rotate-1 font-sans",
+										j % 4 === 3 && "bg-black text-cyan-400 border-cyan-400 text-xs -rotate-3 font-mono",
 									]}
 								>
 									{tag}
 								</span>
 							))}
 						</div>
-						<span class:list={[
-							"inline-block text-sm font-bold",
-							i % 2 === 0 ? "font-mono rotate-1" : "font-serif -rotate-1",
-						]}>
-							{t.blog.by} {post.author}
-						</span>
 					</article>
 				</a>
 			))}

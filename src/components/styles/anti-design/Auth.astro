@@ -2,16 +2,18 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-orange-500 font-mono overflow-x-hidden">
-	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-black border-b-8 border-cyan-400">
+<div class="min-h-screen bg-[radial-gradient(circle_at_20%_80%,#a21caf_0%,#000_50%,#164e63_100%)] overflow-x-hidden">
+	<!-- NAV: diagonal waterfall down the right side -->
+	<nav class="absolute top-0 right-0 z-30 flex flex-col gap-0 w-[100px] md:w-[160px]">
 		{nav.map((item: any, i: number) => (
 			<a
 				href={item.href}
 				class:list={[
-					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
-					i % 3 === 0 && "bg-lime-400 text-black font-serif text-lg -rotate-1",
-					i % 3 === 1 && "bg-fuchsia-600 text-yellow-300 font-mono text-xs rotate-2 uppercase tracking-widest",
-					i % 3 === 2 && "bg-cyan-400 text-black font-sans text-base -rotate-2 border-2 border-orange-500",
+					"px-2 py-1 md:px-3 md:py-2 font-bold no-underline transition-all hover:scale-110 block text-[10px] md:text-xs",
+					i % 4 === 0 && "bg-lime-400 text-black font-serif rotate-1 border-b-2 border-fuchsia-600 ml-0",
+					i % 4 === 1 && "bg-fuchsia-600 text-yellow-300 font-mono -rotate-2 border-l-4 border-lime-400 ml-2 md:ml-4",
+					i % 4 === 2 && "bg-black text-cyan-400 font-sans rotate-3 border-b-2 border-orange-500 ml-4 md:ml-8",
+					i % 4 === 3 && "bg-orange-500 text-white font-serif -rotate-1 border-l-4 border-cyan-400 ml-6 md:ml-12",
 				]}
 			>
 				{item.label}
@@ -19,21 +21,26 @@ const { lang, style, nav, t } = Astro.props;
 		))}
 	</nav>
 
-	<main class="flex items-center justify-center min-h-[80vh] px-4 py-8">
-		<section class="relative w-full max-w-lg bg-black text-white p-8 md:p-12 border-8 border-lime-400 -rotate-1">
-			<div class="absolute -top-8 -left-6 w-24 h-24 bg-fuchsia-500 opacity-50 rotate-12 -z-0"></div>
-			<div class="absolute -bottom-6 -right-8 w-32 h-16 bg-cyan-400 opacity-40 -rotate-6 -z-0"></div>
+	<main class="flex items-center justify-center min-h-screen px-4 py-12">
+		<div class="relative w-full max-w-lg md:max-w-xl">
+			<!-- Background chaos shapes -->
+			<div class="absolute -top-16 -left-16 w-48 h-48 bg-lime-400 opacity-15 rotate-45 -z-10 blur-sm"></div>
+			<div class="absolute -bottom-12 -right-12 w-64 h-32 bg-fuchsia-500 opacity-20 -rotate-12 -z-10 blur-sm"></div>
+			<div class="absolute top-1/2 -left-20 w-16 h-80 bg-orange-500 opacity-15 rotate-12 -z-10"></div>
 
-			<h1 class="relative text-5xl md:text-7xl font-black font-serif text-fuchsia-400 rotate-2 mb-3 drop-shadow-[3px_3px_0_lime]">
+			<!-- Title: HUGE and offset, overlapping the form -->
+			<h1 class="text-6xl md:text-[8rem] font-black font-serif text-fuchsia-500 -rotate-6 leading-[0.8] mb-[-1rem] md:mb-[-3rem] relative z-10 drop-shadow-[4px_4px_0_theme(colors.lime.400)]">
 				{t.auth.title}
 			</h1>
-			<p class="relative text-lg font-sans text-cyan-300 -rotate-1 mb-8 ml-4">
+			<p class="text-base md:text-xl font-mono text-cyan-400 rotate-2 ml-[20%] mb-4 md:mb-6 relative z-10">
 				{t.auth.subtitle}
 			</p>
 
-			<form class="relative space-y-6">
-				<div class="rotate-0.5">
-					<label for="email" class="block text-sm font-black uppercase tracking-widest text-lime-400 mb-2 font-mono">
+			<!-- Form: the container itself is chaotic -->
+			<form class="relative bg-black/90 backdrop-blur-sm p-6 md:p-10 border-8 border-lime-400 border-r-fuchsia-600 border-b-orange-500 rotate-1 z-0">
+				<!-- Email: tilted left -->
+				<div class="-rotate-2 mb-6 md:mb-8">
+					<label for="email" class="block text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-lime-400 mb-2 font-mono border-b-2 border-fuchsia-600 pb-1 inline-block">
 						{t.auth.email}
 					</label>
 					<input
@@ -41,11 +48,13 @@ const { lang, style, nav, t } = Astro.props;
 						id="email"
 						name="email"
 						placeholder="you@example.com"
-						class="w-full px-4 py-3 bg-fuchsia-900 text-yellow-300 border-4 border-fuchsia-500 font-mono text-lg placeholder-fuchsia-400 focus:border-lime-400 focus:outline-none"
+						class="w-full px-4 py-3 md:py-4 bg-fuchsia-950 text-yellow-300 border-4 border-fuchsia-500 border-l-8 border-l-lime-400 font-mono text-sm md:text-lg placeholder-fuchsia-700 focus:border-cyan-400 focus:outline-none shadow-[4px_4px_0_theme(colors.orange.500)]"
 					/>
 				</div>
-				<div class="-rotate-0.5">
-					<label for="password" class="block text-sm font-black uppercase tracking-widest text-orange-400 mb-2 font-serif">
+
+				<!-- Password: tilted right, different style -->
+				<div class="rotate-1 mb-6 md:mb-8 ml-4 md:ml-8">
+					<label for="password" class="block text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-orange-400 mb-2 font-serif border-b-2 border-cyan-400 pb-1 inline-block">
 						{t.auth.password}
 					</label>
 					<input
@@ -53,56 +62,62 @@ const { lang, style, nav, t } = Astro.props;
 						id="password"
 						name="password"
 						placeholder="••••••••"
-						class="w-full px-4 py-3 bg-cyan-900 text-lime-300 border-4 border-cyan-500 font-mono text-lg placeholder-cyan-600 focus:border-fuchsia-400 focus:outline-none"
+						class="w-full px-4 py-3 md:py-4 bg-cyan-950 text-lime-300 border-4 border-cyan-500 border-r-8 border-r-orange-500 font-mono text-sm md:text-lg placeholder-cyan-800 focus:border-fuchsia-400 focus:outline-none shadow-[-4px_4px_0_theme(colors.fuchsia.500)]"
 					/>
 				</div>
-				<div class="flex flex-wrap items-center justify-between gap-4 rotate-0.5">
-					<label class="flex items-center gap-2 cursor-pointer">
+
+				<!-- Remember + forgot: fighting each other -->
+				<div class="flex flex-wrap items-center justify-between gap-3 mb-6 md:mb-8 -rotate-1">
+					<label class="flex items-center gap-2 cursor-pointer rotate-2">
 						<input
 							type="checkbox"
 							name="remember"
-							class="w-5 h-5 accent-lime-400"
+							class="w-5 h-5 md:w-6 md:h-6 accent-lime-400"
 						/>
-						<span class="text-sm font-bold font-sans text-yellow-300">{t.auth.rememberMe}</span>
+						<span class="text-xs md:text-sm font-black font-sans text-yellow-300">{t.auth.rememberMe}</span>
 					</label>
-					<a href="#" class="text-sm font-bold font-mono text-fuchsia-400 hover:text-lime-400 transition-colors no-underline underline decoration-fuchsia-400 hover:decoration-lime-400">
+					<a href="#" class="text-[10px] md:text-xs font-black font-mono text-fuchsia-400 hover:text-lime-400 transition-colors no-underline underline decoration-fuchsia-600 decoration-2 hover:decoration-lime-400 -rotate-3 bg-black/50 px-2 py-1">
 						{t.auth.forgotPassword}
 					</a>
 				</div>
+
+				<!-- Submit: enormous -->
 				<button
 					type="submit"
-					class="w-full py-4 px-6 bg-lime-400 text-black font-black text-xl uppercase border-4 border-fuchsia-600 rotate-1 hover:-rotate-1 transition-transform cursor-pointer font-sans"
+					class="w-full py-4 md:py-6 px-6 bg-lime-400 text-black font-black text-lg md:text-2xl uppercase border-4 border-fuchsia-600 -rotate-2 hover:rotate-2 transition-all cursor-pointer font-sans shadow-[8px_8px_0_theme(colors.fuchsia.600)] hover:shadow-[-4px_-4px_0_theme(colors.cyan.400)] tracking-wider"
 				>
 					{t.auth.signIn}
 				</button>
 			</form>
 
-			<div class="relative mt-8">
-				<p class="text-center text-sm font-bold font-mono text-fuchsia-400 mb-4 -rotate-1">
+			<!-- Social login: below, off-axis -->
+			<div class="relative mt-6 md:mt-10 -rotate-1">
+				<p class="text-center text-xs md:text-sm font-black font-mono text-fuchsia-400 mb-4 rotate-2">
 					{t.auth.continueWith}
 				</p>
-				<div class="flex gap-4">
+				<div class="flex gap-3 md:gap-6 justify-center">
 					<button
 						type="button"
-						class="flex-1 py-3 bg-fuchsia-600 text-yellow-300 font-black text-lg border-4 border-cyan-400 rotate-2 hover:-rotate-1 transition-transform cursor-pointer font-serif uppercase"
+						class="px-6 py-3 md:px-10 md:py-4 bg-fuchsia-600 text-yellow-300 font-black text-sm md:text-xl border-4 border-cyan-400 rotate-6 hover:-rotate-2 transition-transform cursor-pointer font-serif uppercase shadow-[4px_4px_0_theme(colors.lime.400)]"
 					>
 						Google
 					</button>
 					<button
 						type="button"
-						class="flex-1 py-3 bg-cyan-400 text-black font-black text-lg border-4 border-orange-500 -rotate-2 hover:rotate-1 transition-transform cursor-pointer font-mono uppercase"
+						class="px-6 py-3 md:px-10 md:py-4 bg-cyan-400 text-black font-black text-sm md:text-xl border-4 border-orange-500 -rotate-6 hover:rotate-2 transition-transform cursor-pointer font-mono uppercase shadow-[-4px_4px_0_theme(colors.fuchsia.500)]"
 					>
 						Apple
 					</button>
 				</div>
 			</div>
 
-			<p class="relative mt-8 text-center text-base font-sans text-lime-300 rotate-0.5">
+			<!-- Sign up link: tiny, rotated, almost hidden -->
+			<p class="mt-6 md:mt-10 text-right text-xs md:text-sm font-sans text-lime-300 rotate-3 pr-4">
 				{t.auth.noAccount}{" "}
-				<a href="#" class="font-black text-yellow-300 hover:text-fuchsia-400 transition-colors no-underline underline decoration-yellow-300 decoration-4">
+				<a href="#" class="font-black text-yellow-300 hover:text-fuchsia-400 transition-colors no-underline underline decoration-yellow-300 decoration-4 hover:decoration-fuchsia-400">
 					{t.auth.signUp}
 				</a>
 			</p>
-		</section>
+		</div>
 	</main>
 </div>

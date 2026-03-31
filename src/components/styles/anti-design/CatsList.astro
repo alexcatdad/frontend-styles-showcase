@@ -2,16 +2,18 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-fuchsia-500 font-mono overflow-x-hidden">
-	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-black border-b-8 border-lime-400">
+<div class="min-h-screen bg-fuchsia-500 overflow-x-hidden">
+	<!-- NAV: horizontal ticker-tape style bar, pinned at bottom -->
+	<nav class="fixed bottom-0 left-0 right-0 z-50 flex flex-nowrap items-center gap-3 px-4 py-2 bg-black/90 border-t-4 border-lime-400 overflow-x-auto backdrop-blur-sm">
 		{nav.map((item: any, i: number) => (
 			<a
 				href={item.href}
 				class:list={[
-					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
-					i % 3 === 0 && "bg-lime-400 text-black font-serif text-lg rotate-1",
-					i % 3 === 1 && "bg-fuchsia-500 text-yellow-300 font-mono text-xs -rotate-2 uppercase tracking-widest",
-					i % 3 === 2 && "bg-cyan-400 text-black font-sans text-base rotate-2 border-2 border-orange-500",
+					"px-3 py-1 font-bold no-underline transition-transform hover:scale-125 whitespace-nowrap shrink-0",
+					i % 4 === 0 && "bg-lime-400 text-black font-serif text-xl rotate-3",
+					i % 4 === 1 && "bg-transparent text-fuchsia-400 font-mono text-[10px] -rotate-1 uppercase tracking-[0.5em] border border-fuchsia-400",
+					i % 4 === 2 && "bg-orange-500 text-white font-sans text-sm rotate-2 border-b-4 border-cyan-400",
+					i % 4 === 3 && "bg-cyan-400 text-black font-serif text-xs -rotate-3 border-l-4 border-yellow-300",
 				]}
 			>
 				{item.label}
@@ -19,59 +21,73 @@ const { lang, style, nav, cats, t } = Astro.props;
 		))}
 	</nav>
 
-	<main class="px-4 md:px-8 py-8">
-		<div class="mb-10 ml-2 md:ml-8">
-			<h1 class="text-5xl md:text-8xl font-black font-serif text-yellow-300 -rotate-3 mb-2 drop-shadow-[4px_4px_0_black]">
+	<main class="px-3 md:px-6 pt-6 pb-20">
+		<!-- Title: split across the page in pieces -->
+		<div class="relative mb-12 md:mb-20 min-h-[120px] md:min-h-[200px]">
+			<h1 class="absolute top-0 left-0 text-6xl md:text-[10rem] font-black font-serif text-yellow-300 -rotate-6 drop-shadow-[6px_6px_0_black] leading-none z-10">
 				{t.cats.title}
 			</h1>
-			<p class="text-lg md:text-2xl font-sans text-lime-300 rotate-1 ml-6 md:ml-20 bg-black/50 inline-block px-4 py-2">
+			<p class="absolute top-16 md:top-32 right-0 md:right-8 text-sm md:text-xl font-mono text-black bg-cyan-400 px-4 py-2 rotate-3 border-4 border-black z-20 max-w-[200px] md:max-w-md">
 				{t.cats.subtitle}
 			</p>
 		</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+		<!-- Cats: masonry-esque chaos with wildly different card sizes -->
+		<div class="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
 			{cats.map((cat: any, i: number) => (
 				<a
 					href={`/${lang}/${style}/cats/${cat.id}`}
 					class:list={[
-						"block p-5 border-4 no-underline transition-transform hover:scale-105 hover:-rotate-1",
-						i % 5 === 0 && "bg-black text-lime-400 border-cyan-400 rotate-2 font-mono",
-						i % 5 === 1 && "bg-cyan-400 text-black border-fuchsia-600 -rotate-1 font-serif",
-						i % 5 === 2 && "bg-yellow-300 text-fuchsia-700 border-black rotate-1 font-sans",
-						i % 5 === 3 && "bg-lime-400 text-black border-orange-500 -rotate-2 font-mono",
-						i % 5 === 4 && "bg-orange-500 text-white border-lime-400 rotate-3 font-serif",
+						"block break-inside-avoid no-underline transition-all hover:scale-[1.03] hover:z-10 relative",
+						i % 6 === 0 && "bg-black text-lime-400 border-8 border-cyan-400 rotate-2 font-mono p-6 md:p-10 shadow-[10px_10px_0_theme(colors.fuchsia.600)]",
+						i % 6 === 1 && "bg-yellow-300 text-fuchsia-700 border-4 border-dashed border-black -rotate-3 font-serif p-3 md:p-4",
+						i % 6 === 2 && "bg-cyan-400 text-black border-l-[16px] border-fuchsia-600 rotate-1 font-sans p-5 md:p-8 shadow-[-6px_6px_0_theme(colors.orange.500)]",
+						i % 6 === 3 && "bg-fuchsia-800 text-lime-400 border-4 border-lime-400 -rotate-1 font-mono p-4 md:p-6 border-double",
+						i % 6 === 4 && "bg-orange-500 text-white border-t-[12px] border-b-[12px] border-black rotate-3 font-serif p-3 md:p-5",
+						i % 6 === 5 && "bg-lime-400 text-black border-4 border-fuchsia-600 -rotate-2 font-sans p-6 md:p-8 shadow-[8px_-8px_0_theme(colors.cyan.400)]",
 					]}
 				>
-					<div>
-						<h2 class="text-3xl md:text-4xl font-black mb-2 underline decoration-4">{cat.name}</h2>
-						<p class:list={[
-							"text-sm mb-3 font-bold uppercase tracking-wider",
-							i % 2 === 0 ? "font-mono" : "font-serif",
-						]}>
-							{cat.breed} · {cat.age} · {cat.gender}
-						</p>
-						<p class="text-base mb-4 font-sans leading-relaxed">{cat.description.slice(0, 100)}...</p>
-						<div class="flex flex-wrap gap-2 mb-3">
-							{cat.personality.map((trait: string, j: number) => (
-								<span
-									class:list={[
-										"px-2 py-1 text-xs font-black uppercase",
-										j % 3 === 0 && "bg-fuchsia-600 text-white rotate-1",
-										j % 3 === 1 && "bg-lime-400 text-black -rotate-2",
-										j % 3 === 2 && "bg-cyan-300 text-fuchsia-700 rotate-2",
-									]}
-								>
-									{trait}
-								</span>
-							))}
-						</div>
-						<span class:list={[
-							"inline-block px-3 py-1 text-sm font-black border-2 uppercase",
-							i % 2 === 0 ? "bg-yellow-300 text-black border-fuchsia-600 -rotate-1" : "bg-fuchsia-600 text-yellow-300 border-lime-400 rotate-2",
-						]}>
-							{cat.status}
-						</span>
+					<h2 class:list={[
+						"font-black mb-2 leading-none",
+						i % 3 === 0 ? "text-4xl md:text-6xl underline decoration-wavy decoration-4" : i % 3 === 1 ? "text-xl md:text-2xl uppercase tracking-[0.3em]" : "text-3xl md:text-5xl -rotate-2",
+					]}>{cat.name}</h2>
+
+					<p class:list={[
+						"mb-3 font-bold",
+						i % 2 === 0 ? "text-[10px] md:text-xs font-mono uppercase tracking-widest" : "text-sm md:text-base font-serif italic",
+					]}>
+						{cat.breed} / {cat.age} / {cat.gender}
+					</p>
+
+					<p class:list={[
+						"mb-3 leading-relaxed",
+						i % 2 === 0 ? "font-sans text-sm md:text-base" : "font-mono text-xs md:text-sm",
+					]}>
+						{cat.description.slice(0, i % 3 === 0 ? 150 : 80)}...
+					</p>
+
+					<div class="flex flex-wrap gap-1 mb-3">
+						{cat.personality.slice(0, i % 2 === 0 ? 5 : 3).map((trait: string, j: number) => (
+							<span
+								class:list={[
+									"px-2 py-0.5 font-black uppercase",
+									j % 4 === 0 && "bg-fuchsia-600 text-white text-[8px] rotate-3 border border-lime-400",
+									j % 4 === 1 && "bg-lime-400 text-black text-xs -rotate-2",
+									j % 4 === 2 && "bg-black text-orange-400 text-[10px] rotate-1 border border-cyan-400",
+									j % 4 === 3 && "bg-cyan-400 text-fuchsia-700 text-xs -rotate-1",
+								]}
+							>
+								{trait}
+							</span>
+						))}
 					</div>
+
+					<span class:list={[
+						"inline-block font-black border-2 uppercase",
+						i % 3 === 0 ? "px-4 py-2 text-lg bg-yellow-300 text-black border-fuchsia-600 -rotate-6" : i % 3 === 1 ? "px-2 py-1 text-[8px] tracking-[0.5em] bg-fuchsia-600 text-yellow-300 border-lime-400 rotate-3" : "px-3 py-1 text-sm bg-black text-cyan-400 border-orange-500 -rotate-2",
+					]}>
+						{cat.status}
+					</span>
 				</a>
 			))}
 		</div>
