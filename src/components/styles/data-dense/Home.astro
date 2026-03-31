@@ -2,42 +2,86 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-gray-50 text-gray-800 text-sm">
+	<!-- Compact top bar nav -->
+	<nav class="bg-white border-b border-gray-200 px-3 py-1.5 flex items-center gap-4 text-xs sticky top-0 z-50">
+		<span class="font-semibold text-gray-900 tracking-tight text-sm mr-2">{sanctuary.name}</span>
+		<div class="flex items-center gap-3">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-gray-500 hover:text-gray-900 transition-colors">{item.label}</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<section>
-		<h1>{sanctuary.name}</h1>
-		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
-	</section>
-
-	<section>
-		<h2>{t.home.mission}</h2>
-		<p>{sanctuary.mission}</p>
-	</section>
-
-	<section>
-		{sanctuary.stats.map((stat: any) => (
-			<div>
-				<span>{stat.value}</span>
-				<span>{stat.label}</span>
+	<main class="max-w-6xl mx-auto px-3 py-3">
+		<!-- Top row: hero + stats side by side -->
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+			<!-- Hero / summary panel -->
+			<div class="md:col-span-2 bg-white border border-gray-200 rounded p-3">
+				<div class="flex items-start justify-between mb-2">
+					<div>
+						<h1 class="text-base font-bold text-gray-900 leading-tight">{sanctuary.name}</h1>
+						<p class="text-xs text-gray-500 mt-0.5">{sanctuary.tagline}</p>
+					</div>
+					<div class="flex gap-1.5 shrink-0 ml-3">
+						<a href={`/${lang}/${style}/cats`} class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded hover:bg-blue-700 transition-colors font-medium">{t.home.meetCats}</a>
+						<a href={`/${lang}/${style}/donate`} class="bg-gray-100 text-gray-700 text-xs px-2.5 py-1 rounded hover:bg-gray-200 transition-colors border border-gray-200 font-medium">{t.home.donate}</a>
+					</div>
+				</div>
+				<div class="border-t border-gray-100 pt-2 mt-2">
+					<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">{t.home.mission}</h2>
+					<p class="text-xs text-gray-700 leading-relaxed">{sanctuary.mission}</p>
+				</div>
 			</div>
-		))}
-	</section>
 
-	<section>
-		<h2>{t.home.aboutUs}</h2>
-		{sanctuary.about.map((paragraph: string) => (
-			<p>{paragraph}</p>
-		))}
-	</section>
-</main>
+			<!-- Stats panel -->
+			<div class="bg-white border border-gray-200 rounded p-3">
+				<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Key Metrics</h2>
+				<div class="grid grid-cols-2 gap-2">
+					{sanctuary.stats.map((stat: any) => (
+						<div class="bg-gray-50 border border-gray-100 rounded px-2 py-1.5">
+							<div class="font-mono text-lg font-bold text-gray-900 leading-none">{stat.value}</div>
+							<div class="text-[10px] text-gray-500 mt-0.5 uppercase tracking-wide">{stat.label}</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
 
-<footer>
-	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
-</footer>
+		<!-- About section as dense paragraphs -->
+		<div class="bg-white border border-gray-200 rounded p-3 mb-3">
+			<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{t.home.aboutUs}</h2>
+			<div class="columns-1 md:columns-2 gap-4 text-xs text-gray-700 leading-relaxed">
+				{sanctuary.about.map((paragraph: string) => (
+					<p class="mb-2 break-inside-avoid">{paragraph}</p>
+				))}
+			</div>
+		</div>
+
+		<!-- Contact row -->
+		<div class="bg-white border border-gray-200 rounded p-3 mb-3">
+			<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Contact</h2>
+			<div class="flex flex-wrap gap-4 text-xs text-gray-600">
+				<div class="flex items-center gap-1.5">
+					<span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span>
+					<span class="text-gray-400">Email</span>
+					<span class="font-mono text-gray-800">{sanctuary.contact.email}</span>
+				</div>
+				<div class="flex items-center gap-1.5">
+					<span class="w-1.5 h-1.5 rounded-full bg-blue-400 inline-block"></span>
+					<span class="text-gray-400">Phone</span>
+					<span class="font-mono text-gray-800">{sanctuary.contact.phone}</span>
+				</div>
+				<div class="flex items-center gap-1.5">
+					<span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
+					<span class="text-gray-400">Address</span>
+					<span class="text-gray-800">{sanctuary.contact.address}</span>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer class="border-t border-gray-200 bg-white px-3 py-1.5 text-[10px] text-gray-400">
+		<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
+	</footer>
+</div>

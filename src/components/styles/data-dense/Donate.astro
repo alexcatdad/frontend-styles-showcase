@@ -2,57 +2,87 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
-
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
-				</div>
+<div class="min-h-screen bg-gray-50 text-gray-800 text-sm">
+	<nav class="bg-white border-b border-gray-200 px-3 py-1.5 flex items-center gap-4 text-xs sticky top-0 z-50">
+		<span class="font-semibold text-gray-900 tracking-tight text-sm mr-2">{t.donate.title}</span>
+		<div class="flex items-center gap-3">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-gray-500 hover:text-gray-900 transition-colors">{item.label}</a>
 			))}
 		</div>
-	</section>
+	</nav>
 
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
-				</div>
-			))}
+	<main class="max-w-6xl mx-auto px-3 py-3">
+		<div class="mb-3">
+			<h1 class="text-base font-bold text-gray-900 leading-tight">{t.donate.title}</h1>
+			<p class="text-xs text-gray-500 mt-0.5">{t.donate.subtitle}</p>
 		</div>
-	</section>
-</main>
+
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+			<!-- Monthly tiers -->
+			<section class="bg-white border border-gray-200 rounded p-3">
+				<h2 class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">{t.donate.monthly}</h2>
+				<div class="space-y-2">
+					{monthlyTiers.map((tier: any) => (
+						<div class={`border rounded p-2 ${tier.highlighted ? 'border-blue-300 bg-blue-50/30' : 'border-gray-100'}`}>
+							<div class="flex items-center justify-between mb-1">
+								<div class="flex items-center gap-1.5">
+									<h3 class="text-xs font-semibold text-gray-900">{tier.name}</h3>
+									{tier.highlighted && (
+										<span class="bg-blue-600 text-white text-[10px] px-1.5 py-0 rounded-full font-medium">{t.donate.mostPopular}</span>
+									)}
+								</div>
+								<div class="text-right">
+									<span class="font-mono text-sm font-bold text-gray-900">${tier.amount}</span>
+									<span class="text-[10px] text-gray-400">{t.donate.perMonth}</span>
+								</div>
+							</div>
+							<p class="text-[10px] text-gray-500 mb-1.5">{tier.description}</p>
+							<div class="flex items-center justify-between">
+								<div class="flex flex-wrap gap-1">
+									{tier.perks.map((perk: string) => (
+										<span class="text-[10px] text-gray-500 before:content-['·'] before:mr-0.5 before:text-gray-300">{perk}</span>
+									))}
+								</div>
+								<button type="button" class={`text-[10px] px-2 py-0.5 rounded font-medium shrink-0 ml-2 ${tier.highlighted ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'} transition-colors`}>
+									{t.donate.choose} {tier.name}
+								</button>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<!-- One-time tiers -->
+			<section class="bg-white border border-gray-200 rounded p-3">
+				<h2 class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">{t.donate.oneTime}</h2>
+				<div class="space-y-2">
+					{oneTimeTiers.map((tier: any) => (
+						<div class={`border rounded p-2 ${tier.highlighted ? 'border-amber-300 bg-amber-50/30' : 'border-gray-100'}`}>
+							<div class="flex items-center justify-between mb-1">
+								<div class="flex items-center gap-1.5">
+									<h3 class="text-xs font-semibold text-gray-900">{tier.name}</h3>
+									{tier.highlighted && (
+										<span class="bg-amber-500 text-white text-[10px] px-1.5 py-0 rounded-full font-medium">{t.donate.greatestImpact}</span>
+									)}
+								</div>
+								<span class="font-mono text-sm font-bold text-gray-900">${tier.amount}</span>
+							</div>
+							<p class="text-[10px] text-gray-500 mb-1.5">{tier.description}</p>
+							<div class="flex items-center justify-between">
+								<div class="flex flex-wrap gap-1">
+									{tier.perks.map((perk: string) => (
+										<span class="text-[10px] text-gray-500 before:content-['·'] before:mr-0.5 before:text-gray-300">{perk}</span>
+									))}
+								</div>
+								<button type="button" class={`text-[10px] px-2 py-0.5 rounded font-medium shrink-0 ml-2 ${tier.highlighted ? 'bg-amber-500 text-white hover:bg-amber-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'} transition-colors`}>
+									{t.donate.give} ${tier.amount}
+								</button>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+		</div>
+	</main>
+</div>
