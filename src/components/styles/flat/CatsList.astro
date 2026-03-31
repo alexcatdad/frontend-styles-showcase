@@ -1,32 +1,75 @@
 ---
-const { lang, style, nav, cats, t } = Astro.props;
+const { lang, style, nav, meta, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-gray-100 font-sans">
+	<!-- Nav -->
+	<nav class="bg-blue-500 px-4 py-4 sm:px-8">
+		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
+			<div class="flex flex-wrap items-center gap-1 sm:gap-4">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors">
+						{item.label}
+					</a>
+				))}
+			</div>
+			<span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-500 uppercase tracking-wide">
+				{meta.name}
+			</span>
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
-
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
-						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
-						))}
-					</div>
-					<span>{cat.status}</span>
+	<main class="px-4 py-12 sm:px-8">
+		<div class="mx-auto max-w-6xl">
+			<!-- Header -->
+			<div class="mb-10 text-center">
+				<h1 class="mb-3 text-4xl font-extrabold text-gray-800 sm:text-5xl">{t.cats.title}</h1>
+				<p class="text-lg text-gray-500">{t.cats.subtitle}</p>
+				<div class="mt-4 flex justify-center gap-2">
+					<div class="h-2 w-12 rounded-full bg-blue-500"></div>
+					<div class="h-2 w-12 rounded-full bg-rose-500"></div>
+					<div class="h-2 w-12 rounded-full bg-teal-500"></div>
 				</div>
-			</a>
-		))}
-	</div>
-</main>
+			</div>
+
+			<!-- Cat Grid -->
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{cats.map((cat: any) => (
+					<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block">
+						<div class="rounded-2xl bg-white p-6 transition-colors hover:bg-blue-50">
+							<!-- Cat avatar circle -->
+							<div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-teal-500 text-2xl font-extrabold text-white">
+								{cat.name.charAt(0)}
+							</div>
+							<h2 class="mb-1 text-xl font-extrabold text-gray-800 group-hover:text-blue-500">
+								{cat.name}
+							</h2>
+							<p class="mb-3 text-sm font-medium text-gray-400">
+								{cat.breed} &middot; {cat.age} &middot; {cat.gender}
+							</p>
+							<p class="mb-4 text-sm leading-relaxed text-gray-600">
+								{cat.description.slice(0, 100)}...
+							</p>
+							<div class="mb-4 flex flex-wrap gap-2">
+								{cat.personality.map((trait: string) => (
+									<span class="rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-amber-900">
+										{trait}
+									</span>
+								))}
+							</div>
+							<span class={`inline-block rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${
+								cat.status === 'available'
+									? 'bg-teal-500 text-white'
+									: cat.status === 'adopted'
+										? 'bg-rose-500 text-white'
+										: 'bg-gray-300 text-gray-700'
+							}`}>
+								{cat.status}
+							</span>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</main>
+</div>

@@ -1,58 +1,139 @@
 ---
-const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
+const { lang, style, nav, meta, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
-
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
-				</div>
-			))}
+<div class="min-h-screen bg-gray-100 font-sans">
+	<!-- Nav -->
+	<nav class="bg-blue-500 px-4 py-4 sm:px-8">
+		<div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
+			<div class="flex flex-wrap items-center gap-1 sm:gap-4">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors">
+						{item.label}
+					</a>
+				))}
+			</div>
+			<span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-500 uppercase tracking-wide">
+				{meta.name}
+			</span>
 		</div>
-	</section>
+	</nav>
 
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
+	<main class="px-4 py-12 sm:px-8">
+		<div class="mx-auto max-w-6xl">
+			<!-- Header -->
+			<div class="mb-12 text-center">
+				<h1 class="mb-3 text-4xl font-extrabold text-gray-800 sm:text-5xl">{t.donate.title}</h1>
+				<p class="text-lg text-gray-500">{t.donate.subtitle}</p>
+				<div class="mx-auto mt-4 flex justify-center gap-2">
+					<div class="h-2 w-8 rounded-full bg-rose-500"></div>
+					<div class="h-2 w-8 rounded-full bg-amber-400"></div>
+					<div class="h-2 w-8 rounded-full bg-teal-500"></div>
 				</div>
-			))}
+			</div>
+
+			<!-- Monthly Tiers -->
+			<section class="mb-14">
+				<h2 class="mb-6 text-center text-2xl font-extrabold text-gray-800">{t.donate.monthly}</h2>
+				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+					{monthlyTiers.map((tier: any) => (
+						<div class={`relative rounded-2xl p-6 ${
+							tier.highlighted
+								? 'bg-blue-500 text-white'
+								: 'bg-white text-gray-800'
+						}`}>
+							{tier.highlighted && (
+								<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 px-4 py-1 text-xs font-bold text-amber-900 uppercase tracking-wide">
+									{t.donate.mostPopular}
+								</span>
+							)}
+							<h3 class={`mb-2 text-xl font-extrabold ${tier.highlighted ? 'text-white' : 'text-gray-800'}`}>
+								{tier.name}
+							</h3>
+							<p class="mb-3">
+								<span class={`text-4xl font-extrabold ${tier.highlighted ? 'text-white' : 'text-blue-500'}`}>
+									${tier.amount}
+								</span>
+								<span class={`text-sm ${tier.highlighted ? 'text-blue-100' : 'text-gray-400'}`}>
+									{t.donate.perMonth}
+								</span>
+							</p>
+							<p class={`mb-4 text-sm ${tier.highlighted ? 'text-blue-100' : 'text-gray-500'}`}>
+								{tier.description}
+							</p>
+							<ul class="mb-6 space-y-2">
+								{tier.perks.map((perk: string) => (
+									<li class={`flex items-start gap-2 text-sm ${tier.highlighted ? 'text-blue-100' : 'text-gray-600'}`}>
+										<span class={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+											tier.highlighted
+												? 'bg-white text-blue-500'
+												: 'bg-teal-500 text-white'
+										}`}>&#10003;</span>
+										{perk}
+									</li>
+								))}
+							</ul>
+							<button type="button" class={`w-full rounded-xl px-6 py-3 text-sm font-bold transition-colors ${
+								tier.highlighted
+									? 'bg-white text-blue-500 hover:bg-blue-50'
+									: 'bg-blue-500 text-white hover:bg-blue-600'
+							}`}>
+								{t.donate.choose} {tier.name}
+							</button>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<!-- One-Time Tiers -->
+			<section>
+				<h2 class="mb-6 text-center text-2xl font-extrabold text-gray-800">{t.donate.oneTime}</h2>
+				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+					{oneTimeTiers.map((tier: any) => (
+						<div class={`relative rounded-2xl p-6 ${
+							tier.highlighted
+								? 'bg-rose-500 text-white'
+								: 'bg-white text-gray-800'
+						}`}>
+							{tier.highlighted && (
+								<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 px-4 py-1 text-xs font-bold text-amber-900 uppercase tracking-wide">
+									{t.donate.greatestImpact}
+								</span>
+							)}
+							<h3 class={`mb-2 text-xl font-extrabold ${tier.highlighted ? 'text-white' : 'text-gray-800'}`}>
+								{tier.name}
+							</h3>
+							<p class="mb-3">
+								<span class={`text-4xl font-extrabold ${tier.highlighted ? 'text-white' : 'text-rose-500'}`}>
+									${tier.amount}
+								</span>
+							</p>
+							<p class={`mb-4 text-sm ${tier.highlighted ? 'text-rose-100' : 'text-gray-500'}`}>
+								{tier.description}
+							</p>
+							<ul class="mb-6 space-y-2">
+								{tier.perks.map((perk: string) => (
+									<li class={`flex items-start gap-2 text-sm ${tier.highlighted ? 'text-rose-100' : 'text-gray-600'}`}>
+										<span class={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+											tier.highlighted
+												? 'bg-white text-rose-500'
+												: 'bg-amber-400 text-amber-900'
+										}`}>&#10003;</span>
+										{perk}
+									</li>
+								))}
+							</ul>
+							<button type="button" class={`w-full rounded-xl px-6 py-3 text-sm font-bold transition-colors ${
+								tier.highlighted
+									? 'bg-white text-rose-500 hover:bg-rose-50'
+									: 'bg-rose-500 text-white hover:bg-rose-600'
+							}`}>
+								{t.donate.give} ${tier.amount}
+							</button>
+						</div>
+					))}
+				</div>
+			</section>
 		</div>
-	</section>
-</main>
+	</main>
+</div>
