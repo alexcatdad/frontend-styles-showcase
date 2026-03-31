@@ -2,60 +2,128 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gray-950 text-white font-sans">
+<div class="min-h-screen bg-gray-950 text-white font-mono relative overflow-hidden">
+	<!-- Perspective grid background -->
+	<div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+		<div class="absolute inset-0 bg-[linear-gradient(rgba(255,0,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,0,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+		<div class="absolute bottom-0 left-0 right-0 h-[50vh] bg-[linear-gradient(rgba(0,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.07)_1px,transparent_1px)] bg-[size:40px_40px] [transform:perspective(400px)_rotateX(60deg)] origin-bottom"></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-gray-950 via-transparent to-gray-950"></div>
+	</div>
+
+	<!-- Scanline overlay -->
+	<div class="fixed inset-0 z-[1] pointer-events-none bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.08)_2px,rgba(0,0,0,0.08)_4px)]" aria-hidden="true"></div>
+
 	<!-- Nav -->
-	<nav class="border-b border-fuchsia-500/30 bg-gray-950/90 backdrop-blur-sm sticky top-0 z-50">
-		<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
-			{nav.map((item: any) => (
-				<a
-					href={item.href}
-					class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-fuchsia-300 hover:text-white hover:bg-fuchsia-500/20 rounded transition-all duration-300 hover:shadow-[0_0_15px_#ff00ff55]"
-				>
-					{item.label}
-				</a>
-			))}
+	<nav class="relative z-50 sticky top-0">
+		<div class="mx-4 mt-3 rounded-lg border border-fuchsia-500/40 bg-gray-950/95 backdrop-blur-md shadow-[0_0_20px_#ff00ff33,inset_0_0_20px_#ff00ff11]">
+			<div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap gap-1 items-center justify-center sm:justify-start">
+				{nav.map((item: any) => (
+					<a
+						href={item.href}
+						class="px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-fuchsia-300 hover:text-white rounded transition-all duration-300 hover:bg-fuchsia-500/20 hover:shadow-[0_0_15px_#ff00ff55] relative after:absolute after:bottom-0 after:left-2 after:right-2 after:h-px after:bg-fuchsia-500 after:opacity-0 hover:after:opacity-100 after:shadow-[0_0_8px_#ff00ff] after:transition-opacity"
+					>
+						{item.label}
+					</a>
+				))}
+			</div>
 		</div>
 	</nav>
 
-	<main class="flex items-center justify-center px-4 py-24 sm:py-36">
+	<main class="relative z-10 flex items-center justify-center px-4 py-24 sm:py-36">
 		<section class="text-center max-w-xl">
-			<!-- Glitch-style 404 -->
-			<h1 class="text-8xl sm:text-9xl font-black uppercase tracking-tighter bg-gradient-to-b from-fuchsia-400 via-fuchsia-500 to-purple-900 bg-clip-text text-transparent drop-shadow-lg mb-4">
-				{t.notFound.title}
-			</h1>
+			<!-- Glitching radial glow -->
+			<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-fuchsia-600/8 rounded-full blur-[100px]" aria-hidden="true"></div>
 
-			<!-- Neon divider -->
-			<div class="h-1 w-48 mx-auto mb-8 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44]"></div>
+			<!-- Error code label -->
+			<p class="text-[10px] uppercase tracking-[0.5em] text-fuchsia-500/50 mb-4 font-bold">// system_error //</p>
 
-			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-wider text-cyan-300 mb-4">
-				{t.notFound.heading}
-			</h2>
+			<!-- Massive glitch 404 -->
+			<div class="relative mb-6">
+				<h1 class="text-[10rem] sm:text-[14rem] font-black uppercase tracking-tighter leading-none retro-glitch relative">
+					<span class="bg-gradient-to-b from-fuchsia-400 via-fuchsia-500 to-purple-900 bg-clip-text text-transparent drop-shadow-[0_0_60px_#ff00ff66]">
+						{t.notFound.title}
+					</span>
+				</h1>
+				<!-- Glitch shadow layers -->
+				<div class="absolute inset-0 text-[10rem] sm:text-[14rem] font-black uppercase tracking-tighter leading-none text-cyan-400/10 translate-x-1 -translate-y-0.5 pointer-events-none retro-glitch-offset" aria-hidden="true">
+					{t.notFound.title}
+				</div>
+			</div>
 
-			<p class="text-gray-400 text-lg mb-12 leading-relaxed">
-				{t.notFound.description}
-			</p>
+			<!-- Neon divider bar -->
+			<div class="h-1 w-56 mx-auto mb-8 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent shadow-[0_0_30px_#ff00ff,0_0_60px_#ff00ff44] retro-pulse"></div>
 
-			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+			<!-- CRT error panel -->
+			<div class="border border-fuchsia-500/30 rounded-sm bg-gray-900/40 p-8 mb-10 shadow-[0_0_25px_#ff00ff22,inset_0_0_25px_#00000055] relative">
+				<!-- Corner decorations -->
+				<div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-fuchsia-400/60"></div>
+				<div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-fuchsia-400/60"></div>
+				<div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-fuchsia-400/60"></div>
+				<div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-fuchsia-400/60"></div>
+
+				<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-[0.15em] text-cyan-300 mb-4 drop-shadow-[0_0_15px_#00ffff66]">
+					{t.notFound.heading}
+				</h2>
+				<p class="text-gray-400 text-lg leading-relaxed font-light">
+					{t.notFound.description}
+				</p>
+			</div>
+
+			<!-- Action buttons -->
+			<div class="flex flex-col sm:flex-row gap-5 justify-center">
 				<a
 					href={`/${lang}/${style}/`}
-					class="px-8 py-4 bg-fuchsia-600 text-white font-bold uppercase tracking-widest rounded border border-fuchsia-400 shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44] hover:shadow-[0_0_30px_#ff00ff,0_0_60px_#ff00ff66] hover:bg-fuchsia-500 transition-all duration-300"
+					class="group px-10 py-4 bg-fuchsia-600/90 text-white font-black uppercase tracking-[0.2em] rounded-sm border border-fuchsia-400 shadow-[0_0_25px_#ff00ff,0_0_50px_#ff00ff44] hover:shadow-[0_0_40px_#ff00ff,0_0_80px_#ff00ff66] hover:bg-fuchsia-500 transition-all duration-500 relative overflow-hidden"
 				>
-					{t.notFound.backHome}
+					<span class="relative z-10">{t.notFound.backHome}</span>
+					<span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
 				</a>
 				<a
 					href={`/${lang}/${style}/cats`}
-					class="px-8 py-4 bg-transparent text-cyan-300 font-bold uppercase tracking-widest rounded border border-cyan-400 shadow-[0_0_15px_#00ffff44] hover:shadow-[0_0_25px_#00ffff,0_0_50px_#00ffff44] hover:bg-cyan-500/10 transition-all duration-300"
+					class="group px-10 py-4 bg-transparent text-cyan-300 font-black uppercase tracking-[0.2em] rounded-sm border border-cyan-400/70 shadow-[0_0_20px_#00ffff44] hover:shadow-[0_0_35px_#00ffff,0_0_70px_#00ffff44] hover:bg-cyan-500/10 transition-all duration-500 relative overflow-hidden"
 				>
-					{t.notFound.meetCats}
+					<span class="relative z-10">{t.notFound.meetCats}</span>
+					<span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
 				</a>
 			</div>
 
-			<!-- Decorative grid lines -->
-			<div class="mt-20 opacity-20">
-				<div class="h-px bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent mb-2"></div>
-				<div class="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent mb-2"></div>
+			<!-- Decorative fading grid lines -->
+			<div class="mt-20 space-y-2 opacity-25">
 				<div class="h-px bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent"></div>
+				<div class="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+				<div class="h-px bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent"></div>
+				<div class="h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent"></div>
+				<div class="h-px bg-gradient-to-r from-transparent via-fuchsia-500/40 to-transparent"></div>
 			</div>
 		</section>
 	</main>
 </div>
+
+<style>
+	@keyframes retro-pulse {
+		0%, 100% { opacity: 1; box-shadow: 0 0 30px #ff00ff, 0 0 60px #ff00ff44; }
+		50% { opacity: 0.7; box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff22; }
+	}
+	.retro-pulse {
+		animation: retro-pulse 3s ease-in-out infinite;
+	}
+	@keyframes retro-glitch {
+		0%, 100% { transform: translate(0); }
+		20% { transform: translate(-2px, 1px); }
+		40% { transform: translate(2px, -1px); }
+		60% { transform: translate(-1px, -1px); }
+		80% { transform: translate(1px, 2px); }
+	}
+	@keyframes retro-glitch-offset {
+		0%, 100% { transform: translate(2px, -1px); opacity: 0.1; }
+		25% { transform: translate(-3px, 2px); opacity: 0.15; }
+		50% { transform: translate(3px, 0); opacity: 0.05; }
+		75% { transform: translate(-1px, -2px); opacity: 0.12; }
+	}
+	.retro-glitch {
+		animation: retro-glitch 5s ease-in-out infinite;
+	}
+	.retro-glitch-offset {
+		animation: retro-glitch-offset 4s ease-in-out infinite;
+	}
+</style>

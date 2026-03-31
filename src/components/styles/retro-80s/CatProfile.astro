@@ -2,111 +2,134 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gray-950 text-white font-sans">
+<div class="min-h-screen bg-gray-950 text-white font-mono relative overflow-hidden">
+	<!-- Perspective grid background -->
+	<div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+		<div class="absolute inset-0 bg-[linear-gradient(rgba(255,0,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,0,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+		<div class="absolute bottom-0 left-0 right-0 h-[40vh] bg-[linear-gradient(rgba(0,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.07)_1px,transparent_1px)] bg-[size:40px_40px] [transform:perspective(400px)_rotateX(60deg)] origin-bottom"></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-gray-950 via-transparent to-gray-950"></div>
+	</div>
+
+	<!-- Scanline overlay -->
+	<div class="fixed inset-0 z-[1] pointer-events-none bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.08)_2px,rgba(0,0,0,0.08)_4px)]" aria-hidden="true"></div>
+
 	<!-- Nav -->
-	<nav class="border-b border-fuchsia-500/30 bg-gray-950/90 backdrop-blur-sm sticky top-0 z-50">
-		<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
-			{nav.map((item: any) => (
-				<a
-					href={item.href}
-					class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-fuchsia-300 hover:text-white hover:bg-fuchsia-500/20 rounded transition-all duration-300 hover:shadow-[0_0_15px_#ff00ff55]"
-				>
-					{item.label}
-				</a>
-			))}
+	<nav class="relative z-50 sticky top-0">
+		<div class="mx-4 mt-3 rounded-lg border border-fuchsia-500/40 bg-gray-950/95 backdrop-blur-md shadow-[0_0_20px_#ff00ff33,inset_0_0_20px_#ff00ff11]">
+			<div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap gap-1 items-center justify-center sm:justify-start">
+				{nav.map((item: any) => (
+					<a
+						href={item.href}
+						class="px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-fuchsia-300 hover:text-white rounded transition-all duration-300 hover:bg-fuchsia-500/20 hover:shadow-[0_0_15px_#ff00ff55] relative after:absolute after:bottom-0 after:left-2 after:right-2 after:h-px after:bg-fuchsia-500 after:opacity-0 hover:after:opacity-100 after:shadow-[0_0_8px_#ff00ff] after:transition-opacity"
+					>
+						{item.label}
+					</a>
+				))}
+			</div>
 		</div>
 	</nav>
 
-	<main class="max-w-4xl mx-auto px-4 py-12">
+	<main class="relative z-10 max-w-4xl mx-auto px-4 py-12">
 		<!-- Back link -->
 		<a
 			href={`/${lang}/${style}/cats`}
-			class="inline-flex items-center gap-2 text-fuchsia-400 hover:text-fuchsia-300 font-bold uppercase tracking-widest text-sm transition-colors mb-10 group"
+			class="inline-flex items-center gap-2 text-fuchsia-400 hover:text-fuchsia-300 font-bold uppercase tracking-[0.2em] text-sm transition-all duration-300 mb-10 group hover:drop-shadow-[0_0_10px_#ff00ff66]"
 		>
-			<span class="group-hover:-translate-x-1 transition-transform">&larr;</span>
+			<span class="group-hover:-translate-x-1 transition-transform text-cyan-400">&laquo;</span>
 			{t.cats.backToAll}
 		</a>
 
-		<article class="rounded-lg border border-fuchsia-500/40 bg-gray-900/60 overflow-hidden shadow-[0_0_20px_#ff00ff33]">
-			<!-- Header glow bar -->
-			<div class="h-1 bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 shadow-[0_0_15px_#ff00ff]"></div>
+		<!-- Character Profile — CRT monitor panel -->
+		<article class="rounded-sm border border-fuchsia-500/40 bg-gray-900/50 overflow-hidden shadow-[0_0_30px_#ff00ff33,inset_0_0_40px_#00000066] relative">
+			<!-- Top glow bar -->
+			<div class="h-1 bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 shadow-[0_0_20px_#ff00ff] retro-pulse"></div>
+
+			<!-- Corner decorations -->
+			<div class="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-cyan-400/50 shadow-[0_0_6px_#00ffff]"></div>
+			<div class="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-cyan-400/50 shadow-[0_0_6px_#00ffff]"></div>
 
 			<div class="p-6 sm:p-10">
-				<h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent mb-8">
-					{cat.name}
-				</h1>
+				<!-- Character name header -->
+				<div class="mb-8">
+					<p class="text-xs uppercase tracking-[0.4em] text-fuchsia-500/60 mb-2 font-bold">// character profile //</p>
+					<h1 class="text-5xl sm:text-7xl font-black uppercase tracking-tight leading-none">
+						<span class="bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_#ff00ff]">
+							{cat.name}
+						</span>
+					</h1>
+				</div>
 
-				<!-- Details grid -->
-				<dl class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
-					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
-						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.breed}</dt>
-						<dd class="text-cyan-200 font-semibold">{cat.breed}</dd>
-					</div>
-					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
-						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.age}</dt>
-						<dd class="text-cyan-200 font-semibold">{cat.age}</dd>
-					</div>
-					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
-						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.gender}</dt>
-						<dd class="text-cyan-200 font-semibold">{cat.gender}</dd>
-					</div>
-					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
-						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.color}</dt>
-						<dd class="text-cyan-200 font-semibold">{cat.color}</dd>
-					</div>
-					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
-						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.arrived}</dt>
-						<dd class="text-cyan-200 font-semibold">{cat.arrivalDate}</dd>
-					</div>
-					<div class="p-4 rounded border border-cyan-500/20 bg-gray-950/50">
-						<dt class="text-xs uppercase tracking-widest text-fuchsia-400 font-bold mb-1">{t.cats.status}</dt>
-						<dd class="text-cyan-200 font-semibold">{cat.status}</dd>
-					</div>
+				<!-- Stats grid — arcade stat readout -->
+				<dl class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+					{[
+						{ label: t.cats.breed, value: cat.breed },
+						{ label: t.cats.age, value: cat.age },
+						{ label: t.cats.gender, value: cat.gender },
+						{ label: t.cats.color, value: cat.color },
+						{ label: t.cats.arrived, value: cat.arrivalDate },
+						{ label: t.cats.status, value: cat.status },
+					].map((item) => (
+						<div class="p-4 rounded-sm border border-fuchsia-500/20 bg-gray-950/60 relative group hover:border-fuchsia-500/40 hover:shadow-[0_0_15px_#ff00ff22] transition-all duration-300">
+							<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-fuchsia-500/30 via-cyan-400/30 to-fuchsia-500/30"></div>
+							<dt class="text-[10px] uppercase tracking-[0.25em] text-fuchsia-400 font-bold mb-1.5">{item.label}</dt>
+							<dd class="text-cyan-200 font-semibold text-sm">{item.value}</dd>
+						</div>
+					))}
 				</dl>
 
-				<!-- Personality traits -->
+				<!-- Personality traits — skill tags -->
 				<div class="flex flex-wrap gap-2 mb-8">
 					{cat.personality.map((trait: string) => (
-						<span class="px-4 py-1.5 text-sm font-bold uppercase tracking-widest rounded-full bg-fuchsia-500/15 border border-fuchsia-500/40 text-fuchsia-300 shadow-[0_0_8px_#ff00ff22]">
+						<span class="px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-sm bg-fuchsia-500/10 border border-fuchsia-500/40 text-fuchsia-300 shadow-[0_0_8px_#ff00ff22] hover:shadow-[0_0_15px_#ff00ff44] hover:border-fuchsia-400/60 transition-all duration-300">
 							{trait}
 						</span>
 					))}
 				</div>
 
 				<!-- Neon divider -->
-				<div class="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_8px_#00ffff] mb-8"></div>
+				<div class="relative h-px mb-8">
+					<div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_10px_#00ffff]"></div>
+					<div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400 to-transparent blur-sm"></div>
+				</div>
 
 				<!-- Description -->
-				<p class="text-gray-300 text-lg leading-relaxed mb-10">
+				<p class="text-gray-300 text-lg leading-relaxed mb-10 font-light">
 					{cat.description}
 				</p>
 
-				<!-- Adopt CTA -->
+				<!-- Adopt CTA — big arcade button -->
 				<a
 					href={`/${lang}/${style}/auth`}
-					class="inline-block px-8 py-4 bg-fuchsia-600 text-white font-black uppercase tracking-widest rounded border border-fuchsia-400 shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44] hover:shadow-[0_0_30px_#ff00ff,0_0_60px_#ff00ff66] hover:bg-fuchsia-500 transition-all duration-300 text-lg"
+					class="group inline-flex items-center gap-3 px-10 py-4 bg-fuchsia-600/90 text-white font-black uppercase tracking-[0.2em] rounded-sm border border-fuchsia-400 shadow-[0_0_25px_#ff00ff,0_0_50px_#ff00ff44] hover:shadow-[0_0_40px_#ff00ff,0_0_80px_#ff00ff66] hover:bg-fuchsia-500 transition-all duration-500 text-lg relative overflow-hidden"
 				>
-					{t.cats.adopt} {cat.name}
+					<span class="relative z-10">{t.cats.adopt} {cat.name}</span>
+					<span class="relative z-10 text-cyan-300 group-hover:translate-x-1 transition-transform">&raquo;</span>
+					<span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
 				</a>
 			</div>
+
+			<!-- Bottom glow bar -->
+			<div class="h-0.5 bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 shadow-[0_0_10px_#ff00ff]"></div>
 		</article>
 
-		<!-- Other Cats -->
+		<!-- Other Cats — "choose another fighter" section -->
 		<section class="mt-20">
-			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-wider text-center text-cyan-300 mb-2">
+			<p class="text-xs uppercase tracking-[0.4em] text-fuchsia-500/60 text-center mb-2 font-bold">// more companions //</p>
+			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-[0.15em] text-center text-cyan-300 mb-3 drop-shadow-[0_0_15px_#00ffff66]">
 				{t.cats.otherCats}
 			</h2>
-			<div class="h-0.5 w-24 mx-auto mb-10 bg-fuchsia-500 shadow-[0_0_10px_#ff00ff]"></div>
-			<div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+			<div class="h-0.5 w-24 mx-auto mb-10 bg-fuchsia-500 shadow-[0_0_12px_#ff00ff]"></div>
+			<div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
 				{otherCats.map((c: any) => (
 					<a
 						href={`/${lang}/${style}/cats/${c.id}`}
-						class="group block p-6 rounded-lg border border-fuchsia-500/30 bg-gray-900/60 shadow-[0_0_10px_#ff00ff22] hover:shadow-[0_0_20px_#ff00ff55] hover:border-fuchsia-400/50 transition-all duration-300 hover:-translate-y-1"
+						class="group block p-6 rounded-sm border border-fuchsia-500/25 bg-gray-900/50 shadow-[0_0_10px_#ff00ff22] hover:shadow-[0_0_25px_#ff00ff55,0_0_50px_#ff00ff22] hover:border-fuchsia-400/60 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden"
 					>
-						<h3 class="text-xl font-black uppercase text-cyan-300 group-hover:text-cyan-200 tracking-wide mb-1">
+						<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-fuchsia-500/30 via-cyan-400/30 to-fuchsia-500/30 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+						<h3 class="text-xl font-black uppercase text-cyan-300 group-hover:text-cyan-200 tracking-wide mb-1 group-hover:drop-shadow-[0_0_10px_#00ffff66] transition-all">
 							{c.name}
 						</h3>
-						<p class="text-sm text-fuchsia-300/70 font-semibold tracking-wide">
+						<p class="text-sm text-fuchsia-300/60 font-semibold tracking-[0.1em] uppercase">
 							{c.breed} &middot; {c.age}
 						</p>
 					</a>
@@ -115,3 +138,13 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 		</section>
 	</main>
 </div>
+
+<style>
+	@keyframes retro-pulse {
+		0%, 100% { opacity: 1; box-shadow: 0 0 20px #ff00ff; }
+		50% { opacity: 0.7; box-shadow: 0 0 10px #ff00ff; }
+	}
+	.retro-pulse {
+		animation: retro-pulse 3s ease-in-out infinite;
+	}
+</style>
