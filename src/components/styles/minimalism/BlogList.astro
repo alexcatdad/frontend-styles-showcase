@@ -3,43 +3,33 @@ const { lang, style, nav, posts, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
-	<!-- Nav -->
-	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
-		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
-			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{t.blog.title}</a>
-			<div class="flex items-center gap-8">
+	<nav class="pt-8 pb-4 px-6 lg:px-12">
+		<div class="max-w-2xl mx-auto flex items-center justify-between">
+			<a href={`/${lang}/${style}/`} class="text-xs text-stone-400 tracking-widest uppercase">{t.blog.title}</a>
+			<div class="flex items-center gap-6 md:gap-8">
 				{nav.map((item: any) => (
-					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+					<a href={item.href} class="text-xs text-stone-400 tracking-widest uppercase hover:text-neutral-900 transition-colors duration-500">{item.label}</a>
 				))}
 			</div>
 		</div>
 	</nav>
 
 	<main>
-		<!-- Header -->
-		<section class="pt-40 pb-20 px-6 lg:px-8 max-w-4xl mx-auto">
-			<h1 class="text-4xl md:text-6xl font-extralight tracking-tight mb-6">{t.blog.title}</h1>
-			<p class="text-lg font-light text-neutral-500 max-w-xl leading-relaxed">{t.blog.subtitle}</p>
+		<section class="pt-32 md:pt-48 pb-24 md:pb-32 px-6 lg:px-12">
+			<div class="max-w-2xl mx-auto">
+				<h1 class="text-4xl md:text-6xl lg:text-7xl font-extralight tracking-tight leading-none">{t.blog.title}</h1>
+				<p class="mt-8 md:mt-12 text-lg md:text-xl font-light text-stone-400 leading-relaxed max-w-md">{t.blog.subtitle}</p>
+			</div>
 		</section>
 
-		<!-- Post List -->
-		<section class="px-6 lg:px-8 pb-32">
-			<div class="max-w-4xl mx-auto divide-y divide-neutral-100">
+		<section class="pb-32 md:pb-48 px-6 lg:px-12">
+			<div class="max-w-2xl mx-auto">
 				{posts.map((post: any) => (
-					<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block py-12 first:pt-0">
-						<article>
-							<time datetime={post.date} class="text-[10px] tracking-widest uppercase text-stone-400 block mb-4">{post.date}</time>
-							<h2 class="text-2xl md:text-3xl font-light tracking-tight mb-4 group-hover:text-neutral-500 transition-colors duration-300">{post.title}</h2>
-							<p class="text-sm font-light text-neutral-500 leading-relaxed mb-6 max-w-2xl">{post.excerpt}</p>
-							<div class="flex items-center gap-6">
-								<span class="text-xs font-light text-neutral-400">{t.blog.by} {post.author}</span>
-								<div class="flex gap-3">
-									{post.tags.map((tag: string) => (
-										<span class="text-[10px] tracking-widest uppercase text-stone-400">{tag}</span>
-									))}
-								</div>
-							</div>
-						</article>
+					<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block py-16 md:py-20 first:pt-0">
+						<time datetime={post.date} class="text-xs tracking-widest uppercase text-stone-400 block">{post.date}</time>
+						<h2 class="mt-6 text-2xl md:text-4xl font-extralight tracking-tight leading-tight group-hover:text-stone-400 transition-colors duration-500">{post.title}</h2>
+						<p class="mt-6 text-base font-light text-neutral-500 leading-relaxed max-w-lg">{post.excerpt}</p>
+						<p class="mt-6 text-xs font-light text-stone-400">{t.blog.by} {post.author}</p>
 					</a>
 				))}
 			</div>

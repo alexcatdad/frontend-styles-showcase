@@ -3,27 +3,26 @@ const { lang, style, nav, t } = Astro.props;
 ---
 
 <div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
-	<!-- Nav -->
-	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
-		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
-			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">404</a>
-			<div class="flex items-center gap-8">
+	<nav class="pt-8 pb-4 px-6 lg:px-12">
+		<div class="max-w-2xl mx-auto flex items-center justify-between">
+			<a href={`/${lang}/${style}/`} class="text-xs text-stone-400 tracking-widest uppercase">404</a>
+			<div class="flex items-center gap-6 md:gap-8">
 				{nav.map((item: any) => (
-					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+					<a href={item.href} class="text-xs text-stone-400 tracking-widest uppercase hover:text-neutral-900 transition-colors duration-500">{item.label}</a>
 				))}
 			</div>
 		</div>
 	</nav>
 
-	<main class="flex items-center justify-center min-h-screen px-6">
-		<section class="text-center max-w-lg">
-			<p class="text-8xl md:text-[10rem] font-extralight tracking-tighter leading-none text-neutral-200 mb-8">{t.notFound.title}</p>
-			<h2 class="text-2xl md:text-3xl font-extralight tracking-tight mb-6">{t.notFound.heading}</h2>
-			<p class="text-sm font-light text-neutral-500 leading-relaxed mb-16 max-w-sm mx-auto">{t.notFound.description}</p>
-			<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-				<a href={`/${lang}/${style}/`} class="border border-neutral-900 px-8 py-3 text-xs tracking-widest uppercase hover:bg-neutral-900 hover:text-white transition-colors duration-300">{t.notFound.backHome}</a>
-				<a href={`/${lang}/${style}/cats`} class="border border-neutral-300 px-8 py-3 text-xs tracking-widest uppercase text-neutral-500 hover:border-neutral-900 hover:text-neutral-900 transition-colors duration-300">{t.notFound.meetCats}</a>
+	<main class="px-6 lg:px-12">
+		<div class="max-w-2xl mx-auto pt-40 md:pt-56 pb-32 md:pb-48">
+			<p class="text-[8rem] md:text-[12rem] font-extralight tracking-tighter leading-none text-stone-100">{t.notFound.title}</p>
+			<h2 class="mt-8 md:mt-12 text-2xl md:text-4xl font-extralight tracking-tight">{t.notFound.heading}</h2>
+			<p class="mt-6 md:mt-8 text-base font-light text-stone-400 leading-relaxed max-w-sm">{t.notFound.description}</p>
+			<div class="mt-16 md:mt-24 flex flex-col sm:flex-row gap-6 sm:gap-12">
+				<a href={`/${lang}/${style}/`} class="text-sm font-light text-neutral-900 underline underline-offset-4 decoration-stone-300 hover:decoration-neutral-900 transition-colors duration-500">{t.notFound.backHome} &rarr;</a>
+				<a href={`/${lang}/${style}/cats`} class="text-sm font-light text-stone-400 underline underline-offset-4 decoration-stone-200 hover:decoration-neutral-900 hover:text-neutral-900 transition-colors duration-500">{t.notFound.meetCats} &rarr;</a>
 			</div>
-		</section>
+		</div>
 	</main>
 </div>
