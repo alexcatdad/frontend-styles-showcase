@@ -2,121 +2,199 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-white font-sans">
-	<!-- Navigation bar -->
-	<nav class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-1 flex flex-wrap items-center justify-center gap-1">
+<div class="min-h-screen bg-gray-300 font-mono text-center">
+
+	<!-- Browser Chrome Title Bar -->
+	<div class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 text-white px-3 py-1.5 flex items-center justify-between border-b-2 border-blue-900">
+		<span class="text-xs font-bold tracking-wide">:// {t.donate.title} - Netscape Navigator</span>
+		<div class="flex gap-1">
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">_</span>
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">&square;</span>
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">X</span>
+		</div>
+	</div>
+
+	<!-- Navigation -->
+	<nav class="bg-gray-400 border-t-2 border-l-2 border-gray-200 border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 p-2 flex flex-wrap items-center justify-center gap-1.5">
 		{nav.map((item: any) => (
-			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 px-3 py-1 text-sm font-bold text-blue-800 no-underline hover:bg-gray-200 active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white">
+			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-700 border-r-gray-700 px-4 py-1.5 text-xs font-bold text-blue-900 no-underline uppercase tracking-wider hover:bg-gray-200 active:border-t-gray-700 active:border-l-gray-700 active:border-b-white active:border-r-white">
 				{item.label}
 			</a>
 		))}
 	</nav>
 
-	<!-- Marquee banner -->
-	<div class="bg-fuchsia-600 text-yellow-300 text-center py-2 font-bold text-lg tracking-widest">
-		<span>~*~ Help Our Cats Today! ~*~</span>
+	<!-- Marquee Banner -->
+	<div class="bg-fuchsia-700 text-yellow-300 text-center py-1.5 font-bold text-sm tracking-widest border-y-2 border-fuchsia-900">
+		<span class="animate-pulse">*+*+*+* Help Our Cats Today!! Every Dollar Counts! *+*+*+*</span>
 	</div>
 
-	<main class="max-w-4xl mx-auto px-2 py-4">
-		<!-- Page header -->
-		<div class="text-center mb-4">
-			<h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2">{t.donate.title}</h1>
-			<p class="text-lg text-fuchsia-600 font-bold">{t.donate.subtitle}</p>
-		</div>
+	<div class="max-w-5xl mx-auto px-2 py-4">
 
-		<hr class="border-t-2 border-gray-400 my-4" />
-
-		<!-- Blinking new badge -->
-		<div class="text-center mb-4">
-			<span class="inline-block bg-red-600 text-white font-bold text-xs px-3 py-1 border-2 border-yellow-400 animate-pulse">*** DONATE NOW ***</span>
-		</div>
-
-		<!-- Monthly Tiers Section -->
-		<section class="mb-6">
-			<div class="bg-blue-700 text-white text-center py-2 px-3 border-t-2 border-l-2 border-blue-400 border-b-2 border-r-2 border-b-blue-900 border-r-blue-900 mb-3">
-				<h2 class="text-xl font-bold">{t.donate.monthly}</h2>
+		<!-- Page Header Window -->
+		<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300 mb-4">
+			<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-3 py-1.5 flex items-center justify-between">
+				<span class="text-sm font-bold">{t.donate.title}</span>
+				<div class="flex gap-1">
+					<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">_</span>
+					<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">X</span>
+				</div>
 			</div>
+			<div class="p-4 bg-white m-1 border-t-2 border-l-2 border-gray-500 border-b-2 border-r-2 border-b-white border-r-white">
+				<h1 class="text-2xl md:text-3xl font-bold text-fuchsia-700 mb-1 drop-shadow">{t.donate.title}</h1>
+				<p class="text-sm text-blue-800 font-bold">{t.donate.subtitle}</p>
+			</div>
+		</div>
 
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-				{monthlyTiers.map((tier: any) => (
-					<div class={`border-t-2 border-l-2 border-b-2 border-r-2 p-0 ${tier.highlighted ? 'border-t-yellow-300 border-l-yellow-300 border-b-yellow-700 border-r-yellow-700 bg-yellow-50' : 'border-t-white border-l-white border-b-gray-500 border-r-gray-500 bg-gray-200'}`}>
-						{tier.highlighted && (
-							<div class="bg-red-600 text-white text-center text-xs font-bold py-1 animate-pulse">
-								{t.donate.mostPopular}
-							</div>
-						)}
+		<!-- Badge row -->
+		<div class="flex flex-wrap items-center justify-center gap-2 mb-3">
+			<span class="bg-red-600 text-white font-bold text-[10px] px-2 py-1 border-2 border-yellow-400 animate-pulse">*** DONATE NOW ***</span>
+			<span class="bg-lime-400 text-black font-bold text-[10px] px-2 py-1 border-2 border-lime-700">100% Goes to the Cats!</span>
+		</div>
 
-						<div class="p-3 text-center">
-							<h3 class="text-lg font-bold text-blue-800 mb-1">{tier.name}</h3>
-							<p class="mb-2">
-								<span class="text-3xl font-bold text-fuchsia-600">${tier.amount}</span>
-								<span class="text-sm text-gray-600 font-bold">{t.donate.perMonth}</span>
-							</p>
-							<p class="text-sm text-gray-700 mb-3">{tier.description}</p>
+		<p class="text-xs text-fuchsia-500 mb-4">*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*</p>
 
-							<!-- Perks list -->
-							<ul class="text-left mb-3">
-								{tier.perks.map((perk: string) => (
-									<li class="text-sm text-gray-700 mb-1 pl-4 relative before:content-['*'] before:absolute before:left-0 before:text-lime-600 before:font-bold">{perk}</li>
-								))}
-							</ul>
-
-							<button type="button" class={`w-full font-bold py-2 px-4 text-sm border-t-2 border-l-2 border-b-2 border-r-2 cursor-pointer ${tier.highlighted ? 'bg-fuchsia-500 text-white border-t-fuchsia-300 border-l-fuchsia-300 border-b-fuchsia-800 border-r-fuchsia-800 hover:bg-fuchsia-400' : 'bg-lime-400 text-black border-t-lime-200 border-l-lime-200 border-b-lime-700 border-r-lime-700 hover:bg-lime-300'} active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white`}>
-								{t.donate.choose} {tier.name}
-							</button>
-						</div>
+		<!-- ===== MONTHLY TIERS: Win95 Window Frame ===== -->
+		<section class="mb-4">
+			<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300">
+				<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-yellow-300 px-3 py-1.5 text-sm font-bold flex items-center justify-between">
+					<span>{t.donate.monthly}</span>
+					<div class="flex gap-0.5">
+						<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">_</span>
+						<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">X</span>
 					</div>
-				))}
+				</div>
+				<div class="p-2 bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white">
+					<!-- Tier Table -->
+					<div class="border-2 border-gray-600 mb-2 overflow-x-auto">
+						<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-yellow-300 font-bold text-[10px] uppercase tracking-wider">
+							<div class="grid grid-cols-[1fr_auto_1fr_auto] min-w-[400px]">
+								<div class="border border-blue-500 px-2 py-1">Tier</div>
+								<div class="border border-blue-500 px-2 py-1">Amount</div>
+								<div class="border border-blue-500 px-2 py-1">Description</div>
+								<div class="border border-blue-500 px-2 py-1">Action</div>
+							</div>
+						</div>
+						{monthlyTiers.map((tier: any, i: number) => (
+							<div class={`grid grid-cols-[1fr_auto_1fr_auto] min-w-[400px] text-[11px] ${tier.highlighted ? 'bg-yellow-100 border-l-4 border-l-fuchsia-500' : i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+								<div class="border border-gray-400 px-2 py-2 font-bold text-blue-800 text-left">
+									{tier.name}
+									{tier.highlighted && <span class="text-red-600 text-[9px] ml-1 animate-pulse">HOT!</span>}
+								</div>
+								<div class="border border-gray-400 px-2 py-2 font-bold text-fuchsia-700">
+									${tier.amount}<span class="text-[9px] text-gray-500">/{t.donate.perMonth}</span>
+								</div>
+								<div class="border border-gray-400 px-2 py-2 text-gray-700 text-left">{tier.description}</div>
+								<div class="border border-gray-400 px-2 py-2">
+									<button type="button" class={`font-bold py-1 px-3 text-[10px] border-t-2 border-l-2 border-b-2 border-r-2 cursor-pointer ${tier.highlighted ? 'bg-fuchsia-500 text-white border-t-fuchsia-300 border-l-fuchsia-300 border-b-fuchsia-800 border-r-fuchsia-800 hover:bg-fuchsia-400 animate-pulse' : 'bg-lime-400 text-black border-t-lime-200 border-l-lime-200 border-b-lime-700 border-r-lime-700 hover:bg-lime-300'} active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white`}>
+										{t.donate.choose}
+									</button>
+								</div>
+							</div>
+						))}
+					</div>
+
+					<!-- Expanded tier cards -->
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-3">
+						{monthlyTiers.map((tier: any) => (
+							<div class={`border-t-2 border-l-2 border-b-2 border-r-2 ${tier.highlighted ? 'border-t-yellow-300 border-l-yellow-300 border-b-yellow-700 border-r-yellow-700' : 'border-t-white border-l-white border-b-gray-600 border-r-gray-600'} bg-gray-300`}>
+								{/* Title bar */}
+								<div class={`px-2 py-1 text-xs font-bold flex items-center justify-between ${tier.highlighted ? 'bg-gradient-to-r from-fuchsia-700 to-fuchsia-500 text-yellow-300' : 'bg-gradient-to-r from-blue-800 to-blue-600 text-white'}`}>
+									<span>{tier.name}</span>
+									<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">X</span>
+								</div>
+
+								{tier.highlighted && (
+									<div class="bg-red-600 text-white text-center text-[9px] font-bold py-0.5 animate-pulse">
+										*** {t.donate.mostPopular} ***
+									</div>
+								)}
+
+								<div class="bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white p-3">
+									<p class="mb-2">
+										<span class="text-2xl font-bold text-fuchsia-600">${tier.amount}</span>
+										<span class="text-[10px] text-gray-600 font-bold">/{t.donate.perMonth}</span>
+									</p>
+									<p class="text-[11px] text-gray-700 mb-2">{tier.description}</p>
+
+									<!-- Perks as bullet list -->
+									<ul class="text-left mb-3">
+										{tier.perks.map((perk: string) => (
+											<li class="text-[11px] text-gray-700 mb-0.5 pl-3 relative before:content-['*'] before:absolute before:left-0 before:text-lime-600 before:font-bold">{perk}</li>
+										))}
+									</ul>
+
+									<button type="button" class={`w-full font-bold py-1.5 px-3 text-xs border-t-2 border-l-2 border-b-2 border-r-2 cursor-pointer ${tier.highlighted ? 'bg-fuchsia-500 text-white border-t-fuchsia-300 border-l-fuchsia-300 border-b-fuchsia-800 border-r-fuchsia-800 hover:bg-fuchsia-400' : 'bg-lime-400 text-black border-t-lime-200 border-l-lime-200 border-b-lime-700 border-r-lime-700 hover:bg-lime-300'} active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white`}>
+										{t.donate.choose} {tier.name}
+									</button>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
 			</div>
 		</section>
 
-		<hr class="border-t-4 border-double border-gray-400 my-6" />
+		<hr class="border-t-4 border-double border-gray-500 my-4" />
+		<p class="text-xs text-fuchsia-500 mb-4">*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*</p>
 
-		<!-- One Time Tiers Section -->
-		<section class="mb-6">
-			<div class="bg-fuchsia-700 text-white text-center py-2 px-3 border-t-2 border-l-2 border-fuchsia-400 border-b-2 border-r-2 border-b-fuchsia-900 border-r-fuchsia-900 mb-3">
-				<h2 class="text-xl font-bold">{t.donate.oneTime}</h2>
-			</div>
-
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-				{oneTimeTiers.map((tier: any) => (
-					<div class={`border-t-2 border-l-2 border-b-2 border-r-2 p-0 ${tier.highlighted ? 'border-t-yellow-300 border-l-yellow-300 border-b-yellow-700 border-r-yellow-700 bg-yellow-50' : 'border-t-white border-l-white border-b-gray-500 border-r-gray-500 bg-gray-200'}`}>
-						{tier.highlighted && (
-							<div class="bg-red-600 text-white text-center text-xs font-bold py-1 animate-pulse">
-								{t.donate.greatestImpact}
-							</div>
-						)}
-
-						<div class="p-3 text-center">
-							<h3 class="text-lg font-bold text-fuchsia-700 mb-1">{tier.name}</h3>
-							<p class="mb-2">
-								<span class="text-3xl font-bold text-blue-700">${tier.amount}</span>
-							</p>
-							<p class="text-sm text-gray-700 mb-3">{tier.description}</p>
-
-							<!-- Perks list -->
-							<ul class="text-left mb-3">
-								{tier.perks.map((perk: string) => (
-									<li class="text-sm text-gray-700 mb-1 pl-4 relative before:content-['*'] before:absolute before:left-0 before:text-fuchsia-600 before:font-bold">{perk}</li>
-								))}
-							</ul>
-
-							<button type="button" class={`w-full font-bold py-2 px-4 text-sm border-t-2 border-l-2 border-b-2 border-r-2 cursor-pointer ${tier.highlighted ? 'bg-yellow-400 text-black border-t-yellow-200 border-l-yellow-200 border-b-yellow-700 border-r-yellow-700 hover:bg-yellow-300' : 'bg-blue-600 text-white border-t-blue-400 border-l-blue-400 border-b-blue-900 border-r-blue-900 hover:bg-blue-500'} active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white`}>
-								{t.donate.give} ${tier.amount}
-							</button>
-						</div>
+		<!-- ===== ONE-TIME TIERS: Second Window Frame ===== -->
+		<section class="mb-4">
+			<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300">
+				<div class="bg-gradient-to-r from-fuchsia-700 to-fuchsia-500 text-yellow-300 px-3 py-1.5 text-sm font-bold flex items-center justify-between">
+					<span>{t.donate.oneTime}</span>
+					<div class="flex gap-0.5">
+						<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">_</span>
+						<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">X</span>
 					</div>
-				))}
+				</div>
+				<div class="p-2 bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white">
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+						{oneTimeTiers.map((tier: any) => (
+							<div class={`border-t-2 border-l-2 border-b-2 border-r-2 ${tier.highlighted ? 'border-t-yellow-300 border-l-yellow-300 border-b-yellow-700 border-r-yellow-700' : 'border-t-white border-l-white border-b-gray-600 border-r-gray-600'} bg-gray-300`}>
+								{/* Title bar */}
+								<div class={`px-2 py-1 text-xs font-bold flex items-center justify-between ${tier.highlighted ? 'bg-gradient-to-r from-yellow-600 to-yellow-500 text-black' : 'bg-gradient-to-r from-blue-800 to-blue-600 text-white'}`}>
+									<span>{tier.name}</span>
+									<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">X</span>
+								</div>
+
+								{tier.highlighted && (
+									<div class="bg-red-600 text-white text-center text-[9px] font-bold py-0.5 animate-pulse">
+										*** {t.donate.greatestImpact} ***
+									</div>
+								)}
+
+								<div class="bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white p-3">
+									<p class="mb-2">
+										<span class="text-2xl font-bold text-blue-700">${tier.amount}</span>
+									</p>
+									<p class="text-[11px] text-gray-700 mb-2">{tier.description}</p>
+
+									<ul class="text-left mb-3">
+										{tier.perks.map((perk: string) => (
+											<li class="text-[11px] text-gray-700 mb-0.5 pl-3 relative before:content-['*'] before:absolute before:left-0 before:text-fuchsia-600 before:font-bold">{perk}</li>
+										))}
+									</ul>
+
+									<button type="button" class={`w-full font-bold py-1.5 px-3 text-xs border-t-2 border-l-2 border-b-2 border-r-2 cursor-pointer ${tier.highlighted ? 'bg-yellow-400 text-black border-t-yellow-200 border-l-yellow-200 border-b-yellow-700 border-r-yellow-700 hover:bg-yellow-300' : 'bg-blue-600 text-white border-t-blue-400 border-l-blue-400 border-b-blue-900 border-r-blue-900 hover:bg-blue-500'} active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white`}>
+										{t.donate.give} ${tier.amount}
+									</button>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
 			</div>
 		</section>
 
-		<hr class="border-t-2 border-gray-400 my-4" />
+		<hr class="border-t-4 border-double border-gray-500 my-4" />
 
-		<!-- Guestbook-style footer -->
-		<div class="text-center mb-4">
-			<div class="inline-block bg-black text-lime-400 font-mono text-xs px-3 py-1 border-2 border-gray-500">
-				Thank you for supporting our cats!
+		<!-- Footer badges -->
+		<div class="flex flex-wrap items-center justify-center gap-3 mb-3">
+			<div class="bg-black text-lime-400 font-mono text-[10px] px-3 py-1 border border-gray-600">
+				Generous donors: 00{monthlyTiers.length}89
 			</div>
+			<span class="bg-yellow-400 text-black font-bold text-[10px] px-2 py-1 border-2 border-yellow-700">Secure PayPal Checkout</span>
+			<span class="bg-blue-700 text-white font-bold text-[10px] px-2 py-1 border border-blue-900">SSL Encrypted</span>
 		</div>
-	</main>
+	</div>
 </div>

@@ -2,66 +2,142 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-white font-sans">
-	<!-- Navigation bar - Win95 beveled look -->
-	<nav class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-1 flex flex-wrap items-center justify-center gap-1">
+<div class="min-h-screen bg-gray-300 font-mono text-center">
+
+	<!-- Browser Chrome Title Bar -->
+	<div class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 text-white px-3 py-1.5 flex items-center justify-between border-b-2 border-blue-900">
+		<span class="text-xs font-bold tracking-wide">:// {t.cats.title} - Netscape Navigator</span>
+		<div class="flex gap-1">
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">_</span>
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">&square;</span>
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">X</span>
+		</div>
+	</div>
+
+	<!-- Navigation Frame -->
+	<nav class="bg-gray-400 border-t-2 border-l-2 border-gray-200 border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 p-2 flex flex-wrap items-center justify-center gap-1.5">
 		{nav.map((item: any) => (
-			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 px-3 py-1 text-sm font-bold text-blue-800 no-underline hover:bg-gray-200 active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white">
+			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-700 border-r-gray-700 px-4 py-1.5 text-xs font-bold text-blue-900 no-underline uppercase tracking-wider hover:bg-gray-200 active:border-t-gray-700 active:border-l-gray-700 active:border-b-white active:border-r-white">
 				{item.label}
 			</a>
 		))}
 	</nav>
 
-	<!-- Marquee banner -->
-	<div class="bg-fuchsia-600 text-yellow-300 text-center py-2 font-bold text-lg tracking-widest">
-		<span>~*~ Meet Our Cats! ~*~</span>
+	<!-- Marquee Banner -->
+	<div class="bg-fuchsia-700 text-yellow-300 text-center py-1.5 font-bold text-sm tracking-widest border-y-2 border-fuchsia-900">
+		<span class="animate-pulse">*~*~* {t.cats.title} - Click on a cat to learn more! *~*~*</span>
 	</div>
 
-	<main class="max-w-4xl mx-auto px-2 py-4">
-		<!-- Page header -->
-		<div class="text-center mb-4">
-			<h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2">{t.cats.title}</h1>
-			<p class="text-lg text-fuchsia-600 font-bold">{t.cats.subtitle}</p>
+	<div class="max-w-5xl mx-auto px-2 py-4">
+
+		<!-- Page Header Window -->
+		<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300 mb-4">
+			<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-3 py-1.5 flex items-center justify-between">
+				<span class="text-sm font-bold">{t.cats.title}</span>
+				<div class="flex gap-1">
+					<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">_</span>
+					<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">X</span>
+				</div>
+			</div>
+			<div class="p-4 bg-white m-1 border-t-2 border-l-2 border-gray-500 border-b-2 border-r-2 border-b-white border-r-white">
+				<h1 class="text-2xl md:text-3xl font-bold text-fuchsia-700 mb-1 drop-shadow">{t.cats.title}</h1>
+				<p class="text-sm text-blue-800 font-bold">{t.cats.subtitle}</p>
+			</div>
 		</div>
 
-		<hr class="border-t-2 border-gray-400 my-4" />
+		<!-- Under construction + badge row -->
+		<div class="flex flex-wrap items-center justify-center gap-2 mb-3">
+			<span class="bg-yellow-400 text-black font-bold text-[10px] px-2 py-1 border-2 border-yellow-700 animate-pulse">!! UNDER CONSTRUCTION !!</span>
+			<span class="bg-red-600 text-white font-bold text-[10px] px-2 py-1 border-2 border-red-800 animate-pulse">*** NEW CATS ***</span>
+		</div>
 
-		<!-- Cats grid - table-style layout -->
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			{cats.map((cat: any) => (
+		<p class="text-xs text-fuchsia-500 mb-3">*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*</p>
+
+		<!-- ===== CATS TABLE with visible borders and alternating row colors ===== -->
+		<div class="border-3 border-gray-700 mb-4 overflow-x-auto">
+			<!-- Table Header -->
+			<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-yellow-300 font-bold text-xs uppercase tracking-wider">
+				<div class="grid grid-cols-[1fr_1fr_auto_auto_1fr_auto] min-w-[600px]">
+					<div class="border border-blue-500 px-2 py-1.5">{t.cats.name || 'Name'}</div>
+					<div class="border border-blue-500 px-2 py-1.5">{t.cats.breed}</div>
+					<div class="border border-blue-500 px-2 py-1.5">{t.cats.age}</div>
+					<div class="border border-blue-500 px-2 py-1.5">{t.cats.gender}</div>
+					<div class="border border-blue-500 px-2 py-1.5">Personality</div>
+					<div class="border border-blue-500 px-2 py-1.5">{t.cats.status}</div>
+				</div>
+			</div>
+			<!-- Table Rows -->
+			{cats.map((cat: any, i: number) => (
 				<a href={`/${lang}/${style}/cats/${cat.id}`} class="no-underline block group">
-					<div class="bg-gray-200 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-0 hover:bg-gray-100">
-						<!-- Cat name header bar -->
-						<div class="bg-blue-700 text-white px-3 py-2 flex items-center justify-between">
-							<h2 class="text-lg font-bold">{cat.name}</h2>
-							<span class="bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 border border-yellow-600">{cat.status}</span>
-						</div>
-
-						<!-- Cat details in table format -->
-						<div class="p-3">
-							<p class="text-sm font-bold text-gray-700 mb-2">{cat.breed} &middot; {cat.age} &middot; {cat.gender}</p>
-							<p class="text-sm text-gray-600 mb-3">{cat.description.slice(0, 100)}...</p>
-
-							<!-- Personality traits as badges -->
-							<div class="flex flex-wrap gap-1 mb-2">
-								{cat.personality.map((trait: string) => (
-									<span class="bg-lime-300 text-black text-xs font-bold px-2 py-0.5 border border-lime-600">{trait}</span>
+					<div class={`grid grid-cols-[1fr_1fr_auto_auto_1fr_auto] min-w-[600px] text-xs font-bold hover:bg-fuchsia-100 ${i % 2 === 0 ? 'bg-white' : 'bg-yellow-50'}`}>
+						<div class="border border-gray-400 px-2 py-2 text-blue-700 underline group-hover:text-fuchsia-600">{cat.name}</div>
+						<div class="border border-gray-400 px-2 py-2 text-gray-800">{cat.breed}</div>
+						<div class="border border-gray-400 px-2 py-2 text-gray-700">{cat.age}</div>
+						<div class="border border-gray-400 px-2 py-2 text-gray-700">{cat.gender}</div>
+						<div class="border border-gray-400 px-2 py-2">
+							<div class="flex flex-wrap gap-0.5">
+								{cat.personality.slice(0, 3).map((trait: string) => (
+									<span class="bg-lime-300 text-black text-[10px] px-1 py-0 border border-lime-600">{trait}</span>
 								))}
 							</div>
-
-							<!-- Click to view link -->
-							<p class="text-blue-700 text-sm font-bold underline group-hover:text-fuchsia-600">Click here to learn more &gt;&gt;</p>
+						</div>
+						<div class="border border-gray-400 px-2 py-2">
+							<span class="bg-yellow-400 text-black text-[10px] px-1.5 py-0.5 border border-yellow-600">{cat.status}</span>
 						</div>
 					</div>
 				</a>
 			))}
 		</div>
 
-		<hr class="border-t-2 border-gray-400 my-6" />
+		<hr class="border-t-4 border-double border-gray-500 my-4" />
 
-		<!-- Under construction notice -->
-		<div class="text-center mb-4">
-			<span class="inline-block bg-red-600 text-white font-bold text-xs px-3 py-1 border-2 border-yellow-400">More cats coming soon!</span>
+		<!-- ===== CATS CARDS: Win95 Windows Grid ===== -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+			{cats.map((cat: any) => (
+				<a href={`/${lang}/${style}/cats/${cat.id}`} class="no-underline block group">
+					<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300">
+						<!-- Cat Title Bar -->
+						<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-2 py-1 flex items-center justify-between">
+							<span class="text-xs font-bold">{cat.name}.exe</span>
+							<div class="flex gap-0.5">
+								<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">_</span>
+								<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">X</span>
+							</div>
+						</div>
+						<!-- Cat Card Body -->
+						<div class="bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white p-3">
+							<div class="flex items-start gap-3">
+								<!-- ASCII Cat Art -->
+								<div class="bg-black text-lime-400 font-mono text-[10px] leading-tight px-2 py-1.5 border border-gray-600 shrink-0 hidden sm:block">
+									<p class="m-0">&nbsp;/\_/\</p>
+									<p class="m-0">( o.o )</p>
+									<p class="m-0">&nbsp;&gt; ^ &lt;</p>
+								</div>
+								<div class="text-left flex-1 min-w-0">
+									<h2 class="text-base font-bold text-fuchsia-700 group-hover:text-blue-700 mb-1">{cat.name}</h2>
+									<p class="text-[11px] text-gray-700 mb-1">{cat.breed} | {cat.age} | {cat.gender}</p>
+									<p class="text-[11px] text-gray-600 mb-2 line-clamp-2">{cat.description}</p>
+									<div class="flex flex-wrap gap-1 mb-2">
+										{cat.personality.map((trait: string) => (
+											<span class="bg-cyan-200 text-black text-[10px] font-bold px-1.5 py-0 border border-cyan-500">{trait}</span>
+										))}
+									</div>
+									<p class="text-blue-700 text-[11px] font-bold underline group-hover:text-fuchsia-600">Click Here to Learn More!! &gt;&gt;</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			))}
 		</div>
-	</main>
+
+		<!-- More cats coming badge -->
+		<div class="flex flex-wrap items-center justify-center gap-3 mb-3">
+			<span class="bg-red-600 text-white font-bold text-[10px] px-3 py-1 border-2 border-yellow-400 animate-pulse">More cats coming soon!</span>
+			<div class="bg-black text-lime-400 font-mono text-[10px] px-3 py-1 border border-gray-600">
+				Page hits: 013{cats.length}47
+			</div>
+		</div>
+
+	</div>
 </div>

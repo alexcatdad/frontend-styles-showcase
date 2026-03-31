@@ -2,78 +2,140 @@
 const { lang, style, nav, posts, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-white font-sans">
-	<!-- Navigation bar -->
-	<nav class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 p-1 flex flex-wrap items-center justify-center gap-1">
+<div class="min-h-screen bg-gray-300 font-mono text-center">
+
+	<!-- Browser Chrome Title Bar -->
+	<div class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 text-white px-3 py-1.5 flex items-center justify-between border-b-2 border-blue-900">
+		<span class="text-xs font-bold tracking-wide">:// {t.blog.title} - Netscape Navigator</span>
+		<div class="flex gap-1">
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">_</span>
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">&square;</span>
+			<span class="inline-block w-4 h-4 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[10px] leading-4 font-bold">X</span>
+		</div>
+	</div>
+
+	<!-- Navigation -->
+	<nav class="bg-gray-400 border-t-2 border-l-2 border-gray-200 border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 p-2 flex flex-wrap items-center justify-center gap-1.5">
 		{nav.map((item: any) => (
-			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 px-3 py-1 text-sm font-bold text-blue-800 no-underline hover:bg-gray-200 active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white">
+			<a href={item.href} class="bg-gray-300 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-700 border-r-gray-700 px-4 py-1.5 text-xs font-bold text-blue-900 no-underline uppercase tracking-wider hover:bg-gray-200 active:border-t-gray-700 active:border-l-gray-700 active:border-b-white active:border-r-white">
 				{item.label}
 			</a>
 		))}
 	</nav>
 
-	<!-- Banner -->
-	<div class="bg-blue-700 text-yellow-300 text-center py-2 font-bold text-lg tracking-widest">
-		<span>~*~ Cat Sanctuary Blog ~*~</span>
+	<!-- Marquee Banner -->
+	<div class="bg-blue-900 text-yellow-300 text-center py-1.5 font-bold text-sm tracking-widest border-y-2 border-blue-700">
+		<span class="animate-pulse">*~*~* Cat Sanctuary Blog - Read the latest news! *~*~*</span>
 	</div>
 
-	<main class="max-w-3xl mx-auto px-2 py-4">
-		<!-- Page header -->
-		<div class="text-center mb-4">
-			<h1 class="text-3xl md:text-4xl font-bold text-fuchsia-700 mb-2">{t.blog.title}</h1>
-			<p class="text-lg text-blue-800 font-bold">{t.blog.subtitle}</p>
+	<div class="max-w-4xl mx-auto px-2 py-4">
+
+		<!-- Page Header Window -->
+		<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300 mb-4">
+			<div class="bg-gradient-to-r from-fuchsia-700 to-fuchsia-500 text-white px-3 py-1.5 flex items-center justify-between">
+				<span class="text-sm font-bold">{t.blog.title}</span>
+				<div class="flex gap-1">
+					<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">_</span>
+					<span class="inline-block w-3.5 h-3.5 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[9px] leading-3.5 font-bold">X</span>
+				</div>
+			</div>
+			<div class="p-4 bg-white m-1 border-t-2 border-l-2 border-gray-500 border-b-2 border-r-2 border-b-white border-r-white">
+				<h1 class="text-2xl md:text-3xl font-bold text-blue-800 mb-1 drop-shadow">{t.blog.title}</h1>
+				<p class="text-sm text-fuchsia-600 font-bold">{t.blog.subtitle}</p>
+			</div>
 		</div>
 
-		<hr class="border-t-2 border-gray-400 my-4" />
-
-		<!-- New badge -->
-		<div class="text-center mb-4">
-			<span class="inline-block bg-red-600 text-white font-bold text-xs px-3 py-1 border-2 border-yellow-400 animate-pulse">*** LATEST POSTS ***</span>
+		<!-- Badge row -->
+		<div class="flex flex-wrap items-center justify-center gap-2 mb-3">
+			<span class="bg-red-600 text-white font-bold text-[10px] px-2 py-1 border-2 border-yellow-400 animate-pulse">*** LATEST POSTS ***</span>
+			<span class="bg-lime-400 text-black font-bold text-[10px] px-2 py-1 border-2 border-lime-700">UPDATED WEEKLY</span>
 		</div>
 
-		<!-- Blog posts list -->
-		<div class="space-y-4">
+		<p class="text-xs text-fuchsia-500 mb-3">*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*</p>
+
+		<!-- ===== BLOG POSTS TABLE ===== -->
+		<div class="border-3 border-gray-700 mb-4 overflow-x-auto">
+			<!-- Table header -->
+			<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-yellow-300 font-bold text-[10px] uppercase tracking-wider">
+				<div class="grid grid-cols-[auto_1fr_auto_auto] min-w-[500px]">
+					<div class="border border-blue-500 px-2 py-1.5">Date</div>
+					<div class="border border-blue-500 px-2 py-1.5">Subject</div>
+					<div class="border border-blue-500 px-2 py-1.5">Author</div>
+					<div class="border border-blue-500 px-2 py-1.5">Tags</div>
+				</div>
+			</div>
+			{posts.map((post: any, i: number) => (
+				<a href={`/${lang}/${style}/blog/${post.slug}`} class="no-underline block group">
+					<div class={`grid grid-cols-[auto_1fr_auto_auto] min-w-[500px] text-[11px] font-bold hover:bg-fuchsia-100 ${i % 2 === 0 ? 'bg-white' : 'bg-yellow-50'}`}>
+						<div class="border border-gray-400 px-2 py-2 text-gray-600">
+							<time datetime={post.date}>{post.date}</time>
+						</div>
+						<div class="border border-gray-400 px-2 py-2 text-left text-blue-700 underline group-hover:text-fuchsia-600">{post.title}</div>
+						<div class="border border-gray-400 px-2 py-2 text-gray-700">{post.author}</div>
+						<div class="border border-gray-400 px-2 py-2">
+							<div class="flex flex-wrap gap-0.5">
+								{post.tags.slice(0, 2).map((tag: string) => (
+									<span class="bg-lime-300 text-black text-[9px] px-1 border border-lime-600">{tag}</span>
+								))}
+							</div>
+						</div>
+					</div>
+				</a>
+			))}
+		</div>
+
+		<hr class="border-t-4 border-double border-gray-500 my-4" />
+
+		<!-- ===== BLOG POST CARDS as Win95 Windows ===== -->
+		<div class="space-y-3 mb-4">
 			{posts.map((post: any) => (
 				<a href={`/${lang}/${style}/blog/${post.slug}`} class="no-underline block group">
-					<article class="bg-gray-200 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-500 border-r-gray-500 hover:bg-gray-100">
-						<!-- Title bar like a window -->
-						<div class="bg-blue-700 text-white px-3 py-2 flex items-center justify-between">
-							<h2 class="text-lg font-bold">{post.title}</h2>
-							<div class="flex gap-1">
-								<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
-								<span class="inline-block w-3 h-3 bg-gray-300 border border-gray-500"></span>
+					<article class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300">
+						<!-- Window Title Bar -->
+						<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-3 py-1.5 flex items-center justify-between">
+							<span class="text-xs font-bold truncate mr-2">{post.title}</span>
+							<div class="flex gap-0.5 shrink-0">
+								<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">_</span>
+								<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">&square;</span>
+								<span class="inline-block w-3 h-3 bg-gray-300 border-t border-l border-white border-b border-r border-b-gray-600 border-r-gray-600 text-center text-[8px] leading-3 font-bold">X</span>
 							</div>
 						</div>
 
-						<!-- Post content -->
-						<div class="p-3">
-							<time datetime={post.date} class="text-xs font-bold text-gray-500 block mb-1">{post.date}</time>
-							<p class="text-sm text-gray-700 mb-2">{post.excerpt}</p>
+						<!-- Window Body -->
+						<div class="bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white p-3 text-left">
+							<!-- Meta row: date and author -->
+							<div class="flex flex-wrap items-center gap-3 mb-2 text-[10px]">
+								<span class="bg-gray-200 text-gray-700 font-bold px-2 py-0.5 border border-gray-400">
+									<time datetime={post.date}>{post.date}</time>
+								</span>
+								<span class="text-gray-600 font-bold">{t.blog.by} {post.author}</span>
+							</div>
 
-							<!-- Tags -->
+							<p class="text-xs text-gray-700 mb-2 leading-relaxed">{post.excerpt}</p>
+
+							<!-- Tags row -->
 							<div class="flex flex-wrap gap-1 mb-2">
 								{post.tags.map((tag: string) => (
-									<span class="bg-yellow-300 text-black text-xs font-bold px-2 py-0.5 border border-yellow-600">{tag}</span>
+									<span class="bg-yellow-300 text-black text-[10px] font-bold px-1.5 py-0.5 border border-yellow-600">{tag}</span>
 								))}
 							</div>
 
-							<div class="flex items-center justify-between">
-								<span class="text-xs text-gray-600 font-bold">{t.blog.by} {post.author}</span>
-								<span class="text-blue-700 text-xs font-bold underline group-hover:text-fuchsia-600">Read More &gt;&gt;</span>
-							</div>
+							<p class="text-blue-700 text-[11px] font-bold underline group-hover:text-fuchsia-600">Click Here to Read More!! &gt;&gt;</p>
 						</div>
 					</article>
 				</a>
 			))}
 		</div>
 
-		<hr class="border-t-2 border-gray-400 my-6" />
+		<hr class="border-t-4 border-double border-gray-500 my-4" />
 
-		<!-- Visitor counter -->
-		<div class="text-center mb-4">
-			<div class="inline-block bg-black text-lime-400 font-mono text-xs px-3 py-1 border-2 border-gray-500">
+		<!-- Footer badges -->
+		<div class="flex flex-wrap items-center justify-center gap-3 mb-3">
+			<div class="bg-black text-lime-400 font-mono text-[10px] px-3 py-1 border border-gray-600">
 				Page hits: 009{posts.length}47
 			</div>
+			<span class="bg-fuchsia-600 text-white font-bold text-[10px] px-2 py-1 border border-fuchsia-800">Email the Webmaster!</span>
+			<span class="bg-blue-700 text-white font-bold text-[10px] px-2 py-1 border border-blue-900">GeoCities</span>
 		</div>
-	</main>
+	</div>
 </div>
