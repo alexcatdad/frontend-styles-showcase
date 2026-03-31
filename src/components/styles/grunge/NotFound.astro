@@ -2,18 +2,28 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-stone-900 text-stone-300 font-mono">
+	<nav class="border-b-4 border-stone-700 bg-stone-950 px-4 py-3 md:px-8">
+		<div class="mx-auto flex max-w-5xl flex-wrap items-center gap-1">
+			{nav.map((item: any, i: number) => (
+				<>
+					{i > 0 && <span class="text-stone-600 select-none">|</span>}
+					<a href={item.href} class="px-2 py-1 text-sm uppercase tracking-widest text-stone-400 hover:text-amber-200 hover:line-through transition-colors">{item.label}</a>
+				</>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<section>
-		<h1>{t.notFound.title}</h1>
-		<h2>{t.notFound.heading}</h2>
-		<p>{t.notFound.description}</p>
-		<a href={`/${lang}/${style}/`}>{t.notFound.backHome}</a>
-		<a href={`/${lang}/${style}/cats`}>{t.notFound.meetCats}</a>
-	</section>
-</main>
+	<main class="flex min-h-[80vh] items-center justify-center px-4 py-12 md:px-8">
+		<section class="text-center">
+			<p class="mb-4 text-xs uppercase tracking-[0.3em] text-stone-600">✗ ✗ ✗</p>
+			<h1 class="text-8xl font-black uppercase tracking-tight text-stone-700 md:text-[12rem]">{t.notFound.title}</h1>
+			<h2 class="mt-2 text-2xl font-black uppercase tracking-tight text-stone-300 md:text-4xl">{t.notFound.heading}</h2>
+			<p class="mx-auto mt-4 max-w-md text-stone-500">{t.notFound.description}</p>
+			<div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+				<a href={`/${lang}/${style}/`} class="border-2 border-stone-300 bg-stone-300 px-6 py-3 text-sm font-bold uppercase tracking-widest text-stone-900 hover:bg-transparent hover:text-stone-300 transition-colors">{t.notFound.backHome}</a>
+				<a href={`/${lang}/${style}/cats`} class="border-2 border-amber-700 px-6 py-3 text-sm font-bold uppercase tracking-widest text-amber-600 hover:bg-amber-700 hover:text-stone-100 transition-colors">{t.notFound.meetCats}</a>
+			</div>
+		</section>
+	</main>
+</div>

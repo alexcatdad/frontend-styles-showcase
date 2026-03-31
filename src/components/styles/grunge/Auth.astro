@@ -2,46 +2,56 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<section>
-		<h1>{t.auth.title}</h1>
-		<p>{t.auth.subtitle}</p>
-
-		<form>
-			<div>
-				<label for="email">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" />
-			</div>
-			<div>
-				<label for="password">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" />
-			</div>
-			<div>
-				<label>
-					<input type="checkbox" name="remember" />
-					{t.auth.rememberMe}
-				</label>
-				<a href="#">{t.auth.forgotPassword}</a>
-			</div>
-			<button type="submit">{t.auth.signIn}</button>
-		</form>
-
-		<div>
-			<p>{t.auth.continueWith}</p>
-			<div>
-				<button type="button">Google</button>
-				<button type="button">Apple</button>
-			</div>
+<div class="min-h-screen bg-stone-900 text-stone-300 font-mono">
+	<nav class="border-b-4 border-stone-700 bg-stone-950 px-4 py-3 md:px-8">
+		<div class="mx-auto flex max-w-5xl flex-wrap items-center gap-1">
+			{nav.map((item: any, i: number) => (
+				<>
+					{i > 0 && <span class="text-stone-600 select-none">|</span>}
+					<a href={item.href} class="px-2 py-1 text-sm uppercase tracking-widest text-stone-400 hover:text-amber-200 hover:line-through transition-colors">{item.label}</a>
+				</>
+			))}
 		</div>
+	</nav>
 
-		<p>
-			{t.auth.noAccount} <a href="#">{t.auth.signUp}</a>
-		</p>
-	</section>
-</main>
+	<main class="flex min-h-[80vh] items-center justify-center px-4 py-12 md:px-8">
+		<section class="w-full max-w-md border-2 border-stone-700 bg-stone-800/30 p-6 md:p-10">
+			<div class="mb-8 border-b-2 border-stone-700 pb-6">
+				<p class="mb-1 text-xs uppercase tracking-[0.3em] text-stone-600">● ● ●</p>
+				<h1 class="text-3xl font-black uppercase tracking-tight text-stone-100 md:text-4xl">{t.auth.title}</h1>
+				<p class="mt-2 text-sm text-stone-500">{t.auth.subtitle}</p>
+			</div>
+
+			<form class="space-y-5">
+				<div>
+					<label for="email" class="mb-1.5 block text-[10px] uppercase tracking-widest text-stone-500">{t.auth.email}</label>
+					<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full border-2 border-stone-600 bg-stone-900 px-4 py-2.5 text-sm text-stone-300 placeholder-stone-700 focus:border-amber-700 focus:outline-none" />
+				</div>
+				<div>
+					<label for="password" class="mb-1.5 block text-[10px] uppercase tracking-widest text-stone-500">{t.auth.password}</label>
+					<input type="password" id="password" name="password" placeholder="••••••••" class="w-full border-2 border-stone-600 bg-stone-900 px-4 py-2.5 text-sm text-stone-300 placeholder-stone-700 focus:border-amber-700 focus:outline-none" />
+				</div>
+				<div class="flex items-center justify-between">
+					<label class="flex items-center gap-2 text-xs text-stone-500 cursor-pointer">
+						<input type="checkbox" name="remember" class="size-4 accent-amber-700" />
+						{t.auth.rememberMe}
+					</label>
+					<a href="#" class="text-xs text-stone-500 hover:text-amber-400 transition-colors">{t.auth.forgotPassword}</a>
+				</div>
+				<button type="submit" class="w-full border-2 border-stone-300 bg-stone-300 py-3 text-sm font-bold uppercase tracking-widest text-stone-900 hover:bg-transparent hover:text-stone-300 transition-colors">{t.auth.signIn}</button>
+			</form>
+
+			<div class="mt-8 border-t-2 border-stone-700 pt-6">
+				<p class="mb-4 text-center text-[10px] uppercase tracking-widest text-stone-600">{t.auth.continueWith}</p>
+				<div class="grid grid-cols-2 gap-3">
+					<button type="button" class="border-2 border-stone-600 py-2.5 text-xs font-bold uppercase tracking-widest text-stone-400 hover:border-stone-400 hover:text-stone-200 transition-colors">Google</button>
+					<button type="button" class="border-2 border-stone-600 py-2.5 text-xs font-bold uppercase tracking-widest text-stone-400 hover:border-stone-400 hover:text-stone-200 transition-colors">Apple</button>
+				</div>
+			</div>
+
+			<p class="mt-6 text-center text-xs text-stone-500">
+				{t.auth.noAccount} <a href="#" class="text-stone-300 hover:text-amber-400 transition-colors">{t.auth.signUp}</a>
+			</p>
+		</section>
+	</main>
+</div>
