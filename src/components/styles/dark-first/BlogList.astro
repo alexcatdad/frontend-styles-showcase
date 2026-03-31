@@ -2,31 +2,42 @@
 const { lang, style, nav, posts, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200">
+	<nav class="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-xl">
+		<div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+			<div class="flex items-center gap-1">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-white/5 hover:text-white">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.blog.title}</h1>
-	<p>{t.blog.subtitle}</p>
+	<main class="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
+		<div class="mb-10">
+			<h1 class="mb-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">{t.blog.title}</h1>
+			<p class="text-lg text-gray-500">{t.blog.subtitle}</p>
+		</div>
 
-	<div>
-		{posts.map((post: any) => (
-			<a href={`/${lang}/${style}/blog/${post.slug}`}>
-				<article>
-					<time datetime={post.date}>{post.date}</time>
-					<h2>{post.title}</h2>
-					<p>{post.excerpt}</p>
-					<div>
-						{post.tags.map((tag: string) => (
-							<span>{tag}</span>
-						))}
-					</div>
-					<span>{t.blog.by} {post.author}</span>
-				</article>
-			</a>
-		))}
-	</div>
-</main>
+		<div class="space-y-4">
+			{posts.map((post: any) => (
+				<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block rounded-xl border border-white/5 bg-gray-900/50 p-6 transition-all hover:border-emerald-500/30 hover:bg-gray-900">
+					<article>
+						<div class="mb-3 flex items-center gap-3">
+							<time datetime={post.date} class="text-xs font-medium text-gray-600">{post.date}</time>
+							<span class="text-xs text-gray-700">|</span>
+							<span class="text-xs text-gray-500">{t.blog.by} {post.author}</span>
+						</div>
+						<h2 class="mb-2 text-xl font-semibold text-white group-hover:text-emerald-400 transition-colors">{post.title}</h2>
+						<p class="mb-4 text-sm leading-relaxed text-gray-400">{post.excerpt}</p>
+						<div class="flex flex-wrap gap-1.5">
+							{post.tags.map((tag: string) => (
+								<span class="rounded-md border border-white/5 bg-white/5 px-2 py-0.5 text-xs text-gray-500">{tag}</span>
+							))}
+						</div>
+					</article>
+				</a>
+			))}
+		</div>
+	</main>
+</div>

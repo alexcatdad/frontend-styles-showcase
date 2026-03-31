@@ -2,31 +2,41 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200">
+	<nav class="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-xl">
+		<div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+			<div class="flex items-center gap-1">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-white/5 hover:text-white">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
+	<main class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+		<div class="mb-10">
+			<h1 class="mb-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">{t.cats.title}</h1>
+			<p class="text-lg text-gray-500">{t.cats.subtitle}</p>
+		</div>
 
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
+		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			{cats.map((cat: any) => (
+				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group rounded-xl border border-white/5 bg-gray-900/50 p-5 transition-all hover:border-emerald-500/30 hover:bg-gray-900">
+					<div class="mb-3 flex items-start justify-between">
+						<div>
+							<h2 class="text-lg font-semibold text-white group-hover:text-emerald-400 transition-colors">{cat.name}</h2>
+							<p class="text-sm text-gray-500">{cat.breed} · {cat.age} · {cat.gender}</p>
+						</div>
+						<span class={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${cat.status === 'available' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}`}>{cat.status}</span>
+					</div>
+					<p class="mb-4 text-sm leading-relaxed text-gray-400">{cat.description.slice(0, 100)}...</p>
+					<div class="flex flex-wrap gap-1.5">
 						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
+							<span class="rounded-md border border-white/5 bg-white/5 px-2 py-0.5 text-xs text-gray-400">{trait}</span>
 						))}
 					</div>
-					<span>{cat.status}</span>
-				</div>
-			</a>
-		))}
-	</div>
-</main>
+				</a>
+			))}
+		</div>
+	</main>
+</div>
