@@ -2,31 +2,49 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
+	<!-- Nav -->
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
+			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{t.cats.title}</a>
+			<div class="flex items-center gap-8">
+				{nav.map((item: any) => (
+					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
 
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
+	<main>
+		<!-- Header -->
+		<section class="pt-40 pb-20 px-6 lg:px-8 max-w-4xl mx-auto">
+			<h1 class="text-4xl md:text-6xl font-extralight tracking-tight mb-6">{t.cats.title}</h1>
+			<p class="text-lg font-light text-neutral-500 max-w-xl leading-relaxed">{t.cats.subtitle}</p>
+		</section>
 
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
-						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
-						))}
-					</div>
-					<span>{cat.status}</span>
-				</div>
-			</a>
-		))}
-	</div>
-</main>
+		<!-- Cat Grid -->
+		<section class="px-6 lg:px-8 pb-32">
+			<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-neutral-100">
+				{cats.map((cat: any) => (
+					<a href={`/${lang}/${style}/cats/${cat.id}`} class="group bg-white p-8 lg:p-10 block hover:bg-neutral-50 transition-colors duration-300">
+						<!-- Image placeholder -->
+						<div class="aspect-[4/3] bg-stone-100 mb-8"></div>
+						<div>
+							<div class="flex items-baseline justify-between mb-3">
+								<h2 class="text-xl font-light tracking-tight">{cat.name}</h2>
+								<span class="text-[10px] tracking-widest uppercase text-stone-400">{cat.status}</span>
+							</div>
+							<p class="text-xs tracking-widest uppercase text-neutral-400 mb-4">{cat.breed} — {cat.age} — {cat.gender}</p>
+							<p class="text-sm font-light text-neutral-500 leading-relaxed mb-6">{cat.description.slice(0, 100)}...</p>
+							<div class="flex flex-wrap gap-3">
+								{cat.personality.map((trait: string) => (
+									<span class="text-[10px] tracking-widest uppercase text-neutral-400 border border-neutral-200 px-2 py-1">{trait}</span>
+								))}
+							</div>
+						</div>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

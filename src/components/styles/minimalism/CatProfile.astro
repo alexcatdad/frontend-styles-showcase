@@ -2,47 +2,90 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
+	<!-- Nav -->
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
+			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{cat.name}</a>
+			<div class="flex items-center gap-8">
+				{nav.map((item: any) => (
+					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
 
-<main>
-	<a href={`/${lang}/${style}/cats`}>&larr; {t.cats.backToAll}</a>
-
-	<article>
-		<h1>{cat.name}</h1>
-
-		<dl>
-			<dt>{t.cats.breed}</dt><dd>{cat.breed}</dd>
-			<dt>{t.cats.age}</dt><dd>{cat.age}</dd>
-			<dt>{t.cats.gender}</dt><dd>{cat.gender}</dd>
-			<dt>{t.cats.color}</dt><dd>{cat.color}</dd>
-			<dt>{t.cats.arrived}</dt><dd>{cat.arrivalDate}</dd>
-			<dt>{t.cats.status}</dt><dd>{cat.status}</dd>
-		</dl>
-
-		<div>
-			{cat.personality.map((trait: string) => (
-				<span>{trait}</span>
-			))}
+	<main>
+		<!-- Back link -->
+		<div class="pt-28 px-6 lg:px-8 max-w-4xl mx-auto">
+			<a href={`/${lang}/${style}/cats`} class="text-xs tracking-widest uppercase text-neutral-400 hover:text-neutral-900 transition-colors duration-300">&larr; {t.cats.backToAll}</a>
 		</div>
 
-		<p>{cat.description}</p>
+		<article class="pt-12 pb-32 px-6 lg:px-8 max-w-4xl mx-auto">
+			<!-- Image placeholder -->
+			<div class="aspect-[16/9] bg-stone-100 mb-16"></div>
 
-		<a href={`/${lang}/${style}/auth`}>{t.cats.adopt} {cat.name}</a>
-	</article>
+			<!-- Name -->
+			<h1 class="text-4xl md:text-6xl font-extralight tracking-tight mb-16">{cat.name}</h1>
 
-	<section>
-		<h2>{t.cats.otherCats}</h2>
-		<div>
-			{otherCats.map((c: any) => (
-				<a href={`/${lang}/${style}/cats/${c.id}`}>
-					<h3>{c.name}</h3>
-					<p>{c.breed} · {c.age}</p>
-				</a>
-			))}
-		</div>
-	</section>
-</main>
+			<!-- Details grid -->
+			<dl class="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-8 mb-16">
+				<div>
+					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.breed}</dt>
+					<dd class="text-sm font-light">{cat.breed}</dd>
+				</div>
+				<div>
+					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.age}</dt>
+					<dd class="text-sm font-light">{cat.age}</dd>
+				</div>
+				<div>
+					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.gender}</dt>
+					<dd class="text-sm font-light">{cat.gender}</dd>
+				</div>
+				<div>
+					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.color}</dt>
+					<dd class="text-sm font-light">{cat.color}</dd>
+				</div>
+				<div>
+					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.arrived}</dt>
+					<dd class="text-sm font-light">{cat.arrivalDate}</dd>
+				</div>
+				<div>
+					<dt class="text-[10px] tracking-widest uppercase text-stone-400 mb-1">{t.cats.status}</dt>
+					<dd class="text-sm font-light">{cat.status}</dd>
+				</div>
+			</dl>
+
+			<!-- Personality -->
+			<div class="flex flex-wrap gap-3 mb-16">
+				{cat.personality.map((trait: string) => (
+					<span class="text-[10px] tracking-widest uppercase text-neutral-400 border border-neutral-200 px-3 py-1.5">{trait}</span>
+				))}
+			</div>
+
+			<!-- Description -->
+			<div class="border-t border-neutral-100 pt-16 mb-20">
+				<p class="text-lg md:text-xl font-light leading-relaxed text-neutral-600 max-w-2xl">{cat.description}</p>
+			</div>
+
+			<!-- Adopt CTA -->
+			<a href={`/${lang}/${style}/auth`} class="inline-block border border-neutral-900 px-10 py-4 text-xs tracking-widest uppercase hover:bg-neutral-900 hover:text-white transition-colors duration-300">{t.cats.adopt} {cat.name}</a>
+		</article>
+
+		<!-- Other Cats -->
+		<section class="border-t border-neutral-100 py-32 px-6 lg:px-8">
+			<div class="max-w-4xl mx-auto">
+				<h2 class="text-xs tracking-widest uppercase text-stone-400 mb-16">{t.cats.otherCats}</h2>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+					{otherCats.map((c: any) => (
+						<a href={`/${lang}/${style}/cats/${c.id}`} class="group block">
+							<div class="aspect-[4/3] bg-stone-100 mb-6 group-hover:bg-stone-200 transition-colors duration-300"></div>
+							<h3 class="text-lg font-light tracking-tight mb-1">{c.name}</h3>
+							<p class="text-xs tracking-widest uppercase text-neutral-400">{c.breed} — {c.age}</p>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+</div>

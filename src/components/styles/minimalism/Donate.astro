@@ -2,57 +2,79 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
-
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
-				</div>
-			))}
+<div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
+	<!-- Nav -->
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
+			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{t.donate.title}</a>
+			<div class="flex items-center gap-8">
+				{nav.map((item: any) => (
+					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+				))}
+			</div>
 		</div>
-	</section>
+	</nav>
 
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
+	<main>
+		<!-- Header -->
+		<section class="pt-40 pb-20 px-6 lg:px-8 max-w-4xl mx-auto text-center">
+			<h1 class="text-4xl md:text-6xl font-extralight tracking-tight mb-6">{t.donate.title}</h1>
+			<p class="text-lg font-light text-neutral-500 max-w-xl mx-auto leading-relaxed">{t.donate.subtitle}</p>
+		</section>
+
+		<!-- Monthly Tiers -->
+		<section class="px-6 lg:px-8 pb-32">
+			<div class="max-w-5xl mx-auto">
+				<h2 class="text-xs tracking-widest uppercase text-stone-400 mb-12">{t.donate.monthly}</h2>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-neutral-100">
+					{monthlyTiers.map((tier: any) => (
+						<div class={`bg-white p-8 lg:p-10 flex flex-col ${tier.highlighted ? 'ring-1 ring-neutral-900' : ''}`}>
+							{tier.highlighted && (
+								<span class="text-[10px] tracking-widest uppercase text-neutral-900 mb-6 font-medium">{t.donate.mostPopular}</span>
+							)}
+							<h3 class="text-lg font-light tracking-tight mb-2">{tier.name}</h3>
+							<p class="mb-6">
+								<span class="text-3xl font-extralight tracking-tight">${tier.amount}</span>
+								<span class="text-xs text-neutral-400 ml-1">{t.donate.perMonth}</span>
+							</p>
+							<p class="text-sm font-light text-neutral-500 leading-relaxed mb-8">{tier.description}</p>
+							<ul class="space-y-3 mb-10 flex-1">
+								{tier.perks.map((perk: string) => (
+									<li class="text-xs font-light text-neutral-500 pl-4 relative before:content-[''] before:absolute before:left-0 before:top-1.5 before:w-1.5 before:h-px before:bg-neutral-300">{perk}</li>
+								))}
+							</ul>
+							<button type="button" class={`w-full py-3 text-xs tracking-widest uppercase transition-colors duration-300 ${tier.highlighted ? 'bg-neutral-900 text-white hover:bg-neutral-800' : 'border border-neutral-300 text-neutral-500 hover:border-neutral-900 hover:text-neutral-900'}`}>{t.donate.choose} {tier.name}</button>
+						</div>
+					))}
 				</div>
-			))}
-		</div>
-	</section>
-</main>
+			</div>
+		</section>
+
+		<!-- One-Time Tiers -->
+		<section class="px-6 lg:px-8 pb-32 border-t border-neutral-100 pt-32">
+			<div class="max-w-5xl mx-auto">
+				<h2 class="text-xs tracking-widest uppercase text-stone-400 mb-12">{t.donate.oneTime}</h2>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-neutral-100">
+					{oneTimeTiers.map((tier: any) => (
+						<div class={`bg-white p-8 lg:p-10 flex flex-col ${tier.highlighted ? 'ring-1 ring-neutral-900' : ''}`}>
+							{tier.highlighted && (
+								<span class="text-[10px] tracking-widest uppercase text-neutral-900 mb-6 font-medium">{t.donate.greatestImpact}</span>
+							)}
+							<h3 class="text-lg font-light tracking-tight mb-2">{tier.name}</h3>
+							<p class="mb-6">
+								<span class="text-3xl font-extralight tracking-tight">${tier.amount}</span>
+							</p>
+							<p class="text-sm font-light text-neutral-500 leading-relaxed mb-8">{tier.description}</p>
+							<ul class="space-y-3 mb-10 flex-1">
+								{tier.perks.map((perk: string) => (
+									<li class="text-xs font-light text-neutral-500 pl-4 relative before:content-[''] before:absolute before:left-0 before:top-1.5 before:w-1.5 before:h-px before:bg-neutral-300">{perk}</li>
+								))}
+							</ul>
+							<button type="button" class={`w-full py-3 text-xs tracking-widest uppercase transition-colors duration-300 ${tier.highlighted ? 'bg-neutral-900 text-white hover:bg-neutral-800' : 'border border-neutral-300 text-neutral-500 hover:border-neutral-900 hover:text-neutral-900'}`}>{t.donate.give} ${tier.amount}</button>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+</div>

@@ -2,42 +2,64 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<section>
-		<h1>{sanctuary.name}</h1>
-		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
-	</section>
-
-	<section>
-		<h2>{t.home.mission}</h2>
-		<p>{sanctuary.mission}</p>
-	</section>
-
-	<section>
-		{sanctuary.stats.map((stat: any) => (
-			<div>
-				<span>{stat.value}</span>
-				<span>{stat.label}</span>
+<div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
+	<!-- Nav -->
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+		<div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
+			<a href={`/${lang}/${style}/`} class="text-sm font-medium tracking-wide uppercase">{sanctuary.name}</a>
+			<div class="flex items-center gap-8">
+				{nav.map((item: any) => (
+					<a href={item.href} class="text-xs tracking-widest uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-300">{item.label}</a>
+				))}
+				<span class="text-[10px] tracking-widest uppercase text-stone-400 border border-stone-300 px-2 py-0.5">{meta.name}</span>
 			</div>
-		))}
-	</section>
+		</div>
+	</nav>
 
-	<section>
-		<h2>{t.home.aboutUs}</h2>
-		{sanctuary.about.map((paragraph: string) => (
-			<p>{paragraph}</p>
-		))}
-	</section>
-</main>
+	<main>
+		<!-- Hero -->
+		<section class="pt-48 pb-32 px-6 lg:px-8 max-w-4xl mx-auto text-center">
+			<h1 class="text-5xl md:text-7xl lg:text-8xl font-extralight tracking-tight leading-none mb-8">{sanctuary.name}</h1>
+			<p class="text-lg md:text-xl font-light text-neutral-500 max-w-2xl mx-auto mb-16 leading-relaxed">{sanctuary.tagline}</p>
+			<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+				<a href={`/${lang}/${style}/cats`} class="border border-neutral-900 px-8 py-3 text-xs tracking-widest uppercase hover:bg-neutral-900 hover:text-white transition-colors duration-300">{t.home.meetCats}</a>
+				<a href={`/${lang}/${style}/donate`} class="border border-neutral-300 px-8 py-3 text-xs tracking-widest uppercase text-neutral-500 hover:border-neutral-900 hover:text-neutral-900 transition-colors duration-300">{t.home.donate}</a>
+			</div>
+		</section>
 
-<footer>
-	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
-</footer>
+		<!-- Mission -->
+		<section class="py-32 px-6 lg:px-8 max-w-3xl mx-auto">
+			<h2 class="text-xs tracking-widest uppercase text-stone-400 mb-8">{t.home.mission}</h2>
+			<p class="text-2xl md:text-3xl font-light leading-relaxed text-neutral-700">{sanctuary.mission}</p>
+		</section>
+
+		<!-- Stats -->
+		<section class="py-24 px-6 lg:px-8 border-t border-neutral-100">
+			<div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-16">
+				{sanctuary.stats.map((stat: any) => (
+					<div class="text-center">
+						<span class="block text-4xl md:text-5xl font-extralight tracking-tight mb-2">{stat.value}</span>
+						<span class="text-xs tracking-widest uppercase text-neutral-400">{stat.label}</span>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- About -->
+		<section class="py-32 px-6 lg:px-8 max-w-3xl mx-auto">
+			<h2 class="text-xs tracking-widest uppercase text-stone-400 mb-12">{t.home.aboutUs}</h2>
+			<div class="space-y-8">
+				{sanctuary.about.map((paragraph: string) => (
+					<p class="text-lg font-light leading-relaxed text-neutral-600">{paragraph}</p>
+				))}
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="border-t border-neutral-100 py-16 px-6 lg:px-8">
+		<div class="max-w-6xl mx-auto text-center">
+			<p class="text-xs tracking-widest uppercase text-neutral-400">&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
+		</div>
+	</footer>
+</div>
