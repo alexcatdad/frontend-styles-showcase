@@ -2,57 +2,87 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
-
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
-				</div>
+<div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
+	<nav class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
+		<div class="flex items-center gap-2">
+			<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-semibold uppercase tracking-widest text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">Neumorphism</span>
+		</div>
+		<div class="flex flex-wrap items-center gap-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
 			))}
 		</div>
-	</section>
+	</nav>
 
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
-				</div>
-			))}
+	<main class="mx-auto max-w-5xl space-y-12 px-4 py-8 sm:px-6">
+		<div class="text-center">
+			<h1 class="mb-3 text-4xl font-bold tracking-tight text-[#3a4a5c]">{t.donate.title}</h1>
+			<p class="text-lg font-medium text-[#6b7b8d]">{t.donate.subtitle}</p>
 		</div>
-	</section>
-</main>
+
+		<section>
+			<h2 class="mb-6 text-center text-2xl font-bold text-[#3a4a5c]">{t.donate.monthly}</h2>
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+				{monthlyTiers.map((tier: any) => (
+					<div class:list={[
+						"relative flex flex-col rounded-2xl bg-[#e0e5ec] p-6",
+						tier.highlighted
+							? "shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff] ring-2 ring-[#6b8aab]/30"
+							: "shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]"
+					]}>
+						{tier.highlighted && (
+							<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-lg bg-[#e0e5ec] px-4 py-1 text-xs font-bold uppercase tracking-wide text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">{t.donate.mostPopular}</span>
+						)}
+						<h3 class="mb-2 text-lg font-bold text-[#3a4a5c]">{tier.name}</h3>
+						<p class="mb-3">
+							<span class="text-3xl font-bold text-[#6b8aab]">${tier.amount}</span>
+							<span class="text-sm font-medium text-[#6b7b8d]">{t.donate.perMonth}</span>
+						</p>
+						<p class="mb-4 text-sm text-[#5a6a7c]">{tier.description}</p>
+						<ul class="mb-6 flex-1 space-y-2">
+							{tier.perks.map((perk: string) => (
+								<li class="flex items-start gap-2 text-sm text-[#5a6a7c]">
+									<span class="mt-0.5 text-[#6b8aab]">&#10003;</span>
+									{perk}
+								</li>
+							))}
+						</ul>
+						<button type="button" class="w-full rounded-xl bg-[#e0e5ec] px-6 py-3 font-semibold text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] active:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.donate.choose} {tier.name}</button>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<section>
+			<h2 class="mb-6 text-center text-2xl font-bold text-[#3a4a5c]">{t.donate.oneTime}</h2>
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+				{oneTimeTiers.map((tier: any) => (
+					<div class:list={[
+						"relative flex flex-col rounded-2xl bg-[#e0e5ec] p-6",
+						tier.highlighted
+							? "shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff] ring-2 ring-[#6b8aab]/30"
+							: "shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]"
+					]}>
+						{tier.highlighted && (
+							<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-lg bg-[#e0e5ec] px-4 py-1 text-xs font-bold uppercase tracking-wide text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">{t.donate.greatestImpact}</span>
+						)}
+						<h3 class="mb-2 text-lg font-bold text-[#3a4a5c]">{tier.name}</h3>
+						<p class="mb-3">
+							<span class="text-3xl font-bold text-[#6b8aab]">${tier.amount}</span>
+						</p>
+						<p class="mb-4 text-sm text-[#5a6a7c]">{tier.description}</p>
+						<ul class="mb-6 flex-1 space-y-2">
+							{tier.perks.map((perk: string) => (
+								<li class="flex items-start gap-2 text-sm text-[#5a6a7c]">
+									<span class="mt-0.5 text-[#6b8aab]">&#10003;</span>
+									{perk}
+								</li>
+							))}
+						</ul>
+						<button type="button" class="w-full rounded-xl bg-[#e0e5ec] px-6 py-3 font-semibold text-[#6b8aab] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] active:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.donate.give} ${tier.amount}</button>
+					</div>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

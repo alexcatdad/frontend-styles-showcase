@@ -2,42 +2,55 @@
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
+	<nav class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
+		<div class="flex items-center gap-2">
+			<span class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-semibold uppercase tracking-widest text-[#6b8aab] shadow-[3px_3px_6px_#b8bec7,-3px_-3px_6px_#ffffff]">{meta.name}</span>
+		</div>
+		<div class="flex flex-wrap items-center gap-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="rounded-xl bg-[#e0e5ec] px-4 py-2 text-sm font-medium text-[#4a5568] shadow-[4px_4px_8px_#b8bec7,-4px_-4px_8px_#ffffff] transition-all duration-200 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff] hover:text-[#6b8aab]">{item.label}</a>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<section>
-		<h1>{sanctuary.name}</h1>
-		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
-	</section>
-
-	<section>
-		<h2>{t.home.mission}</h2>
-		<p>{sanctuary.mission}</p>
-	</section>
-
-	<section>
-		{sanctuary.stats.map((stat: any) => (
-			<div>
-				<span>{stat.value}</span>
-				<span>{stat.label}</span>
+	<main class="mx-auto max-w-5xl space-y-12 px-4 py-8 sm:px-6">
+		<section class="rounded-2xl bg-[#e0e5ec] p-8 text-center shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] sm:p-12">
+			<h1 class="mb-4 text-4xl font-bold tracking-tight text-[#3a4a5c] sm:text-5xl">{sanctuary.name}</h1>
+			<p class="mx-auto mb-8 max-w-2xl text-lg font-medium text-[#6b7b8d]">{sanctuary.tagline}</p>
+			<div class="flex flex-wrap justify-center gap-4">
+				<a href={`/${lang}/${style}/cats`} class="rounded-xl bg-[#e0e5ec] px-8 py-3 font-semibold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.home.meetCats}</a>
+				<a href={`/${lang}/${style}/donate`} class="rounded-xl bg-[#e0e5ec] px-8 py-3 font-semibold text-[#6b8aab] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-200 hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">{t.home.donate}</a>
 			</div>
-		))}
-	</section>
+		</section>
 
-	<section>
-		<h2>{t.home.aboutUs}</h2>
-		{sanctuary.about.map((paragraph: string) => (
-			<p>{paragraph}</p>
-		))}
-	</section>
-</main>
+		<section class="rounded-2xl bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+			<h2 class="mb-4 text-2xl font-bold text-[#3a4a5c]">{t.home.mission}</h2>
+			<p class="text-[#5a6a7c] leading-relaxed">{sanctuary.mission}</p>
+		</section>
 
-<footer>
-	<p>&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
-</footer>
+		<section class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+			{sanctuary.stats.map((stat: any) => (
+				<div class="flex flex-col items-center gap-2 rounded-2xl bg-[#e0e5ec] p-6 shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff]">
+					<span class="text-3xl font-bold text-[#6b8aab]">{stat.value}</span>
+					<span class="text-sm font-medium text-[#6b7b8d]">{stat.label}</span>
+				</div>
+			))}
+		</section>
+
+		<section class="rounded-2xl bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff]">
+			<h2 class="mb-6 text-2xl font-bold text-[#3a4a5c]">{t.home.aboutUs}</h2>
+			<div class="space-y-4">
+				{sanctuary.about.map((paragraph: string) => (
+					<p class="text-[#5a6a7c] leading-relaxed">{paragraph}</p>
+				))}
+			</div>
+		</section>
+	</main>
+
+	<footer class="mx-auto max-w-5xl px-4 py-8 text-center sm:px-6">
+		<div class="rounded-2xl bg-[#e0e5ec] p-6 shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
+			<p class="text-sm font-medium text-[#6b7b8d]">&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.</p>
+		</div>
+	</footer>
+</div>
