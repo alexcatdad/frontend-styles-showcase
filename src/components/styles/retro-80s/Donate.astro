@@ -2,149 +2,230 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gray-950 text-white font-sans">
+<div class="min-h-screen bg-gray-950 text-white font-mono relative overflow-hidden">
+	<!-- Perspective grid background -->
+	<div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+		<div class="absolute inset-0 bg-[linear-gradient(rgba(255,0,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,0,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+		<div class="absolute bottom-0 left-0 right-0 h-[40vh] bg-[linear-gradient(rgba(0,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.07)_1px,transparent_1px)] bg-[size:40px_40px] [transform:perspective(400px)_rotateX(60deg)] origin-bottom"></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-gray-950 via-transparent to-gray-950"></div>
+	</div>
+
+	<!-- Scanline overlay -->
+	<div class="fixed inset-0 z-[1] pointer-events-none bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.08)_2px,rgba(0,0,0,0.08)_4px)]" aria-hidden="true"></div>
+
 	<!-- Nav -->
-	<nav class="border-b border-fuchsia-500/30 bg-gray-950/90 backdrop-blur-sm sticky top-0 z-50">
-		<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-2 items-center justify-center sm:justify-start">
-			{nav.map((item: any) => (
-				<a
-					href={item.href}
-					class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-fuchsia-300 hover:text-white hover:bg-fuchsia-500/20 rounded transition-all duration-300 hover:shadow-[0_0_15px_#ff00ff55]"
-				>
-					{item.label}
-				</a>
-			))}
+	<nav class="relative z-50 sticky top-0">
+		<div class="mx-4 mt-3 rounded-lg border border-fuchsia-500/40 bg-gray-950/95 backdrop-blur-md shadow-[0_0_20px_#ff00ff33,inset_0_0_20px_#ff00ff11]">
+			<div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap gap-1 items-center justify-center sm:justify-start">
+				{nav.map((item: any) => (
+					<a
+						href={item.href}
+						class="px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-fuchsia-300 hover:text-white rounded transition-all duration-300 hover:bg-fuchsia-500/20 hover:shadow-[0_0_15px_#ff00ff55] relative after:absolute after:bottom-0 after:left-2 after:right-2 after:h-px after:bg-fuchsia-500 after:opacity-0 hover:after:opacity-100 after:shadow-[0_0_8px_#ff00ff] after:transition-opacity"
+					>
+						{item.label}
+					</a>
+				))}
+			</div>
 		</div>
 	</nav>
 
-	<main class="max-w-6xl mx-auto px-4 py-16">
+	<main class="relative z-10 max-w-6xl mx-auto px-4 py-16">
 		<!-- Header -->
 		<div class="text-center mb-16">
-			<h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent">
-				{t.donate.title}
+			<p class="text-xs uppercase tracking-[0.4em] text-fuchsia-500/60 mb-3 font-bold">// insert credits //</p>
+			<h1 class="text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tight leading-none">
+				<span class="bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_#ff00ff]">
+					{t.donate.title}
+				</span>
 			</h1>
-			<div class="h-1 w-32 mx-auto my-6 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent shadow-[0_0_20px_#ff00ff]"></div>
-			<p class="text-lg text-cyan-300/80 tracking-wide max-w-2xl mx-auto">{t.donate.subtitle}</p>
+			<div class="h-1 w-40 mx-auto mt-6 mb-5 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent shadow-[0_0_25px_#ff00ff,0_0_50px_#ff00ff44] retro-pulse"></div>
+			<p class="text-lg text-cyan-300/80 tracking-[0.15em] max-w-2xl mx-auto font-light">{t.donate.subtitle}</p>
 		</div>
 
-		<!-- Monthly Tiers -->
+		<!-- Monthly Tiers — arcade level selector -->
 		<section class="mb-20">
-			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-wider text-center text-fuchsia-400 mb-2">
-				{t.donate.monthly}
-			</h2>
-			<div class="h-0.5 w-24 mx-auto mb-10 bg-cyan-400 shadow-[0_0_10px_#00ffff]"></div>
+			<div class="flex items-center gap-4 mb-10">
+				<div class="h-px flex-1 bg-gradient-to-r from-transparent to-fuchsia-500/40"></div>
+				<h2 class="text-xl sm:text-2xl font-black uppercase tracking-[0.2em] text-fuchsia-400 shrink-0 drop-shadow-[0_0_15px_#ff00ff66]">
+					{t.donate.monthly}
+				</h2>
+				<div class="h-px flex-1 bg-gradient-to-l from-transparent to-fuchsia-500/40"></div>
+			</div>
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 				{monthlyTiers.map((tier: any) => (
 					<div
-						class={`relative rounded-lg overflow-hidden flex flex-col ${
+						class={`group relative rounded-sm overflow-hidden flex flex-col transition-all duration-500 ${
 							tier.highlighted
-								? "border-2 border-fuchsia-400 bg-gray-900/80 shadow-[0_0_30px_#ff00ff55,0_0_60px_#ff00ff22]"
-								: "border border-fuchsia-500/30 bg-gray-900/60 shadow-[0_0_10px_#ff00ff22]"
+								? "border-2 border-fuchsia-400 bg-gray-900/70 shadow-[0_0_40px_#ff00ff55,0_0_80px_#ff00ff22] hover:shadow-[0_0_50px_#ff00ff77,0_0_100px_#ff00ff33] scale-[1.02]"
+								: "border border-fuchsia-500/25 bg-gray-900/50 shadow-[0_0_10px_#ff00ff22] hover:shadow-[0_0_30px_#ff00ff44,0_0_60px_#ff00ff11] hover:border-fuchsia-400/50"
 						}`}
 					>
+						{/* Top glow bar */}
+						<div class={`h-0.5 ${tier.highlighted ? 'bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 shadow-[0_0_15px_#ff00ff]' : 'bg-gradient-to-r from-fuchsia-500/40 via-cyan-400/40 to-fuchsia-500/40'}`}></div>
+
 						{tier.highlighted && (
-							<div class="bg-gradient-to-r from-fuchsia-600 via-fuchsia-500 to-fuchsia-600 py-2 text-center">
-								<span class="text-xs font-black uppercase tracking-widest text-white">
+							<div class="bg-fuchsia-600/80 py-2 text-center border-b border-fuchsia-400/40">
+								<span class="text-[10px] font-black uppercase tracking-[0.3em] text-white retro-flicker">
 									{t.donate.mostPopular}
 								</span>
 							</div>
 						)}
+
+						{/* Corner brackets for highlighted */}
+						{tier.highlighted && (
+							<>
+								<div class="absolute top-2 left-2 w-3 h-3 border-t border-l border-cyan-400 shadow-[0_0_6px_#00ffff]"></div>
+								<div class="absolute top-2 right-2 w-3 h-3 border-t border-r border-cyan-400 shadow-[0_0_6px_#00ffff]"></div>
+								<div class="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-cyan-400 shadow-[0_0_6px_#00ffff]"></div>
+								<div class="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-cyan-400 shadow-[0_0_6px_#00ffff]"></div>
+							</>
+						)}
+
 						<div class="p-6 flex flex-col flex-1">
-							<h3 class="text-xl font-black uppercase tracking-wide text-cyan-300 mb-3">
+							<h3 class="text-xl font-black uppercase tracking-[0.15em] text-cyan-300 mb-4">
 								{tier.name}
 							</h3>
 							<p class="mb-4">
-								<span class="text-4xl font-black bg-gradient-to-b from-cyan-300 to-cyan-500 bg-clip-text text-transparent">
+								<span class="text-5xl font-black bg-gradient-to-b from-cyan-200 to-cyan-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_#00ffff66]">
 									${tier.amount}
 								</span>
-								<span class="text-sm text-fuchsia-300/60 tracking-wide ml-1">{t.donate.perMonth}</span>
+								<span class="text-xs text-fuchsia-300/50 tracking-[0.15em] ml-2 uppercase">{t.donate.perMonth}</span>
 							</p>
-							<p class="text-gray-400 text-sm leading-relaxed mb-5">
+							<p class="text-gray-400 text-sm leading-relaxed mb-5 font-light">
 								{tier.description}
 							</p>
-							<ul class="space-y-2 mb-6 flex-1">
+							<ul class="space-y-2.5 mb-6 flex-1">
 								{tier.perks.map((perk: string) => (
-									<li class="flex items-start gap-2 text-sm text-gray-300">
-										<span class="text-fuchsia-400 mt-0.5 shrink-0">&raquo;</span>
+									<li class="flex items-start gap-3 text-sm text-gray-300 font-light">
+										<span class="text-fuchsia-400 mt-0.5 shrink-0 text-xs drop-shadow-[0_0_4px_#ff00ff]">&raquo;</span>
 										{perk}
 									</li>
 								))}
 							</ul>
 							<button
 								type="button"
-								class={`w-full py-3 font-bold uppercase tracking-widest text-sm rounded transition-all duration-300 ${
+								class={`w-full py-3.5 font-black uppercase tracking-[0.2em] text-sm rounded-sm transition-all duration-500 relative overflow-hidden group/btn ${
 									tier.highlighted
-										? "bg-fuchsia-600 text-white border border-fuchsia-400 shadow-[0_0_20px_#ff00ff,0_0_40px_#ff00ff44] hover:shadow-[0_0_30px_#ff00ff,0_0_60px_#ff00ff66] hover:bg-fuchsia-500"
-										: "bg-transparent text-fuchsia-300 border border-fuchsia-500/40 hover:bg-fuchsia-500/10 hover:shadow-[0_0_15px_#ff00ff44]"
+										? "bg-fuchsia-600/90 text-white border border-fuchsia-400 shadow-[0_0_25px_#ff00ff,0_0_50px_#ff00ff44] hover:shadow-[0_0_40px_#ff00ff,0_0_80px_#ff00ff66] hover:bg-fuchsia-500"
+										: "bg-transparent text-fuchsia-300 border border-fuchsia-500/40 hover:bg-fuchsia-500/10 hover:shadow-[0_0_20px_#ff00ff44] hover:border-fuchsia-400/60"
 								}`}
 							>
-								{t.donate.choose} {tier.name}
+								<span class="relative z-10">{t.donate.choose} {tier.name}</span>
+								<span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></span>
 							</button>
 						</div>
+
+						{/* Bottom glow bar */}
+						<div class={`h-0.5 ${tier.highlighted ? 'bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500 shadow-[0_0_15px_#ff00ff]' : 'bg-gradient-to-r from-fuchsia-500/30 via-cyan-400/30 to-fuchsia-500/30'}`}></div>
 					</div>
 				))}
 			</div>
 		</section>
 
 		<!-- Neon divider -->
-		<div class="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_10px_#00ffff] mb-20"></div>
+		<div class="relative h-px mx-8 mb-20">
+			<div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_15px_#00ffff]"></div>
+			<div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400 to-transparent blur-sm"></div>
+		</div>
 
-		<!-- One-Time Tiers -->
+		<!-- One-Time Tiers — power-up selection -->
 		<section>
-			<h2 class="text-2xl sm:text-3xl font-black uppercase tracking-wider text-center text-cyan-300 mb-2">
-				{t.donate.oneTime}
-			</h2>
-			<div class="h-0.5 w-24 mx-auto mb-10 bg-fuchsia-500 shadow-[0_0_10px_#ff00ff]"></div>
+			<div class="flex items-center gap-4 mb-10">
+				<div class="h-px flex-1 bg-gradient-to-r from-transparent to-cyan-400/40"></div>
+				<h2 class="text-xl sm:text-2xl font-black uppercase tracking-[0.2em] text-cyan-300 shrink-0 drop-shadow-[0_0_15px_#00ffff66]">
+					{t.donate.oneTime}
+				</h2>
+				<div class="h-px flex-1 bg-gradient-to-l from-transparent to-cyan-400/40"></div>
+			</div>
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 				{oneTimeTiers.map((tier: any) => (
 					<div
-						class={`relative rounded-lg overflow-hidden flex flex-col ${
+						class={`group relative rounded-sm overflow-hidden flex flex-col transition-all duration-500 ${
 							tier.highlighted
-								? "border-2 border-cyan-400 bg-gray-900/80 shadow-[0_0_30px_#00ffff44,0_0_60px_#00ffff22]"
-								: "border border-cyan-500/30 bg-gray-900/60 shadow-[0_0_10px_#00ffff22]"
+								? "border-2 border-cyan-400 bg-gray-900/70 shadow-[0_0_40px_#00ffff44,0_0_80px_#00ffff22] hover:shadow-[0_0_50px_#00ffff66,0_0_100px_#00ffff33] scale-[1.02]"
+								: "border border-cyan-500/25 bg-gray-900/50 shadow-[0_0_10px_#00ffff22] hover:shadow-[0_0_30px_#00ffff44,0_0_60px_#00ffff11] hover:border-cyan-400/50"
 						}`}
 					>
+						{/* Top glow bar */}
+						<div class={`h-0.5 ${tier.highlighted ? 'bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-cyan-400 shadow-[0_0_15px_#00ffff]' : 'bg-gradient-to-r from-cyan-400/40 via-fuchsia-500/40 to-cyan-400/40'}`}></div>
+
 						{tier.highlighted && (
-							<div class="bg-gradient-to-r from-cyan-600 via-cyan-500 to-cyan-600 py-2 text-center">
-								<span class="text-xs font-black uppercase tracking-widest text-white">
+							<div class="bg-cyan-600/80 py-2 text-center border-b border-cyan-400/40">
+								<span class="text-[10px] font-black uppercase tracking-[0.3em] text-white retro-flicker">
 									{t.donate.greatestImpact}
 								</span>
 							</div>
 						)}
+
+						{/* Corner brackets for highlighted */}
+						{tier.highlighted && (
+							<>
+								<div class="absolute top-2 left-2 w-3 h-3 border-t border-l border-fuchsia-400 shadow-[0_0_6px_#ff00ff]"></div>
+								<div class="absolute top-2 right-2 w-3 h-3 border-t border-r border-fuchsia-400 shadow-[0_0_6px_#ff00ff]"></div>
+								<div class="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-fuchsia-400 shadow-[0_0_6px_#ff00ff]"></div>
+								<div class="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-fuchsia-400 shadow-[0_0_6px_#ff00ff]"></div>
+							</>
+						)}
+
 						<div class="p-6 flex flex-col flex-1">
-							<h3 class="text-xl font-black uppercase tracking-wide text-fuchsia-300 mb-3">
+							<h3 class="text-xl font-black uppercase tracking-[0.15em] text-fuchsia-300 mb-4">
 								{tier.name}
 							</h3>
 							<p class="mb-4">
-								<span class="text-4xl font-black bg-gradient-to-b from-fuchsia-300 to-fuchsia-500 bg-clip-text text-transparent">
+								<span class="text-5xl font-black bg-gradient-to-b from-fuchsia-300 to-fuchsia-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_#ff00ff66]">
 									${tier.amount}
 								</span>
 							</p>
-							<p class="text-gray-400 text-sm leading-relaxed mb-5">
+							<p class="text-gray-400 text-sm leading-relaxed mb-5 font-light">
 								{tier.description}
 							</p>
-							<ul class="space-y-2 mb-6 flex-1">
+							<ul class="space-y-2.5 mb-6 flex-1">
 								{tier.perks.map((perk: string) => (
-									<li class="flex items-start gap-2 text-sm text-gray-300">
-										<span class="text-cyan-400 mt-0.5 shrink-0">&raquo;</span>
+									<li class="flex items-start gap-3 text-sm text-gray-300 font-light">
+										<span class="text-cyan-400 mt-0.5 shrink-0 text-xs drop-shadow-[0_0_4px_#00ffff]">&raquo;</span>
 										{perk}
 									</li>
 								))}
 							</ul>
 							<button
 								type="button"
-								class={`w-full py-3 font-bold uppercase tracking-widest text-sm rounded transition-all duration-300 ${
+								class={`w-full py-3.5 font-black uppercase tracking-[0.2em] text-sm rounded-sm transition-all duration-500 relative overflow-hidden group/btn ${
 									tier.highlighted
-										? "bg-cyan-600 text-white border border-cyan-400 shadow-[0_0_20px_#00ffff,0_0_40px_#00ffff44] hover:shadow-[0_0_30px_#00ffff,0_0_60px_#00ffff66] hover:bg-cyan-500"
-										: "bg-transparent text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/10 hover:shadow-[0_0_15px_#00ffff44]"
+										? "bg-cyan-600/90 text-white border border-cyan-400 shadow-[0_0_25px_#00ffff,0_0_50px_#00ffff44] hover:shadow-[0_0_40px_#00ffff,0_0_80px_#00ffff66] hover:bg-cyan-500"
+										: "bg-transparent text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/10 hover:shadow-[0_0_20px_#00ffff44] hover:border-cyan-400/60"
 								}`}
 							>
-								{t.donate.give} ${tier.amount}
+								<span class="relative z-10">{t.donate.give} ${tier.amount}</span>
+								<span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></span>
 							</button>
 						</div>
+
+						{/* Bottom glow bar */}
+						<div class={`h-0.5 ${tier.highlighted ? 'bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-cyan-400 shadow-[0_0_15px_#00ffff]' : 'bg-gradient-to-r from-cyan-400/30 via-fuchsia-500/30 to-cyan-400/30'}`}></div>
 					</div>
 				))}
 			</div>
 		</section>
 	</main>
 </div>
+
+<style>
+	@keyframes retro-pulse {
+		0%, 100% { opacity: 1; box-shadow: 0 0 25px #ff00ff, 0 0 50px #ff00ff44; }
+		50% { opacity: 0.7; box-shadow: 0 0 12px #ff00ff, 0 0 25px #ff00ff22; }
+	}
+	.retro-pulse {
+		animation: retro-pulse 3s ease-in-out infinite;
+	}
+	@keyframes retro-flicker {
+		0%, 100% { opacity: 1; }
+		92% { opacity: 1; }
+		93% { opacity: 0.6; }
+		94% { opacity: 1; }
+		96% { opacity: 0.7; }
+		97% { opacity: 1; }
+	}
+	.retro-flicker {
+		animation: retro-flicker 4s ease-in-out infinite;
+	}
+</style>
