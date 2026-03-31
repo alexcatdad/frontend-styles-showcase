@@ -2,139 +2,203 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-gradient-to-br from-amber-950 via-yellow-950 to-amber-950">
+<div class="min-h-screen bg-gradient-to-b from-amber-950 via-yellow-950 to-amber-950">
 	<!-- Navigation -->
-	<nav class="bg-gradient-to-r from-amber-900 via-yellow-800 to-amber-900 border-b-4 border-amber-400 shadow-2xl shadow-amber-900/50">
-		<div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-2 md:gap-6">
+	<nav class="relative bg-gradient-to-r from-amber-950 via-yellow-900 to-amber-950 border-b-4 border-double border-amber-400 shadow-[0_8px_32px_rgba(180,120,0,0.4)]">
+		<div class="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(90deg,transparent,transparent_12px,rgba(255,215,0,0.15)_12px,rgba(255,215,0,0.15)_14px)]"></div>
+		<div class="relative max-w-7xl mx-auto px-4 pt-4 pb-2 flex flex-wrap items-center justify-center gap-1 md:gap-4">
 			{nav.map((item: any) => (
-				<a href={item.href} class="px-5 py-2 font-bold text-amber-100 uppercase tracking-widest text-sm hover:text-white hover:bg-amber-700/50 rounded-sm transition-all duration-300 border border-transparent hover:border-amber-400">
+				<a href={item.href} class="px-5 py-2 font-bold text-amber-200 uppercase tracking-[0.25em] text-xs hover:text-white hover:bg-amber-700/60 rounded-sm transition-all duration-300 border border-transparent hover:border-amber-300 hover:shadow-lg hover:shadow-amber-500/20">
 					{item.label}
 				</a>
 			))}
 		</div>
-		<div class="text-center text-amber-400 text-xs tracking-[0.5em] py-1">✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦ ◆ ✦</div>
+		<div class="relative text-center text-amber-500 text-xs tracking-[0.6em] py-1.5 border-t border-amber-700/50">❧ ✦ ◆ ★ ◆ ✦ ❧ ✦ ◆ ★ ◆ ✦ ❧</div>
 	</nav>
 
-	<main class="max-w-7xl mx-auto px-4 py-12 md:py-20">
-		<!-- Header -->
-		<div class="text-center mb-16">
-			<p class="text-amber-400 tracking-[0.4em] text-sm mb-4">★ ✦ ★ ✦ ★</p>
-			<h1 class="font-serif text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 mb-6">
-				{t.donate.title}
-			</h1>
-			<p class="text-amber-200 text-xl md:text-2xl font-serif italic max-w-2xl mx-auto">
-				{t.donate.subtitle}
-			</p>
-			<p class="text-amber-400 tracking-[0.4em] text-sm mt-6">★ ✦ ★ ✦ ★</p>
-		</div>
+	<main>
+		<!-- ═══════════════════ HEADER — Gilded Amber ═══════════════════ -->
+		<section class="relative bg-gradient-to-b from-amber-950 via-yellow-950 to-amber-950 py-16 md:py-24 px-4 text-center overflow-hidden">
+			<div class="absolute inset-0 opacity-[0.06] bg-[repeating-linear-gradient(45deg,transparent,transparent_18px,rgba(255,215,0,0.2)_18px,rgba(255,215,0,0.2)_20px)]"></div>
+			<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.1)_0%,transparent_60%)]"></div>
 
-		<!-- Monthly Tiers -->
-		<section class="mb-20">
-			<div class="text-center mb-10">
-				<p class="text-emerald-400 tracking-[0.3em] text-sm mb-3">✿ ◆ ✿</p>
-				<h2 class="font-serif text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-400">
-					{t.donate.monthly}
-				</h2>
-				<p class="text-emerald-400 tracking-[0.3em] text-sm mt-3">✿ ◆ ✿</p>
-			</div>
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-				{monthlyTiers.map((tier: any) => (
-					<div class={`relative bg-gradient-to-b ${tier.highlighted ? 'from-amber-800/60 to-amber-950/80 border-amber-400 shadow-2xl shadow-amber-500/30 scale-105' : 'from-emerald-900/60 to-teal-950/80 border-emerald-600/40 shadow-xl shadow-emerald-900/40'} border-2 rounded-sm overflow-hidden transition-all duration-300 hover:shadow-2xl`}>
-						{/* Top Ornament */}
-						<div class={`text-center py-2.5 ${tier.highlighted ? 'bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600' : 'bg-gradient-to-r from-emerald-700/60 via-teal-600/60 to-emerald-700/60'}`}>
-							{tier.highlighted ? (
-								<span class="text-amber-950 text-xs tracking-[0.3em] font-black uppercase">★ {t.donate.mostPopular} ★</span>
-							) : (
-								<span class="text-emerald-200/60 text-xs tracking-[0.3em]">✦ ◆ ✦</span>
-							)}
-						</div>
-
-						<div class="p-6 md:p-8">
-							<h3 class="font-serif text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-200 mb-3">
-								{tier.name}
-							</h3>
-							<p class="mb-4">
-								<span class="font-serif text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-300 to-yellow-500">${tier.amount}</span>
-								<span class="text-amber-300/70 text-sm font-bold uppercase tracking-wider ml-1">{t.donate.perMonth}</span>
-							</p>
-							<p class="text-emerald-200/80 leading-relaxed mb-6 text-sm">
-								{tier.description}
-							</p>
-
-							{/* Perks */}
-							<ul class="space-y-3 mb-8">
-								{tier.perks.map((perk: string) => (
-									<li class="flex items-start gap-2 text-emerald-100 text-sm">
-										<span class="text-amber-400 font-bold mt-0.5 shrink-0">✦</span>
-										<span>{perk}</span>
-									</li>
-								))}
-							</ul>
-
-							{/* Button */}
-							<button type="button" class={`w-full py-3 font-black uppercase tracking-widest text-sm rounded-sm shadow-xl transition-all duration-300 ${tier.highlighted ? 'bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-amber-950 hover:from-amber-500 hover:via-yellow-400 hover:to-amber-500 border-2 border-amber-300 shadow-amber-500/30' : 'bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700 text-emerald-50 hover:from-emerald-600 hover:via-emerald-500 hover:to-emerald-600 border-2 border-emerald-400/50 shadow-emerald-700/30'}`}>
-								◆ {t.donate.choose} {tier.name} ◆
-							</button>
-						</div>
+			<div class="relative max-w-4xl mx-auto">
+				<p class="text-amber-400 tracking-[0.5em] text-xs mb-5">★ ✦ ◆ ✿ ◆ ✦ ★</p>
+				<div class="border-2 border-amber-600/30 p-3 md:p-4 inline-block">
+					<div class="border border-amber-500/20 px-8 md:px-16 py-4 md:py-6">
+						<h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-400 leading-none">
+							{t.donate.title}
+						</h1>
 					</div>
-				))}
+				</div>
+				<p class="text-amber-200/80 text-xl md:text-2xl font-serif italic max-w-2xl mx-auto mt-6">
+					{t.donate.subtitle}
+				</p>
+				<p class="text-amber-400 tracking-[0.5em] text-xs mt-6">★ ✦ ◆ ✿ ◆ ✦ ★</p>
 			</div>
 		</section>
 
-		<!-- Ornamental Divider -->
-		<div class="text-center py-6">
-			<span class="text-amber-500 text-2xl tracking-[0.3em]">║ ❋ ✦ ★ ✦ ❋ ✦ ★ ✦ ❋ ║</span>
+		<!-- Divider -->
+		<div class="relative py-4 bg-gradient-to-r from-emerald-950 via-amber-900/15 to-emerald-950">
+			<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent"></div>
+			<div class="text-center"><span class="text-emerald-400 text-xl tracking-[0.4em]">✿ ◆ ❧ ★ ❧ ◆ ✿</span></div>
+			<div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent"></div>
 		</div>
 
-		<!-- One-Time Tiers -->
-		<section>
-			<div class="text-center mb-10">
-				<p class="text-rose-400 tracking-[0.3em] text-sm mb-3">❋ ★ ❋</p>
-				<h2 class="font-serif text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-200 to-rose-400">
-					{t.donate.oneTime}
-				</h2>
-				<p class="text-rose-400 tracking-[0.3em] text-sm mt-3">❋ ★ ❋</p>
-			</div>
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-				{oneTimeTiers.map((tier: any) => (
-					<div class={`relative bg-gradient-to-b ${tier.highlighted ? 'from-amber-800/60 to-amber-950/80 border-amber-400 shadow-2xl shadow-amber-500/30 scale-105' : 'from-rose-900/60 to-pink-950/80 border-rose-600/40 shadow-xl shadow-rose-900/40'} border-2 rounded-sm overflow-hidden transition-all duration-300 hover:shadow-2xl`}>
-						{/* Top Ornament */}
-						<div class={`text-center py-2.5 ${tier.highlighted ? 'bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600' : 'bg-gradient-to-r from-rose-700/60 via-pink-600/60 to-rose-700/60'}`}>
-							{tier.highlighted ? (
-								<span class="text-amber-950 text-xs tracking-[0.3em] font-black uppercase">★ {t.donate.greatestImpact} ★</span>
-							) : (
-								<span class="text-rose-200/60 text-xs tracking-[0.3em]">❋ ◆ ❋</span>
+		<!-- ═══════════════════ MONTHLY — Emerald Section ═══════════════════ -->
+		<section class="relative bg-gradient-to-br from-emerald-950 via-green-950 to-teal-950 py-16 md:py-24 px-4 overflow-hidden">
+			<div class="absolute inset-0 opacity-[0.04] bg-[repeating-linear-gradient(0deg,transparent,transparent_24px,rgba(52,211,153,0.15)_24px,rgba(52,211,153,0.15)_26px),repeating-linear-gradient(90deg,transparent,transparent_24px,rgba(52,211,153,0.15)_24px,rgba(52,211,153,0.15)_26px)]"></div>
+
+			<div class="relative max-w-7xl mx-auto">
+				<div class="text-center mb-12">
+					<p class="text-emerald-400 tracking-[0.4em] text-xs mb-4">✿ ★ ✿</p>
+					<h2 class="font-serif text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-200 to-teal-300">
+						{t.donate.monthly}
+					</h2>
+					<p class="text-emerald-400 tracking-[0.4em] text-xs mt-4">✿ ★ ✿</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+					{monthlyTiers.map((tier: any) => (
+						<div class="group relative">
+							{/* Highlighted outer glow frames */}
+							{tier.highlighted && (
+								<>
+									<div class="absolute -inset-3 border border-amber-400/20"></div>
+									<div class="absolute -inset-2 border border-amber-500/15"></div>
+								</>
 							)}
+
+							<div class={`relative bg-gradient-to-b ${tier.highlighted ? 'from-amber-900/70 via-yellow-900/50 to-amber-950/80 border-amber-400 shadow-[0_12px_60px_rgba(245,158,11,0.25)]' : 'from-emerald-900/50 via-green-900/40 to-teal-950/70 border-emerald-600/40 shadow-[0_8px_40px_rgba(6,78,59,0.4)]'} border-2 overflow-hidden transition-all duration-500 hover:shadow-[0_16px_60px_rgba(180,120,0,0.2)]`}>
+								{/* Top ornament bar */}
+								<div class={`relative text-center py-3 ${tier.highlighted ? 'bg-gradient-to-r from-amber-700 via-yellow-500 to-amber-700' : 'bg-gradient-to-r from-emerald-800/60 via-teal-700/60 to-emerald-800/60'}`}>
+									<div class="absolute inset-0 opacity-15 bg-[repeating-linear-gradient(90deg,transparent,transparent_6px,rgba(0,0,0,0.15)_6px,rgba(0,0,0,0.15)_7px)]"></div>
+									{tier.highlighted ? (
+										<span class="relative text-amber-950 text-xs tracking-[0.3em] font-black uppercase">★ ✦ {t.donate.mostPopular} ✦ ★</span>
+									) : (
+										<span class="relative text-emerald-200/50 text-xs tracking-[0.4em]">✦ ◆ ✦</span>
+									)}
+								</div>
+
+								<div class="p-6 md:p-8">
+									<h3 class="font-serif text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-200 mb-4">
+										{tier.name}
+									</h3>
+
+									{/* Price medallion */}
+									<div class="relative inline-block mb-5">
+										<div class={`border-2 ${tier.highlighted ? 'border-amber-400/50' : 'border-emerald-500/30'} px-6 py-3`}>
+											<span class="font-serif text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-300 via-yellow-200 to-amber-500">${tier.amount}</span>
+											<span class="text-amber-300/60 text-xs font-bold uppercase tracking-wider ml-2">{t.donate.perMonth}</span>
+										</div>
+									</div>
+
+									<p class={`${tier.highlighted ? 'text-amber-200/70' : 'text-emerald-200/70'} leading-relaxed mb-6 text-sm`}>
+										{tier.description}
+									</p>
+
+									{/* Perks */}
+									<ul class="space-y-3 mb-8">
+										{tier.perks.map((perk: string) => (
+											<li class={`flex items-start gap-3 ${tier.highlighted ? 'text-amber-100' : 'text-emerald-100'} text-sm`}>
+												<span class="text-amber-400 font-bold mt-0.5 shrink-0">✦</span>
+												<span>{perk}</span>
+											</li>
+										))}
+									</ul>
+
+									{/* CTA Button */}
+									<button type="button" class={`group/btn relative w-full py-4 font-black uppercase tracking-[0.15em] text-sm transition-all duration-500 ${tier.highlighted ? 'bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-amber-950 border-2 border-amber-300 shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_50px_rgba(245,158,11,0.4)]' : 'bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700 text-emerald-50 border-2 border-emerald-400/50 shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:shadow-[0_0_40px_rgba(16,185,129,0.25)]'}`}>
+										<span class="absolute -inset-0.5 border border-current/10 opacity-0 group-hover/btn:opacity-100 transition-opacity"></span>
+										◆ {t.donate.choose} {tier.name} ◆
+									</button>
+								</div>
+							</div>
 						</div>
+					))}
+				</div>
+			</div>
+		</section>
 
-						<div class="p-6 md:p-8">
-							<h3 class="font-serif text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-200 mb-3">
-								{tier.name}
-							</h3>
-							<p class="mb-4">
-								<span class="font-serif text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-300 to-yellow-500">${tier.amount}</span>
-							</p>
-							<p class="text-rose-200/80 leading-relaxed mb-6 text-sm">
-								{tier.description}
-							</p>
+		<!-- Grand Divider -->
+		<div class="relative py-6 bg-gradient-to-r from-rose-950 via-amber-900/20 to-rose-950">
+			<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+			<div class="text-center">
+				<span class="text-amber-500 text-2xl tracking-[0.4em]">║ ❋ ★ ✦ ◆ ✿ ◆ ✦ ★ ❋ ║</span>
+			</div>
+			<div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+		</div>
 
-							{/* Perks */}
-							<ul class="space-y-3 mb-8">
-								{tier.perks.map((perk: string) => (
-									<li class="flex items-start gap-2 text-rose-100 text-sm">
-										<span class="text-amber-400 font-bold mt-0.5 shrink-0">✦</span>
-										<span>{perk}</span>
-									</li>
-								))}
-							</ul>
+		<!-- ═══════════════════ ONE-TIME — Ruby/Rose Section ═══════════════════ -->
+		<section class="relative bg-gradient-to-br from-rose-950 via-red-950 to-pink-950 py-16 md:py-24 px-4 overflow-hidden">
+			<div class="absolute inset-0 opacity-[0.04] bg-[repeating-linear-gradient(135deg,transparent,transparent_8px,rgba(251,113,133,0.2)_8px,rgba(251,113,133,0.2)_10px,transparent_10px,transparent_18px,rgba(251,113,133,0.2)_18px,rgba(251,113,133,0.2)_20px)]"></div>
 
-							{/* Button */}
-							<button type="button" class={`w-full py-3 font-black uppercase tracking-widest text-sm rounded-sm shadow-xl transition-all duration-300 ${tier.highlighted ? 'bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-amber-950 hover:from-amber-500 hover:via-yellow-400 hover:to-amber-500 border-2 border-amber-300 shadow-amber-500/30' : 'bg-gradient-to-r from-rose-700 via-pink-600 to-rose-700 text-rose-50 hover:from-rose-600 hover:via-pink-500 hover:to-rose-600 border-2 border-rose-400/50 shadow-rose-700/30'}`}>
-								★ {t.donate.give} ${tier.amount} ★
-							</button>
+			<div class="relative max-w-7xl mx-auto">
+				<div class="text-center mb-12">
+					<p class="text-rose-400 tracking-[0.4em] text-xs mb-4">❋ ◆ ❋</p>
+					<h2 class="font-serif text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-200 to-rose-400">
+						{t.donate.oneTime}
+					</h2>
+					<p class="text-rose-400 tracking-[0.4em] text-xs mt-4">❋ ◆ ❋</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+					{oneTimeTiers.map((tier: any) => (
+						<div class="group relative">
+							{tier.highlighted && (
+								<>
+									<div class="absolute -inset-3 border border-amber-400/20"></div>
+									<div class="absolute -inset-2 border border-amber-500/15"></div>
+								</>
+							)}
+
+							<div class={`relative bg-gradient-to-b ${tier.highlighted ? 'from-amber-900/70 via-yellow-900/50 to-amber-950/80 border-amber-400 shadow-[0_12px_60px_rgba(245,158,11,0.25)]' : 'from-rose-900/50 via-red-900/40 to-pink-950/70 border-rose-600/40 shadow-[0_8px_40px_rgba(136,19,55,0.4)]'} border-2 overflow-hidden transition-all duration-500 hover:shadow-[0_16px_60px_rgba(180,120,0,0.2)]`}>
+								{/* Top ornament */}
+								<div class={`relative text-center py-3 ${tier.highlighted ? 'bg-gradient-to-r from-amber-700 via-yellow-500 to-amber-700' : 'bg-gradient-to-r from-rose-800/60 via-pink-700/60 to-rose-800/60'}`}>
+									<div class="absolute inset-0 opacity-15 bg-[repeating-linear-gradient(90deg,transparent,transparent_6px,rgba(0,0,0,0.15)_6px,rgba(0,0,0,0.15)_7px)]"></div>
+									{tier.highlighted ? (
+										<span class="relative text-amber-950 text-xs tracking-[0.3em] font-black uppercase">★ ✦ {t.donate.greatestImpact} ✦ ★</span>
+									) : (
+										<span class="relative text-rose-200/50 text-xs tracking-[0.4em]">❋ ◆ ❋</span>
+									)}
+								</div>
+
+								<div class="p-6 md:p-8">
+									<h3 class="font-serif text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-200 mb-4">
+										{tier.name}
+									</h3>
+
+									{/* Price medallion */}
+									<div class="relative inline-block mb-5">
+										<div class={`border-2 ${tier.highlighted ? 'border-amber-400/50' : 'border-rose-500/30'} px-6 py-3`}>
+											<span class="font-serif text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-300 via-yellow-200 to-amber-500">${tier.amount}</span>
+										</div>
+									</div>
+
+									<p class={`${tier.highlighted ? 'text-amber-200/70' : 'text-rose-200/70'} leading-relaxed mb-6 text-sm`}>
+										{tier.description}
+									</p>
+
+									{/* Perks */}
+									<ul class="space-y-3 mb-8">
+										{tier.perks.map((perk: string) => (
+											<li class={`flex items-start gap-3 ${tier.highlighted ? 'text-amber-100' : 'text-rose-100'} text-sm`}>
+												<span class="text-amber-400 font-bold mt-0.5 shrink-0">✦</span>
+												<span>{perk}</span>
+											</li>
+										))}
+									</ul>
+
+									{/* Button */}
+									<button type="button" class={`group/btn relative w-full py-4 font-black uppercase tracking-[0.15em] text-sm transition-all duration-500 ${tier.highlighted ? 'bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-amber-950 border-2 border-amber-300 shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_50px_rgba(245,158,11,0.4)]' : 'bg-gradient-to-r from-rose-700 via-pink-600 to-rose-700 text-rose-50 border-2 border-rose-400/50 shadow-[0_0_20px_rgba(225,29,72,0.15)] hover:shadow-[0_0_40px_rgba(225,29,72,0.25)]'}`}>
+										<span class="absolute -inset-0.5 border border-current/10 opacity-0 group-hover/btn:opacity-100 transition-opacity"></span>
+										★ {t.donate.give} ${tier.amount} ★
+									</button>
+								</div>
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
 		</section>
 	</main>
