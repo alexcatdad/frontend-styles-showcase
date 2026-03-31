@@ -2,43 +2,53 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-stone-900 text-stone-300 font-mono">
+	<nav class="border-b-4 border-stone-700 bg-stone-950 px-4 py-3 md:px-8">
+		<div class="mx-auto flex max-w-5xl flex-wrap items-center gap-1">
+			{nav.map((item: any, i: number) => (
+				<>
+					{i > 0 && <span class="text-stone-600 select-none">|</span>}
+					<a href={item.href} class="px-2 py-1 text-sm uppercase tracking-widest text-stone-400 hover:text-amber-200 hover:line-through transition-colors">{item.label}</a>
+				</>
+			))}
+		</div>
+	</nav>
 
-<main>
-	<a href={`/${lang}/${style}/blog`}>&larr; {t.blog.backToBlog}</a>
+	<main class="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
+		<a href={`/${lang}/${style}/blog`} class="mb-8 inline-block text-xs uppercase tracking-widest text-stone-500 hover:text-amber-400 transition-colors">&larr; {t.blog.backToBlog}</a>
 
-	<article>
-		<header>
-			<time datetime={post.date}>{post.date}</time>
-			<h1>{post.title}</h1>
-			<span>{t.blog.by} {post.author}</span>
-			<div>
-				{post.tags.map((tag: string) => (
-					<span>{tag}</span>
+		<article class="border-2 border-stone-700 bg-stone-800/30 p-6 md:p-10">
+			<header class="mb-8 border-b-2 border-stone-700 pb-8">
+				<div class="mb-3 flex flex-wrap items-center gap-3">
+					<time datetime={post.date} class="text-[10px] uppercase tracking-widest text-stone-600">{post.date}</time>
+					<span class="text-stone-700">|</span>
+					<span class="text-[10px] uppercase tracking-widest text-stone-600">{t.blog.by} {post.author}</span>
+				</div>
+				<h1 class="mb-4 text-3xl font-black uppercase tracking-tight text-stone-100 md:text-5xl">{post.title}</h1>
+				<div class="flex flex-wrap gap-1.5">
+					{post.tags.map((tag: string) => (
+						<span class="bg-stone-700/50 px-2 py-0.5 text-[10px] uppercase tracking-widest text-stone-500">#{tag}</span>
+					))}
+				</div>
+			</header>
+
+			<div class="space-y-5">
+				{post.content.map((paragraph: string) => (
+					<p class="leading-relaxed text-stone-400">{paragraph}</p>
 				))}
 			</div>
-		</header>
+		</article>
 
-		<div>
-			{post.content.map((paragraph: string) => (
-				<p>{paragraph}</p>
-			))}
-		</div>
-	</article>
-
-	<section>
-		<h2>{t.blog.moreStories}</h2>
-		<div>
-			{otherPosts.map((p: any) => (
-				<a href={`/${lang}/${style}/blog/${p.slug}`}>
-					<h3>{p.title}</h3>
-					<p>{p.excerpt}</p>
-				</a>
-			))}
-		</div>
-	</section>
-</main>
+		<section class="mt-12 border-t-2 border-stone-700 pt-10">
+			<h2 class="mb-6 text-xs uppercase tracking-[0.3em] text-stone-500">// {t.blog.moreStories}</h2>
+			<div class="grid gap-3 md:grid-cols-2">
+				{otherPosts.map((p: any) => (
+					<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block border-2 border-stone-700 p-4 transition-colors hover:border-amber-800 hover:bg-stone-800/50">
+						<h3 class="mb-1 text-lg font-black uppercase tracking-tight text-stone-200 group-hover:text-amber-400 transition-colors">{p.title}</h3>
+						<p class="text-sm text-stone-500">{p.excerpt}</p>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>
