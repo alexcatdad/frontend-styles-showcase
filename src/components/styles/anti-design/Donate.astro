@@ -2,57 +2,154 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-black font-mono overflow-x-hidden">
+	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-lime-400 border-b-8 border-fuchsia-600">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
+					i % 3 === 0 && "bg-fuchsia-600 text-yellow-300 font-serif text-lg rotate-1",
+					i % 3 === 1 && "bg-black text-lime-400 font-mono text-xs -rotate-2 uppercase tracking-widest",
+					i % 3 === 2 && "bg-cyan-400 text-black font-sans text-base rotate-2 border-2 border-orange-500",
+				]}
+			>
+				{item.label}
+			</a>
+		))}
+	</nav>
 
-<main>
-	<h1>{t.donate.title}</h1>
-	<p>{t.donate.subtitle}</p>
-
-	<section>
-		<h2>{t.donate.monthly}</h2>
-		<div>
-			{monthlyTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.mostPopular}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>{t.donate.perMonth}
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.choose} {tier.name}</button>
-				</div>
-			))}
+	<main class="px-4 md:px-8 py-8">
+		<div class="mb-12 ml-2 md:ml-6">
+			<h1 class="text-6xl md:text-9xl font-black font-serif text-fuchsia-500 -rotate-3 mb-4 drop-shadow-[6px_6px_0_lime]">
+				{t.donate.title}
+			</h1>
+			<p class="text-xl md:text-2xl font-sans text-cyan-400 rotate-1 ml-8 md:ml-20 bg-fuchsia-900/60 inline-block px-6 py-3 border-4 border-lime-400">
+				{t.donate.subtitle}
+			</p>
 		</div>
-	</section>
 
-	<section>
-		<h2>{t.donate.oneTime}</h2>
-		<div>
-			{oneTimeTiers.map((tier: any) => (
-				<div data-highlighted={tier.highlighted}>
-					{tier.highlighted && <span>{t.donate.greatestImpact}</span>}
-					<h3>{tier.name}</h3>
-					<p>
-						<span>${tier.amount}</span>
-					</p>
-					<p>{tier.description}</p>
-					<ul>
-						{tier.perks.map((perk: string) => (
-							<li>{perk}</li>
-						))}
-					</ul>
-					<button type="button">{t.donate.give} ${tier.amount}</button>
-				</div>
-			))}
-		</div>
-	</section>
-</main>
+		<section class="mb-16 bg-fuchsia-700 p-6 md:p-10 border-8 border-lime-400 rotate-0.5">
+			<h2 class="text-4xl md:text-6xl font-black font-mono text-yellow-300 -rotate-2 mb-8 underline decoration-cyan-400 decoration-8">
+				{t.donate.monthly}
+			</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{monthlyTiers.map((tier: any, i: number) => (
+					<div
+						class:list={[
+							"relative p-6 border-4 transition-transform",
+							tier.highlighted
+								? "bg-yellow-300 text-black border-fuchsia-600 rotate-2 scale-105 z-10 shadow-[8px_8px_0_black]"
+								: i % 3 === 0
+									? "bg-black text-lime-400 border-cyan-400 -rotate-1"
+									: i % 3 === 1
+										? "bg-cyan-400 text-black border-orange-500 rotate-2"
+										: "bg-orange-500 text-white border-lime-400 -rotate-2",
+						]}
+					>
+						{tier.highlighted && (
+							<span class="absolute -top-4 -right-3 bg-fuchsia-600 text-yellow-300 px-3 py-1 font-black text-xs uppercase rotate-6 border-2 border-lime-400">
+								{t.donate.mostPopular}
+							</span>
+						)}
+						<h3 class="text-2xl md:text-3xl font-black font-serif mb-2">{tier.name}</h3>
+						<p class="mb-3">
+							<span class="text-4xl md:text-5xl font-black font-mono">${tier.amount}</span>
+							<span class="text-sm font-sans">{t.donate.perMonth}</span>
+						</p>
+						<p class:list={[
+							"text-sm mb-4 font-sans leading-relaxed",
+							tier.highlighted ? "text-fuchsia-700" : "",
+						]}>
+							{tier.description}
+						</p>
+						<ul class="space-y-2 mb-6">
+							{tier.perks.map((perk: string, j: number) => (
+								<li
+									class:list={[
+										"text-sm font-bold pl-4 border-l-4",
+										j % 2 === 0 ? "border-fuchsia-500 font-mono" : "border-lime-400 font-serif",
+									]}
+								>
+									{perk}
+								</li>
+							))}
+						</ul>
+						<button
+							type="button"
+							class:list={[
+								"w-full py-3 px-4 font-black text-lg uppercase border-4 transition-transform hover:scale-105 cursor-pointer",
+								tier.highlighted
+									? "bg-fuchsia-600 text-yellow-300 border-black hover:-rotate-2"
+									: "bg-lime-400 text-black border-fuchsia-600 hover:rotate-2",
+							]}
+						>
+							{t.donate.choose} {tier.name}
+						</button>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<section class="bg-cyan-400 p-6 md:p-10 border-8 border-orange-500 -rotate-0.5">
+			<h2 class="text-4xl md:text-6xl font-black font-serif text-fuchsia-700 rotate-3 mb-8 underline decoration-lime-400 decoration-8">
+				{t.donate.oneTime}
+			</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{oneTimeTiers.map((tier: any, i: number) => (
+					<div
+						class:list={[
+							"relative p-6 border-4 transition-transform",
+							tier.highlighted
+								? "bg-lime-400 text-black border-fuchsia-600 -rotate-2 scale-105 z-10 shadow-[8px_8px_0_fuchsia]"
+								: i % 3 === 0
+									? "bg-fuchsia-600 text-yellow-300 border-lime-400 rotate-2"
+									: i % 3 === 1
+										? "bg-black text-cyan-400 border-yellow-300 -rotate-1"
+										: "bg-yellow-300 text-fuchsia-700 border-black rotate-1",
+						]}
+					>
+						{tier.highlighted && (
+							<span class="absolute -top-4 -left-3 bg-orange-500 text-white px-3 py-1 font-black text-xs uppercase -rotate-6 border-2 border-black">
+								{t.donate.greatestImpact}
+							</span>
+						)}
+						<h3 class="text-2xl md:text-3xl font-black font-mono mb-2">{tier.name}</h3>
+						<p class="mb-3">
+							<span class="text-4xl md:text-5xl font-black font-serif">${tier.amount}</span>
+						</p>
+						<p class:list={[
+							"text-sm mb-4 font-sans leading-relaxed",
+							tier.highlighted ? "text-fuchsia-700" : "",
+						]}>
+							{tier.description}
+						</p>
+						<ul class="space-y-2 mb-6">
+							{tier.perks.map((perk: string, j: number) => (
+								<li
+									class:list={[
+										"text-sm font-bold pl-4 border-l-4",
+										j % 2 === 0 ? "border-orange-500 font-mono" : "border-cyan-400 font-serif",
+									]}
+								>
+									{perk}
+								</li>
+							))}
+						</ul>
+						<button
+							type="button"
+							class:list={[
+								"w-full py-3 px-4 font-black text-lg uppercase border-4 transition-transform hover:scale-105 cursor-pointer",
+								tier.highlighted
+									? "bg-fuchsia-600 text-lime-400 border-black hover:rotate-2"
+									: "bg-orange-500 text-white border-fuchsia-600 hover:-rotate-2",
+							]}
+						>
+							{t.donate.give} ${tier.amount}
+						</button>
+					</div>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

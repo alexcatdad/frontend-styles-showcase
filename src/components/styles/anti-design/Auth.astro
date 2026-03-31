@@ -2,46 +2,107 @@
 const { lang, style, nav, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-orange-500 font-mono overflow-x-hidden">
+	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-black border-b-8 border-cyan-400">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
+					i % 3 === 0 && "bg-lime-400 text-black font-serif text-lg -rotate-1",
+					i % 3 === 1 && "bg-fuchsia-600 text-yellow-300 font-mono text-xs rotate-2 uppercase tracking-widest",
+					i % 3 === 2 && "bg-cyan-400 text-black font-sans text-base -rotate-2 border-2 border-orange-500",
+				]}
+			>
+				{item.label}
+			</a>
+		))}
+	</nav>
 
-<main>
-	<section>
-		<h1>{t.auth.title}</h1>
-		<p>{t.auth.subtitle}</p>
+	<main class="flex items-center justify-center min-h-[80vh] px-4 py-8">
+		<section class="relative w-full max-w-lg bg-black text-white p-8 md:p-12 border-8 border-lime-400 -rotate-1">
+			<div class="absolute -top-8 -left-6 w-24 h-24 bg-fuchsia-500 opacity-50 rotate-12 -z-0"></div>
+			<div class="absolute -bottom-6 -right-8 w-32 h-16 bg-cyan-400 opacity-40 -rotate-6 -z-0"></div>
 
-		<form>
-			<div>
-				<label for="email">{t.auth.email}</label>
-				<input type="email" id="email" name="email" placeholder="you@example.com" />
-			</div>
-			<div>
-				<label for="password">{t.auth.password}</label>
-				<input type="password" id="password" name="password" placeholder="••••••••" />
-			</div>
-			<div>
-				<label>
-					<input type="checkbox" name="remember" />
-					{t.auth.rememberMe}
-				</label>
-				<a href="#">{t.auth.forgotPassword}</a>
-			</div>
-			<button type="submit">{t.auth.signIn}</button>
-		</form>
+			<h1 class="relative text-5xl md:text-7xl font-black font-serif text-fuchsia-400 rotate-2 mb-3 drop-shadow-[3px_3px_0_lime]">
+				{t.auth.title}
+			</h1>
+			<p class="relative text-lg font-sans text-cyan-300 -rotate-1 mb-8 ml-4">
+				{t.auth.subtitle}
+			</p>
 
-		<div>
-			<p>{t.auth.continueWith}</p>
-			<div>
-				<button type="button">Google</button>
-				<button type="button">Apple</button>
-			</div>
-		</div>
+			<form class="relative space-y-6">
+				<div class="rotate-0.5">
+					<label for="email" class="block text-sm font-black uppercase tracking-widest text-lime-400 mb-2 font-mono">
+						{t.auth.email}
+					</label>
+					<input
+						type="email"
+						id="email"
+						name="email"
+						placeholder="you@example.com"
+						class="w-full px-4 py-3 bg-fuchsia-900 text-yellow-300 border-4 border-fuchsia-500 font-mono text-lg placeholder-fuchsia-400 focus:border-lime-400 focus:outline-none"
+					/>
+				</div>
+				<div class="-rotate-0.5">
+					<label for="password" class="block text-sm font-black uppercase tracking-widest text-orange-400 mb-2 font-serif">
+						{t.auth.password}
+					</label>
+					<input
+						type="password"
+						id="password"
+						name="password"
+						placeholder="••••••••"
+						class="w-full px-4 py-3 bg-cyan-900 text-lime-300 border-4 border-cyan-500 font-mono text-lg placeholder-cyan-600 focus:border-fuchsia-400 focus:outline-none"
+					/>
+				</div>
+				<div class="flex flex-wrap items-center justify-between gap-4 rotate-0.5">
+					<label class="flex items-center gap-2 cursor-pointer">
+						<input
+							type="checkbox"
+							name="remember"
+							class="w-5 h-5 accent-lime-400"
+						/>
+						<span class="text-sm font-bold font-sans text-yellow-300">{t.auth.rememberMe}</span>
+					</label>
+					<a href="#" class="text-sm font-bold font-mono text-fuchsia-400 hover:text-lime-400 transition-colors no-underline underline decoration-fuchsia-400 hover:decoration-lime-400">
+						{t.auth.forgotPassword}
+					</a>
+				</div>
+				<button
+					type="submit"
+					class="w-full py-4 px-6 bg-lime-400 text-black font-black text-xl uppercase border-4 border-fuchsia-600 rotate-1 hover:-rotate-1 transition-transform cursor-pointer font-sans"
+				>
+					{t.auth.signIn}
+				</button>
+			</form>
 
-		<p>
-			{t.auth.noAccount} <a href="#">{t.auth.signUp}</a>
-		</p>
-	</section>
-</main>
+			<div class="relative mt-8">
+				<p class="text-center text-sm font-bold font-mono text-fuchsia-400 mb-4 -rotate-1">
+					{t.auth.continueWith}
+				</p>
+				<div class="flex gap-4">
+					<button
+						type="button"
+						class="flex-1 py-3 bg-fuchsia-600 text-yellow-300 font-black text-lg border-4 border-cyan-400 rotate-2 hover:-rotate-1 transition-transform cursor-pointer font-serif uppercase"
+					>
+						Google
+					</button>
+					<button
+						type="button"
+						class="flex-1 py-3 bg-cyan-400 text-black font-black text-lg border-4 border-orange-500 -rotate-2 hover:rotate-1 transition-transform cursor-pointer font-mono uppercase"
+					>
+						Apple
+					</button>
+				</div>
+			</div>
+
+			<p class="relative mt-8 text-center text-base font-sans text-lime-300 rotate-0.5">
+				{t.auth.noAccount}{" "}
+				<a href="#" class="font-black text-yellow-300 hover:text-fuchsia-400 transition-colors no-underline underline decoration-yellow-300 decoration-4">
+					{t.auth.signUp}
+				</a>
+			</p>
+		</section>
+	</main>
+</div>

@@ -2,31 +2,78 @@
 const { lang, style, nav, cats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
-
-<main>
-	<h1>{t.cats.title}</h1>
-	<p>{t.cats.subtitle}</p>
-
-	<div>
-		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
-				<div>
-					<h2>{cat.name}</h2>
-					<p>{cat.breed} · {cat.age} · {cat.gender}</p>
-					<p>{cat.description.slice(0, 100)}...</p>
-					<div>
-						{cat.personality.map((trait: string) => (
-							<span>{trait}</span>
-						))}
-					</div>
-					<span>{cat.status}</span>
-				</div>
+<div class="min-h-screen bg-fuchsia-500 font-mono overflow-x-hidden">
+	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-black border-b-8 border-lime-400">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
+					i % 3 === 0 && "bg-lime-400 text-black font-serif text-lg rotate-1",
+					i % 3 === 1 && "bg-fuchsia-500 text-yellow-300 font-mono text-xs -rotate-2 uppercase tracking-widest",
+					i % 3 === 2 && "bg-cyan-400 text-black font-sans text-base rotate-2 border-2 border-orange-500",
+				]}
+			>
+				{item.label}
 			</a>
 		))}
-	</div>
-</main>
+	</nav>
+
+	<main class="px-4 md:px-8 py-8">
+		<div class="mb-10 ml-2 md:ml-8">
+			<h1 class="text-5xl md:text-8xl font-black font-serif text-yellow-300 -rotate-3 mb-2 drop-shadow-[4px_4px_0_black]">
+				{t.cats.title}
+			</h1>
+			<p class="text-lg md:text-2xl font-sans text-lime-300 rotate-1 ml-6 md:ml-20 bg-black/50 inline-block px-4 py-2">
+				{t.cats.subtitle}
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+			{cats.map((cat: any, i: number) => (
+				<a
+					href={`/${lang}/${style}/cats/${cat.id}`}
+					class:list={[
+						"block p-5 border-4 no-underline transition-transform hover:scale-105 hover:-rotate-1",
+						i % 5 === 0 && "bg-black text-lime-400 border-cyan-400 rotate-2 font-mono",
+						i % 5 === 1 && "bg-cyan-400 text-black border-fuchsia-600 -rotate-1 font-serif",
+						i % 5 === 2 && "bg-yellow-300 text-fuchsia-700 border-black rotate-1 font-sans",
+						i % 5 === 3 && "bg-lime-400 text-black border-orange-500 -rotate-2 font-mono",
+						i % 5 === 4 && "bg-orange-500 text-white border-lime-400 rotate-3 font-serif",
+					]}
+				>
+					<div>
+						<h2 class="text-3xl md:text-4xl font-black mb-2 underline decoration-4">{cat.name}</h2>
+						<p class:list={[
+							"text-sm mb-3 font-bold uppercase tracking-wider",
+							i % 2 === 0 ? "font-mono" : "font-serif",
+						]}>
+							{cat.breed} · {cat.age} · {cat.gender}
+						</p>
+						<p class="text-base mb-4 font-sans leading-relaxed">{cat.description.slice(0, 100)}...</p>
+						<div class="flex flex-wrap gap-2 mb-3">
+							{cat.personality.map((trait: string, j: number) => (
+								<span
+									class:list={[
+										"px-2 py-1 text-xs font-black uppercase",
+										j % 3 === 0 && "bg-fuchsia-600 text-white rotate-1",
+										j % 3 === 1 && "bg-lime-400 text-black -rotate-2",
+										j % 3 === 2 && "bg-cyan-300 text-fuchsia-700 rotate-2",
+									]}
+								>
+									{trait}
+								</span>
+							))}
+						</div>
+						<span class:list={[
+							"inline-block px-3 py-1 text-sm font-black border-2 uppercase",
+							i % 2 === 0 ? "bg-yellow-300 text-black border-fuchsia-600 -rotate-1" : "bg-fuchsia-600 text-yellow-300 border-lime-400 rotate-2",
+						]}>
+							{cat.status}
+						</span>
+					</div>
+				</a>
+			))}
+		</div>
+	</main>
+</div>

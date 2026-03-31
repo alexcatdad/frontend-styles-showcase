@@ -2,43 +2,98 @@
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-lime-400 font-mono overflow-x-hidden">
+	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-orange-500 border-b-8 border-black">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
+					i % 3 === 0 && "bg-cyan-400 text-black font-serif text-lg -rotate-2",
+					i % 3 === 1 && "bg-fuchsia-600 text-yellow-300 font-mono text-xs rotate-1 uppercase tracking-widest",
+					i % 3 === 2 && "bg-lime-400 text-fuchsia-800 font-sans text-base rotate-2 border-2 border-black",
+				]}
+			>
+				{item.label}
+			</a>
+		))}
+	</nav>
 
-<main>
-	<a href={`/${lang}/${style}/blog`}>&larr; {t.blog.backToBlog}</a>
+	<main class="px-4 md:px-8 py-8">
+		<a
+			href={`/${lang}/${style}/blog`}
+			class="inline-block mb-8 px-4 py-2 bg-fuchsia-600 text-yellow-300 font-black text-lg font-mono no-underline -rotate-1 border-4 border-lime-400 hover:rotate-1 transition-transform"
+		>
+			&larr; {t.blog.backToBlog}
+		</a>
 
-	<article>
-		<header>
-			<time datetime={post.date}>{post.date}</time>
-			<h1>{post.title}</h1>
-			<span>{t.blog.by} {post.author}</span>
-			<div>
-				{post.tags.map((tag: string) => (
-					<span>{tag}</span>
+		<article class="relative bg-black text-white p-6 md:p-12 border-8 border-fuchsia-500 rotate-0.5 mb-12">
+			<header class="mb-10">
+				<time
+					datetime={post.date}
+					class="inline-block text-xs font-black uppercase tracking-widest mb-4 px-3 py-1 bg-cyan-400 text-black rotate-2 font-mono"
+				>
+					{post.date}
+				</time>
+				<h1 class="text-5xl md:text-8xl font-black font-serif text-lime-400 -rotate-2 mb-4 drop-shadow-[4px_4px_0_fuchsia] leading-tight">
+					{post.title}
+				</h1>
+				<span class="inline-block text-lg font-bold font-sans text-fuchsia-400 rotate-1 bg-white/10 px-3 py-1 mb-4">
+					{t.blog.by} {post.author}
+				</span>
+				<div class="flex flex-wrap gap-2 mt-2">
+					{post.tags.map((tag: string, i: number) => (
+						<span
+							class:list={[
+								"px-3 py-1 text-xs font-black uppercase border-2",
+								i % 3 === 0 && "bg-fuchsia-500 text-white border-lime-400 rotate-3",
+								i % 3 === 1 && "bg-yellow-300 text-black border-fuchsia-600 -rotate-2",
+								i % 3 === 2 && "bg-orange-500 text-white border-cyan-400 rotate-1",
+							]}
+						>
+							{tag}
+						</span>
+					))}
+				</div>
+			</header>
+
+			<div class="space-y-6 max-w-4xl">
+				{post.content.map((paragraph: string, i: number) => (
+					<p
+						class:list={[
+							"text-base md:text-lg leading-relaxed p-4",
+							i % 4 === 0 && "font-serif bg-fuchsia-900/40 rotate-0.5 border-l-8 border-lime-400 text-lime-100 ml-0",
+							i % 4 === 1 && "font-sans bg-cyan-900/40 -rotate-0.5 border-r-8 border-orange-400 text-cyan-100 ml-6 md:ml-16",
+							i % 4 === 2 && "font-mono bg-orange-900/30 rotate-0.5 border-l-8 border-fuchsia-400 text-orange-100 ml-2 md:ml-8",
+							i % 4 === 3 && "font-serif bg-lime-900/30 -rotate-0.5 border-r-8 border-yellow-400 text-lime-100 ml-10 md:ml-24",
+						]}
+					>
+						{paragraph}
+					</p>
 				))}
 			</div>
-		</header>
+		</article>
 
-		<div>
-			{post.content.map((paragraph: string) => (
-				<p>{paragraph}</p>
-			))}
-		</div>
-	</article>
-
-	<section>
-		<h2>{t.blog.moreStories}</h2>
-		<div>
-			{otherPosts.map((p: any) => (
-				<a href={`/${lang}/${style}/blog/${p.slug}`}>
-					<h3>{p.title}</h3>
-					<p>{p.excerpt}</p>
-				</a>
-			))}
-		</div>
-	</section>
-</main>
+		<section class="bg-fuchsia-600 p-6 md:p-10 border-8 border-yellow-300 -rotate-0.5">
+			<h2 class="text-3xl md:text-5xl font-black font-serif text-lime-400 rotate-2 mb-8 underline decoration-cyan-400 decoration-8">
+				{t.blog.moreStories}
+			</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+				{otherPosts.map((p: any, i: number) => (
+					<a
+						href={`/${lang}/${style}/blog/${p.slug}`}
+						class:list={[
+							"block p-5 no-underline border-4 transition-transform hover:scale-105",
+							i % 3 === 0 && "bg-black text-cyan-400 border-lime-400 -rotate-2 hover:rotate-1",
+							i % 3 === 1 && "bg-yellow-300 text-fuchsia-700 border-black rotate-2 hover:-rotate-1",
+							i % 3 === 2 && "bg-cyan-400 text-black border-orange-500 -rotate-1 hover:rotate-2",
+						]}
+					>
+						<h3 class="text-2xl font-black font-serif mb-2">{p.title}</h3>
+						<p class="text-sm font-mono">{p.excerpt}</p>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

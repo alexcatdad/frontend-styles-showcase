@@ -2,47 +2,115 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 ---
 
-<nav>
-	{nav.map((item: any) => (
-		<a href={item.href}>{item.label}</a>
-	))}
-</nav>
+<div class="min-h-screen bg-cyan-400 font-mono overflow-x-hidden">
+	<nav class="flex flex-wrap items-center gap-2 px-4 py-3 bg-fuchsia-600 border-b-8 border-yellow-300">
+		{nav.map((item: any, i: number) => (
+			<a
+				href={item.href}
+				class:list={[
+					"px-3 py-1 font-bold no-underline transition-transform hover:scale-110",
+					i % 3 === 0 && "bg-black text-lime-400 font-serif text-lg -rotate-1",
+					i % 3 === 1 && "bg-yellow-300 text-fuchsia-700 font-mono text-xs rotate-2 uppercase tracking-widest",
+					i % 3 === 2 && "bg-lime-400 text-black font-sans text-base -rotate-2 border-2 border-orange-500",
+				]}
+			>
+				{item.label}
+			</a>
+		))}
+	</nav>
 
-<main>
-	<a href={`/${lang}/${style}/cats`}>&larr; {t.cats.backToAll}</a>
+	<main class="px-4 md:px-8 py-8">
+		<a
+			href={`/${lang}/${style}/cats`}
+			class="inline-block mb-8 px-4 py-2 bg-black text-lime-400 font-black text-lg font-mono no-underline rotate-1 border-4 border-fuchsia-500 hover:-rotate-1 transition-transform"
+		>
+			&larr; {t.cats.backToAll}
+		</a>
 
-	<article>
-		<h1>{cat.name}</h1>
+		<article class="relative bg-black text-white p-6 md:p-10 border-8 border-lime-400 -rotate-0.5 mb-12">
+			<div class="absolute -top-6 -right-4 bg-fuchsia-500 text-yellow-300 px-4 py-2 font-black text-sm uppercase rotate-6 border-2 border-white">
+				{cat.status}
+			</div>
 
-		<dl>
-			<dt>{t.cats.breed}</dt><dd>{cat.breed}</dd>
-			<dt>{t.cats.age}</dt><dd>{cat.age}</dd>
-			<dt>{t.cats.gender}</dt><dd>{cat.gender}</dd>
-			<dt>{t.cats.color}</dt><dd>{cat.color}</dd>
-			<dt>{t.cats.arrived}</dt><dd>{cat.arrivalDate}</dd>
-			<dt>{t.cats.status}</dt><dd>{cat.status}</dd>
-		</dl>
+			<h1 class="text-6xl md:text-9xl font-black font-serif text-fuchsia-400 -rotate-2 mb-8 drop-shadow-[4px_4px_0_lime]">
+				{cat.name}
+			</h1>
 
-		<div>
-			{cat.personality.map((trait: string) => (
-				<span>{trait}</span>
-			))}
-		</div>
+			<dl class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+				<div class="bg-fuchsia-700 p-3 rotate-1 border-2 border-cyan-400">
+					<dt class="text-xs uppercase tracking-widest font-mono text-lime-400 font-bold">{t.cats.breed}</dt>
+					<dd class="text-xl font-black font-serif text-white">{cat.breed}</dd>
+				</div>
+				<div class="bg-cyan-700 p-3 -rotate-2 border-2 border-orange-400">
+					<dt class="text-xs uppercase tracking-widest font-mono text-yellow-300 font-bold">{t.cats.age}</dt>
+					<dd class="text-xl font-black font-sans text-white">{cat.age}</dd>
+				</div>
+				<div class="bg-orange-600 p-3 rotate-2 border-2 border-lime-400">
+					<dt class="text-xs uppercase tracking-widest font-mono text-black font-bold">{t.cats.gender}</dt>
+					<dd class="text-xl font-black font-serif text-white">{cat.gender}</dd>
+				</div>
+				<div class="bg-lime-600 p-3 -rotate-1 border-2 border-fuchsia-400">
+					<dt class="text-xs uppercase tracking-widest font-mono text-black font-bold">{t.cats.color}</dt>
+					<dd class="text-xl font-black font-sans text-white">{cat.color}</dd>
+				</div>
+				<div class="bg-yellow-500 p-3 rotate-3 border-2 border-black">
+					<dt class="text-xs uppercase tracking-widest font-mono text-fuchsia-700 font-bold">{t.cats.arrived}</dt>
+					<dd class="text-xl font-black font-serif text-black">{cat.arrivalDate}</dd>
+				</div>
+				<div class="bg-fuchsia-400 p-3 -rotate-2 border-2 border-lime-400">
+					<dt class="text-xs uppercase tracking-widest font-mono text-black font-bold">{t.cats.status}</dt>
+					<dd class="text-xl font-black font-mono text-white">{cat.status}</dd>
+				</div>
+			</dl>
 
-		<p>{cat.description}</p>
+			<div class="flex flex-wrap gap-3 mb-8">
+				{cat.personality.map((trait: string, i: number) => (
+					<span
+						class:list={[
+							"px-4 py-2 font-black text-sm uppercase border-2",
+							i % 4 === 0 && "bg-lime-400 text-black border-fuchsia-600 rotate-2",
+							i % 4 === 1 && "bg-fuchsia-500 text-yellow-300 border-cyan-400 -rotate-3",
+							i % 4 === 2 && "bg-cyan-400 text-black border-orange-500 rotate-1",
+							i % 4 === 3 && "bg-orange-500 text-white border-lime-400 -rotate-1",
+						]}
+					>
+						{trait}
+					</span>
+				))}
+			</div>
 
-		<a href={`/${lang}/${style}/auth`}>{t.cats.adopt} {cat.name}</a>
-	</article>
+			<p class="text-lg md:text-xl font-serif leading-relaxed bg-fuchsia-900/50 p-6 -rotate-0.5 border-l-8 border-lime-400 text-lime-100">
+				{cat.description}
+			</p>
 
-	<section>
-		<h2>{t.cats.otherCats}</h2>
-		<div>
-			{otherCats.map((c: any) => (
-				<a href={`/${lang}/${style}/cats/${c.id}`}>
-					<h3>{c.name}</h3>
-					<p>{c.breed} · {c.age}</p>
-				</a>
-			))}
-		</div>
-	</section>
-</main>
+			<a
+				href={`/${lang}/${style}/auth`}
+				class="inline-block mt-8 px-10 py-5 bg-lime-400 text-black font-black text-2xl md:text-3xl font-sans border-4 border-fuchsia-600 rotate-2 hover:-rotate-1 transition-transform no-underline uppercase"
+			>
+				{t.cats.adopt} {cat.name}
+			</a>
+		</article>
+
+		<section class="bg-orange-500 p-6 md:p-10 border-8 border-black rotate-0.5">
+			<h2 class="text-3xl md:text-5xl font-black font-mono text-black -rotate-2 mb-8 underline decoration-yellow-300 decoration-8">
+				{t.cats.otherCats}
+			</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+				{otherCats.map((c: any, i: number) => (
+					<a
+						href={`/${lang}/${style}/cats/${c.id}`}
+						class:list={[
+							"block p-4 no-underline border-4 transition-transform hover:scale-105",
+							i % 3 === 0 && "bg-black text-lime-400 border-cyan-400 rotate-2",
+							i % 3 === 1 && "bg-fuchsia-600 text-yellow-300 border-lime-400 -rotate-3",
+							i % 3 === 2 && "bg-cyan-400 text-black border-fuchsia-600 rotate-1",
+						]}
+					>
+						<h3 class="text-2xl font-black font-serif mb-1">{c.name}</h3>
+						<p class="text-sm font-mono font-bold">{c.breed} · {c.age}</p>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+</div>
