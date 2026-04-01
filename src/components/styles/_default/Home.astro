@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <nav>
@@ -12,8 +13,8 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 	<section>
 		<h1>{sanctuary.name}</h1>
 		<p>{sanctuary.tagline}</p>
-		<a href={`/${lang}/${style}/cats`}>{t.home.meetCats}</a>
-		<a href={`/${lang}/${style}/donate`}>{t.home.donate}</a>
+		<a href={`${_base}/${lang}/${style}/cats`}>{t.home.meetCats}</a>
+		<a href={`${_base}/${lang}/${style}/donate`}>{t.home.donate}</a>
 	</section>
 
 	<section>

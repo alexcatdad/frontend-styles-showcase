@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white overflow-x-hidden">
@@ -37,7 +38,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 			<!-- Cats Grid — staggered with varied glass opacities for depth -->
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
 				{cats.map((cat: any, i: number) => (
-					<a href={`/${lang}/${style}/cats/${cat.id}`} class={`group block ${i === 0 ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
+					<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class={`group block ${i === 0 ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
 						<div class={`relative backdrop-blur-xl border rounded-3xl p-6 sm:p-7 shadow-lg h-full flex flex-col transition-all duration-300 hover:scale-[1.03] hover:shadow-xl ${i % 3 === 0 ? 'bg-white/[0.12] border-white/20 hover:bg-white/[0.18]' : i % 3 === 1 ? 'bg-white/[0.08] border-white/[0.15] hover:bg-white/[0.14]' : 'bg-white/[0.06] border-white/[0.12] hover:bg-white/[0.12]'}`}>
 							<!-- Status pill floating at top right -->
 							<span class={`absolute -top-2.5 right-5 text-[11px] font-semibold px-3 py-1 rounded-full border shadow-sm ${cat.status === 'available' ? 'bg-emerald-500/25 border-emerald-400/30 text-emerald-300 shadow-emerald-500/10' : cat.status === 'adopted' ? 'bg-blue-500/25 border-blue-400/30 text-blue-300 shadow-blue-500/10' : 'bg-amber-500/25 border-amber-400/30 text-amber-300 shadow-amber-500/10'}`}>{cat.status}</span>

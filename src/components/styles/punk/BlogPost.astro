@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-black font-mono selection:bg-pink-500 selection:text-white overflow-x-hidden">
@@ -32,7 +33,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 		<div class="max-w-3xl mx-auto">
 			<!-- Back link -->
 			<a
-				href={`/${lang}/${style}/blog`}
+				href={`${_base}/${lang}/${style}/blog`}
 				class="inline-block bg-black text-yellow-400 font-black uppercase text-[10px] md:text-xs px-3 py-1.5 border-2 border-yellow-400 rotate-1 hover:rotate-0 transition-transform no-underline mb-10 shadow-[2px_2px_0_rgba(234,179,8,0.4)]"
 			>
 				← {t.blog.backToBlog}
@@ -122,7 +123,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
 					{otherPosts.map((p: any, i: number) => (
 						<a
-							href={`/${lang}/${style}/blog/${p.slug}`}
+							href={`${_base}/${lang}/${style}/blog/${p.slug}`}
 							class:list={[
 								"relative block border-4 border-black p-4 no-underline text-black hover:scale-105 transition-transform shadow-[3px_3px_0_black]",
 								i % 4 === 0 ? "rotate-1 bg-yellow-200 hover:bg-yellow-300" :

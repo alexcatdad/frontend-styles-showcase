@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, posts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-300 font-mono text-center">
@@ -65,7 +66,7 @@ const { lang, style, nav, posts, t } = Astro.props;
 				</div>
 			</div>
 			{posts.map((post: any, i: number) => (
-				<a href={`/${lang}/${style}/blog/${post.slug}`} class="no-underline block group">
+				<a href={`${_base}/${lang}/${style}/blog/${post.slug}`} class="no-underline block group">
 					<div class={`grid grid-cols-[auto_1fr_auto_auto] min-w-[500px] text-[11px] font-bold hover:bg-fuchsia-100 ${i % 2 === 0 ? 'bg-white' : 'bg-yellow-50'}`}>
 						<div class="border border-gray-400 px-2 py-2 text-gray-600">
 							<time datetime={post.date}>{post.date}</time>
@@ -89,7 +90,7 @@ const { lang, style, nav, posts, t } = Astro.props;
 		<!-- ===== BLOG POST CARDS as Win95 Windows ===== -->
 		<div class="space-y-3 mb-4">
 			{posts.map((post: any) => (
-				<a href={`/${lang}/${style}/blog/${post.slug}`} class="no-underline block group">
+				<a href={`${_base}/${lang}/${style}/blog/${post.slug}`} class="no-underline block group">
 					<article class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300">
 						<!-- Window Title Bar -->
 						<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-3 py-1.5 flex items-center justify-between">

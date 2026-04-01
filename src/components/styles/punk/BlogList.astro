@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, posts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-black font-mono selection:bg-pink-500 selection:text-white overflow-x-hidden">
@@ -45,7 +46,7 @@ const { lang, style, nav, posts, t } = Astro.props;
 			<div class="space-y-6 md:space-y-8">
 				{posts.map((post: any, i: number) => (
 					<a
-						href={`/${lang}/${style}/blog/${post.slug}`}
+						href={`${_base}/${lang}/${style}/blog/${post.slug}`}
 						class:list={[
 							"relative block border-4 border-black p-4 md:p-6 no-underline text-black hover:scale-[1.02] transition-transform group",
 							i % 5 === 0 ? "-rotate-1 bg-yellow-100 hover:bg-yellow-200 shadow-[5px_5px_0_black] md:mr-12" :

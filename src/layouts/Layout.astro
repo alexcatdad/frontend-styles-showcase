@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import type { Locale } from "../data/i18n";
 import { localeLabels, locales } from "../data/i18n";
+import { href } from "../data/navigation";
 import { getStyle } from "../data/styles";
 
 interface Props {
@@ -28,7 +29,7 @@ const currentPath = Astro.url.pathname;
 
 		{meta && (
 			<div id="style-badge" class="fixed bottom-4 right-4 z-[9999] flex items-center gap-1.5 rounded-full bg-black/80 backdrop-blur-md text-white text-xs font-medium pl-3 pr-1.5 py-1.5 shadow-lg border border-white/10 font-['DM_Sans',system-ui,sans-serif]">
-				<a href="/" class="text-white/50 hover:text-white transition-colors" title="All styles">
+				<a href={href("/")} class="text-white/50 hover:text-white transition-colors" title="All styles">
 					<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
 						<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
 					</svg>

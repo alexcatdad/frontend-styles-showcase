@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-black font-sans">
@@ -17,7 +18,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 		<!-- Back link -->
 		<div class="grid grid-cols-12 gap-x-4 border-b border-neutral-200">
 			<div class="col-span-12 md:col-span-6 md:col-start-3 py-3">
-				<a href={`/${lang}/${style}/blog`} class="text-[10px] uppercase tracking-[0.25em] text-neutral-400 hover:text-black transition-colors">&larr; {t.blog.backToBlog}</a>
+				<a href={`${_base}/${lang}/${style}/blog`} class="text-[10px] uppercase tracking-[0.25em] text-neutral-400 hover:text-black transition-colors">&larr; {t.blog.backToBlog}</a>
 			</div>
 		</div>
 
@@ -59,7 +60,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 				</div>
 				<div class="col-span-12 md:col-span-8 md:col-start-4">
 					{otherPosts.map((p: any) => (
-						<a href={`/${lang}/${style}/blog/${p.slug}`} class="group flex items-baseline justify-between border-b border-neutral-200 hover:border-black py-4 transition-colors">
+						<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="group flex items-baseline justify-between border-b border-neutral-200 hover:border-black py-4 transition-colors">
 							<span class="text-lg font-bold tracking-tight text-left group-hover:text-red-600 transition-colors">{p.title}</span>
 							<time class="text-[10px] tracking-[0.25em] text-neutral-400 font-mono shrink-0 ml-4">{p.date}</time>
 						</a>

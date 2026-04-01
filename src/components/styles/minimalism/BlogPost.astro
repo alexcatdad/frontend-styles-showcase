@@ -1,11 +1,12 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
 	<nav class="pt-8 pb-4 px-6 lg:px-12">
 		<div class="max-w-2xl mx-auto flex items-center justify-between">
-			<a href={`/${lang}/${style}/`} class="text-xs text-stone-400 tracking-widest uppercase">{post.title}</a>
+			<a href={`${_base}/${lang}/${style}/`} class="text-xs text-stone-400 tracking-widest uppercase">{post.title}</a>
 			<div class="flex items-center gap-6 md:gap-8">
 				{nav.map((item: any) => (
 					<a href={item.href} class="text-xs text-stone-400 tracking-widest uppercase hover:text-neutral-900 transition-colors duration-500">{item.label}</a>
@@ -17,7 +18,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 	<main>
 		<section class="pt-24 md:pt-32 px-6 lg:px-12">
 			<div class="max-w-2xl mx-auto">
-				<a href={`/${lang}/${style}/blog`} class="text-sm font-light text-stone-400 hover:text-neutral-900 transition-colors duration-500">&larr; {t.blog.backToBlog}</a>
+				<a href={`${_base}/${lang}/${style}/blog`} class="text-sm font-light text-stone-400 hover:text-neutral-900 transition-colors duration-500">&larr; {t.blog.backToBlog}</a>
 			</div>
 		</section>
 
@@ -47,7 +48,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 				<p class="text-xs tracking-widest uppercase text-stone-400 mb-16 md:mb-24">{t.blog.moreStories}</p>
 				<div class="space-y-16 md:space-y-20">
 					{otherPosts.map((p: any) => (
-						<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block">
+						<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="group block">
 							<time datetime={p.date} class="text-xs tracking-widest uppercase text-stone-400 block">{p.date}</time>
 							<h3 class="mt-4 text-2xl md:text-3xl font-extralight tracking-tight group-hover:text-stone-400 transition-colors duration-500">{p.title}</h3>
 							<p class="mt-4 text-base font-light text-neutral-500 leading-relaxed max-w-lg">{p.excerpt}</p>

@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-stone-50 text-stone-800 flex flex-col">
@@ -30,8 +31,8 @@ const { lang, style, nav, t } = Astro.props;
 					<hr class="w-12 border-t border-stone-300 mb-6" />
 					<p class="text-stone-500 leading-relaxed mb-10 max-w-md">{t.notFound.description}</p>
 					<div class="flex flex-col sm:flex-row gap-4">
-						<a href={`/${lang}/${style}/`} class="px-8 py-3 bg-stone-800 text-stone-50 font-serif text-xs tracking-[0.3em] uppercase hover:bg-stone-900 transition-colors text-center">{t.notFound.backHome}</a>
-						<a href={`/${lang}/${style}/cats`} class="px-8 py-3 border border-stone-400 text-stone-700 font-serif text-xs tracking-[0.3em] uppercase hover:border-stone-800 hover:text-stone-900 transition-colors text-center">{t.notFound.meetCats}</a>
+						<a href={`${_base}/${lang}/${style}/`} class="px-8 py-3 bg-stone-800 text-stone-50 font-serif text-xs tracking-[0.3em] uppercase hover:bg-stone-900 transition-colors text-center">{t.notFound.backHome}</a>
+						<a href={`${_base}/${lang}/${style}/cats`} class="px-8 py-3 border border-stone-400 text-stone-700 font-serif text-xs tracking-[0.3em] uppercase hover:border-stone-800 hover:text-stone-900 transition-colors text-center">{t.notFound.meetCats}</a>
 					</div>
 				</div>
 			</div>

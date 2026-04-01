@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white font-sans">
@@ -47,10 +48,10 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 					{sanctuary.tagline}
 				</p>
 				<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-					<a href={`/${lang}/${style}/cats`} class="rounded-2xl bg-amber-400 px-10 py-4 text-lg font-extrabold text-amber-900 transition-colors hover:bg-amber-300">
+					<a href={`${_base}/${lang}/${style}/cats`} class="rounded-2xl bg-amber-400 px-10 py-4 text-lg font-extrabold text-amber-900 transition-colors hover:bg-amber-300">
 						{t.home.meetCats}
 					</a>
-					<a href={`/${lang}/${style}/donate`} class="rounded-2xl bg-white px-10 py-4 text-lg font-extrabold text-blue-500 transition-colors hover:bg-blue-50">
+					<a href={`${_base}/${lang}/${style}/donate`} class="rounded-2xl bg-white px-10 py-4 text-lg font-extrabold text-blue-500 transition-colors hover:bg-blue-50">
 						{t.home.donate}
 					</a>
 				</div>

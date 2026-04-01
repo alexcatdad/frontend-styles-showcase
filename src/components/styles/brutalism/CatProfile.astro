@@ -1,11 +1,12 @@
 ---
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <main class="bg-white font-mono text-black overflow-x-hidden">
 	<!-- CAT NAME: TAKES OVER THE VIEWPORT -->
 	<section class="relative bg-black text-white px-4 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
-		<a href={`/${lang}/${style}/cats`} class="inline-block text-yellow-400 uppercase font-black text-xs tracking-[0.3em] mb-8 hover:text-white cursor-pointer border-b-2 border-yellow-400 hover:border-white pb-1">&larr; {t.cats.backToAll}</a>
+		<a href={`${_base}/${lang}/${style}/cats`} class="inline-block text-yellow-400 uppercase font-black text-xs tracking-[0.3em] mb-8 hover:text-white cursor-pointer border-b-2 border-yellow-400 hover:border-white pb-1">&larr; {t.cats.backToAll}</a>
 		<img src={cat.image} alt={cat.name} class="w-full h-64 md:h-96 object-cover border-4 border-yellow-400 mb-8" />
 		<h1 class="text-7xl md:text-9xl lg:text-[14rem] font-black uppercase leading-none tracking-tighter text-white">{cat.name}</h1>
 		<span class="absolute top-4 right-4 md:top-8 md:right-8 bg-red-600 text-white text-xs md:text-sm font-black uppercase px-4 py-2 tracking-[0.3em] border-4 border-red-600 rotate-3">{cat.status}</span>
@@ -58,7 +59,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 
 	<!-- ADOPT CTA: IMPOSSIBLE TO MISS -->
 	<section class="bg-red-600 text-white px-4 py-12 md:py-16 border-t-8 border-black text-center">
-		<a href={`/${lang}/${style}/auth`} class="inline-block bg-black text-white uppercase font-black text-2xl md:text-4xl lg:text-5xl px-8 md:px-12 py-4 md:py-6 border-4 border-white hover:bg-yellow-400 hover:text-black hover:border-black cursor-pointer tracking-wider">{t.cats.adopt} {cat.name}</a>
+		<a href={`${_base}/${lang}/${style}/auth`} class="inline-block bg-black text-white uppercase font-black text-2xl md:text-4xl lg:text-5xl px-8 md:px-12 py-4 md:py-6 border-4 border-white hover:bg-yellow-400 hover:text-black hover:border-black cursor-pointer tracking-wider">{t.cats.adopt} {cat.name}</a>
 	</section>
 
 	<!-- OTHER CATS: FOOTER MID-PAGE FEEL -->
@@ -66,7 +67,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 		<h2 class="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-6 md:mb-8">{t.cats.otherCats}</h2>
 		<div class="flex flex-col md:flex-row gap-0">
 			{otherCats.map((c: any, i: number) => (
-				<a href={`/${lang}/${style}/cats/${c.id}`} class={`block border-4 border-black p-4 md:p-6 flex-1 hover:bg-yellow-400 cursor-pointer -mt-1 md:mt-0 md:-ml-1 first:mt-0 first:md:ml-0
+				<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class={`block border-4 border-black p-4 md:p-6 flex-1 hover:bg-yellow-400 cursor-pointer -mt-1 md:mt-0 md:-ml-1 first:mt-0 first:md:ml-0
 					${i === 0 ? 'bg-black text-white hover:text-black' : 'bg-white'}
 				`}>
 					<h3 class="text-xl md:text-2xl font-black uppercase tracking-tighter">{c.name}</h3>

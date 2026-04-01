@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, posts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 overflow-hidden">
@@ -33,7 +34,7 @@ const { lang, style, nav, posts, t } = Astro.props;
 		<!-- Post Cards -->
 		<div class="space-y-7">
 			{posts.map((post: any, i: number) => (
-				<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block relative">
+				<a href={`${_base}/${lang}/${style}/blog/${post.slug}`} class="group block relative">
 					<article class="relative rounded-[2rem] bg-gradient-to-br from-slate-100 via-white to-slate-200 border-2 border-white/80 shadow-[0_6px_28px_rgba(168,130,220,0.12)] group-hover:shadow-[0_14px_52px_rgba(219,130,220,0.25)] transition-all duration-500 group-hover:scale-[1.02] group-hover:-translate-y-1 overflow-hidden">
 						<!-- Top iridescent accent -->
 						<div class={`h-1 bg-gradient-to-r ${i % 2 === 0 ? 'from-pink-300 via-purple-300 to-blue-300' : 'from-blue-300 via-purple-300 to-pink-300'}`}></div>

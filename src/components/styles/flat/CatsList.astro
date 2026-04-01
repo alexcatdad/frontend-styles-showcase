@@ -47,6 +47,7 @@ const cardColors = [
 		hoverBg: "hover:bg-amber-500",
 	},
 ];
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white font-sans">
@@ -94,7 +95,7 @@ const cardColors = [
 				{cats.map((cat: any, index: number) => {
 					const c = cardColors[index % cardColors.length];
 					return (
-						<a href={`/${lang}/${style}/cats/${cat.id}`} class={`group block rounded-2xl ${c.bg} p-6 transition-colors ${c.hoverBg}`}>
+						<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class={`group block rounded-2xl ${c.bg} p-6 transition-colors ${c.hoverBg}`}>
 							<img src={cat.thumbnail} alt={cat.name} class="w-full h-40 object-cover rounded-xl mb-5" />
 							<!-- Avatar circle + status -->
 							<div class="mb-5 flex items-center justify-between">

@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-950 text-white font-mono relative overflow-hidden">
@@ -32,7 +33,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 	<main class="relative z-10 max-w-4xl mx-auto px-4 py-12">
 		<!-- Back link -->
 		<a
-			href={`/${lang}/${style}/cats`}
+			href={`${_base}/${lang}/${style}/cats`}
 			class="inline-flex items-center gap-2 text-fuchsia-400 hover:text-fuchsia-300 font-bold uppercase tracking-[0.2em] text-sm transition-all duration-300 mb-10 group hover:drop-shadow-[0_0_10px_#ff00ff66]"
 		>
 			<span class="group-hover:-translate-x-1 transition-transform text-cyan-400">&laquo;</span>
@@ -104,7 +105,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 
 				<!-- Adopt CTA — big arcade button -->
 				<a
-					href={`/${lang}/${style}/auth`}
+					href={`${_base}/${lang}/${style}/auth`}
 					class="group inline-flex items-center gap-3 px-10 py-4 bg-fuchsia-600/90 text-white font-black uppercase tracking-[0.2em] rounded-sm border border-fuchsia-400 shadow-[0_0_25px_#ff00ff,0_0_50px_#ff00ff44] hover:shadow-[0_0_40px_#ff00ff,0_0_80px_#ff00ff66] hover:bg-fuchsia-500 transition-all duration-500 text-lg relative overflow-hidden"
 				>
 					<span class="relative z-10">{t.cats.adopt} {cat.name}</span>
@@ -127,7 +128,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 			<div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
 				{otherCats.map((c: any) => (
 					<a
-						href={`/${lang}/${style}/cats/${c.id}`}
+						href={`${_base}/${lang}/${style}/cats/${c.id}`}
 						class="group block p-6 rounded-sm border border-fuchsia-500/25 bg-gray-900/50 shadow-[0_0_10px_#ff00ff22] hover:shadow-[0_0_25px_#ff00ff55,0_0_50px_#ff00ff22] hover:border-fuchsia-400/60 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden"
 					>
 						<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-fuchsia-500/30 via-cyan-400/30 to-fuchsia-500/30 opacity-50 group-hover:opacity-100 transition-opacity"></div>

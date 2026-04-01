@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200 antialiased">
@@ -22,7 +23,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 	<main class="mx-auto max-w-[720px] px-4 py-8 lg:py-10">
 		<!-- Breadcrumb -->
 		<div class="mb-6 flex items-center gap-2 text-[13px]">
-			<a href={`/${lang}/${style}/blog`} class="text-gray-600 transition-colors hover:text-gray-400">{t.blog.backToBlog}</a>
+			<a href={`${_base}/${lang}/${style}/blog`} class="text-gray-600 transition-colors hover:text-gray-400">{t.blog.backToBlog}</a>
 			<span class="text-gray-700">/</span>
 			<span class="truncate text-gray-400">{post.title}</span>
 		</div>
@@ -60,7 +61,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 			<h2 class="mb-4 text-[12px] font-semibold uppercase tracking-widest text-gray-600">{t.blog.moreStories}</h2>
 			<div class="divide-y divide-white/[0.04]">
 				{otherPosts.map((p: any) => (
-					<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block py-4 transition-all duration-150 first:pt-0 last:pb-0">
+					<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="group block py-4 transition-all duration-150 first:pt-0 last:pb-0">
 						<div class="flex items-start justify-between gap-4">
 							<div>
 								<h3 class="mb-1 text-[14px] font-medium text-gray-300 transition-colors group-hover:text-white">{p.title}</h3>

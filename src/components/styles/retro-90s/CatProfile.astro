@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-300 font-mono text-center">
@@ -27,7 +28,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 
 		<!-- Back link -->
 		<div class="text-left mb-3">
-			<a href={`/${lang}/${style}/cats`} class="text-blue-700 font-bold underline text-xs hover:text-fuchsia-600">&lt;&lt; {t.cats.backToAll} &lt;&lt;</a>
+			<a href={`${_base}/${lang}/${style}/cats`} class="text-blue-700 font-bold underline text-xs hover:text-fuchsia-600">&lt;&lt; {t.cats.backToAll} &lt;&lt;</a>
 		</div>
 
 		<!-- ===== Cat Name Banner ===== -->
@@ -120,7 +121,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 
 					<!-- ADOPT button: Big, beveled, impossible to miss -->
 					<div class="text-center">
-						<a href={`/${lang}/${style}/auth`} class="inline-block bg-fuchsia-500 text-white font-bold text-lg px-8 py-3 no-underline border-t-3 border-l-3 border-fuchsia-300 border-b-3 border-r-3 border-b-fuchsia-800 border-r-fuchsia-800 hover:bg-fuchsia-400 active:border-t-fuchsia-800 active:border-l-fuchsia-800 active:border-b-fuchsia-300 active:border-r-fuchsia-300 uppercase tracking-wider animate-pulse">
+						<a href={`${_base}/${lang}/${style}/auth`} class="inline-block bg-fuchsia-500 text-white font-bold text-lg px-8 py-3 no-underline border-t-3 border-l-3 border-fuchsia-300 border-b-3 border-r-3 border-b-fuchsia-800 border-r-fuchsia-800 hover:bg-fuchsia-400 active:border-t-fuchsia-800 active:border-l-fuchsia-800 active:border-b-fuchsia-300 active:border-r-fuchsia-300 uppercase tracking-wider animate-pulse">
 							&gt;&gt; {t.cats.adopt} {cat.name}!! &lt;&lt;
 						</a>
 					</div>
@@ -143,7 +144,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 				<div class="p-2 bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white">
 					<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
 						{otherCats.map((c: any, i: number) => (
-							<a href={`/${lang}/${style}/cats/${c.id}`} class="no-underline block group">
+							<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class="no-underline block group">
 								<div class={`border-2 border-gray-500 p-2 text-center hover:bg-fuchsia-50 ${i % 2 === 0 ? 'bg-yellow-50' : 'bg-cyan-50'}`}>
 									<h3 class="text-sm font-bold text-fuchsia-700 group-hover:text-blue-700">{c.name}</h3>
 									<p class="text-[10px] text-gray-600">{c.breed} | {c.age}</p>

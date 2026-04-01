@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
@@ -27,7 +28,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 		<!-- Cat cards grid -->
 		<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
 			{cats.map((cat: any) => (
-				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block rounded-[1.5rem] bg-[#e0e5ec] p-7 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] transition-all duration-400 hover:shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff]">
+				<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class="group block rounded-[1.5rem] bg-[#e0e5ec] p-7 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] transition-all duration-400 hover:shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff]">
 					<!-- Cat thumbnail -->
 					<img src={cat.thumbnail} alt={cat.name} class="w-full h-40 object-cover rounded-xl mb-5 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]" />
 

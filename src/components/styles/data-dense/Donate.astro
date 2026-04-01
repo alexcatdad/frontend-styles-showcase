@@ -2,6 +2,7 @@
 const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
 const totalMonthlyOptions = monthlyTiers.length;
 const totalOneTimeOptions = oneTimeTiers.length;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-100 text-gray-800 font-sans text-xs leading-tight">
@@ -27,7 +28,7 @@ const totalOneTimeOptions = oneTimeTiers.length;
 
 	<!-- Toolbar with breadcrumbs -->
 	<nav class="bg-white border-b border-gray-300 px-2 py-1 flex items-center gap-1 text-xs sticky top-0 z-50">
-		<a href={`/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
+		<a href={`${_base}/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
 		<span class="text-gray-300 mx-0.5">/</span>
 		<span class="font-bold text-gray-900 text-[11px]">{t.donate.title}</span>
 		<div class="ml-auto flex items-center gap-0.5">

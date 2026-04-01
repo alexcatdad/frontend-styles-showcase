@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-black font-sans">
@@ -25,8 +26,8 @@ const { lang, style, nav, t } = Astro.props;
 					<p class="mt-4 text-sm text-neutral-600 max-w-md text-left">{t.notFound.description}</p>
 				</div>
 				<div class="mt-12 flex gap-x-6">
-					<a href={`/${lang}/${style}/`} class="bg-red-600 text-white text-[10px] uppercase tracking-[0.25em] px-8 py-3 hover:bg-red-700 transition-colors">{t.notFound.backHome}</a>
-					<a href={`/${lang}/${style}/cats`} class="border border-black text-black text-[10px] uppercase tracking-[0.25em] px-8 py-3 hover:bg-black hover:text-white transition-colors">{t.notFound.meetCats}</a>
+					<a href={`${_base}/${lang}/${style}/`} class="bg-red-600 text-white text-[10px] uppercase tracking-[0.25em] px-8 py-3 hover:bg-red-700 transition-colors">{t.notFound.backHome}</a>
+					<a href={`${_base}/${lang}/${style}/cats`} class="border border-black text-black text-[10px] uppercase tracking-[0.25em] px-8 py-3 hover:bg-black hover:text-white transition-colors">{t.notFound.meetCats}</a>
 				</div>
 			</div>
 		</div>

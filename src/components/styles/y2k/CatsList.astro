@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-blue-50 overflow-hidden">
@@ -34,7 +35,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 		<!-- Cat Trading Cards Grid -->
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
 			{cats.map((cat: any, i: number) => (
-				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block relative">
+				<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class="group block relative">
 					<!-- Card with chrome border effect -->
 					<div class="relative rounded-[2rem] bg-gradient-to-br from-slate-100 via-white to-slate-200 border-2 border-white/80 shadow-[0_8px_32px_rgba(168,130,220,0.15)] group-hover:shadow-[0_16px_56px_rgba(219,130,220,0.3)] transition-all duration-500 group-hover:scale-[1.04] group-hover:-translate-y-1 overflow-hidden">
 						<!-- Glossy top shine -->

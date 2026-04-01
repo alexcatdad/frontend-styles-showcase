@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-300 font-mono text-center">
@@ -89,10 +90,10 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 
 				<!-- CTA Buttons: beveled 3D -->
 				<div class="flex flex-col sm:flex-row gap-2 justify-center mb-3">
-					<a href={`/${lang}/${style}/cats`} class="bg-lime-400 border-t-3 border-l-3 border-lime-200 border-b-3 border-r-3 border-b-lime-800 border-r-lime-800 px-6 py-3 font-bold text-base text-black no-underline text-center hover:bg-lime-300 active:border-t-lime-800 active:border-l-lime-800 active:border-b-lime-200 active:border-r-lime-200 uppercase tracking-wider">
+					<a href={`${_base}/${lang}/${style}/cats`} class="bg-lime-400 border-t-3 border-l-3 border-lime-200 border-b-3 border-r-3 border-b-lime-800 border-r-lime-800 px-6 py-3 font-bold text-base text-black no-underline text-center hover:bg-lime-300 active:border-t-lime-800 active:border-l-lime-800 active:border-b-lime-200 active:border-r-lime-200 uppercase tracking-wider">
 						&gt;&gt; {t.home.meetCats} &lt;&lt;
 					</a>
-					<a href={`/${lang}/${style}/donate`} class="bg-yellow-400 border-t-3 border-l-3 border-yellow-200 border-b-3 border-r-3 border-b-yellow-700 border-r-yellow-700 px-6 py-3 font-bold text-base text-black no-underline text-center hover:bg-yellow-300 active:border-t-yellow-700 active:border-l-yellow-700 active:border-b-yellow-200 active:border-r-yellow-200 uppercase tracking-wider">
+					<a href={`${_base}/${lang}/${style}/donate`} class="bg-yellow-400 border-t-3 border-l-3 border-yellow-200 border-b-3 border-r-3 border-b-yellow-700 border-r-yellow-700 px-6 py-3 font-bold text-base text-black no-underline text-center hover:bg-yellow-300 active:border-t-yellow-700 active:border-l-yellow-700 active:border-b-yellow-200 active:border-r-yellow-200 uppercase tracking-wider">
 						&gt;&gt; {t.home.donate} &lt;&lt;
 					</a>
 				</div>

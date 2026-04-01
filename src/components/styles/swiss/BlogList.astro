@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, posts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-black font-sans">
@@ -46,7 +47,7 @@ const { lang, style, nav, posts, t } = Astro.props;
 		<!-- Post index -->
 		<div>
 			{posts.map((post: any) => (
-				<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block border-b border-neutral-200 hover:border-black transition-colors">
+				<a href={`${_base}/${lang}/${style}/blog/${post.slug}`} class="group block border-b border-neutral-200 hover:border-black transition-colors">
 					<div class="grid grid-cols-12 gap-x-4 py-5 md:py-6 items-baseline">
 						<div class="col-span-12 md:col-span-2">
 							<time datetime={post.date} class="text-[10px] tracking-[0.25em] text-neutral-400 font-mono">{post.date}</time>

@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-b from-amber-800 via-amber-900 to-stone-900">
@@ -39,13 +40,13 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 				<img src={sanctuary.heroImage} alt={sanctuary.name} class="w-full max-w-3xl mx-auto mt-6 rounded-lg object-cover border-4 border-amber-700/50 shadow-[0_6px_20px_rgba(0,0,0,0.5)]" />
 				<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
 					<a
-						href={`/${lang}/${style}/cats`}
+						href={`${_base}/${lang}/${style}/cats`}
 						class="px-8 py-3.5 bg-gradient-to-b from-emerald-500 via-emerald-600 to-emerald-800 text-white font-bold text-lg rounded-lg border border-emerald-900 shadow-[0_4px_12px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.3)] hover:from-emerald-400 hover:to-emerald-700 active:shadow-[inset_0_3px_8px_rgba(0,0,0,0.4)] active:from-emerald-700 active:to-emerald-900 transition-all"
 					>
 						{t.home.meetCats}
 					</a>
 					<a
-						href={`/${lang}/${style}/donate`}
+						href={`${_base}/${lang}/${style}/donate`}
 						class="px-8 py-3.5 bg-gradient-to-b from-yellow-500 via-yellow-600 to-amber-700 text-amber-950 font-bold text-lg rounded-lg border border-amber-800 shadow-[0_4px_12px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.4)] hover:from-yellow-400 hover:to-amber-600 active:shadow-[inset_0_3px_8px_rgba(0,0,0,0.4)] active:from-amber-700 active:to-amber-800 transition-all"
 					>
 						{t.home.donate}

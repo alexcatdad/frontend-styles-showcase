@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-[#1a1714] text-[#c8c0b0] font-mono selection:bg-amber-900/60 selection:text-amber-200">
@@ -28,8 +29,8 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 			<p class="mb-10 max-w-xl text-base leading-relaxed text-[#9a9080] md:text-lg"><span class="text-[#8b4513] mr-2 font-bold">//</span>{sanctuary.tagline}</p>
 
 			<div class="flex flex-wrap gap-3">
-				<a href={`/${lang}/${style}/cats`} class="border-[3px] border-[#f5f0e8] bg-[#f5f0e8] px-7 py-3 text-xs font-black uppercase tracking-[0.2em] text-[#1a1714] hover:bg-transparent hover:text-[#f5f0e8] transition-all duration-200">{t.home.meetCats}</a>
-				<a href={`/${lang}/${style}/donate`} class="border-[3px] border-[#8b4513] px-7 py-3 text-xs font-black uppercase tracking-[0.2em] text-[#c87941] hover:bg-[#8b4513] hover:text-[#f5f0e8] transition-all duration-200">✗ {t.home.donate}</a>
+				<a href={`${_base}/${lang}/${style}/cats`} class="border-[3px] border-[#f5f0e8] bg-[#f5f0e8] px-7 py-3 text-xs font-black uppercase tracking-[0.2em] text-[#1a1714] hover:bg-transparent hover:text-[#f5f0e8] transition-all duration-200">{t.home.meetCats}</a>
+				<a href={`${_base}/${lang}/${style}/donate`} class="border-[3px] border-[#8b4513] px-7 py-3 text-xs font-black uppercase tracking-[0.2em] text-[#c87941] hover:bg-[#8b4513] hover:text-[#f5f0e8] transition-all duration-200">✗ {t.home.donate}</a>
 			</div>
 		</section>
 

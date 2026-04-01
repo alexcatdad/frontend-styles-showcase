@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-300 font-mono text-center">
@@ -68,7 +69,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 			</div>
 			<!-- Table Rows -->
 			{cats.map((cat: any, i: number) => (
-				<a href={`/${lang}/${style}/cats/${cat.id}`} class="no-underline block group">
+				<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class="no-underline block group">
 					<div class={`grid grid-cols-[1fr_1fr_auto_auto_1fr_auto] min-w-[600px] text-xs font-bold hover:bg-fuchsia-100 ${i % 2 === 0 ? 'bg-white' : 'bg-yellow-50'}`}>
 						<div class="border border-gray-400 px-2 py-2 text-blue-700 underline group-hover:text-fuchsia-600">{cat.name}</div>
 						<div class="border border-gray-400 px-2 py-2 text-gray-800">{cat.breed}</div>
@@ -94,7 +95,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 		<!-- ===== CATS CARDS: Win95 Windows Grid ===== -->
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
 			{cats.map((cat: any) => (
-				<a href={`/${lang}/${style}/cats/${cat.id}`} class="no-underline block group">
+				<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class="no-underline block group">
 					<div class="border-t-2 border-l-2 border-white border-b-2 border-r-2 border-b-gray-600 border-r-gray-600 bg-gray-300">
 						<!-- Cat Title Bar -->
 						<div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-2 py-1 flex items-center justify-between">

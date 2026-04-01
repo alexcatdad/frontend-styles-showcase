@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-100 text-gray-800 font-sans text-xs leading-tight">
@@ -31,9 +32,9 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 
 	<!-- Toolbar with breadcrumbs -->
 	<nav class="bg-white border-b border-gray-300 px-2 py-1 flex items-center gap-1 text-xs sticky top-0 z-50">
-		<a href={`/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
+		<a href={`${_base}/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
 		<span class="text-gray-300 mx-0.5">/</span>
-		<a href={`/${lang}/${style}/blog`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">{t.blog.title}</a>
+		<a href={`${_base}/${lang}/${style}/blog`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">{t.blog.title}</a>
 		<span class="text-gray-300 mx-0.5">/</span>
 		<span class="font-bold text-gray-900 text-[11px] truncate max-w-48">{post.title}</span>
 		<div class="ml-auto flex items-center gap-0.5">
@@ -94,7 +95,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 				</div>
 				<div class="divide-y divide-gray-100">
 					{otherPosts.map((p: any) => (
-						<a href={`/${lang}/${style}/blog/${p.slug}`} class="block px-2 py-1.5 hover:bg-blue-50 transition-colors group">
+						<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="block px-2 py-1.5 hover:bg-blue-50 transition-colors group">
 							<div class="text-[10px] font-semibold text-blue-600 group-hover:text-blue-800 leading-tight">{p.title}</div>
 							<div class="flex items-center gap-1 mt-0.5 text-[9px] text-gray-400">
 								<span class="font-mono">{p.date}</span>
@@ -154,7 +155,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 							<tr class={`border-b border-gray-100 hover:bg-blue-50/60 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}>
 								<td class="px-2 py-0.5 font-mono text-gray-500 border-r border-gray-100 whitespace-nowrap">{p.date}</td>
 								<td class="px-2 py-0.5 border-r border-gray-100">
-									<a href={`/${lang}/${style}/blog/${p.slug}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline">{p.title}</a>
+									<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline">{p.title}</a>
 								</td>
 								<td class="px-2 py-0.5 text-gray-600 hidden sm:table-cell">{p.author}</td>
 							</tr>

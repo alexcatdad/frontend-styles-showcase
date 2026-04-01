@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-300 font-mono text-center">
@@ -27,7 +28,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 
 		<!-- Back link -->
 		<div class="text-left mb-3">
-			<a href={`/${lang}/${style}/blog`} class="text-blue-700 font-bold underline text-xs hover:text-fuchsia-600">&lt;&lt; {t.blog.backToBlog} &lt;&lt;</a>
+			<a href={`${_base}/${lang}/${style}/blog`} class="text-blue-700 font-bold underline text-xs hover:text-fuchsia-600">&lt;&lt; {t.blog.backToBlog} &lt;&lt;</a>
 		</div>
 
 		<!-- ===== POST HEADER: Full Win95 Window ===== -->
@@ -113,7 +114,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 				<div class="p-2 bg-white m-0.5 border-t border-l border-gray-500 border-b border-r border-b-white border-r-white">
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
 						{otherPosts.map((p: any, i: number) => (
-							<a href={`/${lang}/${style}/blog/${p.slug}`} class="no-underline block group">
+							<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="no-underline block group">
 								<div class={`border-2 border-gray-500 p-2 text-left hover:bg-fuchsia-50 ${i % 2 === 0 ? 'bg-yellow-50' : 'bg-cyan-50'}`}>
 									<h3 class="text-xs font-bold text-blue-800 group-hover:text-fuchsia-600 mb-1">{p.title}</h3>
 									<p class="text-[10px] text-gray-600 line-clamp-2 mb-1">{p.excerpt}</p>

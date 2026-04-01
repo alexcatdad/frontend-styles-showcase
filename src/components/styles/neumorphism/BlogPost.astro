@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-[#e0e5ec] font-sans text-[#4a5568] antialiased">
@@ -17,7 +18,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 
 	<main class="mx-auto max-w-5xl space-y-12 px-6 pb-16 pt-8">
 		<!-- Back button pill -->
-		<a href={`/${lang}/${style}/blog`} class="inline-flex items-center gap-2 rounded-full bg-[#e0e5ec] px-6 py-2.5 text-sm font-semibold text-[#6b8aab] shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
+		<a href={`${_base}/${lang}/${style}/blog`} class="inline-flex items-center gap-2 rounded-full bg-[#e0e5ec] px-6 py-2.5 text-sm font-semibold text-[#6b8aab] shadow-[5px_5px_10px_#b8bec7,-5px_-5px_10px_#ffffff] transition-all duration-300 hover:shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]">
 			<span class="text-lg leading-none">&larr;</span> {t.blog.backToBlog}
 		</a>
 
@@ -72,7 +73,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 			<h2 class="text-center text-2xl font-extrabold text-[#3a4a5c] lg:text-left">{t.blog.moreStories}</h2>
 			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 				{otherPosts.map((p: any) => (
-					<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block rounded-2xl bg-[#e0e5ec] p-6 shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff]">
+					<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="group block rounded-2xl bg-[#e0e5ec] p-6 shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 hover:shadow-[10px_10px_20px_#b8bec7,-10px_-10px_20px_#ffffff]">
 						<time datetime={p.date} class="mb-3 inline-block rounded-full bg-[#e0e5ec] px-3 py-1 text-[11px] font-bold text-[#6b8aab] shadow-[inset_2px_2px_4px_#b8bec7,inset_-2px_-2px_4px_#ffffff]">{p.date}</time>
 						<h3 class="text-lg font-bold text-[#3a4a5c] transition-colors duration-300 group-hover:text-[#6b8aab]">{p.title}</h3>
 						<p class="mt-2 text-xs leading-relaxed text-[#7a8a9c]">{p.excerpt.slice(0, 80)}...</p>

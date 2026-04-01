@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200 antialiased">
@@ -37,8 +38,8 @@ const { lang, style, nav, t } = Astro.props;
 			</div>
 
 			<div class="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3">
-				<a href={`/${lang}/${style}/`} class="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-[13px] font-semibold text-[#0a0a0a] transition-all duration-150 hover:bg-gray-200">{t.notFound.backHome}</a>
-				<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-gray-400 transition-all duration-150 hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-gray-300">{t.notFound.meetCats}</a>
+				<a href={`${_base}/${lang}/${style}/`} class="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-[13px] font-semibold text-[#0a0a0a] transition-all duration-150 hover:bg-gray-200">{t.notFound.backHome}</a>
+				<a href={`${_base}/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-gray-400 transition-all duration-150 hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-gray-300">{t.notFound.meetCats}</a>
 			</div>
 
 			<!-- Keyboard hint -->

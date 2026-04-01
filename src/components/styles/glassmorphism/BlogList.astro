@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, posts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white overflow-x-hidden">
@@ -37,7 +38,7 @@ const { lang, style, nav, posts, t } = Astro.props;
 			<!-- Blog posts — alternating layout with varied glass depth -->
 			<div class="space-y-6">
 				{posts.map((post: any, i: number) => (
-					<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block">
+					<a href={`${_base}/${lang}/${style}/blog/${post.slug}`} class="group block">
 						<article class={`relative backdrop-blur-xl border rounded-3xl p-7 sm:p-9 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.01] ${i === 0 ? 'bg-white/[0.14] border-white/20 shadow-purple-500/10' : i % 2 === 0 ? 'bg-white/[0.1] border-white/[0.16]' : 'bg-white/[0.07] border-white/[0.12]'}`}>
 							<!-- Floating date bubble -->
 							<div class="absolute -top-3 right-6 backdrop-blur-md bg-white/[0.1] border border-white/15 rounded-full px-4 py-1 shadow-sm">

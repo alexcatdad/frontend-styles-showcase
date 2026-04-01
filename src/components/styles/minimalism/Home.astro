@@ -1,11 +1,12 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-neutral-900 font-sans antialiased">
 	<nav class="pt-8 pb-4 px-6 lg:px-12">
 		<div class="max-w-2xl mx-auto flex items-center justify-between">
-			<a href={`/${lang}/${style}/`} class="text-xs text-stone-400 tracking-widest uppercase">{sanctuary.name}</a>
+			<a href={`${_base}/${lang}/${style}/`} class="text-xs text-stone-400 tracking-widest uppercase">{sanctuary.name}</a>
 			<div class="flex items-center gap-6 md:gap-8">
 				{nav.map((item: any) => (
 					<a href={item.href} class="text-xs text-stone-400 tracking-widest uppercase hover:text-neutral-900 transition-colors duration-500">{item.label}</a>
@@ -21,8 +22,8 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 				<h1 class="text-5xl md:text-7xl lg:text-8xl font-extralight tracking-tight leading-none">{sanctuary.name}</h1>
 				<p class="mt-10 md:mt-16 text-xl md:text-2xl font-light text-stone-400 leading-relaxed max-w-lg">{sanctuary.tagline}</p>
 				<div class="mt-16 md:mt-24 flex flex-col sm:flex-row gap-6 sm:gap-12">
-					<a href={`/${lang}/${style}/cats`} class="text-sm font-light text-neutral-900 underline underline-offset-4 decoration-stone-300 hover:decoration-neutral-900 transition-colors duration-500">{t.home.meetCats} &rarr;</a>
-					<a href={`/${lang}/${style}/donate`} class="text-sm font-light text-stone-400 underline underline-offset-4 decoration-stone-200 hover:decoration-neutral-900 hover:text-neutral-900 transition-colors duration-500">{t.home.donate} &rarr;</a>
+					<a href={`${_base}/${lang}/${style}/cats`} class="text-sm font-light text-neutral-900 underline underline-offset-4 decoration-stone-300 hover:decoration-neutral-900 transition-colors duration-500">{t.home.meetCats} &rarr;</a>
+					<a href={`${_base}/${lang}/${style}/donate`} class="text-sm font-light text-stone-400 underline underline-offset-4 decoration-stone-200 hover:decoration-neutral-900 hover:text-neutral-900 transition-colors duration-500">{t.home.donate} &rarr;</a>
 				</div>
 			</div>
 		</section>

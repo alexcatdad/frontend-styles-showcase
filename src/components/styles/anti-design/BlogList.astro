@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, posts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-[conic-gradient(from_45deg,#000_0%,#1a1a1a_25%,#0d0d0d_50%,#1a1a1a_75%,#000_100%)] overflow-x-hidden">
@@ -35,7 +36,7 @@ const { lang, style, nav, posts, t } = Astro.props;
 		<div class="space-y-6 md:space-y-10">
 			{posts.map((post: any, i: number) => (
 				<a
-					href={`/${lang}/${style}/blog/${post.slug}`}
+					href={`${_base}/${lang}/${style}/blog/${post.slug}`}
 					class:list={[
 						"block no-underline transition-all group",
 						i % 4 === 0 && "md:w-[110%] md:-ml-[5%] rotate-1 hover:-rotate-0.5",

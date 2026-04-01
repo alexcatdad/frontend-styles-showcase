@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-b from-indigo-950 via-purple-950 to-violet-950">
@@ -51,7 +52,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 
 			<div class="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
 				{cats.map((cat: any) => (
-					<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block">
+					<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class="group block">
 						<!-- Triple-layered card frame -->
 						<div class="relative">
 							<div class="absolute -inset-1.5 border border-amber-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>

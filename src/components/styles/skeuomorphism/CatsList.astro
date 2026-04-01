@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-b from-amber-800 via-amber-900 to-stone-900">
@@ -34,7 +35,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{cats.map((cat: any, i: number) => (
 					<a
-						href={`/${lang}/${style}/cats/${cat.id}`}
+						href={`${_base}/${lang}/${style}/cats/${cat.id}`}
 						class="group relative block"
 					>
 						<!-- Pushpin -->

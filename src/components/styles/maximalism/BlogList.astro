@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, posts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-b from-rose-950 via-purple-950 to-indigo-950">
@@ -51,7 +52,7 @@ const { lang, style, nav, posts, t } = Astro.props;
 
 			<div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
 				{posts.map((post: any, i: number) => (
-					<a href={`/${lang}/${style}/blog/${post.slug}`} class="group block">
+					<a href={`${_base}/${lang}/${style}/blog/${post.slug}`} class="group block">
 						<article class="relative h-full">
 							<!-- Hover outer glow frame -->
 							<div class="absolute -inset-1 border border-amber-500/0 group-hover:border-amber-500/15 transition-all duration-700"></div>

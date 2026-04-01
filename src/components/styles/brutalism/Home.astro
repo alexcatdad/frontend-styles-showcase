@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <main class="bg-white font-mono text-black overflow-x-hidden">
@@ -9,8 +10,8 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 		<h1 class="text-7xl md:text-9xl lg:text-[14rem] font-black uppercase leading-none tracking-tighter text-black -mb-2 md:-mb-6 lg:-mb-12 relative z-10">{sanctuary.name}</h1>
 		<p class="absolute top-4 right-4 md:top-8 md:right-8 text-sm md:text-base font-black uppercase tracking-widest bg-black text-yellow-400 px-4 py-2 rotate-3">{sanctuary.tagline}</p>
 		<div class="absolute bottom-4 left-4 md:bottom-8 md:left-8 flex flex-col gap-2 z-20">
-			<a href={`/${lang}/${style}/cats`} class="bg-black text-white uppercase font-black text-base md:text-xl px-6 py-3 border-4 border-black hover:bg-white hover:text-black cursor-pointer tracking-wider">{t.home.meetCats}</a>
-			<a href={`/${lang}/${style}/donate`} class="bg-red-600 text-white uppercase font-black text-base md:text-xl px-6 py-3 border-4 border-black hover:bg-white hover:text-black cursor-pointer tracking-wider">{t.home.donate}</a>
+			<a href={`${_base}/${lang}/${style}/cats`} class="bg-black text-white uppercase font-black text-base md:text-xl px-6 py-3 border-4 border-black hover:bg-white hover:text-black cursor-pointer tracking-wider">{t.home.meetCats}</a>
+			<a href={`${_base}/${lang}/${style}/donate`} class="bg-red-600 text-white uppercase font-black text-base md:text-xl px-6 py-3 border-4 border-black hover:bg-white hover:text-black cursor-pointer tracking-wider">{t.home.donate}</a>
 		</div>
 	</section>
 

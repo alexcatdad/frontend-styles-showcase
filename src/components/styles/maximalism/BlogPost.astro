@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-b from-indigo-950 via-purple-950 to-rose-950">
@@ -18,7 +19,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 
 	<main class="max-w-4xl mx-auto px-4 py-10 md:py-16">
 		<!-- Back Link -->
-		<a href={`/${lang}/${style}/blog`} class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-200 font-bold uppercase tracking-[0.2em] text-xs mb-10 transition-colors group">
+		<a href={`${_base}/${lang}/${style}/blog`} class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-200 font-bold uppercase tracking-[0.2em] text-xs mb-10 transition-colors group">
 			<span class="text-lg group-hover:-translate-x-1 transition-transform duration-300">&larr;</span>
 			<span>❧ {t.blog.backToBlog}</span>
 		</a>
@@ -119,7 +120,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 				{otherPosts.map((p: any) => (
-					<a href={`/${lang}/${style}/blog/${p.slug}`} class="group block">
+					<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="group block">
 						<div class="relative bg-gradient-to-b from-rose-900/50 to-purple-950/70 border-2 border-rose-600/30 shadow-[0_6px_24px_rgba(136,19,55,0.4)] hover:shadow-[0_12px_40px_rgba(180,120,0,0.15),0_6px_24px_rgba(136,19,55,0.4)] hover:border-amber-400/60 transition-all duration-700 overflow-hidden">
 							<div class="bg-gradient-to-r from-rose-800/50 via-pink-700/50 to-rose-800/50 text-center py-2">
 								<span class="text-rose-300/50 text-xs tracking-[0.3em]">❋ ◆ ❋</span>

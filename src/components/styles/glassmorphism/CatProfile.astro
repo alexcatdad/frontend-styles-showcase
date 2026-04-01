@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 text-white overflow-x-hidden">
@@ -26,7 +27,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 
 		<main class="px-4 sm:px-8 lg:px-0 lg:max-w-6xl lg:mx-auto pt-10 sm:pt-16 pb-16">
 			<!-- Back link -->
-			<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors mb-10 group">
+			<a href={`${_base}/${lang}/${style}/cats`} class="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-white/70 transition-colors mb-10 group">
 				<span class="group-hover:-translate-x-0.5 transition-transform">&larr;</span> {t.cats.backToAll}
 			</a>
 
@@ -72,7 +73,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 						</dl>
 
 						<!-- Adopt CTA -->
-						<a href={`/${lang}/${style}/auth`} class="block w-full text-center px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:shadow-purple-500/50 hover:scale-[1.03] transition-all duration-300">{t.cats.adopt} {cat.name}</a>
+						<a href={`${_base}/${lang}/${style}/auth`} class="block w-full text-center px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:shadow-purple-500/50 hover:scale-[1.03] transition-all duration-300">{t.cats.adopt} {cat.name}</a>
 					</div>
 				</div>
 
@@ -97,7 +98,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 				<h2 class="text-2xl font-bold mb-8 bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-transparent">{t.cats.otherCats}</h2>
 				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 					{otherCats.map((c: any, i: number) => (
-						<a href={`/${lang}/${style}/cats/${c.id}`} class="group block">
+						<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class="group block">
 							<div class={`backdrop-blur-xl border rounded-2xl p-6 shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl ${i % 2 === 0 ? 'bg-white/[0.1] border-white/[0.18]' : 'bg-white/[0.06] border-white/[0.12]'}`}>
 								<h3 class="text-lg font-semibold text-white group-hover:text-purple-200 transition-colors">{c.name}</h3>
 								<p class="text-sm text-white/40 mt-1.5">{c.breed} · {c.age}</p>

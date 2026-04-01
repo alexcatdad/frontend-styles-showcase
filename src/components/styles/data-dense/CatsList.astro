@@ -5,6 +5,7 @@ const adopted = cats.filter((c: any) => c.status === "Adopted").length;
 const pending = cats.filter(
 	(c: any) => c.status !== "Available" && c.status !== "Adopted",
 ).length;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-100 text-gray-800 font-sans text-xs leading-tight">
@@ -37,7 +38,7 @@ const pending = cats.filter(
 
 	<!-- Toolbar with breadcrumbs -->
 	<nav class="bg-white border-b border-gray-300 px-2 py-1 flex items-center gap-1 text-xs sticky top-0 z-50">
-		<a href={`/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
+		<a href={`${_base}/${lang}/${style}/`} class="text-gray-400 hover:text-gray-700 text-[11px] transition-colors">Home</a>
 		<span class="text-gray-300 mx-0.5">/</span>
 		<span class="font-bold text-gray-900 text-[11px]">{t.cats.title}</span>
 		<span class="text-gray-400 font-mono text-[10px] ml-1">({cats.length})</span>
@@ -120,7 +121,7 @@ const pending = cats.filter(
 								</span>
 							</td>
 							<td class="px-2 py-0.5 border-r border-gray-100">
-								<a href={`/${lang}/${style}/cats/${cat.id}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1">
+								<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1">
 									<img src={cat.thumbnail} alt={cat.name} class="w-4 h-4 rounded-sm object-cover inline-block border border-gray-200" />
 									{cat.name}
 								</a>
@@ -151,7 +152,7 @@ const pending = cats.filter(
 			<!-- Mobile compact list (replaces table on very small screens) -->
 			<div class="sm:hidden p-2 space-y-0.5">
 				{cats.map((cat: any, idx: number) => (
-					<a href={`/${lang}/${style}/cats/${cat.id}`} class="flex items-center justify-between bg-white border border-gray-200 rounded px-2 py-1 hover:border-blue-300 transition-colors">
+					<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class="flex items-center justify-between bg-white border border-gray-200 rounded px-2 py-1 hover:border-blue-300 transition-colors">
 						<div class="flex items-center gap-1.5 min-w-0">
 							<span class="text-[9px] text-gray-400 font-mono w-4 shrink-0">{idx + 1}</span>
 							<span class={`w-1.5 h-1.5 rounded-full shrink-0 ${cat.status === 'Available' ? 'bg-green-400' : cat.status === 'Adopted' ? 'bg-blue-400' : 'bg-amber-400'}`}></span>

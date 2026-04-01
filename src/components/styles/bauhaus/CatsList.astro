@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-black font-sans">
@@ -47,7 +48,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 		<section class="bg-white">
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 				{cats.map((cat: any, i: number) => (
-					<a href={`/${lang}/${style}/cats/${cat.id}`}
+					<a href={`${_base}/${lang}/${style}/cats/${cat.id}`}
 						class:list={[
 							"group block relative overflow-hidden border-b-4 border-r-4 border-black transition-colors",
 							i % 6 === 0 && "lg:col-span-2",

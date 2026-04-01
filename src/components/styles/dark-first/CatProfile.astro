@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200 antialiased">
@@ -22,7 +23,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 	<main class="mx-auto max-w-[1200px] px-4 py-8 lg:px-6 lg:py-10">
 		<!-- Breadcrumb -->
 		<div class="mb-6 flex items-center gap-2 text-[13px]">
-			<a href={`/${lang}/${style}/cats`} class="text-gray-600 transition-colors hover:text-gray-400">{t.cats.backToAll}</a>
+			<a href={`${_base}/${lang}/${style}/cats`} class="text-gray-600 transition-colors hover:text-gray-400">{t.cats.backToAll}</a>
 			<span class="text-gray-700">/</span>
 			<span class="text-gray-400">{cat.name}</span>
 		</div>
@@ -43,7 +44,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 							</span>
 						</div>
 					</div>
-					<a href={`/${lang}/${style}/auth`} class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-[13px] font-semibold text-[#0a0a0a] transition-all duration-150 hover:bg-gray-200">
+					<a href={`${_base}/${lang}/${style}/auth`} class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-[13px] font-semibold text-[#0a0a0a] transition-all duration-150 hover:bg-gray-200">
 						{t.cats.adopt} {cat.name}
 					</a>
 				</div>
@@ -68,7 +69,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 					<h2 class="mb-4 text-[12px] font-semibold uppercase tracking-widest text-gray-600">{t.cats.otherCats}</h2>
 					<div class="overflow-hidden rounded-lg border border-white/[0.06]">
 						{otherCats.map((c: any, i: number) => (
-							<a href={`/${lang}/${style}/cats/${c.id}`} class={`group flex items-center gap-3 px-4 py-3 transition-all duration-150 hover:bg-white/[0.03] ${i > 0 ? 'border-t border-white/[0.04]' : ''}`}>
+							<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class={`group flex items-center gap-3 px-4 py-3 transition-all duration-150 hover:bg-white/[0.03] ${i > 0 ? 'border-t border-white/[0.04]' : ''}`}>
 								<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-white/[0.06] bg-white/[0.03] text-[11px] font-semibold text-gray-500 transition-colors group-hover:border-emerald-500/20 group-hover:text-emerald-400">
 									{c.name.charAt(0)}
 								</div>

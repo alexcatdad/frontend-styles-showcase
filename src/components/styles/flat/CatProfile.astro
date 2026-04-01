@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white font-sans">
@@ -31,7 +32,7 @@ const { lang, style, nav, meta, cat, otherCats, t } = Astro.props;
 	<section class="bg-teal-500 px-4 pb-20 pt-10 sm:px-8">
 		<div class="mx-auto max-w-4xl">
 			<!-- Back link -->
-			<a href={`/${lang}/${style}/cats`} class="mb-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-bold text-teal-500 transition-colors hover:bg-teal-50">
+			<a href={`${_base}/${lang}/${style}/cats`} class="mb-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-bold text-teal-500 transition-colors hover:bg-teal-50">
 				&larr; {t.cats.backToAll}
 			</a>
 
@@ -115,7 +116,7 @@ const { lang, style, nav, meta, cat, otherCats, t } = Astro.props;
 		<!-- Adopt CTA — rose strip -->
 		<section class="bg-rose-500 px-4 py-12 sm:px-8">
 			<div class="mx-auto max-w-3xl text-center">
-				<a href={`/${lang}/${style}/auth`} class="inline-block rounded-2xl bg-white px-12 py-5 text-xl font-extrabold text-rose-500 transition-colors hover:bg-rose-50">
+				<a href={`${_base}/${lang}/${style}/auth`} class="inline-block rounded-2xl bg-white px-12 py-5 text-xl font-extrabold text-rose-500 transition-colors hover:bg-rose-50">
 					{t.cats.adopt} {cat.name}
 				</a>
 			</div>
@@ -127,7 +128,7 @@ const { lang, style, nav, meta, cat, otherCats, t } = Astro.props;
 				<h2 class="mb-8 text-center text-3xl font-extrabold text-gray-800">{t.cats.otherCats}</h2>
 				<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 					{otherCats.map((c: any, i: number) => (
-						<a href={`/${lang}/${style}/cats/${c.id}`} class={`group rounded-2xl p-6 transition-colors ${
+						<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class={`group rounded-2xl p-6 transition-colors ${
 							i % 3 === 0
 								? 'bg-blue-50 hover:bg-blue-500'
 								: i % 3 === 1

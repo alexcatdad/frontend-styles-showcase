@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white text-black font-sans">
@@ -17,7 +18,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 		<!-- Back link -->
 		<div class="grid grid-cols-12 gap-x-4 border-b border-neutral-200">
 			<div class="col-span-12 md:col-span-6 md:col-start-3 py-3">
-				<a href={`/${lang}/${style}/cats`} class="text-[10px] uppercase tracking-[0.25em] text-neutral-400 hover:text-black transition-colors">&larr; {t.cats.backToAll}</a>
+				<a href={`${_base}/${lang}/${style}/cats`} class="text-[10px] uppercase tracking-[0.25em] text-neutral-400 hover:text-black transition-colors">&larr; {t.cats.backToAll}</a>
 			</div>
 		</div>
 
@@ -94,7 +95,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 		<section class="border-b border-black">
 			<div class="grid grid-cols-12 gap-x-4 py-12 md:py-16">
 				<div class="col-span-12 md:col-span-6 md:col-start-4">
-					<a href={`/${lang}/${style}/auth`} class="inline-block bg-red-600 text-white text-[10px] uppercase tracking-[0.25em] px-10 py-4 hover:bg-red-700 transition-colors">{t.cats.adopt} {cat.name}</a>
+					<a href={`${_base}/${lang}/${style}/auth`} class="inline-block bg-red-600 text-white text-[10px] uppercase tracking-[0.25em] px-10 py-4 hover:bg-red-700 transition-colors">{t.cats.adopt} {cat.name}</a>
 				</div>
 			</div>
 		</section>
@@ -107,7 +108,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 				</div>
 				<div class="col-span-12 md:col-span-8 md:col-start-4">
 					{otherCats.map((c: any) => (
-						<a href={`/${lang}/${style}/cats/${c.id}`} class="group flex items-baseline justify-between border-b border-neutral-200 hover:border-black py-4 transition-colors">
+						<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class="group flex items-baseline justify-between border-b border-neutral-200 hover:border-black py-4 transition-colors">
 							<span class="text-xl font-bold tracking-tight text-left group-hover:text-red-600 transition-colors">{c.name}</span>
 							<span class="text-[10px] uppercase tracking-[0.25em] text-neutral-400">{c.breed} — {c.age}</span>
 						</a>

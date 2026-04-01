@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <nav>
@@ -14,7 +15,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 
 	<div>
 		{cats.map((cat: any) => (
-			<a href={`/${lang}/${style}/cats/${cat.id}`}>
+			<a href={`${_base}/${lang}/${style}/cats/${cat.id}`}>
 				<div>
 					<h2>{cat.name}</h2>
 					<p>{cat.breed} · {cat.age} · {cat.gender}</p>

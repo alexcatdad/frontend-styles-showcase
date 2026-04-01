@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white font-sans">
@@ -31,7 +32,7 @@ const { lang, style, nav, meta, post, otherPosts, t } = Astro.props;
 	<section class="bg-blue-500 px-4 pb-20 pt-10 sm:px-8">
 		<div class="mx-auto max-w-3xl">
 			<!-- Back link -->
-			<a href={`/${lang}/${style}/blog`} class="mb-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-bold text-blue-500 transition-colors hover:bg-blue-50">
+			<a href={`${_base}/${lang}/${style}/blog`} class="mb-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-bold text-blue-500 transition-colors hover:bg-blue-50">
 				&larr; {t.blog.backToBlog}
 			</a>
 
@@ -97,7 +98,7 @@ const { lang, style, nav, meta, post, otherPosts, t } = Astro.props;
 				<h2 class="mb-8 text-center text-3xl font-extrabold text-white">{t.blog.moreStories}</h2>
 				<div class="grid gap-5 sm:grid-cols-2">
 					{otherPosts.map((p: any, i: number) => (
-						<a href={`/${lang}/${style}/blog/${p.slug}`} class={`group rounded-2xl p-6 transition-colors ${
+						<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class={`group rounded-2xl p-6 transition-colors ${
 							i % 2 === 0
 								? 'bg-white hover:bg-rose-50'
 								: 'bg-rose-400 hover:bg-rose-300'

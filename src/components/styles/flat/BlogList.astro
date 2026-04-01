@@ -39,6 +39,7 @@ const sectionColors = [
 		meta: "text-amber-800",
 	},
 ];
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-white font-sans">
@@ -87,7 +88,7 @@ const sectionColors = [
 			const c = sectionColors[index % sectionColors.length];
 			return (
 				<section class={`${c.bg} px-4 py-12 sm:px-8`}>
-					<a href={`/${lang}/${style}/blog/${post.slug}`} class="group mx-auto block max-w-4xl">
+					<a href={`${_base}/${lang}/${style}/blog/${post.slug}`} class="group mx-auto block max-w-4xl">
 						<article class="flex flex-col gap-6 sm:flex-row sm:items-center">
 							<!-- Post image -->
 							<img src={post.image} alt={post.title} class="w-20 h-20 sm:w-28 sm:h-28 shrink-0 object-cover rounded-2xl" />

@@ -1,6 +1,7 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 const statusCounts = { available: 0, adopted: 0, pending: 0 };
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gray-100 text-gray-800 font-sans text-xs leading-tight">
@@ -71,8 +72,8 @@ const statusCounts = { available: 0, adopted: 0, pending: 0 };
 			</div>
 			<div class="p-2">
 				<div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Actions</div>
-				<a href={`/${lang}/${style}/cats`} class="block w-full bg-blue-600 text-white text-[10px] text-center px-2 py-1 rounded hover:bg-blue-700 transition-colors font-semibold mb-1">{t.home.meetCats}</a>
-				<a href={`/${lang}/${style}/donate`} class="block w-full bg-gray-200 text-gray-700 text-[10px] text-center px-2 py-1 rounded hover:bg-gray-300 transition-colors font-semibold border border-gray-300">{t.home.donate}</a>
+				<a href={`${_base}/${lang}/${style}/cats`} class="block w-full bg-blue-600 text-white text-[10px] text-center px-2 py-1 rounded hover:bg-blue-700 transition-colors font-semibold mb-1">{t.home.meetCats}</a>
+				<a href={`${_base}/${lang}/${style}/donate`} class="block w-full bg-gray-200 text-gray-700 text-[10px] text-center px-2 py-1 rounded hover:bg-gray-300 transition-colors font-semibold border border-gray-300">{t.home.donate}</a>
 			</div>
 		</aside>
 
@@ -137,8 +138,8 @@ const statusCounts = { available: 0, adopted: 0, pending: 0 };
 						</div>
 						<!-- Mobile actions -->
 						<div class="lg:hidden pt-1.5 border-t border-gray-100 flex gap-1">
-							<a href={`/${lang}/${style}/cats`} class="flex-1 bg-blue-600 text-white text-[10px] text-center px-2 py-1 rounded hover:bg-blue-700 transition-colors font-semibold">{t.home.meetCats}</a>
-							<a href={`/${lang}/${style}/donate`} class="flex-1 bg-gray-200 text-gray-700 text-[10px] text-center px-2 py-1 rounded hover:bg-gray-300 transition-colors font-semibold border border-gray-300">{t.home.donate}</a>
+							<a href={`${_base}/${lang}/${style}/cats`} class="flex-1 bg-blue-600 text-white text-[10px] text-center px-2 py-1 rounded hover:bg-blue-700 transition-colors font-semibold">{t.home.meetCats}</a>
+							<a href={`${_base}/${lang}/${style}/donate`} class="flex-1 bg-gray-200 text-gray-700 text-[10px] text-center px-2 py-1 rounded hover:bg-gray-300 transition-colors font-semibold border border-gray-300">{t.home.donate}</a>
 						</div>
 					</div>
 				</div>

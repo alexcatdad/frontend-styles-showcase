@@ -1,5 +1,6 @@
 ---
 const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-[#0a0a0a] font-sans text-gray-200 antialiased">
@@ -7,7 +8,7 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 	<nav class="sticky top-0 z-50 border-b border-white/[0.06] bg-[#0a0a0a]/90 backdrop-blur-xl">
 		<div class="mx-auto flex h-12 max-w-[1200px] items-center justify-between px-4 lg:px-6">
 			<div class="flex items-center gap-6">
-				<a href={`/${lang}/${style}/`} class="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-white">
+				<a href={`${_base}/${lang}/${style}/`} class="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-white">
 					<span class="flex h-5 w-5 items-center justify-center rounded bg-emerald-500/90 text-[10px] font-bold text-white">S</span>
 					{sanctuary.name}
 				</a>
@@ -55,11 +56,11 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 				<p class="mt-4 text-base leading-relaxed text-gray-500 sm:text-[17px]">{sanctuary.mission}</p>
 				<img src={sanctuary.heroImage} alt={sanctuary.name} class="w-full mt-8 rounded-lg object-cover border border-white/[0.06]" />
 				<div class="mt-8 flex items-center gap-3">
-					<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-[13px] font-semibold text-[#0a0a0a] transition-all duration-150 hover:bg-gray-200">
+					<a href={`${_base}/${lang}/${style}/cats`} class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-[13px] font-semibold text-[#0a0a0a] transition-all duration-150 hover:bg-gray-200">
 						{t.home.meetCats}
 						<span class="text-gray-500">&rarr;</span>
 					</a>
-					<a href={`/${lang}/${style}/donate`} class="inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-gray-400 transition-all duration-150 hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-gray-300">{t.home.donate}</a>
+					<a href={`${_base}/${lang}/${style}/donate`} class="inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-gray-400 transition-all duration-150 hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-gray-300">{t.home.donate}</a>
 				</div>
 			</div>
 		</section>

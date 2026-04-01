@@ -47,6 +47,7 @@ const details = [
 	{ key: t.cats.arrived, value: cat.arrivalDate },
 	{ key: t.cats.status, value: cat.status },
 ];
+const _base = import.meta.env.BASE_URL.replace( /\/$/, "");
 ---
 
 <div class="min-h-screen bg-gradient-to-b from-emerald-950 via-teal-950 to-indigo-950">
@@ -65,7 +66,7 @@ const details = [
 
 	<main class="max-w-5xl mx-auto px-4 py-10 md:py-16">
 		<!-- Back Link -->
-		<a href={`/${lang}/${style}/cats`} class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-200 font-bold uppercase tracking-[0.2em] text-xs mb-10 transition-colors group">
+		<a href={`${_base}/${lang}/${style}/cats`} class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-200 font-bold uppercase tracking-[0.2em] text-xs mb-10 transition-colors group">
 			<span class="text-lg group-hover:-translate-x-1 transition-transform duration-300">&larr;</span>
 			<span>❧ {t.cats.backToAll}</span>
 		</a>
@@ -146,7 +147,7 @@ const details = [
 
 					<!-- Adopt CTA — Grand button -->
 					<div class="text-center">
-						<a href={`/${lang}/${style}/auth`} class="group relative inline-block">
+						<a href={`${_base}/${lang}/${style}/auth`} class="group relative inline-block">
 							<span class="absolute -inset-2 border border-rose-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
 							<span class="absolute -inset-1 border border-rose-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
 							<span class="relative inline-block px-14 py-5 bg-gradient-to-r from-rose-700 via-pink-600 to-rose-700 text-white font-black uppercase tracking-[0.2em] text-lg shadow-[0_0_40px_rgba(225,29,72,0.25)] hover:shadow-[0_0_60px_rgba(225,29,72,0.4)] transition-all duration-500 border-2 border-rose-400">
@@ -175,7 +176,7 @@ const details = [
 			</div>
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 				{otherCats.map((c: any) => (
-					<a href={`/${lang}/${style}/cats/${c.id}`} class="group block">
+					<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class="group block">
 						<div class="relative bg-gradient-to-b from-indigo-900/60 to-blue-950/70 border-2 border-indigo-500/30 shadow-[0_6px_24px_rgba(49,46,129,0.5)] hover:shadow-[0_12px_40px_rgba(180,120,0,0.15),0_6px_24px_rgba(49,46,129,0.5)] hover:border-amber-400/60 transition-all duration-700 overflow-hidden">
 							<div class="bg-gradient-to-r from-indigo-700/50 via-blue-600/50 to-indigo-700/50 text-center py-2">
 								<span class="text-indigo-200/50 text-xs tracking-[0.3em]">✦ ◆ ✦</span>
