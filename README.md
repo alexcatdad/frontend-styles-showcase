@@ -1,46 +1,66 @@
-# Astro Starter Kit: Basics
+# Frontend Styles Showcase
+
+19 visual styles x 7 pages x 2 languages — one cat sanctuary website rendered across minimalism, brutalism, vaporwave, and 16 more design schools.
+
+**Live:** [alexcatdad.github.io/frontend-styles-showcase](https://alexcatdad.github.io/frontend-styles-showcase/)
+
+## Styles
+
+| Category | Styles |
+|---|---|
+| Core Modern | Minimalism, Flat Design, Brutalism, Neumorphism, Glassmorphism |
+| Typography-first | Editorial, Swiss International, Bauhaus |
+| Nostalgia-driven | Retro 80s, Retro 90s, Y2K, Skeuomorphism, Vaporwave |
+| Emerging | Dark-First Design, Data-Dense UI |
+| Expressive | Anti-Design, Maximalism, Grunge, Punk DIY |
+
+## Pages (per style)
+
+- **Home** — hero, mission, stats, about
+- **Cats** — adoption gallery
+- **Cat Profile** — single cat detail
+- **Blog** — article listing
+- **Blog Post** — single article
+- **Donate** — pricing tiers
+- **Auth** — login form
+- **404** — error page
+
+## Tech Stack
+
+- **Astro** — static site generation
+- **Tailwind CSS v4** — all styling via utility classes
+- **Bun** — runtime and package manager
+- **Biome** — linting and formatting
+
+## i18n
+
+English and Romanian. All UI strings and content are translated.
+
+## Architecture
+
+```
+src/
+  data/          # Shared content (cats, blog, sanctuary, donate, i18n)
+  components/
+    styles/
+      minimalism/  # 8 page components per style
+      brutalism/
+      ...19 total
+  pages/
+    [lang]/[style]/  # Dynamic routing, delegates to style components
+  layouts/Layout.astro  # Shared HTML shell + style badge overlay
+```
+
+Each style has full creative freedom over HTML structure — not just different CSS on the same template. An editorial layout uses newspaper columns, brutalism breaks the grid, data-dense uses spreadsheet tables.
+
+## Development
 
 ```sh
-bun create astro@latest -- --template basics
+bun install
+up bun dev     # HTTPS dev server via paw-proxy
+bun run build  # Static build to dist/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Deployment
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Automatic via GitHub Actions on push to `main`. Deploys to GitHub Pages.

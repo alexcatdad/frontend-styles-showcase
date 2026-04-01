@@ -155,8 +155,13 @@ const blogImages: Record<string, string> = {
 	"understanding-cat-body-language": "/images/blog/blog-4.jpg",
 };
 
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 function withBlogImages(list: Omit<BlogPost, "image">[]): BlogPost[] {
-	return list.map((p) => ({ ...p, image: blogImages[p.slug] || "" }));
+	return list.map((p) => ({
+		...p,
+		image: blogImages[p.slug] ? `${_base}${blogImages[p.slug]}` : "",
+	}));
 }
 
 export const posts: Record<Locale, BlogPost[]> = {

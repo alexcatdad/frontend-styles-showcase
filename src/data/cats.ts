@@ -265,11 +265,17 @@ const catImages: Record<string, { image: string; thumbnail: string }> = {
 	},
 };
 
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 function withImages(list: Omit<Cat, "image" | "thumbnail">[]): Cat[] {
-	return list.map((c) => ({
-		...c,
-		...catImages[c.id],
-	})) as Cat[];
+	return list.map((c) => {
+		const imgs = catImages[c.id];
+		return {
+			...c,
+			image: `${_base}${imgs.image}`,
+			thumbnail: `${_base}${imgs.thumbnail}`,
+		};
+	}) as Cat[];
 }
 
 export const cats: Record<Locale, Cat[]> = {

@@ -10,7 +10,9 @@ interface SanctuaryData {
 	heroImage: string;
 }
 
-export const sanctuary: Record<Locale, SanctuaryData> = {
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const _sanctuary: Record<Locale, SanctuaryData> = {
 	en: {
 		name: "Whisker Haven",
 		tagline: "Every cat deserves a loving home",
@@ -58,3 +60,10 @@ export const sanctuary: Record<Locale, SanctuaryData> = {
 		},
 	},
 };
+
+export const sanctuary: Record<Locale, SanctuaryData> = Object.fromEntries(
+	Object.entries(_sanctuary).map(([k, v]) => [
+		k,
+		{ ...v, heroImage: `${_base}${v.heroImage}` },
+	]),
+) as Record<Locale, SanctuaryData>;
