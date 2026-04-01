@@ -30,6 +30,7 @@ const remainingPosts = posts.slice(1);
 			<section class="py-10 border-b border-stone-300">
 				<a href={`/${lang}/${style}/blog/${leadPost.slug}`} class="group block md:grid md:grid-cols-5 md:gap-12 items-start">
 					<div class="md:col-span-3">
+						<img src={leadPost.image} alt={leadPost.title} class="w-full h-64 object-cover mb-6" />
 						<div class="flex flex-wrap gap-3 mb-4">
 							{leadPost.tags.map((tag: string) => (
 								<span class="text-xs tracking-[0.3em] uppercase text-amber-700">{tag}</span>
@@ -60,7 +61,8 @@ const remainingPosts = posts.slice(1);
 							i % 2 !== 1 && "md:border-r md:border-stone-200 lg:border-r-0",
 							i % 3 !== 2 && "lg:border-r lg:border-stone-200"
 						]}>
-							<div class="flex items-baseline gap-3 mb-3">
+							<img src={post.image} alt={post.title} class="w-full h-40 object-cover mb-4" />
+								<div class="flex items-baseline gap-3 mb-3">
 								<time datetime={post.date} class="text-xs tracking-[0.25em] uppercase text-stone-400 shrink-0">{post.date}</time>
 								<span class="text-stone-300">&middot;</span>
 								<span class="text-xs font-serif italic text-stone-400 truncate">{t.blog.by} {post.author}</span>

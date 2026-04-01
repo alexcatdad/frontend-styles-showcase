@@ -69,6 +69,9 @@ const { lang, style, nav, cats, t } = Astro.props;
 								i % 3 === 2 && "w-0 h-0 border-l-[40px] border-l-transparent border-r-[40px] border-r-transparent border-b-[70px] border-b-blue-600"
 							]}></div>
 
+							<!-- Cat thumbnail -->
+							<img src={cat.thumbnail} alt={cat.name} class="w-full h-40 object-cover mb-4 relative z-10" />
+
 							<!-- Name -->
 							<div class="flex items-start gap-4 mb-4 relative z-10">
 								<div class:list={[

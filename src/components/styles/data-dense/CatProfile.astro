@@ -119,6 +119,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 						<span class="text-[9px] text-gray-400 font-mono">cat/{cat.id}</span>
 					</div>
 					<div class="p-2">
+						<img src={cat.image} alt={cat.name} class="w-full h-32 rounded object-cover border border-gray-200 mb-1.5" />
 						<p class="text-[10px] text-gray-700 leading-relaxed">{cat.description}</p>
 					</div>
 				</div>

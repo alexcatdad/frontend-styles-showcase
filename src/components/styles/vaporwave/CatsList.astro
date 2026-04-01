@@ -50,6 +50,8 @@ const { lang, style, nav, cats, t } = Astro.props;
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 			{cats.map((cat: any) => (
 				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block border border-pink-500/[0.08] bg-purple-950/15 backdrop-blur-sm hover:border-cyan-400/25 hover:shadow-[0_0_60px_rgba(6,182,212,0.08)] hover:bg-purple-950/25 transition-all duration-700">
+					<img src={cat.thumbnail} alt={cat.name} class="w-full h-40 object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-700" />
+
 					<div class="p-7">
 						<!-- Status badge -->
 						<div class="flex items-center justify-between mb-5">

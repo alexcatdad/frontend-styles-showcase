@@ -1,8 +1,10 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
-const available = cats.filter((c: any) => c.status === 'Available').length;
-const adopted = cats.filter((c: any) => c.status === 'Adopted').length;
-const pending = cats.filter((c: any) => c.status !== 'Available' && c.status !== 'Adopted').length;
+const available = cats.filter((c: any) => c.status === "Available").length;
+const adopted = cats.filter((c: any) => c.status === "Adopted").length;
+const pending = cats.filter(
+	(c: any) => c.status !== "Available" && c.status !== "Adopted",
+).length;
 ---
 
 <div class="min-h-screen bg-gray-100 text-gray-800 font-sans text-xs leading-tight">
@@ -118,7 +120,10 @@ const pending = cats.filter((c: any) => c.status !== 'Available' && c.status !==
 								</span>
 							</td>
 							<td class="px-2 py-0.5 border-r border-gray-100">
-								<a href={`/${lang}/${style}/cats/${cat.id}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline">{cat.name}</a>
+								<a href={`/${lang}/${style}/cats/${cat.id}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1">
+									<img src={cat.thumbnail} alt={cat.name} class="w-4 h-4 rounded-sm object-cover inline-block border border-gray-200" />
+									{cat.name}
+								</a>
 							</td>
 							<td class="px-2 py-0.5 text-gray-600 border-r border-gray-100 hidden sm:table-cell">{cat.breed}</td>
 							<td class="px-2 py-0.5 text-gray-700 font-mono border-r border-gray-100 hidden md:table-cell">{cat.age}</td>

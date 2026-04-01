@@ -28,10 +28,8 @@ const { lang, style, nav, cats, t } = Astro.props;
 		<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
 			{cats.map((cat: any) => (
 				<a href={`/${lang}/${style}/cats/${cat.id}`} class="group block rounded-[1.5rem] bg-[#e0e5ec] p-7 shadow-[8px_8px_16px_#b8bec7,-8px_-8px_16px_#ffffff] transition-all duration-400 hover:shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff]">
-					<!-- Cat avatar circle -->
-					<div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec7,-6px_-6px_12px_#ffffff] transition-all duration-300 group-hover:shadow-[inset_4px_4px_8px_#b8bec7,inset_-4px_-4px_8px_#ffffff]">
-						<span class="text-2xl font-extrabold text-[#6b8aab]">{cat.name.charAt(0)}</span>
-					</div>
+					<!-- Cat thumbnail -->
+					<img src={cat.thumbnail} alt={cat.name} class="w-full h-40 object-cover rounded-xl mb-5 shadow-[inset_3px_3px_6px_#b8bec7,inset_-3px_-3px_6px_#ffffff]" />
 
 					<h2 class="mb-1 text-center text-xl font-extrabold text-[#3a4a5c] transition-colors duration-300 group-hover:text-[#6b8aab]">{cat.name}</h2>
 

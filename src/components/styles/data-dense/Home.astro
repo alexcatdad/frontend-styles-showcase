@@ -88,6 +88,7 @@ const statusCounts = { available: 0, adopted: 0, pending: 0 };
 					<div class="p-2">
 						<h1 class="text-sm font-bold text-gray-900 leading-none mb-0.5">{sanctuary.name}</h1>
 						<p class="text-[10px] text-gray-500 leading-snug">{sanctuary.tagline}</p>
+							<img src={sanctuary.heroImage} alt={sanctuary.name} class="w-full mt-1.5 rounded object-cover border border-gray-200" />
 						<div class="mt-2 pt-1.5 border-t border-gray-100">
 							<div class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-0.5">{t.home.mission}</div>
 							<p class="text-[10px] text-gray-700 leading-relaxed">{sanctuary.mission}</p>

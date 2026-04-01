@@ -2,9 +2,21 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 
 const detailColors = [
-	{ bg: 'from-pink-50/60 to-purple-50/40', label: 'text-pink-400', border: 'border-pink-100/50' },
-	{ bg: 'from-purple-50/60 to-blue-50/40', label: 'text-purple-400', border: 'border-purple-100/50' },
-	{ bg: 'from-blue-50/60 to-pink-50/40', label: 'text-blue-400', border: 'border-blue-100/50' },
+	{
+		bg: "from-pink-50/60 to-purple-50/40",
+		label: "text-pink-400",
+		border: "border-pink-100/50",
+	},
+	{
+		bg: "from-purple-50/60 to-blue-50/40",
+		label: "text-purple-400",
+		border: "border-purple-100/50",
+	},
+	{
+		bg: "from-blue-50/60 to-pink-50/40",
+		label: "text-blue-400",
+		border: "border-blue-100/50",
+	},
 ];
 
 const catDetails = [
@@ -53,6 +65,11 @@ const catDetails = [
 						<span class="text-purple-300/60 text-sm tracking-[0.5em] mb-3">✦ &middot; ✧ &middot; ⋆ &middot; ✧ &middot; ✦</span>
 						<h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent leading-tight">{cat.name}</h1>
 					</div>
+				</div>
+
+				<!-- Cat photo -->
+				<div class="flex justify-center mb-10">
+					<img src={cat.image} alt={cat.name} class="w-64 h-64 md:w-80 md:h-80 rounded-[2rem] object-cover border-2 border-white/70 shadow-[0_8px_32px_rgba(168,130,220,0.25)]" />
 				</div>
 
 				<!-- Detail bubbles - arranged in floating orbs -->

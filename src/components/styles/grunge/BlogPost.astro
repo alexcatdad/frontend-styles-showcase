@@ -23,6 +23,11 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 			<!-- Corner marks -->
 			<div class="absolute top-3 right-4 text-[10px] text-[#2a2520] select-none">●●●</div>
 
+			<!-- Header image -->
+			<div class="mb-8">
+				<img src={post.image} alt={post.title} class="w-full h-48 md:h-64 object-cover border-[3px] border-[#3a3530] grayscale-[25%] opacity-90" />
+			</div>
+
 			<!-- Header -->
 			<header class="mb-10 border-b-[3px] border-dashed border-[#2a2520] pb-10">
 				<!-- Meta -->

@@ -35,6 +35,8 @@ const { lang, style, nav, meta, cat, otherCats, t } = Astro.props;
 				&larr; {t.cats.backToAll}
 			</a>
 
+			<img src={cat.image} alt={cat.name} class="w-full h-64 md:h-80 object-cover rounded-2xl mb-10" />
+
 			<div class="flex flex-col items-start gap-8 sm:flex-row sm:items-center">
 				<!-- Large avatar -->
 				<div class="flex h-28 w-28 shrink-0 items-center justify-center rounded-2xl bg-white text-5xl font-extrabold text-teal-500 sm:h-32 sm:w-32">

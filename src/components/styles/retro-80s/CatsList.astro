@@ -59,6 +59,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 					<div class="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-cyan-400/40 group-hover:border-cyan-400 transition-colors"></div>
 
 					<div class="p-6">
+						<img src={cat.thumbnail} alt={cat.name} class="w-full h-40 object-cover rounded-sm mb-4 border border-fuchsia-500/30 shadow-[0_0_10px_#ff00ff22]" />
 						<div class="flex items-start justify-between mb-3 gap-2">
 							<h2 class="text-2xl font-black uppercase tracking-wide text-cyan-300 group-hover:text-cyan-200 group-hover:drop-shadow-[0_0_10px_#00ffff66] transition-all">
 								{cat.name}

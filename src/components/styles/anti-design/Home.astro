@@ -11,6 +11,7 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 				<div class="absolute top-1/3 right-0 w-72 h-72 bg-lime-400 opacity-15 blur-2xl rotate-45"></div>
 				<div class="absolute bottom-0 left-1/3 w-80 h-40 bg-cyan-400 opacity-20 blur-xl -rotate-12"></div>
 			</div>
+			<img src={sanctuary.heroImage} alt={sanctuary.name} class="relative w-full max-h-[400px] md:max-h-[600px] object-cover border-8 border-fuchsia-600 rotate-2 shadow-[12px_12px_0_theme(colors.lime.400)] mb-6" />
 			<h1 class="relative text-7xl md:text-[12rem] lg:text-[16rem] font-black font-serif text-fuchsia-500 -rotate-6 leading-none tracking-tighter ml-[-2%]">
 				{sanctuary.name}
 			</h1>

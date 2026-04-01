@@ -60,6 +60,7 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 						<!-- Large circle decoration -->
 						<div class="absolute -right-20 top-1/2 -translate-y-1/2 w-64 h-64 rounded-full border-4 border-red-600 opacity-15"></div>
 
+						<img src={post.image} alt={post.title} class="w-full h-48 md:h-64 object-cover mb-8 border-4 border-red-600 relative z-10" />
 						<h1 class="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.85] mb-8 relative z-10">
 							{post.title}
 						</h1>

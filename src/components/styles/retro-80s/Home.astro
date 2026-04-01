@@ -47,6 +47,7 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 				<p class="text-xl sm:text-2xl lg:text-3xl text-cyan-300 font-light tracking-[0.15em] max-w-3xl mx-auto drop-shadow-[0_0_15px_#00ffff66]">
 					{sanctuary.tagline}
 				</p>
+				<img src={sanctuary.heroImage} alt={sanctuary.name} class="mt-10 mx-auto w-full max-w-2xl h-56 md:h-72 object-cover rounded-sm border border-fuchsia-500/40 shadow-[0_0_30px_#ff00ff33]" />
 				<div class="mt-12 flex flex-col sm:flex-row gap-5 justify-center">
 					<a
 						href={`/${lang}/${style}/cats`}

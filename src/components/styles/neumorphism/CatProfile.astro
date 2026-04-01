@@ -25,10 +25,8 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 		<div class="grid gap-10 lg:grid-cols-[300px_1fr]">
 			<!-- Sidebar -->
 			<aside class="space-y-8">
-				<!-- Cat avatar: large extruded circle -->
-				<div class="mx-auto flex h-44 w-44 items-center justify-center rounded-full bg-[#e0e5ec] shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff]">
-					<span class="text-6xl font-extrabold text-[#6b8aab]">{cat.name.charAt(0)}</span>
-				</div>
+				<!-- Cat photo -->
+				<img src={cat.image} alt={cat.name} class="mx-auto w-44 h-44 object-cover rounded-full shadow-[12px_12px_24px_#b8bec7,-12px_-12px_24px_#ffffff]" />
 
 				<h1 class="text-center text-3xl font-extrabold tracking-tight text-[#3a4a5c] sm:text-4xl">{cat.name}</h1>
 

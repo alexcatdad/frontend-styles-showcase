@@ -78,6 +78,14 @@ const { lang, style, nav, posts, t } = Astro.props;
 								{post.date}
 							</time>
 
+							<!-- post image: pasted clipping -->
+							<img src={post.image} alt={post.title} class:list={[
+								"w-full h-36 md:h-48 object-cover border-4 border-black mb-3",
+								i % 3 === 0 ? "-rotate-1 shadow-[3px_3px_0_black]" :
+								i % 3 === 1 ? "rotate-[1.5deg] shadow-[-2px_3px_0_rgba(236,72,153,0.5)]" :
+								"rotate-0.5 shadow-[2px_2px_0_rgba(249,115,22,0.5)]",
+							]} />
+
 							<!-- title: ransom-note sizing -->
 							<h2 class:list={[
 								"font-black uppercase mb-2 group-hover:underline decoration-wavy decoration-pink-500",

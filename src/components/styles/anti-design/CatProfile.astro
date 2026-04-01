@@ -42,6 +42,11 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 				{cat.status}
 			</div>
 
+			<!-- Cat photo: oversized, overlapping, rotated -->
+			<div class="relative z-5 md:ml-[10%] md:mr-[5%] -rotate-2 mb-[-2rem] md:mb-[-4rem]">
+				<img src={cat.image} alt={cat.name} class="w-64 h-64 md:w-96 md:h-96 object-cover border-8 border-fuchsia-600 shadow-[12px_12px_0_theme(colors.lime.400)] rotate-3" />
+			</div>
+
 			<!-- Details: scattered grid, not aligned -->
 			<div class="relative z-0 bg-black p-4 md:p-8 border-8 border-lime-400 rotate-1 mb-8">
 				<dl class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">

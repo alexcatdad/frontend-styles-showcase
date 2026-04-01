@@ -23,7 +23,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 
 		<article class="pt-16 md:pt-24 pb-32 md:pb-48 px-6 lg:px-12">
 			<div class="max-w-2xl mx-auto">
-				<div class="aspect-[3/2] bg-stone-100 mb-16 md:mb-24"></div>
+				<img src={cat.image} alt={cat.name} class="w-full aspect-[3/2] object-cover mb-16 md:mb-24" />
 
 				<h1 class="text-4xl md:text-6xl lg:text-7xl font-extralight tracking-tight leading-none">{cat.name}</h1>
 

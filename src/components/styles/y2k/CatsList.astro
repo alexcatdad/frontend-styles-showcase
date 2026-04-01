@@ -42,6 +42,8 @@ const { lang, style, nav, cats, t } = Astro.props;
 						<!-- Iridescent top band -->
 						<div class="h-1.5 bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300 rounded-t-[2rem]"></div>
 
+						<img src={cat.thumbnail} alt={cat.name} class="w-full h-40 object-cover" />
+
 						<div class="relative p-5 md:p-6">
 							<!-- Name and status row -->
 							<div class="flex items-start justify-between mb-3">

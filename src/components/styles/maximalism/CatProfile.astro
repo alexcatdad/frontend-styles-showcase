@@ -2,12 +2,42 @@
 const { lang, style, nav, cat, otherCats, t } = Astro.props;
 
 const detailColors = [
-	{ bg: 'from-emerald-800/50 to-emerald-900/60', border: 'border-emerald-500/40', dt: 'text-emerald-400', dd: 'text-emerald-100' },
-	{ bg: 'from-purple-800/50 to-purple-900/60', border: 'border-purple-500/40', dt: 'text-purple-400', dd: 'text-purple-100' },
-	{ bg: 'from-rose-800/50 to-rose-900/60', border: 'border-rose-500/40', dt: 'text-rose-400', dd: 'text-rose-100' },
-	{ bg: 'from-indigo-800/50 to-indigo-900/60', border: 'border-indigo-500/40', dt: 'text-indigo-400', dd: 'text-indigo-100' },
-	{ bg: 'from-teal-800/50 to-teal-900/60', border: 'border-teal-500/40', dt: 'text-teal-400', dd: 'text-teal-100' },
-	{ bg: 'from-amber-800/50 to-amber-900/60', border: 'border-amber-500/40', dt: 'text-amber-400', dd: 'text-amber-100' },
+	{
+		bg: "from-emerald-800/50 to-emerald-900/60",
+		border: "border-emerald-500/40",
+		dt: "text-emerald-400",
+		dd: "text-emerald-100",
+	},
+	{
+		bg: "from-purple-800/50 to-purple-900/60",
+		border: "border-purple-500/40",
+		dt: "text-purple-400",
+		dd: "text-purple-100",
+	},
+	{
+		bg: "from-rose-800/50 to-rose-900/60",
+		border: "border-rose-500/40",
+		dt: "text-rose-400",
+		dd: "text-rose-100",
+	},
+	{
+		bg: "from-indigo-800/50 to-indigo-900/60",
+		border: "border-indigo-500/40",
+		dt: "text-indigo-400",
+		dd: "text-indigo-100",
+	},
+	{
+		bg: "from-teal-800/50 to-teal-900/60",
+		border: "border-teal-500/40",
+		dt: "text-teal-400",
+		dd: "text-teal-100",
+	},
+	{
+		bg: "from-amber-800/50 to-amber-900/60",
+		border: "border-amber-500/40",
+		dt: "text-amber-400",
+		dd: "text-amber-100",
+	},
 ];
 const details = [
 	{ key: t.cats.breed, value: cat.breed },
@@ -54,6 +84,13 @@ const details = [
 				</div>
 
 				<div class="p-6 md:p-10 lg:p-16">
+					<!-- Cat portrait — Ornamental frame -->
+					<div class="relative border-2 border-amber-600/25 p-2 mb-12 max-w-md mx-auto">
+						<div class="border border-amber-500/15 p-1">
+							<img src={cat.image} alt={cat.name} class="w-full h-80 md:h-96 object-cover shadow-[0_8px_40px_rgba(180,120,0,0.15)]" />
+						</div>
+					</div>
+
 					<!-- Name — Triple frame -->
 					<div class="text-center mb-12">
 						<p class="text-amber-500 tracking-[0.4em] text-xs mb-4">❧ ✿ ★ ✿ ❧</p>

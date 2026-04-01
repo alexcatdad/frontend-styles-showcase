@@ -102,7 +102,10 @@ const authors = [...new Set(posts.map((p: any) => p.author))];
 							<td class="px-2 py-1 text-gray-400 font-mono border-r border-gray-100 whitespace-nowrap">{idx + 1}</td>
 							<td class="px-2 py-1 font-mono text-gray-500 border-r border-gray-100 whitespace-nowrap">{post.date}</td>
 							<td class="px-2 py-1 border-r border-gray-100">
-								<a href={`/${lang}/${style}/blog/${post.slug}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline">{post.title}</a>
+								<a href={`/${lang}/${style}/blog/${post.slug}`} class="font-semibold text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1">
+									<img src={post.image} alt={post.title} class="w-4 h-4 rounded-sm object-cover inline-block border border-gray-200" />
+									{post.title}
+								</a>
 							</td>
 							<td class="px-2 py-1 text-gray-600 border-r border-gray-100 hidden md:table-cell whitespace-nowrap">
 								<span class="flex items-center gap-1">

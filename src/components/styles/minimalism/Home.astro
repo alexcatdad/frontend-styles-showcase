@@ -17,6 +17,7 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 	<main>
 		<section class="pt-32 md:pt-48 pb-40 md:pb-56 px-6 lg:px-12">
 			<div class="max-w-2xl mx-auto">
+				<img src={sanctuary.heroImage} alt={sanctuary.name} class="w-full h-64 md:h-80 object-cover mb-16 md:mb-24" />
 				<h1 class="text-5xl md:text-7xl lg:text-8xl font-extralight tracking-tight leading-none">{sanctuary.name}</h1>
 				<p class="mt-10 md:mt-16 text-xl md:text-2xl font-light text-stone-400 leading-relaxed max-w-lg">{sanctuary.tagline}</p>
 				<div class="mt-16 md:mt-24 flex flex-col sm:flex-row gap-6 sm:gap-12">

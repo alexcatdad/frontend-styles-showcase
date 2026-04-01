@@ -114,6 +114,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 									<p class="m-0">&nbsp;&gt; ^ &lt;</p>
 								</div>
 								<div class="text-left flex-1 min-w-0">
+									<img src={cat.thumbnail} alt={cat.name} class="w-full h-24 object-cover border-2 border-gray-500 mb-2" />
 									<h2 class="text-base font-bold text-fuchsia-700 group-hover:text-blue-700 mb-1">{cat.name}</h2>
 									<p class="text-[11px] text-gray-700 mb-1">{cat.breed} | {cat.age} | {cat.gender}</p>
 									<p class="text-[11px] text-gray-600 mb-2 line-clamp-2">{cat.description}</p>

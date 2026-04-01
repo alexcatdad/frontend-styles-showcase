@@ -4,7 +4,13 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
+	server: {
+		port: Number(process.env.PORT) || 4321,
+	},
 	vite: {
 		plugins: [tailwindcss()],
+		server: {
+			allowedHosts: true,
+		},
 	},
 });

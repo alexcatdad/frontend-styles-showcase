@@ -11,6 +11,8 @@ export interface Cat {
 	description: string;
 	status: string;
 	arrivalDate: string;
+	image: string;
+	thumbnail: string;
 }
 
 const en: Cat[] = [
@@ -227,7 +229,53 @@ const ro: Cat[] = [
 	},
 ];
 
-export const cats: Record<Locale, Cat[]> = { en, ro };
+/** Images are locale-independent — map by cat ID */
+const catImages: Record<string, { image: string; thumbnail: string }> = {
+	luna: {
+		image: "/images/cats/cat-1.jpg",
+		thumbnail: "/images/cats/thumb-1.jpg",
+	},
+	mochi: {
+		image: "/images/cats/cat-2.jpg",
+		thumbnail: "/images/cats/thumb-2.jpg",
+	},
+	shadow: {
+		image: "/images/cats/cat-3.jpg",
+		thumbnail: "/images/cats/thumb-3.jpg",
+	},
+	biscuit: {
+		image: "/images/cats/cat-4.jpg",
+		thumbnail: "/images/cats/thumb-4.jpg",
+	},
+	cleo: {
+		image: "/images/cats/cat-5.jpg",
+		thumbnail: "/images/cats/thumb-5.jpg",
+	},
+	nugget: {
+		image: "/images/cats/cat-6.jpg",
+		thumbnail: "/images/cats/thumb-6.jpg",
+	},
+	zen: {
+		image: "/images/cats/cat-7.jpg",
+		thumbnail: "/images/cats/thumb-7.jpg",
+	},
+	pixel: {
+		image: "/images/cats/cat-8.jpg",
+		thumbnail: "/images/cats/thumb-8.jpg",
+	},
+};
+
+function withImages(list: Omit<Cat, "image" | "thumbnail">[]): Cat[] {
+	return list.map((c) => ({
+		...c,
+		...catImages[c.id],
+	})) as Cat[];
+}
+
+export const cats: Record<Locale, Cat[]> = {
+	en: withImages(en),
+	ro: withImages(ro),
+};
 
 export const catIds = en.map((c) => c.id);
 

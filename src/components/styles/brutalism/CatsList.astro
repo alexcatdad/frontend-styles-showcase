@@ -20,6 +20,7 @@ const { lang, style, nav, cats, t } = Astro.props;
 				${i > 0 ? '-mt-1' : ''}
 				${i % 5 === 0 ? 'bg-red-600 text-white hover:bg-yellow-400 hover:text-black' : 'bg-white'}
 			`}>
+				<img src={cat.thumbnail} alt={cat.name} class="w-full h-48 md:h-56 object-cover border-b-4 border-black mb-4" />
 				<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-8">
 					<div class="flex-1">
 						<h2 class="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none">{cat.name}</h2>

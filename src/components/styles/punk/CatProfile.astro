@@ -50,6 +50,15 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 					<div class="absolute -bottom-4 right-0 md:right-20 text-4xl md:text-6xl font-black text-black/10 select-none rotate-12">★★</div>
 				</div>
 
+				<!-- Cat photo: photocopied polaroid, taped on crooked -->
+				<div class="relative -rotate-2 mb-10 inline-block">
+					<div class="border-[6px] border-black bg-yellow-100 p-3 shadow-[8px_8px_0_black]">
+						<img src={cat.image} alt={cat.name} class="w-56 h-56 md:w-80 md:h-80 object-cover grayscale-[10%]" />
+					</div>
+					<div class="absolute -top-2 left-10 w-16 h-3 bg-pink-500/50 rotate-6"></div>
+					<div class="absolute -bottom-1.5 right-6 w-12 h-2.5 bg-yellow-400/60 -rotate-3"></div>
+				</div>
+
 				<!-- Details: scattered info cards, each a different scrap -->
 				<dl class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-10">
 					<div class="relative border-4 border-black bg-yellow-400 p-3 md:p-4 -rotate-2 shadow-[3px_3px_0_black]">

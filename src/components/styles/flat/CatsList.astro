@@ -2,10 +2,50 @@
 const { lang, style, nav, meta, cats, t } = Astro.props;
 
 const cardColors = [
-	{ bg: 'bg-blue-500', text: 'text-white', badge: 'bg-white text-blue-500', avatarBg: 'bg-white', avatarText: 'text-blue-500', metaText: 'text-blue-100', descText: 'text-blue-100', traitBg: 'bg-blue-400 text-white', hoverBg: 'hover:bg-blue-600' },
-	{ bg: 'bg-rose-500', text: 'text-white', badge: 'bg-white text-rose-500', avatarBg: 'bg-white', avatarText: 'text-rose-500', metaText: 'text-rose-100', descText: 'text-rose-100', traitBg: 'bg-rose-400 text-white', hoverBg: 'hover:bg-rose-600' },
-	{ bg: 'bg-teal-500', text: 'text-white', badge: 'bg-white text-teal-500', avatarBg: 'bg-white', avatarText: 'text-teal-500', metaText: 'text-teal-100', descText: 'text-teal-100', traitBg: 'bg-teal-400 text-white', hoverBg: 'hover:bg-teal-600' },
-	{ bg: 'bg-amber-400', text: 'text-amber-900', badge: 'bg-amber-900 text-white', avatarBg: 'bg-amber-900', avatarText: 'text-amber-400', metaText: 'text-amber-800', descText: 'text-amber-800', traitBg: 'bg-amber-500 text-amber-900', hoverBg: 'hover:bg-amber-500' },
+	{
+		bg: "bg-blue-500",
+		text: "text-white",
+		badge: "bg-white text-blue-500",
+		avatarBg: "bg-white",
+		avatarText: "text-blue-500",
+		metaText: "text-blue-100",
+		descText: "text-blue-100",
+		traitBg: "bg-blue-400 text-white",
+		hoverBg: "hover:bg-blue-600",
+	},
+	{
+		bg: "bg-rose-500",
+		text: "text-white",
+		badge: "bg-white text-rose-500",
+		avatarBg: "bg-white",
+		avatarText: "text-rose-500",
+		metaText: "text-rose-100",
+		descText: "text-rose-100",
+		traitBg: "bg-rose-400 text-white",
+		hoverBg: "hover:bg-rose-600",
+	},
+	{
+		bg: "bg-teal-500",
+		text: "text-white",
+		badge: "bg-white text-teal-500",
+		avatarBg: "bg-white",
+		avatarText: "text-teal-500",
+		metaText: "text-teal-100",
+		descText: "text-teal-100",
+		traitBg: "bg-teal-400 text-white",
+		hoverBg: "hover:bg-teal-600",
+	},
+	{
+		bg: "bg-amber-400",
+		text: "text-amber-900",
+		badge: "bg-amber-900 text-white",
+		avatarBg: "bg-amber-900",
+		avatarText: "text-amber-400",
+		metaText: "text-amber-800",
+		descText: "text-amber-800",
+		traitBg: "bg-amber-500 text-amber-900",
+		hoverBg: "hover:bg-amber-500",
+	},
 ];
 ---
 
@@ -55,6 +95,7 @@ const cardColors = [
 					const c = cardColors[index % cardColors.length];
 					return (
 						<a href={`/${lang}/${style}/cats/${cat.id}`} class={`group block rounded-2xl ${c.bg} p-6 transition-colors ${c.hoverBg}`}>
+							<img src={cat.thumbnail} alt={cat.name} class="w-full h-40 object-cover rounded-xl mb-5" />
 							<!-- Avatar circle + status -->
 							<div class="mb-5 flex items-center justify-between">
 								<div class={`flex h-16 w-16 items-center justify-center rounded-full ${c.avatarBg} text-2xl font-extrabold ${c.avatarText}`}>

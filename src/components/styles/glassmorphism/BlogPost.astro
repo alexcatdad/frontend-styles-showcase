@@ -35,7 +35,8 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 				<!-- Article header + meta sidebar panel (higher z) -->
 				<div class="lg:col-span-4 lg:relative lg:z-20">
 					<div class="backdrop-blur-2xl bg-white/[0.14] border border-white/20 rounded-3xl p-7 sm:p-8 shadow-xl shadow-purple-900/20 lg:sticky lg:top-24">
-						<h1 class="text-2xl sm:text-3xl font-black mb-6 bg-gradient-to-br from-white via-purple-100 to-pink-200 bg-clip-text text-transparent leading-tight">{post.title}</h1>
+						<img src={post.image} alt={post.title} class="w-full h-44 object-cover rounded-2xl mb-6 border border-white/15 shadow-lg shadow-purple-900/20" />
+					<h1 class="text-2xl sm:text-3xl font-black mb-6 bg-gradient-to-br from-white via-purple-100 to-pink-200 bg-clip-text text-transparent leading-tight">{post.title}</h1>
 
 						<!-- Meta details as glass items -->
 						<div class="space-y-3 mb-6">

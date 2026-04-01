@@ -40,6 +40,8 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 				<div class="absolute top-0 left-0 right-0 h-px bg-amber-400/60"></div>
 
 				<div class="p-6 sm:p-10 space-y-6">
+					<img src={cat.image} alt={cat.name} class="w-48 h-48 sm:w-56 sm:h-56 rounded-lg object-cover mx-auto border-4 border-amber-300/60 shadow-[0_4px_16px_rgba(0,0,0,0.3)]" />
+
 					<!-- CLASSIFIED header stamp -->
 					<div class="text-center">
 						<span class="inline-block px-6 py-1.5 text-red-700 text-sm font-bold uppercase tracking-[0.3em] border-3 border-red-700/50 rounded-sm rotate-[-1deg]" style="font-family: monospace; border-width: 3px;">

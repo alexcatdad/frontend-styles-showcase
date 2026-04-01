@@ -6,6 +6,7 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 	<!-- CAT NAME: TAKES OVER THE VIEWPORT -->
 	<section class="relative bg-black text-white px-4 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
 		<a href={`/${lang}/${style}/cats`} class="inline-block text-yellow-400 uppercase font-black text-xs tracking-[0.3em] mb-8 hover:text-white cursor-pointer border-b-2 border-yellow-400 hover:border-white pb-1">&larr; {t.cats.backToAll}</a>
+		<img src={cat.image} alt={cat.name} class="w-full h-64 md:h-96 object-cover border-4 border-yellow-400 mb-8" />
 		<h1 class="text-7xl md:text-9xl lg:text-[14rem] font-black uppercase leading-none tracking-tighter text-white">{cat.name}</h1>
 		<span class="absolute top-4 right-4 md:top-8 md:right-8 bg-red-600 text-white text-xs md:text-sm font-black uppercase px-4 py-2 tracking-[0.3em] border-4 border-red-600 rotate-3">{cat.status}</span>
 	</section>

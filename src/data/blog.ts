@@ -8,6 +8,7 @@ export interface BlogPost {
 	date: string;
 	tags: string[];
 	content: string[];
+	image: string;
 }
 
 const en: BlogPost[] = [
@@ -147,7 +148,21 @@ const ro: BlogPost[] = [
 	},
 ];
 
-export const posts: Record<Locale, BlogPost[]> = { en, ro };
+const blogImages: Record<string, string> = {
+	"spring-adoption-event": "/images/blog/blog-1.jpg",
+	"cat-nutrition-guide": "/images/blog/blog-2.jpg",
+	"volunteer-spotlight-maria": "/images/blog/blog-3.jpg",
+	"understanding-cat-body-language": "/images/blog/blog-4.jpg",
+};
+
+function withBlogImages(list: Omit<BlogPost, "image">[]): BlogPost[] {
+	return list.map((p) => ({ ...p, image: blogImages[p.slug] || "" }));
+}
+
+export const posts: Record<Locale, BlogPost[]> = {
+	en: withBlogImages(en),
+	ro: withBlogImages(ro),
+};
 
 export const postSlugs = en.map((p) => p.slug);
 

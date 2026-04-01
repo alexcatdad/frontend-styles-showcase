@@ -2,10 +2,42 @@
 const { lang, style, nav, meta, posts, t } = Astro.props;
 
 const sectionColors = [
-	{ bg: 'bg-blue-500', cardBg: 'bg-blue-400', text: 'text-white', excerpt: 'text-blue-100', tagBg: 'bg-white text-blue-500', dateBg: 'bg-white text-blue-500', meta: 'text-blue-100' },
-	{ bg: 'bg-rose-500', cardBg: 'bg-rose-400', text: 'text-white', excerpt: 'text-rose-100', tagBg: 'bg-white text-rose-500', dateBg: 'bg-white text-rose-500', meta: 'text-rose-100' },
-	{ bg: 'bg-teal-500', cardBg: 'bg-teal-400', text: 'text-white', excerpt: 'text-teal-100', tagBg: 'bg-white text-teal-500', dateBg: 'bg-white text-teal-500', meta: 'text-teal-100' },
-	{ bg: 'bg-amber-400', cardBg: 'bg-amber-300', text: 'text-amber-900', excerpt: 'text-amber-800', tagBg: 'bg-amber-900 text-white', dateBg: 'bg-amber-900 text-amber-400', meta: 'text-amber-800' },
+	{
+		bg: "bg-blue-500",
+		cardBg: "bg-blue-400",
+		text: "text-white",
+		excerpt: "text-blue-100",
+		tagBg: "bg-white text-blue-500",
+		dateBg: "bg-white text-blue-500",
+		meta: "text-blue-100",
+	},
+	{
+		bg: "bg-rose-500",
+		cardBg: "bg-rose-400",
+		text: "text-white",
+		excerpt: "text-rose-100",
+		tagBg: "bg-white text-rose-500",
+		dateBg: "bg-white text-rose-500",
+		meta: "text-rose-100",
+	},
+	{
+		bg: "bg-teal-500",
+		cardBg: "bg-teal-400",
+		text: "text-white",
+		excerpt: "text-teal-100",
+		tagBg: "bg-white text-teal-500",
+		dateBg: "bg-white text-teal-500",
+		meta: "text-teal-100",
+	},
+	{
+		bg: "bg-amber-400",
+		cardBg: "bg-amber-300",
+		text: "text-amber-900",
+		excerpt: "text-amber-800",
+		tagBg: "bg-amber-900 text-white",
+		dateBg: "bg-amber-900 text-amber-400",
+		meta: "text-amber-800",
+	},
 ];
 ---
 
@@ -57,10 +89,8 @@ const sectionColors = [
 				<section class={`${c.bg} px-4 py-12 sm:px-8`}>
 					<a href={`/${lang}/${style}/blog/${post.slug}`} class="group mx-auto block max-w-4xl">
 						<article class="flex flex-col gap-6 sm:flex-row sm:items-center">
-							<!-- Number block -->
-							<div class={`flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl ${c.cardBg} text-3xl font-extrabold ${c.text}`}>
-								{String(index + 1).padStart(2, '0')}
-							</div>
+							<!-- Post image -->
+							<img src={post.image} alt={post.title} class="w-20 h-20 sm:w-28 sm:h-28 shrink-0 object-cover rounded-2xl" />
 							<!-- Content -->
 							<div class="flex-1">
 								<div class="mb-3 flex flex-wrap items-center gap-3">

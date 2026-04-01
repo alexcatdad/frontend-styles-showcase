@@ -37,6 +37,11 @@ const { lang, style, nav, cat, otherCats, t } = Astro.props;
 				</div>
 			</header>
 
+			<!-- Cat image -->
+			<div class="mb-10">
+				<img src={cat.image} alt={cat.name} class="w-full max-w-2xl h-auto object-cover" />
+			</div>
+
 			<!-- Asymmetric layout: wide text + narrow details sidebar -->
 			<div class="md:grid md:grid-cols-6 md:gap-12 border-t border-stone-300 pt-10 pb-16">
 				<!-- Main story column -->

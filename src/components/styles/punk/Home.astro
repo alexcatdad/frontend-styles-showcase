@@ -43,6 +43,13 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 					<span class="bg-yellow-400 text-black px-3 md:px-5 py-1 inline-block rotate-1 border-4 border-yellow-400">{sanctuary.name}</span>
 				</h1>
 
+				<!-- hero image: photocopied, taped on crooked -->
+				<div class="relative -rotate-2 mt-6 mb-4 md:mb-6 inline-block">
+					<img src={sanctuary.heroImage} alt={sanctuary.name} class="w-full max-h-[350px] md:max-h-[500px] object-cover border-[6px] border-black shadow-[8px_8px_0_rgba(236,72,153,0.6)] grayscale-[15%]" />
+					<div class="absolute -top-2 left-12 w-16 h-3 bg-yellow-400/60 rotate-6"></div>
+					<div class="absolute -bottom-1.5 right-8 w-14 h-2.5 bg-pink-500/50 -rotate-3"></div>
+				</div>
+
 				<!-- tagline: separate piece, taped on at a different angle -->
 				<div class="relative inline-block ml-4 md:ml-12 -mt-2">
 					<p class="text-lg md:text-3xl font-black rotate-2 bg-pink-500 text-white px-4 py-2 border-4 border-white uppercase tracking-wide">

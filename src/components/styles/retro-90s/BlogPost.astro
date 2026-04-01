@@ -53,7 +53,8 @@ const { lang, style, nav, post, otherPosts, t } = Astro.props;
 
 				<!-- Post title area -->
 				<div class="bg-white m-1 border-t-2 border-l-2 border-gray-500 border-b-2 border-r-2 border-b-white border-r-white p-4">
-					<h1 class="text-2xl md:text-3xl font-bold text-fuchsia-700 mb-2 drop-shadow">{post.title}</h1>
+					<img src={post.image} alt={post.title} class="w-full h-48 object-cover border-4 border-double border-fuchsia-400 mb-3" />
+						<h1 class="text-2xl md:text-3xl font-bold text-fuchsia-700 mb-2 drop-shadow">{post.title}</h1>
 
 					<!-- Meta info table -->
 					<div class="border-2 border-gray-500 inline-block">

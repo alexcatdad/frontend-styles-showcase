@@ -47,6 +47,12 @@ const { lang, style, nav, cats, t } = Astro.props;
 						i % 6 === 5 && "bg-lime-400 text-black border-4 border-fuchsia-600 -rotate-2 font-sans p-6 md:p-8 shadow-[8px_-8px_0_theme(colors.cyan.400)]",
 					]}
 				>
+					<img src={cat.thumbnail} alt={cat.name} class:list={[
+						"w-full h-32 md:h-44 object-cover mb-3 border-4",
+						i % 3 === 0 && "border-fuchsia-500 rotate-2",
+						i % 3 === 1 && "border-lime-400 -rotate-1",
+						i % 3 === 2 && "border-cyan-400 rotate-1",
+					]} />
 					<h2 class:list={[
 						"font-black mb-2 leading-none",
 						i % 3 === 0 ? "text-4xl md:text-6xl underline decoration-wavy decoration-4" : i % 3 === 1 ? "text-xl md:text-2xl uppercase tracking-[0.3em]" : "text-3xl md:text-5xl -rotate-2",

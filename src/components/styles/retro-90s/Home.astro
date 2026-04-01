@@ -72,6 +72,7 @@ const { lang, style, nav, meta, sanctuary, t } = Astro.props;
 
 				<!-- *** HERO: Big Flashy Banner *** -->
 				<div class="border-4 border-double border-fuchsia-500 bg-gradient-to-b from-fuchsia-700 via-fuchsia-600 to-fuchsia-700 text-white py-5 px-4 mb-3">
+					<img src={sanctuary.heroImage} alt={sanctuary.name} class="w-full max-w-md mx-auto h-48 object-cover border-4 border-yellow-400 mb-3" />
 					<h1 class="text-3xl md:text-5xl font-bold mb-2 tracking-tight drop-shadow-lg">{sanctuary.name}</h1>
 					<p class="text-lg md:text-xl text-yellow-300 font-bold">{sanctuary.tagline}</p>
 				</div>

@@ -1,7 +1,25 @@
 ---
 const { lang, style, nav, cats, t } = Astro.props;
-const rotations = ['-rotate-1', 'rotate-0.5', '-rotate-0.5', 'rotate-1', 'rotate-0', '-rotate-1', 'rotate-0.5', '-rotate-0.5'];
-const borderColors = ['border-[#4a3520]', 'border-[#3a3530]', 'border-[#5a4030]', 'border-[#3a3530]', 'border-[#4a3520]', 'border-[#3a4530]', 'border-[#5a3520]', 'border-[#3a3530]'];
+const rotations = [
+	"-rotate-1",
+	"rotate-0.5",
+	"-rotate-0.5",
+	"rotate-1",
+	"rotate-0",
+	"-rotate-1",
+	"rotate-0.5",
+	"-rotate-0.5",
+];
+const borderColors = [
+	"border-[#4a3520]",
+	"border-[#3a3530]",
+	"border-[#5a4030]",
+	"border-[#3a3530]",
+	"border-[#4a3520]",
+	"border-[#3a4530]",
+	"border-[#5a3520]",
+	"border-[#3a3530]",
+];
 ---
 
 <div class="min-h-screen bg-[#1a1714] text-[#c8c0b0] font-mono selection:bg-amber-900/60 selection:text-amber-200">
@@ -35,6 +53,9 @@ const borderColors = ['border-[#4a3520]', 'border-[#3a3530]', 'border-[#5a4030]'
 					class={`group relative block border-[3px] ${borderColors[i % borderColors.length]} bg-[#1f1c18] p-5 md:p-6 transition-all duration-200 hover:bg-[#241f1a] hover:border-[#8b4513] hover:-translate-y-0.5 ${rotations[i % rotations.length]}`}>
 					<!-- Poster number stamp -->
 					<div class="absolute top-3 right-3 text-[8px] uppercase tracking-widest text-[#2a2520] select-none">no.{String(i + 1).padStart(2, '0')}</div>
+
+					<!-- Cat thumbnail -->
+					<img src={cat.thumbnail} alt={cat.name} class="w-full h-36 md:h-44 object-cover border-[2px] border-[#3a3530] mb-4 grayscale-[20%] opacity-90" />
 
 					<!-- Name + Status -->
 					<div class="mb-4">

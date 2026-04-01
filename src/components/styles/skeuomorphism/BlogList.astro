@@ -44,6 +44,8 @@ const { lang, style, nav, posts, t } = Astro.props;
 						<!-- Red margin line -->
 						<div class="absolute left-12 sm:left-16 top-0 bottom-0 w-px bg-red-300/40 pointer-events-none"></div>
 
+						<img src={post.image} alt={post.title} class="w-full h-40 object-cover border-b border-amber-200/60" />
+
 						<div class="p-6 sm:p-8 pl-16 sm:pl-20 space-y-3">
 							<!-- Date - Rubber stamp style -->
 							<div class="inline-block">

@@ -7,12 +7,14 @@ interface SanctuaryData {
 	about: string[];
 	stats: { label: string; value: string }[];
 	contact: { email: string; phone: string; address: string };
+	heroImage: string;
 }
 
 export const sanctuary: Record<Locale, SanctuaryData> = {
 	en: {
 		name: "Whisker Haven",
 		tagline: "Every cat deserves a loving home",
+		heroImage: "/images/hero/hero-1.jpg",
 		mission:
 			"Whisker Haven is a no-kill cat sanctuary dedicated to rescuing, rehabilitating, and rehoming cats in need. Since 2019, we've found forever homes for over 2,000 cats.",
 		about: [
@@ -35,6 +37,7 @@ export const sanctuary: Record<Locale, SanctuaryData> = {
 	ro: {
 		name: "Whisker Haven",
 		tagline: "Fiecare pisică merită o casă iubitoare",
+		heroImage: "/images/hero/hero-1.jpg",
 		mission:
 			"Whisker Haven este un sanctuar fără eutanasiere dedicat salvării, recuperării și găsirii de case pentru pisicile aflate în nevoie. Din 2019, am găsit case permanente pentru peste 2.000 de pisici.",
 		about: [
