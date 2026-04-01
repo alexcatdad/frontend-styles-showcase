@@ -1,6 +1,6 @@
 # Frontend Styles Showcase
 
-19 visual styles x 7 pages x 2 languages — one cat sanctuary website rendered across minimalism, brutalism, vaporwave, and 16 more design schools.
+26 visual styles x 8 pages x 2 languages — one cat sanctuary website rendered across minimalism, brutalism, vaporwave, and 23 more design schools.
 
 **Live:** [alexcatdad.github.io/frontend-styles-showcase](https://alexcatdad.github.io/frontend-styles-showcase/)
 
@@ -8,11 +8,11 @@
 
 | Category | Styles |
 |---|---|
-| Core Modern | Minimalism, Flat Design, Brutalism, Neumorphism, Glassmorphism |
-| Typography-first | Editorial, Swiss International, Bauhaus |
-| Nostalgia-driven | Retro 80s, Retro 90s, Y2K, Skeuomorphism, Vaporwave |
-| Emerging | Dark-First Design, Data-Dense UI |
-| Expressive | Anti-Design, Maximalism, Grunge, Punk DIY |
+| Core Modern | Minimalism, Flat Design, Brutalism, Neumorphism, Glassmorphism, Material Design, Claymorphism |
+| Typography-first | Editorial, Swiss International, Bauhaus, Art Deco |
+| Nostalgia-driven | Retro 80s, Retro 90s, Y2K, Skeuomorphism, Vaporwave, Pixel Art |
+| Emerging | Dark-First Design, Data-Dense UI, Cyberpunk, Cottagecore |
+| Expressive | Anti-Design, Maximalism, Grunge, Punk DIY, Memphis Design |
 
 ## Pages (per style)
 
@@ -45,7 +45,7 @@ src/
     styles/
       minimalism/  # 8 page components per style
       brutalism/
-      ...19 total
+      ...26 total
   pages/
     [lang]/[style]/  # Dynamic routing, delegates to style components
   layouts/Layout.astro  # Shared HTML shell + style badge overlay

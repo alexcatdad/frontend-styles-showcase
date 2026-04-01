@@ -1,0 +1,88 @@
+---
+const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-[#0a0a0f] text-gray-300 font-mono">
+	<!-- Nav -->
+	<nav class="relative z-20 border-b border-cyan-500/30 bg-[#0a0a0f]/90 backdrop-blur-sm">
+		<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4">
+			<span class="text-cyan-400 text-xs tracking-widest uppercase">[SYS]</span>
+			<div class="flex flex-wrap items-center gap-1">
+				{nav.map((item: any) => (
+					<a href={item.href} class="px-4 py-2 text-xs tracking-wider uppercase text-cyan-400/70 hover:text-cyan-300 hover:bg-cyan-500/10 transition-all duration-300">
+						{item.label}
+					</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<main class="relative z-10 max-w-6xl mx-auto px-6 py-16">
+		<!-- Header -->
+		<div class="mb-16">
+			<h1 class="relative text-4xl md:text-6xl lg:text-7xl font-bold leading-none tracking-tight uppercase">
+				<span class="absolute inset-0 text-cyan-400/50 translate-x-[3px] -translate-y-[2px]" aria-hidden="true">{t.cats.title}</span>
+				<span class="absolute inset-0 text-fuchsia-500/40 -translate-x-[3px] translate-y-[2px]" aria-hidden="true">{t.cats.title}</span>
+				<span class="relative text-white">{t.cats.title}</span>
+			</h1>
+			<p class="mt-4 text-fuchsia-400/70 text-sm tracking-wider">
+				{t.cats.subtitle}
+			</p>
+			<div class="mt-6 h-px w-32 bg-gradient-to-r from-cyan-500 to-transparent"></div>
+		</div>
+
+		<!-- Cat grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{cats.map((cat: any) => (
+				<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class="group block bg-gray-900/50 border border-gray-800 hover:border-cyan-500/60 hover:shadow-[0_0_20px_rgba(0,255,255,0.15)] transition-all duration-300">
+					<!-- Thumbnail with scanline top border -->
+					<div class="relative">
+						<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-cyan-500"></div>
+						<img src={cat.thumbnail} alt={cat.name} class="w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+					</div>
+
+					<div class="p-6">
+						<!-- Status -->
+						<span class="inline-block text-[10px] tracking-widest uppercase px-3 py-1 border border-cyan-500/30 text-cyan-400/70 mb-4">
+							{cat.status}
+						</span>
+
+						<!-- Name -->
+						<h2 class="text-lg font-bold text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300 uppercase tracking-wide">
+							{cat.name}
+						</h2>
+
+						<!-- Breed / Age -->
+						<p class="mt-2 text-xs text-fuchsia-400/70 tracking-wider">
+							{cat.breed} // {cat.age} // {cat.gender}
+						</p>
+
+						<!-- Description -->
+						<p class="mt-3 text-sm text-gray-400 leading-relaxed">
+							{cat.description.slice(0, 100)}...
+						</p>
+
+						<!-- Personality traits -->
+						<div class="mt-4 flex flex-wrap gap-2">
+							{cat.personality.map((trait: string) => (
+								<span class="text-[10px] tracking-wider uppercase px-2 py-1 border border-fuchsia-500/30 text-fuchsia-400/60 bg-fuchsia-500/5">
+									{trait}
+								</span>
+							))}
+						</div>
+					</div>
+
+					<!-- Bottom neon line -->
+					<div class="h-px w-full bg-gradient-to-r from-cyan-500/50 via-fuchsia-500/50 to-cyan-500/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+				</a>
+			))}
+		</div>
+	</main>
+
+	<footer class="relative z-10 border-t border-cyan-500/20 py-8 mt-16">
+		<div class="max-w-7xl mx-auto px-6 text-center">
+			<div class="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+		</div>
+	</footer>
+</div>

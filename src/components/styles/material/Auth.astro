@@ -1,0 +1,92 @@
+---
+const { lang, style, nav, meta, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-gray-100 font-sans">
+	<!-- App Bar -->
+	<nav class="bg-indigo-600 px-4 py-3 shadow-md sm:px-8">
+		<div class="mx-auto flex max-w-6xl items-center justify-between">
+			<span class="text-lg font-medium tracking-wide text-white">{meta.name}</span>
+			<div class="flex flex-wrap items-center gap-1">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-lg px-4 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white">
+						{item.label}
+					</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<main class="flex items-center justify-center px-4 py-16 sm:px-8">
+		<div class="w-full max-w-md">
+			<!-- Auth Card -->
+			<div class="rounded-xl bg-white p-8 shadow-xl sm:p-10">
+				<!-- Header -->
+				<div class="mb-8 text-center">
+					<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-indigo-600">
+						<div class="h-5 w-5 rounded-sm bg-white"></div>
+					</div>
+					<h1 class="mb-2 text-2xl font-bold text-gray-800">{t.auth.title}</h1>
+					<p class="text-sm text-gray-500">{t.auth.subtitle}</p>
+				</div>
+
+				<form class="space-y-5">
+					<div>
+						<label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">{t.auth.email}</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="you@example.com"
+							class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder-gray-400 transition-shadow focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+						/>
+					</div>
+					<div>
+						<label for="password" class="mb-1.5 block text-sm font-medium text-gray-700">{t.auth.password}</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="••••••••"
+							class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder-gray-400 transition-shadow focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+						/>
+					</div>
+					<div class="flex items-center justify-between">
+						<label class="flex items-center gap-2 text-sm text-gray-600">
+							<input type="checkbox" name="remember" class="h-4 w-4 rounded border-gray-300 accent-indigo-600" />
+							{t.auth.rememberMe}
+						</label>
+						<a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-800">{t.auth.forgotPassword}</a>
+					</div>
+					<button type="submit" class="w-full rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-sm transition-all hover:bg-indigo-700 hover:shadow-md">
+						{t.auth.signIn}
+					</button>
+				</form>
+
+				<!-- Divider -->
+				<div class="my-8 flex items-center gap-4">
+					<div class="h-px flex-1 bg-gray-200"></div>
+					<span class="text-xs font-medium text-gray-400 uppercase tracking-wider">{t.auth.continueWith}</span>
+					<div class="h-px flex-1 bg-gray-200"></div>
+				</div>
+
+				<!-- Social Buttons -->
+				<div class="grid grid-cols-2 gap-4">
+					<button type="button" class="rounded-lg border border-gray-300 px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+						Google
+					</button>
+					<button type="button" class="rounded-lg border border-gray-300 px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+						Apple
+					</button>
+				</div>
+
+				<!-- Sign Up Link -->
+				<p class="mt-8 text-center text-sm text-gray-500">
+					{t.auth.noAccount}{" "}
+					<a href="#" class="font-medium text-indigo-600 hover:text-indigo-800">{t.auth.signUp}</a>
+				</p>
+			</div>
+		</div>
+	</main>
+</div>

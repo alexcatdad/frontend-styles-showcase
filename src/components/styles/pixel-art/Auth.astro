@@ -1,0 +1,73 @@
+---
+const { lang, style, nav, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<main class="bg-gray-900 font-mono text-green-400 min-h-screen overflow-x-hidden">
+	<!-- NAV: GAME MENU BAR -->
+	<nav class="border-b-2 border-green-500 bg-gray-900 px-4 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-green-400 uppercase text-xs md:text-sm tracking-widest hover:bg-green-500 hover:text-gray-900 px-2 py-1 border border-transparent hover:border-green-500 cursor-pointer">{item.label}</a>
+		))}
+	</nav>
+
+	<!-- TERMINAL LOGIN SCREEN -->
+	<div class="flex items-center justify-center px-4 py-12 md:py-20 lg:py-24">
+		<section class="w-full max-w-md">
+			<!-- TERMINAL HEADER -->
+			<div class="border-2 border-green-500 bg-gray-800">
+				<div class="border-b-2 border-green-500 px-4 py-2 flex items-center justify-between bg-gray-700">
+					<span class="text-xs uppercase tracking-widest text-green-400">{"\u2605"} {t.auth.title}</span>
+					<span class="text-xs text-green-500">{"[ ]"} {"[x]"}</span>
+				</div>
+
+				<div class="p-6 md:p-8">
+					<h2 class="text-2xl md:text-4xl font-bold uppercase text-green-400 tracking-wide mb-2">{t.auth.title}</h2>
+					<p class="text-xs uppercase tracking-widest text-yellow-400 mb-8">{t.auth.subtitle}</p>
+
+					<form class="space-y-6">
+						<div>
+							<label for="email" class="block text-xs uppercase tracking-widest text-green-400 mb-2">{"> "}{t.auth.email}</label>
+							<input type="email" id="email" name="email" placeholder="@" class="w-full bg-gray-800 border-2 border-green-500 text-green-400 font-mono px-4 py-3 text-sm uppercase tracking-wider focus:outline-none focus:border-yellow-400 placeholder:text-green-700" />
+						</div>
+						<div>
+							<label for="password" class="block text-xs uppercase tracking-widest text-green-400 mb-2">{"> "}{t.auth.password}</label>
+							<input type="password" id="password" name="password" placeholder="********" class="w-full bg-gray-800 border-2 border-green-500 text-green-400 font-mono px-4 py-3 text-sm uppercase tracking-wider focus:outline-none focus:border-yellow-400 placeholder:text-green-700" />
+						</div>
+						<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+							<label class="flex items-center gap-2 cursor-pointer">
+								<input type="checkbox" name="remember" class="w-4 h-4 border-2 border-green-500 accent-green-500 cursor-pointer bg-gray-800" />
+								<span class="text-xs uppercase tracking-widest text-green-400">{t.auth.rememberMe}</span>
+							</label>
+							<a href="#" class="text-xs uppercase tracking-widest text-yellow-400 hover:text-green-400 cursor-pointer">{t.auth.forgotPassword}</a>
+						</div>
+						<button type="submit" class="w-full bg-green-500 text-gray-900 uppercase font-bold text-sm px-4 py-3 border-2 border-green-500 hover:bg-yellow-400 hover:border-yellow-400 cursor-pointer tracking-widest">{">>>"} {t.auth.signIn}</button>
+					</form>
+
+					<div class="mt-8 border-t-2 border-green-500 pt-6">
+						<p class="text-xs uppercase tracking-widest text-green-500 text-center mb-4">{t.auth.continueWith}</p>
+						<div class="grid grid-cols-2 gap-3">
+							<button type="button" class="border-2 border-green-500 px-4 py-3 text-green-400 uppercase text-xs tracking-widest hover:bg-green-500 hover:text-gray-900 cursor-pointer">GOOGLE</button>
+							<button type="button" class="border-2 border-green-500 px-4 py-3 text-green-400 uppercase text-xs tracking-widest hover:bg-green-500 hover:text-gray-900 cursor-pointer">APPLE</button>
+						</div>
+					</div>
+
+					<div class="mt-6 border-t-2 border-green-500 pt-6 text-center">
+						<p class="text-xs uppercase tracking-widest text-gray-400">
+							{t.auth.noAccount} <a href="#" class="text-yellow-400 hover:text-green-400 cursor-pointer">{t.auth.signUp}</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<!-- FOOTER NAV -->
+	<footer class="border-t-2 border-green-500 bg-gray-900 px-4 py-6 mt-auto">
+		<div class="max-w-5xl mx-auto flex flex-wrap gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-green-400 uppercase text-xs tracking-widest hover:text-yellow-400 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</footer>
+</main>

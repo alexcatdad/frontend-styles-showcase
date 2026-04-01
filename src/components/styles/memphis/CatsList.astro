@@ -1,0 +1,76 @@
+---
+const { lang, style, nav, cats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<main class="bg-white font-sans text-black overflow-x-hidden relative">
+	<!-- GEOMETRIC DECORATIONS -->
+	<div class="absolute top-20 right-10 w-10 h-10 bg-yellow-400 rotate-45 opacity-40 pointer-events-none hidden md:block"></div>
+	<div class="absolute top-40 left-8 w-8 h-8 rounded-full bg-pink-500 opacity-50 pointer-events-none hidden md:block"></div>
+	<div class="absolute top-72 right-1/4 w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-b-[24px] border-b-green-400 opacity-40 pointer-events-none hidden lg:block"></div>
+
+	<!-- NAV -->
+	<nav class="relative z-20 border-b-4 border-black bg-white px-4 py-4 md:px-8">
+		<div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-sm md:text-base font-extrabold uppercase tracking-wide text-black hover:text-pink-500 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</nav>
+
+	<!-- TITLE -->
+	<section class="px-4 md:px-8 pt-12 pb-8 md:pt-20 md:pb-12 relative">
+		<div class="flex items-center gap-4">
+			<div class="w-6 h-6 bg-pink-500 rounded-full border-2 border-black hidden md:block"></div>
+			<h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none tracking-tight">{t.cats.title}</h1>
+			<div class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[18px] border-b-yellow-400 hidden md:block"></div>
+		</div>
+		<p class="text-lg md:text-xl font-bold text-blue-500 mt-4">{t.cats.subtitle}</p>
+	</section>
+
+	<!-- CATS GRID -->
+	<section class="px-4 md:px-8 pb-12 md:pb-20">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+			{cats.map((cat: any, i: number) => (
+				<a href={`${_base}/${lang}/${style}/cats/${cat.id}`} class={`block border-2 border-black bg-white p-4 cursor-pointer group hover:-translate-y-1 hover:translate-x-0 transition-transform
+					${i % 5 === 0 ? 'shadow-[6px_6px_0_#ec4899]' : ''}
+					${i % 5 === 1 ? 'shadow-[6px_6px_0_#3b82f6]' : ''}
+					${i % 5 === 2 ? 'shadow-[6px_6px_0_#facc15]' : ''}
+					${i % 5 === 3 ? 'shadow-[6px_6px_0_#4ade80]' : ''}
+					${i % 5 === 4 ? 'shadow-[6px_6px_0_#ef4444]' : ''}
+				`}>
+					<img src={cat.thumbnail} alt={cat.name} class="w-full h-48 md:h-56 object-cover border-2 border-black" />
+					<h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight mt-4 group-hover:text-pink-500">{cat.name}</h2>
+					<p class={`text-sm font-extrabold uppercase tracking-wide mt-1
+						${i % 3 === 0 ? 'text-blue-500' : ''}
+						${i % 3 === 1 ? 'text-pink-500' : ''}
+						${i % 3 === 2 ? 'text-green-500' : ''}
+					`}>{cat.breed} ● {cat.age} ● {cat.gender}</p>
+					<span class="inline-block mt-3 bg-yellow-400 border-2 border-black text-xs font-extrabold uppercase px-3 py-1 tracking-wide">{cat.status}</span>
+					<p class="text-sm font-bold mt-3 leading-snug">{cat.description.slice(0, 100)}...</p>
+					<div class="flex flex-wrap gap-1 mt-3">
+						{cat.personality.map((trait: string) => (
+							<span class="bg-white border-2 border-black text-xs font-bold uppercase px-2 py-0.5 tracking-wide group-hover:bg-pink-500 group-hover:text-white">{trait}</span>
+						))}
+					</div>
+				</a>
+			))}
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<footer class="border-t-4 border-black bg-white px-4 md:px-8 py-6">
+		<div class="flex gap-0 mb-4">
+			<div class="h-3 flex-1 bg-pink-500"></div>
+			<div class="h-3 flex-1 bg-yellow-400"></div>
+			<div class="h-3 flex-1 bg-blue-500"></div>
+			<div class="h-3 flex-1 bg-green-400"></div>
+			<div class="h-3 flex-1 bg-red-500"></div>
+		</div>
+		<div class="flex flex-wrap gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-sm font-extrabold uppercase tracking-wide text-black hover:text-pink-500 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</footer>
+</main>

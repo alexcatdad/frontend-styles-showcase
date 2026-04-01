@@ -1,0 +1,97 @@
+---
+const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<main class="bg-white font-sans text-black overflow-x-hidden relative">
+	<!-- GEOMETRIC DECORATIONS -->
+	<div class="absolute top-32 right-8 w-10 h-10 bg-green-400 rotate-45 opacity-30 pointer-events-none hidden md:block"></div>
+	<div class="absolute top-[28rem] left-6 w-8 h-8 rounded-full bg-pink-500 opacity-40 pointer-events-none hidden lg:block"></div>
+
+	<!-- NAV -->
+	<nav class="relative z-20 border-b-4 border-black bg-white px-4 py-4 md:px-8">
+		<div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-sm md:text-base font-extrabold uppercase tracking-wide text-black hover:text-pink-500 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</nav>
+
+	<!-- BACK LINK -->
+	<div class="px-4 md:px-8 pt-6">
+		<a href={`${_base}/${lang}/${style}/blog`} class="inline-flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide text-blue-500 hover:text-pink-500 cursor-pointer">
+			<span class="w-4 h-4 bg-blue-500 rotate-45 border-2 border-black inline-block"></span>
+			&larr; {t.blog.backToBlog}
+		</a>
+	</div>
+
+	<!-- HEADER -->
+	<header class="px-4 md:px-8 py-8 md:py-12 relative">
+		<div class="flex items-start gap-4">
+			<div class="w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[20px] border-b-yellow-400 hidden md:block mt-4"></div>
+			<div class="flex-1">
+				<img src={post.image} alt={post.title} class="w-full h-56 md:h-72 lg:h-80 object-cover border-4 border-black shadow-[8px_8px_0_#ec4899] mb-8" />
+				<h1 class="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-none tracking-tight">{post.title}</h1>
+				<div class="flex flex-wrap items-center gap-4 mt-6">
+					<span class="text-base md:text-lg font-extrabold uppercase tracking-wide text-pink-500">{t.blog.by} {post.author}</span>
+					<time datetime={post.date} class="bg-yellow-400 border-2 border-black text-sm font-extrabold uppercase px-3 py-1 tracking-wide shadow-[2px_2px_0_#000]">{post.date}</time>
+				</div>
+				<div class="flex flex-wrap gap-2 mt-6">
+					{post.tags.map((tag: string, i: number) => (
+						<span class={`border-2 border-black px-3 py-1 text-xs font-extrabold uppercase tracking-wide
+							${i % 4 === 0 ? 'bg-pink-500 text-white' : ''}
+							${i % 4 === 1 ? 'bg-blue-500 text-white' : ''}
+							${i % 4 === 2 ? 'bg-green-400 text-black' : ''}
+							${i % 4 === 3 ? 'bg-yellow-400 text-black' : ''}
+						`}>{tag}</span>
+					))}
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- CONTENT -->
+	<article class="px-4 md:px-8 py-8 md:py-12">
+		<div class="max-w-3xl">
+			{post.content.map((paragraph: string, i: number) => (
+				<p class={`text-base md:text-lg leading-relaxed font-medium mb-6
+					${i === 0 ? 'text-lg md:text-xl font-bold' : ''}
+				`}>{paragraph}</p>
+			))}
+		</div>
+	</article>
+
+	<!-- OTHER POSTS -->
+	<section class="px-4 md:px-8 py-10 md:py-16 border-t-2 border-black relative">
+		<div class="absolute top-8 right-12 w-6 h-6 rounded-full bg-yellow-400 border-2 border-black opacity-50 pointer-events-none hidden md:block"></div>
+		<h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-6 md:mb-10">{t.blog.moreStories}</h2>
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+			{otherPosts.map((p: any, i: number) => (
+				<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class={`block border-2 border-black p-4 bg-white cursor-pointer hover:-translate-y-1 transition-transform
+					${i % 3 === 0 ? 'shadow-[4px_4px_0_#ec4899]' : ''}
+					${i % 3 === 1 ? 'shadow-[4px_4px_0_#3b82f6]' : ''}
+					${i % 3 === 2 ? 'shadow-[4px_4px_0_#facc15]' : ''}
+				`}>
+					<h3 class="text-xl md:text-2xl font-black uppercase tracking-tight leading-tight">{p.title}</h3>
+					<p class="text-sm font-bold mt-2 leading-snug">{p.excerpt}</p>
+				</a>
+			))}
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<footer class="border-t-4 border-black bg-white px-4 md:px-8 py-6">
+		<div class="flex gap-0 mb-4">
+			<div class="h-3 flex-1 bg-pink-500"></div>
+			<div class="h-3 flex-1 bg-yellow-400"></div>
+			<div class="h-3 flex-1 bg-blue-500"></div>
+			<div class="h-3 flex-1 bg-green-400"></div>
+			<div class="h-3 flex-1 bg-red-500"></div>
+		</div>
+		<div class="flex flex-wrap gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-sm font-extrabold uppercase tracking-wide text-black hover:text-pink-500 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</footer>
+</main>

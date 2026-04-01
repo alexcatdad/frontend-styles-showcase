@@ -1,0 +1,94 @@
+---
+const { lang, style, nav, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-neutral-900 font-serif text-stone-200 antialiased">
+	<!-- Navigation -->
+	<nav class="sticky top-0 z-50 border-b border-amber-500/30 bg-neutral-900/95 backdrop-blur-sm">
+		<div class="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 lg:px-6">
+			<a href={`${_base}/${lang}/${style}/`} class="text-sm font-light uppercase tracking-[0.3em] text-amber-400 transition-colors hover:text-amber-300">{t.auth.title}</a>
+			<div class="hidden items-center gap-1 sm:flex">
+				{nav.map((item: any) => (
+					<a href={item.href} class="px-3 py-2 text-xs font-light uppercase tracking-[0.3em] text-amber-400/70 transition-colors hover:text-amber-300">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<!-- Mobile nav -->
+	<div class="flex items-center gap-1 overflow-x-auto border-b border-amber-500/20 px-4 sm:hidden">
+		{nav.map((item: any) => (
+			<a href={item.href} class="shrink-0 px-3 py-2.5 text-xs font-light uppercase tracking-[0.3em] text-amber-400/70 transition-colors hover:text-amber-300">{item.label}</a>
+		))}
+	</div>
+
+	<main class="flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12">
+		<section class="w-full max-w-sm">
+			<!-- Header -->
+			<div class="mb-8 text-center">
+				<div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center border-2 border-amber-500/40">
+					<span class="text-lg font-bold text-amber-400">S</span>
+				</div>
+				<h1 class="text-2xl font-bold uppercase tracking-[0.15em] text-amber-400">{t.auth.title}</h1>
+				<p class="mt-2 text-sm font-light tracking-wide text-stone-400">{t.auth.subtitle}</p>
+			</div>
+
+			<!-- Form card -->
+			<div class="border border-amber-500/30 bg-neutral-800/50 p-6">
+				<!-- Decorative top edge -->
+				<div class="mb-6 flex items-center">
+					<span class="h-px flex-1 bg-amber-500/20"></span>
+					<span class="mx-2 text-xs text-amber-500/40">&#9670;</span>
+					<span class="h-px flex-1 bg-amber-500/20"></span>
+				</div>
+
+				<form class="space-y-5">
+					<div>
+						<label for="email" class="mb-2 block text-xs font-bold uppercase tracking-[0.3em] text-amber-400/70">{t.auth.email}</label>
+						<input type="email" id="email" name="email" placeholder="you@example.com" class="w-full border border-amber-700/50 bg-neutral-800 px-4 py-2.5 text-sm text-stone-200 placeholder-stone-600 outline-none transition-colors focus:border-amber-400 focus:bg-neutral-800/80" />
+					</div>
+					<div>
+						<label for="password" class="mb-2 block text-xs font-bold uppercase tracking-[0.3em] text-amber-400/70">{t.auth.password}</label>
+						<input type="password" id="password" name="password" placeholder="••••••••" class="w-full border border-amber-700/50 bg-neutral-800 px-4 py-2.5 text-sm text-stone-200 placeholder-stone-600 outline-none transition-colors focus:border-amber-400 focus:bg-neutral-800/80" />
+					</div>
+					<div class="flex items-center justify-between">
+						<label class="flex items-center gap-2 text-xs text-stone-400">
+							<input type="checkbox" name="remember" class="h-3.5 w-3.5 border-amber-700/50 bg-neutral-800 text-amber-400 focus:ring-amber-400/30" />
+							{t.auth.rememberMe}
+						</label>
+						<a href="#" class="text-xs font-light text-amber-400/60 transition-colors hover:text-amber-300">{t.auth.forgotPassword}</a>
+					</div>
+					<button type="submit" class="w-full bg-amber-400 py-2.5 text-xs font-bold uppercase tracking-[0.3em] text-neutral-900 transition-colors hover:bg-amber-300">{t.auth.signIn}</button>
+				</form>
+
+				<!-- Geometric divider -->
+				<div class="my-6 flex items-center gap-3">
+					<div class="h-px flex-1 bg-amber-500/20"></div>
+					<div class="flex items-center gap-1">
+						<span class="text-xs text-amber-500/30">&#9670;</span>
+						<p class="text-xs font-light uppercase tracking-[0.2em] text-stone-600">{t.auth.continueWith}</p>
+						<span class="text-xs text-amber-500/30">&#9670;</span>
+					</div>
+					<div class="h-px flex-1 bg-amber-500/20"></div>
+				</div>
+
+				<div class="grid grid-cols-2 gap-3">
+					<button type="button" class="flex items-center justify-center gap-2 border border-amber-500/30 py-2.5 text-xs font-bold uppercase tracking-[0.2em] text-amber-400 transition-colors hover:border-amber-400 hover:bg-amber-400/10">Google</button>
+					<button type="button" class="flex items-center justify-center gap-2 border border-amber-500/30 py-2.5 text-xs font-bold uppercase tracking-[0.2em] text-amber-400 transition-colors hover:border-amber-400 hover:bg-amber-400/10">Apple</button>
+				</div>
+
+				<!-- Decorative bottom edge -->
+				<div class="mt-6 flex items-center">
+					<span class="h-px flex-1 bg-amber-500/20"></span>
+					<span class="mx-2 text-xs text-amber-500/40">&#9670;</span>
+					<span class="h-px flex-1 bg-amber-500/20"></span>
+				</div>
+			</div>
+
+			<p class="mt-6 text-center text-sm font-light text-stone-500">
+				{t.auth.noAccount} <a href="#" class="text-amber-400 transition-colors hover:text-amber-300">{t.auth.signUp}</a>
+			</p>
+		</section>
+	</main>
+</div>

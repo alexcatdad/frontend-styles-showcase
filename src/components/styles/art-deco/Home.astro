@@ -1,0 +1,133 @@
+---
+const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-neutral-900 font-serif text-stone-200 antialiased">
+	<!-- Navigation -->
+	<nav class="sticky top-0 z-50 border-b border-amber-500/30 bg-neutral-900/95 backdrop-blur-sm">
+		<div class="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 lg:px-6">
+			<a href={`${_base}/${lang}/${style}/`} class="text-sm font-light uppercase tracking-[0.3em] text-amber-400 transition-colors hover:text-amber-300">{sanctuary.name}</a>
+			<div class="hidden items-center gap-1 sm:flex">
+				{nav.map((item: any) => (
+					<a href={item.href} class="px-3 py-2 text-xs font-light uppercase tracking-[0.3em] text-amber-400/70 transition-colors hover:text-amber-300">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<!-- Mobile nav -->
+	<div class="flex items-center gap-1 overflow-x-auto border-b border-amber-500/20 px-4 sm:hidden">
+		{nav.map((item: any) => (
+			<a href={item.href} class="shrink-0 px-3 py-2.5 text-xs font-light uppercase tracking-[0.3em] text-amber-400/70 transition-colors hover:text-amber-300">{item.label}</a>
+		))}
+	</div>
+
+	<main class="mx-auto max-w-5xl px-4 lg:px-6">
+		<!-- Decorative gold divider -->
+		<div class="flex items-center justify-center py-6">
+			<span class="h-px flex-1 bg-amber-500/30"></span>
+			<span class="mx-4 text-amber-500/60">&#9670;</span>
+			<span class="h-px flex-1 bg-amber-500/30"></span>
+		</div>
+
+		<!-- Hero -->
+		<section class="text-center">
+			<img src={sanctuary.heroImage} alt={sanctuary.name} class="mx-auto mb-8 w-full max-w-3xl border-4 border-amber-500/40 object-cover lg:mb-10" />
+			<h1 class="text-4xl font-bold uppercase tracking-[0.15em] text-amber-400 sm:text-5xl lg:text-6xl">{sanctuary.name}</h1>
+			<p class="mx-auto mt-4 max-w-xl text-lg font-light tracking-wide text-amber-500/60 sm:text-xl">{sanctuary.tagline}</p>
+
+			<div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+				<a href={`${_base}/${lang}/${style}/cats`} class="inline-block border-2 border-amber-400 bg-amber-400 px-8 py-3 text-xs font-bold uppercase tracking-[0.3em] text-neutral-900 transition-colors hover:bg-amber-300 hover:border-amber-300">{t.home.meetCats}</a>
+				<a href={`${_base}/${lang}/${style}/donate`} class="inline-block border-2 border-amber-500/50 px-8 py-3 text-xs font-bold uppercase tracking-[0.3em] text-amber-400 transition-colors hover:border-amber-400 hover:bg-amber-400/10">{t.home.donate}</a>
+			</div>
+		</section>
+
+		<!-- Decorative divider -->
+		<div class="flex items-center justify-center py-10 lg:py-14">
+			<span class="h-px w-16 bg-amber-500/40"></span>
+			<span class="mx-3 text-xs text-amber-500/50">&#9670;&#9670;&#9670;</span>
+			<span class="h-px w-16 bg-amber-500/40"></span>
+		</div>
+
+		<!-- Mission -->
+		<section class="mx-auto max-w-2xl text-center">
+			<div class="border-t-2 border-b-2 border-amber-500/40 py-8 lg:py-10">
+				<h2 class="mb-4 text-xs font-bold uppercase tracking-[0.4em] text-amber-500/70">{t.home.mission}</h2>
+				<p class="text-lg leading-relaxed text-stone-300 sm:text-xl">{sanctuary.mission}</p>
+			</div>
+		</section>
+
+		<!-- Decorative divider -->
+		<div class="flex items-center justify-center py-10 lg:py-14">
+			<span class="h-px flex-1 bg-amber-500/20"></span>
+			<span class="mx-4 text-amber-500/50">&#9670;</span>
+			<span class="h-px flex-1 bg-amber-500/20"></span>
+		</div>
+
+		<!-- Stats -->
+		<section class="grid grid-cols-2 gap-px overflow-hidden border border-amber-500/30 sm:grid-cols-4">
+			{sanctuary.stats.map((stat: any) => (
+				<div class="bg-neutral-800/60 px-4 py-6 text-center sm:px-6 sm:py-8">
+					<span class="block text-3xl font-bold text-amber-400 sm:text-4xl">{stat.value}</span>
+					<span class="mt-2 block text-xs font-light uppercase tracking-[0.25em] text-stone-400">{stat.label}</span>
+				</div>
+			))}
+		</section>
+
+		<!-- Decorative divider -->
+		<div class="flex items-center justify-center py-10 lg:py-14">
+			<span class="h-px flex-1 bg-amber-500/20"></span>
+			<span class="mx-4 text-amber-500/50">&#9670;</span>
+			<span class="h-px flex-1 bg-amber-500/20"></span>
+		</div>
+
+		<!-- About -->
+		<section class="mx-auto max-w-2xl">
+			<h2 class="mb-6 text-center text-xs font-bold uppercase tracking-[0.4em] text-amber-500/70">{t.home.aboutUs}</h2>
+			<div class="space-y-4">
+				{sanctuary.about.map((paragraph: string) => (
+					<p class="text-base leading-relaxed text-stone-400">{paragraph}</p>
+				))}
+			</div>
+		</section>
+
+		<!-- Contact -->
+		{sanctuary.contact && (
+			<section class="mx-auto mt-12 max-w-2xl border border-amber-500/20 bg-neutral-800/40 p-6 text-center">
+				<div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+					{sanctuary.contact.email && (
+						<div class="text-sm">
+							<span class="text-amber-500/60">{t.home.email || "@"}</span>
+							<span class="ml-2 text-stone-300">{sanctuary.contact.email}</span>
+						</div>
+					)}
+					{sanctuary.contact.phone && (
+						<div class="text-sm">
+							<span class="text-amber-500/60">{t.home.phone || "#"}</span>
+							<span class="ml-2 text-stone-300">{sanctuary.contact.phone}</span>
+						</div>
+					)}
+					{sanctuary.contact.address && (
+						<div class="text-sm">
+							<span class="text-amber-500/60">{t.home.address || "&"}</span>
+							<span class="ml-2 text-stone-300">{sanctuary.contact.address}</span>
+						</div>
+					)}
+				</div>
+			</section>
+		)}
+	</main>
+
+	<!-- Footer -->
+	<footer class="mt-16 border-t border-amber-500/20 py-8">
+		<div class="mx-auto max-w-5xl px-4 text-center lg:px-6">
+			<div class="mb-3 flex items-center justify-center">
+				<span class="h-px w-10 bg-amber-500/30"></span>
+				<span class="mx-3 text-amber-500/40">&#9670;</span>
+				<span class="h-px w-10 bg-amber-500/30"></span>
+			</div>
+			<p class="text-xs font-light uppercase tracking-[0.2em] text-stone-600">&copy; 2026 {sanctuary.name} &middot; {t.footer.style}: {meta.name}</p>
+		</div>
+	</footer>
+</div>

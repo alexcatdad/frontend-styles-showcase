@@ -1,0 +1,62 @@
+---
+const { lang, style, nav, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-[#0a0a0f] text-gray-300 font-mono">
+	<!-- Nav -->
+	<nav class="relative z-20 border-b border-cyan-500/30 bg-[#0a0a0f]/90 backdrop-blur-sm">
+		<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4">
+			<span class="text-cyan-400 text-xs tracking-widest uppercase">[SYS]</span>
+			<div class="flex flex-wrap items-center gap-1">
+				{nav.map((item: any) => (
+					<a href={item.href} class="px-4 py-2 text-xs tracking-wider uppercase text-cyan-400/70 hover:text-cyan-300 hover:bg-cyan-500/10 transition-all duration-300">
+						{item.label}
+					</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<main class="relative z-10 flex items-center justify-center px-6 py-24 md:py-40">
+		<section class="text-center max-w-lg">
+			<!-- Huge glitched 404 -->
+			<h1 class="relative text-[8rem] md:text-[12rem] lg:text-[14rem] font-bold leading-none tracking-tight">
+				<span class="absolute inset-0 text-cyan-400/60 translate-x-[6px] -translate-y-[4px]" aria-hidden="true">404</span>
+				<span class="absolute inset-0 text-fuchsia-500/50 -translate-x-[6px] translate-y-[4px]" aria-hidden="true">404</span>
+				<span class="absolute inset-0 text-yellow-400/20 translate-x-[2px] translate-y-[6px]" aria-hidden="true">404</span>
+				<span class="relative text-white">404</span>
+			</h1>
+
+			<!-- Signal lost heading -->
+			<h2 class="relative mt-6 text-2xl md:text-3xl font-bold uppercase tracking-wider">
+				<span class="absolute inset-0 text-cyan-400/30 translate-x-[2px] -translate-y-[1px]" aria-hidden="true">{t.notFound.heading}</span>
+				<span class="relative text-fuchsia-400">{t.notFound.heading}</span>
+			</h2>
+
+			<!-- Decorative HUD line -->
+			<div class="mt-8 flex items-center justify-center gap-3">
+				<div class="w-16 h-px bg-gradient-to-r from-transparent to-cyan-500/50"></div>
+				<span class="text-xs text-gray-700 tracking-widest">///</span>
+				<div class="w-16 h-px bg-gradient-to-l from-transparent to-cyan-500/50"></div>
+			</div>
+
+			<p class="mt-8 text-gray-400 leading-relaxed text-sm tracking-wider">
+				{t.notFound.description}
+			</p>
+
+			<!-- CTAs -->
+			<div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+				<a href={`${_base}/${lang}/${style}/`} class="inline-block px-8 py-4 bg-cyan-500 text-black font-bold text-sm tracking-wider uppercase hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(0,255,255,0.4)] transition-all duration-300 text-center">
+					{t.notFound.backHome}
+				</a>
+				<a href={`${_base}/${lang}/${style}/cats`} class="inline-block px-8 py-4 border-2 border-fuchsia-500 text-fuchsia-400 font-bold text-sm tracking-wider uppercase hover:bg-fuchsia-500/10 hover:shadow-[0_0_20px_rgba(217,70,239,0.3)] transition-all duration-300 text-center">
+					{t.notFound.meetCats}
+				</a>
+			</div>
+
+			<!-- Bottom terminal feel -->
+			<p class="mt-20 text-[10px] text-gray-700 tracking-widest">&gt; CONNECTION_TERMINATED</p>
+		</section>
+	</main>
+</div>

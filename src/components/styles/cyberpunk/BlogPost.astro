@@ -1,0 +1,100 @@
+---
+const { lang, style, nav, post, otherPosts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-[#0a0a0f] text-gray-300 font-mono">
+	<!-- Nav -->
+	<nav class="relative z-20 border-b border-cyan-500/30 bg-[#0a0a0f]/90 backdrop-blur-sm">
+		<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-4">
+			<span class="text-cyan-400 text-xs tracking-widest uppercase">[SYS]</span>
+			<div class="flex flex-wrap items-center gap-1">
+				{nav.map((item: any) => (
+					<a href={item.href} class="px-4 py-2 text-xs tracking-wider uppercase text-cyan-400/70 hover:text-cyan-300 hover:bg-cyan-500/10 transition-all duration-300">
+						{item.label}
+					</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<main class="relative z-10 max-w-3xl mx-auto px-6 py-12">
+		<!-- Back link -->
+		<a href={`${_base}/${lang}/${style}/blog`} class="inline-flex items-center gap-2 text-xs tracking-wider uppercase text-cyan-400/60 hover:text-cyan-300 transition-colors duration-300 mb-10">
+			<span class="text-lg leading-none">&larr;</span> {t.blog.backToBlog}
+		</a>
+
+		<!-- Article -->
+		<article class="border border-cyan-500/30 bg-gray-900/40 relative">
+			<!-- HUD corners -->
+			<div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-400"></div>
+			<div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-400"></div>
+			<div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-fuchsia-500"></div>
+			<div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-fuchsia-500"></div>
+
+			<!-- Header -->
+			<header class="p-8 md:p-12 border-b border-gray-800">
+				<!-- Date -->
+				<time datetime={post.date} class="text-xs tracking-wider text-cyan-400/70 uppercase">
+					{post.date}
+				</time>
+
+				<!-- Title with glitch -->
+				<h1 class="relative mt-4 text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight uppercase">
+					<span class="absolute inset-0 text-cyan-400/40 translate-x-[3px] -translate-y-[2px]" aria-hidden="true">{post.title}</span>
+					<span class="absolute inset-0 text-fuchsia-500/30 -translate-x-[3px] translate-y-[2px]" aria-hidden="true">{post.title}</span>
+					<span class="relative text-white">{post.title}</span>
+				</h1>
+
+				<!-- Author -->
+				<p class="mt-4 text-xs text-fuchsia-400/60 tracking-wider">
+					{t.blog.by} {post.author}
+				</p>
+
+				<!-- Tags -->
+				<div class="mt-5 flex flex-wrap gap-2">
+					{post.tags.map((tag: string) => (
+						<span class="text-[10px] tracking-wider uppercase px-3 py-1 border border-cyan-500/50 text-cyan-400/70 bg-cyan-500/5">
+							{tag}
+						</span>
+					))}
+				</div>
+
+				<!-- Header image -->
+				<img src={post.image} alt={post.title} class="w-full mt-8 object-cover border border-cyan-500/20 shadow-[0_0_15px_rgba(0,255,255,0.1)]" />
+			</header>
+
+			<!-- Content -->
+			<div class="p-8 md:p-12">
+				{post.content.map((paragraph: string) => (
+					<p class="text-gray-300 leading-relaxed mb-6 last:mb-0 text-sm md:text-base">
+						{paragraph}
+					</p>
+				))}
+			</div>
+		</article>
+
+		<!-- More Stories -->
+		<section class="mt-20">
+			<h2 class="text-xs tracking-[0.4em] uppercase text-cyan-400 mb-8">// {t.blog.moreStories}</h2>
+			<div class="h-px w-full bg-gradient-to-r from-cyan-500/30 to-transparent mb-8"></div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+				{otherPosts.map((p: any) => (
+					<a href={`${_base}/${lang}/${style}/blog/${p.slug}`} class="group block p-6 border border-gray-800 bg-gray-900/30 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.1)] transition-all duration-300">
+						<h3 class="text-sm font-bold text-white group-hover:text-cyan-300 uppercase tracking-wide transition-colors duration-300 leading-snug">
+							{p.title}
+						</h3>
+						<p class="mt-3 text-xs text-gray-400 leading-relaxed">
+							{p.excerpt}
+						</p>
+					</a>
+				))}
+			</div>
+		</section>
+	</main>
+
+	<footer class="relative z-10 border-t border-cyan-500/20 py-8 mt-16">
+		<div class="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+	</footer>
+</div>

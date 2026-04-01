@@ -1,0 +1,132 @@
+---
+const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-[#f0e6ff] font-sans text-purple-900 antialiased">
+	<!-- Puffy clay navigation bar -->
+	<nav class="sticky top-4 z-50 mx-4 sm:mx-8 lg:mx-auto lg:max-w-5xl mt-4">
+		<div class="bg-white/70 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-3 flex items-center justify-between">
+			<span class="rounded-full bg-purple-200 px-5 py-2 text-sm font-bold text-purple-700 shadow-[0_4px_12px_rgba(147,51,234,0.15),inset_0_-3px_6px_rgba(0,0,0,0.06)]">Claymorphism</span>
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-full bg-purple-100 px-4 py-2 text-sm font-medium text-purple-600 shadow-[0_4px_12px_rgba(0,0,0,0.06),inset_0_-2px_4px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-purple-200 hover:text-purple-700">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<main class="mx-auto max-w-6xl px-4 sm:px-8 lg:px-0 pb-16 pt-8 space-y-16">
+		<!-- Header clay card -->
+		<header class="bg-white/60 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08),inset_0_-8px_16px_rgba(0,0,0,0.05)] px-8 py-10 text-center sm:py-14">
+			<h1 class="text-4xl sm:text-5xl font-black text-purple-800 mb-3">{t.donate.title}</h1>
+			<p class="text-purple-500 font-medium max-w-xl mx-auto">{t.donate.subtitle}</p>
+		</header>
+
+		<!-- Monthly tiers -->
+		<section class="space-y-8">
+			<h2 class="text-center text-2xl font-bold text-purple-800">{t.donate.monthly}</h2>
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+				{monthlyTiers.map((tier: any, i: number) => (
+					<div class:list={[
+						"relative flex flex-col rounded-3xl p-7",
+						tier.highlighted
+							? "bg-white/80 shadow-[0_12px_40px_rgba(147,51,234,0.2),inset_0_-8px_16px_rgba(0,0,0,0.06)] scale-[1.03] border-2 border-purple-300"
+							: `shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_-6px_12px_rgba(0,0,0,0.05)] ${i % 4 === 0 ? 'bg-pink-50' : i % 4 === 1 ? 'bg-blue-50' : i % 4 === 2 ? 'bg-yellow-50' : 'bg-green-50'}`
+					]}>
+						{tier.highlighted && (
+							<div class="absolute -top-4 left-1/2 -translate-x-1/2">
+								<span class="rounded-full bg-purple-500 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white shadow-[0_4px_12px_rgba(147,51,234,0.3),inset_0_-2px_4px_rgba(0,0,0,0.1)]">{t.donate.mostPopular}</span>
+							</div>
+						)}
+
+						<!-- Price circle -->
+						<div class="mx-auto mb-5 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-purple-100 shadow-[0_6px_16px_rgba(147,51,234,0.15),inset_0_-4px_8px_rgba(0,0,0,0.06)]">
+							<span class="text-2xl font-black text-purple-700">${tier.amount}</span>
+							<span class="text-[10px] font-bold text-purple-500">{t.donate.perMonth}</span>
+						</div>
+
+						<h3 class="mb-2 text-center text-lg font-bold text-purple-800">{tier.name}</h3>
+
+						<!-- Description -->
+						<div class="mb-5 rounded-2xl bg-white/50 p-3 shadow-[inset_0_-3px_6px_rgba(0,0,0,0.04)]">
+							<p class="text-center text-xs leading-relaxed text-purple-600/80">{tier.description}</p>
+						</div>
+
+						<!-- Perks -->
+						<ul class="mb-6 flex-1 space-y-2.5">
+							{tier.perks.map((perk: string) => (
+								<li class="flex items-start gap-2.5 text-sm text-purple-700/80">
+									<span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-[10px] font-bold text-green-600 shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_-1px_3px_rgba(0,0,0,0.04)]">&#10003;</span>
+									<span class="text-xs leading-snug">{perk}</span>
+								</li>
+							))}
+						</ul>
+
+						<!-- CTA button -->
+						<button type="button" class:list={[
+							"w-full rounded-2xl px-6 py-3 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5",
+							tier.highlighted
+								? "bg-purple-500 text-white shadow-[0_6px_20px_rgba(147,51,234,0.3),inset_0_-4px_8px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_28px_rgba(147,51,234,0.4),inset_0_-4px_8px_rgba(0,0,0,0.1)]"
+								: "bg-purple-100 text-purple-700 shadow-[0_4px_12px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.05)] hover:bg-purple-200"
+						]}>{t.donate.choose} {tier.name}</button>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- Divider -->
+		<div class="mx-auto w-2/3 h-1 rounded-full bg-purple-200/60 shadow-[inset_0_-2px_4px_rgba(0,0,0,0.06)]"></div>
+
+		<!-- One-time tiers -->
+		<section class="space-y-8">
+			<h2 class="text-center text-2xl font-bold text-purple-800">{t.donate.oneTime}</h2>
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+				{oneTimeTiers.map((tier: any, i: number) => (
+					<div class:list={[
+						"relative flex flex-col rounded-3xl p-7",
+						tier.highlighted
+							? "bg-white/80 shadow-[0_12px_40px_rgba(147,51,234,0.2),inset_0_-8px_16px_rgba(0,0,0,0.06)] scale-[1.03] border-2 border-purple-300"
+							: `shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_-6px_12px_rgba(0,0,0,0.05)] ${i % 4 === 0 ? 'bg-pink-50' : i % 4 === 1 ? 'bg-blue-50' : i % 4 === 2 ? 'bg-yellow-50' : 'bg-green-50'}`
+					]}>
+						{tier.highlighted && (
+							<div class="absolute -top-4 left-1/2 -translate-x-1/2">
+								<span class="rounded-full bg-purple-500 px-5 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white shadow-[0_4px_12px_rgba(147,51,234,0.3),inset_0_-2px_4px_rgba(0,0,0,0.1)]">{t.donate.greatestImpact}</span>
+							</div>
+						)}
+
+						<!-- Price circle -->
+						<div class="mx-auto mb-5 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-purple-100 shadow-[0_6px_16px_rgba(147,51,234,0.15),inset_0_-4px_8px_rgba(0,0,0,0.06)]">
+							<span class="text-2xl font-black text-purple-700">${tier.amount}</span>
+						</div>
+
+						<h3 class="mb-2 text-center text-lg font-bold text-purple-800">{tier.name}</h3>
+
+						<!-- Description -->
+						<div class="mb-5 rounded-2xl bg-white/50 p-3 shadow-[inset_0_-3px_6px_rgba(0,0,0,0.04)]">
+							<p class="text-center text-xs leading-relaxed text-purple-600/80">{tier.description}</p>
+						</div>
+
+						<!-- Perks -->
+						<ul class="mb-6 flex-1 space-y-2.5">
+							{tier.perks.map((perk: string) => (
+								<li class="flex items-start gap-2.5 text-sm text-purple-700/80">
+									<span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-[10px] font-bold text-green-600 shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_-1px_3px_rgba(0,0,0,0.04)]">&#10003;</span>
+									<span class="text-xs leading-snug">{perk}</span>
+								</li>
+							))}
+						</ul>
+
+						<!-- CTA button -->
+						<button type="button" class:list={[
+							"w-full rounded-2xl px-6 py-3 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5",
+							tier.highlighted
+								? "bg-purple-500 text-white shadow-[0_6px_20px_rgba(147,51,234,0.3),inset_0_-4px_8px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_28px_rgba(147,51,234,0.4),inset_0_-4px_8px_rgba(0,0,0,0.1)]"
+								: "bg-purple-100 text-purple-700 shadow-[0_4px_12px_rgba(0,0,0,0.06),inset_0_-3px_6px_rgba(0,0,0,0.05)] hover:bg-purple-200"
+						]}>{t.donate.give} ${tier.amount}</button>
+					</div>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

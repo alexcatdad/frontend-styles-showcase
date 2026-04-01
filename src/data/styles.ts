@@ -120,6 +120,48 @@ export const styles: StyleMeta[] = [
 		category: "Expressive",
 		description: "Cut-and-paste collage, zine aesthetics, raw energy",
 	},
+	{
+		slug: "material",
+		name: "Material Design",
+		category: "Core Modern",
+		description: "Elevation layers, bold color, motion-ready surfaces",
+	},
+	{
+		slug: "art-deco",
+		name: "Art Deco",
+		category: "Nostalgia-driven",
+		description: "Geometric symmetry, gold accents, 1920s luxury elegance",
+	},
+	{
+		slug: "cyberpunk",
+		name: "Cyberpunk",
+		category: "Emerging",
+		description: "Neon-on-dark, glitch overlays, dystopian HUD interfaces",
+	},
+	{
+		slug: "cottagecore",
+		name: "Cottagecore",
+		category: "Expressive",
+		description: "Warm earth tones, hand-drawn feel, pastoral softness",
+	},
+	{
+		slug: "pixel-art",
+		name: "Pixel Art",
+		category: "Nostalgia-driven",
+		description: "8-bit retro gaming, pixel fonts, tile-based layouts",
+	},
+	{
+		slug: "claymorphism",
+		name: "Claymorphism",
+		category: "Core Modern",
+		description: "Inflated 3D clay shapes, soft pastel surfaces, playful depth",
+	},
+	{
+		slug: "memphis",
+		name: "Memphis Design",
+		category: "Expressive",
+		description: "Bold geometric shapes, clashing colors, squiggly patterns",
+	},
 ];
 
 export const styleSlugs = styles.map((s) => s.slug);

@@ -1,0 +1,82 @@
+---
+const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<main class="bg-gray-900 font-mono text-green-400 overflow-x-hidden">
+	<!-- NAV: GAME MENU BAR -->
+	<nav class="border-b-2 border-green-500 bg-gray-900 px-4 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-green-400 uppercase text-xs md:text-sm tracking-widest hover:bg-green-500 hover:text-gray-900 px-2 py-1 border border-transparent hover:border-green-500 cursor-pointer">{item.label}</a>
+		))}
+	</nav>
+
+	<!-- HERO: PIXEL DISPLAY -->
+	<section class="relative px-4 py-12 md:py-20 lg:py-24">
+		<div class="max-w-6xl mx-auto">
+			<img src={sanctuary.heroImage} alt={sanctuary.name} class="w-full h-56 md:h-80 lg:h-96 object-cover border-4 border-green-500" />
+			<div class="mt-6 md:mt-8">
+				<h1 class="text-4xl md:text-6xl lg:text-8xl font-bold uppercase tracking-tight text-green-400 leading-none">{sanctuary.name}</h1>
+				<p class="text-lg md:text-2xl text-yellow-400 uppercase tracking-widest mt-2 md:mt-4">{sanctuary.tagline}</p>
+			</div>
+			<div class="flex flex-col sm:flex-row gap-3 mt-6 md:mt-8">
+				<a href={`${_base}/${lang}/${style}/cats`} class="border-2 border-green-500 text-green-400 uppercase text-sm md:text-base px-6 py-3 tracking-widest hover:bg-green-500 hover:text-gray-900 cursor-pointer text-center">{">>>"} {t.home.meetCats}</a>
+				<a href={`${_base}/${lang}/${style}/donate`} class="border-2 border-yellow-400 text-yellow-400 uppercase text-sm md:text-base px-6 py-3 tracking-widest hover:bg-yellow-400 hover:text-gray-900 cursor-pointer text-center">{">>>"} {t.home.donate}</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- MISSION: BORDERED BOX -->
+	<section class="px-4 py-10 md:py-16">
+		<div class="max-w-4xl mx-auto border-2 border-blue-500 bg-gray-800 p-6 md:p-10">
+			<h2 class="text-2xl md:text-4xl font-bold uppercase text-blue-400 tracking-wide mb-4 md:mb-6 border-b-2 border-blue-500 pb-3">{t.home.mission}</h2>
+			<p class="text-sm md:text-base lg:text-lg text-gray-300 leading-relaxed">{sanctuary.mission}</p>
+		</div>
+	</section>
+
+	<!-- STATS: GAME HUD -->
+	<section class="px-4 py-10 md:py-16 border-t-2 border-b-2 border-green-500">
+		<div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-0">
+			{sanctuary.stats.map((stat: any, i: number) => (
+				<div class={`border-2 border-green-500 bg-gray-800 p-4 md:p-6 text-center -mt-0.5 -ml-0.5 first:mt-0 first:ml-0`}>
+					<span class="block text-3xl md:text-5xl lg:text-6xl font-bold text-yellow-400 leading-none">{stat.value}</span>
+					<span class="block text-xs md:text-sm uppercase tracking-widest text-green-400 mt-2 md:mt-3">{stat.label}</span>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- ABOUT -->
+	<section class="px-4 py-10 md:py-16">
+		<div class="max-w-4xl mx-auto">
+			<h2 class="text-2xl md:text-4xl font-bold uppercase text-green-400 tracking-wide mb-6 md:mb-8">{t.home.aboutUs}</h2>
+			<div class="space-y-4">
+				{sanctuary.about.map((paragraph: string) => (
+					<p class="text-sm md:text-base text-gray-400 leading-relaxed border-l-2 border-green-500 pl-4">{paragraph}</p>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- CONTACT -->
+	{sanctuary.contact && (
+		<section class="px-4 py-6 md:py-8 border-t-2 border-green-500 bg-gray-800">
+			<div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+				<p class="text-xs md:text-sm text-green-400 uppercase tracking-widest">{sanctuary.contact.email} // {sanctuary.contact.phone}</p>
+				<p class="text-xs md:text-sm text-green-400 uppercase tracking-widest">{sanctuary.contact.address}</p>
+			</div>
+		</section>
+	)}
+
+	<!-- FOOTER -->
+	<footer class="border-t-2 border-green-500 bg-gray-900 px-4 py-6">
+		<div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+			<div class="flex flex-wrap gap-x-6 gap-y-2">
+				{nav.map((item: any) => (
+					<a href={item.href} class="text-green-400 uppercase text-xs tracking-widest hover:text-yellow-400 cursor-pointer">{item.label}</a>
+				))}
+			</div>
+			<p class="text-xs text-green-500 uppercase tracking-widest mt-2 md:mt-0">{"\u2605"} {"\u2605"} {"\u2605"} &copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}. {"\u2605"} {"\u2605"} {"\u2605"}</p>
+		</div>
+	</footer>
+</main>

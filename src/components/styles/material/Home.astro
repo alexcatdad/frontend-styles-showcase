@@ -1,0 +1,97 @@
+---
+const { lang, style, nav, meta, sanctuary, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-gray-100 font-sans">
+	<!-- App Bar -->
+	<nav class="bg-indigo-600 px-4 py-3 shadow-md sm:px-8">
+		<div class="mx-auto flex max-w-6xl items-center justify-between">
+			<span class="text-lg font-medium tracking-wide text-white">{meta.name}</span>
+			<div class="flex flex-wrap items-center gap-1">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-lg px-4 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white">
+						{item.label}
+					</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<main>
+		<!-- Hero -->
+		<section class="bg-indigo-600 px-4 pb-20 pt-12 sm:px-8">
+			<div class="mx-auto max-w-5xl text-center">
+				<img src={sanctuary.heroImage} alt={sanctuary.name} class="mx-auto mb-10 h-56 w-full rounded-xl object-cover shadow-lg md:h-72" />
+				<h1 class="mb-4 text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+					{sanctuary.name}
+				</h1>
+				<p class="mx-auto mb-10 max-w-2xl text-lg text-indigo-100 sm:text-xl">
+					{sanctuary.tagline}
+				</p>
+				<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+					<a href={`${_base}/${lang}/${style}/cats`} class="rounded-lg bg-pink-500 px-8 py-3 text-base font-medium text-white shadow-md transition-all hover:bg-pink-600 hover:shadow-lg">
+						{t.home.meetCats}
+					</a>
+					<a href={`${_base}/${lang}/${style}/donate`} class="rounded-lg border-2 border-white px-8 py-3 text-base font-medium text-white transition-colors hover:bg-white/10">
+						{t.home.donate}
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Mission Card -->
+		<section class="px-4 py-16 sm:px-8">
+			<div class="mx-auto max-w-3xl">
+				<div class="rounded-xl bg-white p-8 shadow-md sm:p-10">
+					<div class="mb-4 flex items-center gap-3">
+						<div class="h-1 w-10 rounded-full bg-indigo-600"></div>
+						<span class="text-sm font-medium tracking-wide text-indigo-600 uppercase">{t.home.mission}</span>
+					</div>
+					<p class="text-lg leading-relaxed text-gray-700 sm:text-xl">
+						{sanctuary.mission}
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Stats Cards -->
+		<section class="px-4 pb-16 sm:px-8">
+			<div class="mx-auto max-w-5xl">
+				<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+					{sanctuary.stats.map((stat: any) => (
+						<div class="rounded-xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md">
+							<p class="mb-1 text-3xl font-bold text-indigo-600">{stat.value}</p>
+							<p class="text-sm font-medium text-gray-500 uppercase tracking-wide">{stat.label}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- About -->
+		<section class="px-4 pb-16 sm:px-8">
+			<div class="mx-auto max-w-4xl">
+				<h2 class="mb-8 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
+					{t.home.aboutUs}
+				</h2>
+				<div class="grid gap-6 sm:grid-cols-2">
+					{sanctuary.about.map((paragraph: string) => (
+						<div class="rounded-xl bg-white p-6 shadow-sm sm:p-8">
+							<p class="leading-relaxed text-gray-600">{paragraph}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="bg-gray-800 px-4 py-8 sm:px-8">
+		<div class="mx-auto max-w-6xl text-center">
+			<p class="text-sm text-gray-400">
+				&copy; 2026 {sanctuary.name}. {t.footer.style}: {meta.name}.
+			</p>
+		</div>
+	</footer>
+</div>

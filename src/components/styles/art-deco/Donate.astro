@@ -1,0 +1,162 @@
+---
+const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-neutral-900 font-serif text-stone-200 antialiased">
+	<!-- Navigation -->
+	<nav class="sticky top-0 z-50 border-b border-amber-500/30 bg-neutral-900/95 backdrop-blur-sm">
+		<div class="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 lg:px-6">
+			<a href={`${_base}/${lang}/${style}/`} class="text-sm font-light uppercase tracking-[0.3em] text-amber-400 transition-colors hover:text-amber-300">{t.donate.title}</a>
+			<div class="hidden items-center gap-1 sm:flex">
+				{nav.map((item: any) => (
+					<a href={item.href} class="px-3 py-2 text-xs font-light uppercase tracking-[0.3em] text-amber-400/70 transition-colors hover:text-amber-300">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<!-- Mobile nav -->
+	<div class="flex items-center gap-1 overflow-x-auto border-b border-amber-500/20 px-4 sm:hidden">
+		{nav.map((item: any) => (
+			<a href={item.href} class="shrink-0 px-3 py-2.5 text-xs font-light uppercase tracking-[0.3em] text-amber-400/70 transition-colors hover:text-amber-300">{item.label}</a>
+		))}
+	</div>
+
+	<main class="mx-auto max-w-5xl px-4 py-10 lg:px-6 lg:py-14">
+		<!-- Title -->
+		<div class="mb-12 text-center">
+			<div class="mb-4 flex items-center justify-center">
+				<span class="h-px w-12 bg-amber-500/40"></span>
+				<span class="mx-3 text-amber-500/50">&#9670;</span>
+				<span class="h-px w-12 bg-amber-500/40"></span>
+			</div>
+			<h1 class="text-3xl font-bold uppercase tracking-[0.15em] text-amber-400 sm:text-4xl">{t.donate.title}</h1>
+			<p class="mx-auto mt-3 max-w-lg text-sm font-light leading-relaxed tracking-wide text-stone-400">{t.donate.subtitle}</p>
+			<div class="mt-4 flex items-center justify-center">
+				<span class="h-px w-12 bg-amber-500/40"></span>
+				<span class="mx-3 text-amber-500/50">&#9670;</span>
+				<span class="h-px w-12 bg-amber-500/40"></span>
+			</div>
+		</div>
+
+		<!-- Monthly tiers -->
+		<section class="mb-14">
+			<h2 class="mb-6 text-center text-xs font-bold uppercase tracking-[0.4em] text-amber-500/70">{t.donate.monthly}</h2>
+
+			<!-- Desktop comparison table -->
+			<div class="hidden overflow-hidden border border-amber-500/30 lg:block">
+				<!-- Header row -->
+				<div class="grid border-b border-amber-500/20" style={`grid-template-columns: repeat(${monthlyTiers.length}, 1fr)`}>
+					{monthlyTiers.map((tier: any) => (
+						<div class={`relative px-5 py-5 text-center ${tier.highlighted ? 'bg-amber-400 text-neutral-900' : 'bg-neutral-800/60'}`}>
+							{tier.highlighted && (
+								<span class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 border border-amber-400 bg-neutral-900 px-3 py-0.5 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400">{t.donate.mostPopular}</span>
+							)}
+							<h3 class={`text-sm font-bold uppercase tracking-[0.2em] ${tier.highlighted ? 'text-neutral-900' : 'text-stone-200'}`}>{tier.name}</h3>
+							<p class="mt-2">
+								<span class={`text-3xl font-bold ${tier.highlighted ? 'text-neutral-900' : 'text-amber-400'}`}>${tier.amount}</span>
+								<span class={`text-xs font-light ${tier.highlighted ? 'text-neutral-700' : 'text-stone-500'}`}>{t.donate.perMonth}</span>
+							</p>
+						</div>
+					))}
+				</div>
+				<!-- Description row -->
+				<div class="grid border-b border-amber-500/10" style={`grid-template-columns: repeat(${monthlyTiers.length}, 1fr)`}>
+					{monthlyTiers.map((tier: any) => (
+						<div class={`px-5 py-3 ${tier.highlighted ? 'bg-amber-400/10' : ''}`}>
+							<p class="text-sm text-stone-400">{tier.description}</p>
+						</div>
+					))}
+				</div>
+				<!-- Perks rows -->
+				{monthlyTiers[0].perks.map((_: any, perkIdx: number) => (
+					<div class="grid border-b border-amber-500/10 last:border-b-0" style={`grid-template-columns: repeat(${monthlyTiers.length}, 1fr)`}>
+						{monthlyTiers.map((tier: any) => (
+							<div class={`flex items-center gap-2 px-5 py-2.5 ${tier.highlighted ? 'bg-amber-400/10' : ''}`}>
+								{tier.perks[perkIdx] ? (
+									<>
+										<span class="text-amber-500/60">&#9670;</span>
+										<span class="text-sm text-stone-300">{tier.perks[perkIdx]}</span>
+									</>
+								) : (
+									<span class="text-sm text-stone-700">&mdash;</span>
+								)}
+							</div>
+						))}
+					</div>
+				))}
+				<!-- CTA row -->
+				<div class="grid border-t border-amber-500/20" style={`grid-template-columns: repeat(${monthlyTiers.length}, 1fr)`}>
+					{monthlyTiers.map((tier: any) => (
+						<div class={`px-5 py-5 ${tier.highlighted ? 'bg-amber-400/10' : ''}`}>
+							<button type="button" class={`w-full py-2.5 text-xs font-bold uppercase tracking-[0.3em] transition-all duration-200 ${tier.highlighted ? 'bg-amber-400 text-neutral-900 hover:bg-amber-300' : 'border border-amber-500/40 text-amber-400 hover:border-amber-400 hover:bg-amber-400/10'}`}>{t.donate.choose} {tier.name}</button>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<!-- Mobile/tablet cards -->
+			<div class="grid gap-4 sm:grid-cols-2 lg:hidden">
+				{monthlyTiers.map((tier: any) => (
+					<div class={`relative border p-6 ${tier.highlighted ? 'border-amber-400 bg-amber-400/10' : 'border-amber-500/20 bg-neutral-800/40'}`}>
+						{tier.highlighted && (
+							<span class="absolute -top-3 left-4 border border-amber-400 bg-neutral-900 px-3 py-0.5 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400">{t.donate.mostPopular}</span>
+						)}
+						<h3 class="text-sm font-bold uppercase tracking-[0.2em] text-stone-200">{tier.name}</h3>
+						<p class="mt-2 mb-3">
+							<span class="text-2xl font-bold text-amber-400">${tier.amount}</span>
+							<span class="text-xs font-light text-stone-500">{t.donate.perMonth}</span>
+						</p>
+						<p class="mb-4 text-sm text-stone-400">{tier.description}</p>
+						<ul class="mb-5 space-y-2">
+							{tier.perks.map((perk: string) => (
+								<li class="flex items-start gap-2 text-sm text-stone-300">
+									<span class="mt-1 text-amber-500/60">&#9670;</span>
+									{perk}
+								</li>
+							))}
+						</ul>
+						<button type="button" class={`w-full py-2.5 text-xs font-bold uppercase tracking-[0.3em] transition-all duration-200 ${tier.highlighted ? 'bg-amber-400 text-neutral-900 hover:bg-amber-300' : 'border border-amber-500/40 text-amber-400 hover:border-amber-400 hover:bg-amber-400/10'}`}>{t.donate.choose} {tier.name}</button>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- Decorative divider -->
+		<div class="mb-14 flex items-center justify-center">
+			<span class="h-px w-16 bg-amber-500/30"></span>
+			<span class="mx-3 text-xs text-amber-500/40">&#9670;&#9670;&#9670;</span>
+			<span class="h-px w-16 bg-amber-500/30"></span>
+		</div>
+
+		<!-- One-time tiers -->
+		<section>
+			<h2 class="mb-6 text-center text-xs font-bold uppercase tracking-[0.4em] text-amber-500/70">{t.donate.oneTime}</h2>
+
+			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+				{oneTimeTiers.map((tier: any) => (
+					<div class={`relative border p-5 text-center ${tier.highlighted ? 'border-amber-400 bg-amber-400/10' : 'border-amber-500/20 bg-neutral-800/40'}`}>
+						{tier.highlighted && (
+							<span class="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap border border-amber-400 bg-neutral-900 px-3 py-0.5 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400">{t.donate.greatestImpact}</span>
+						)}
+						<h3 class="text-sm font-bold uppercase tracking-[0.2em] text-stone-200">{tier.name}</h3>
+						<p class="mt-2 mb-3">
+							<span class="text-2xl font-bold text-amber-400">${tier.amount}</span>
+						</p>
+						<p class="mb-4 text-sm text-stone-400">{tier.description}</p>
+						<ul class="mb-5 space-y-1.5 text-left">
+							{tier.perks.map((perk: string) => (
+								<li class="flex items-start gap-2 text-sm text-stone-300">
+									<span class="mt-1 text-amber-500/60">&#9670;</span>
+									{perk}
+								</li>
+							))}
+						</ul>
+						<button type="button" class={`w-full border py-2.5 text-xs font-bold uppercase tracking-[0.3em] transition-all duration-200 ${tier.highlighted ? 'border-amber-400 bg-amber-400 text-neutral-900 hover:bg-amber-300' : 'border-amber-500/40 text-amber-400 hover:border-amber-400 hover:bg-amber-400/10'}`}>{t.donate.give} ${tier.amount}</button>
+					</div>
+				))}
+			</div>
+		</section>
+	</main>
+</div>

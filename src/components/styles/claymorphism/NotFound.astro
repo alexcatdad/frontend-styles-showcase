@@ -1,0 +1,43 @@
+---
+const { lang, style, nav, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-[#f0e6ff] font-sans text-purple-900 antialiased">
+	<!-- Puffy clay navigation bar -->
+	<nav class="sticky top-4 z-50 mx-4 sm:mx-8 lg:mx-auto lg:max-w-5xl mt-4">
+		<div class="bg-white/70 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-3 flex items-center justify-between">
+			<span class="rounded-full bg-purple-200 px-5 py-2 text-sm font-bold text-purple-700 shadow-[0_4px_12px_rgba(147,51,234,0.15),inset_0_-3px_6px_rgba(0,0,0,0.06)]">Claymorphism</span>
+			<div class="flex flex-wrap items-center gap-2">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-full bg-purple-100 px-4 py-2 text-sm font-medium text-purple-600 shadow-[0_4px_12px_rgba(0,0,0,0.06),inset_0_-2px_4px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-purple-200 hover:text-purple-700">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<main class="flex min-h-[calc(100vh-120px)] items-center justify-center px-4 sm:px-8 py-16">
+		<section class="w-full max-w-lg text-center">
+			<!-- Giant 404 -->
+			<div class="mb-10">
+				<span class="text-[10rem] sm:text-[12rem] font-black text-purple-200 leading-none select-none">404</span>
+			</div>
+
+			<!-- Clay card with heading and description -->
+			<div class="bg-white/60 rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.1),inset_0_-8px_16px_rgba(0,0,0,0.05)] px-8 py-10 sm:px-12">
+				<h2 class="mb-4 text-2xl sm:text-3xl font-black text-purple-800">{t.notFound.heading}</h2>
+
+				<!-- Description -->
+				<div class="mx-auto mb-10 max-w-sm rounded-2xl bg-purple-50 p-5 shadow-[inset_0_-4px_8px_rgba(0,0,0,0.04)]">
+					<p class="text-sm leading-relaxed text-purple-600/80">{t.notFound.description}</p>
+				</div>
+
+				<!-- Puffy CTA buttons -->
+				<div class="flex flex-wrap justify-center gap-5">
+					<a href={`${_base}/${lang}/${style}/`} class="rounded-2xl bg-purple-500 px-10 py-4 text-base font-bold text-white shadow-[0_6px_20px_rgba(147,51,234,0.3),inset_0_-4px_8px_rgba(0,0,0,0.1)] hover:-translate-y-1 hover:shadow-[0_10px_28px_rgba(147,51,234,0.4),inset_0_-4px_8px_rgba(0,0,0,0.1)] transition-all duration-300">{t.notFound.backHome}</a>
+					<a href={`${_base}/${lang}/${style}/cats`} class="rounded-2xl bg-pink-100 px-10 py-4 text-base font-bold text-pink-700 shadow-[0_6px_20px_rgba(0,0,0,0.08),inset_0_-4px_8px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_10px_28px_rgba(0,0,0,0.12),inset_0_-4px_8px_rgba(0,0,0,0.06)] transition-all duration-300">{t.notFound.meetCats}</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>

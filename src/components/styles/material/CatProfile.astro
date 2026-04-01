@@ -1,0 +1,109 @@
+---
+const { lang, style, nav, meta, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-gray-100 font-sans">
+	<!-- App Bar -->
+	<nav class="bg-indigo-600 px-4 py-3 shadow-md sm:px-8">
+		<div class="mx-auto flex max-w-6xl items-center justify-between">
+			<span class="text-lg font-medium tracking-wide text-white">{meta.name}</span>
+			<div class="flex flex-wrap items-center gap-1">
+				{nav.map((item: any) => (
+					<a href={item.href} class="rounded-lg px-4 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white">
+						{item.label}
+					</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<main class="px-4 py-10 sm:px-8">
+		<div class="mx-auto max-w-4xl">
+			<!-- Back Link -->
+			<a href={`${_base}/${lang}/${style}/cats`} class="mb-6 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-800">
+				&larr; {t.cats.backToAll}
+			</a>
+
+			<!-- Cat Image Card -->
+			<div class="mb-8 overflow-hidden rounded-xl bg-white shadow-md">
+				<img src={cat.image} alt={cat.name} class="h-64 w-full object-cover md:h-80" />
+			</div>
+
+			<!-- Cat Name -->
+			<h1 class="mb-6 text-3xl font-bold text-gray-800 sm:text-4xl">{cat.name}</h1>
+
+			<!-- Metadata Card -->
+			<div class="mb-8 rounded-xl bg-white p-6 shadow-sm sm:p-8">
+				<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+					<div class="flex items-center gap-3">
+						<span class="text-sm font-medium text-gray-400 uppercase tracking-wide">{t.cats.breed}</span>
+						<span class="text-sm font-semibold text-gray-800">{cat.breed}</span>
+					</div>
+					<div class="flex items-center gap-3">
+						<span class="text-sm font-medium text-gray-400 uppercase tracking-wide">{t.cats.age}</span>
+						<span class="text-sm font-semibold text-gray-800">{cat.age}</span>
+					</div>
+					<div class="flex items-center gap-3">
+						<span class="text-sm font-medium text-gray-400 uppercase tracking-wide">{t.cats.gender}</span>
+						<span class="text-sm font-semibold text-gray-800">{cat.gender}</span>
+					</div>
+					<div class="flex items-center gap-3">
+						<span class="text-sm font-medium text-gray-400 uppercase tracking-wide">{t.cats.color}</span>
+						<span class="text-sm font-semibold text-gray-800">{cat.color}</span>
+					</div>
+					<div class="flex items-center gap-3">
+						<span class="text-sm font-medium text-gray-400 uppercase tracking-wide">{t.cats.arrived}</span>
+						<span class="text-sm font-semibold text-gray-800">{cat.arrivalDate}</span>
+					</div>
+					<div class="flex items-center gap-3">
+						<span class="text-sm font-medium text-gray-400 uppercase tracking-wide">{t.cats.status}</span>
+						<span class={`rounded-full px-3 py-0.5 text-xs font-medium uppercase tracking-wide ${
+							cat.status === 'available'
+								? 'bg-green-100 text-green-700'
+								: cat.status === 'adopted'
+									? 'bg-gray-100 text-gray-600'
+									: 'bg-amber-100 text-amber-700'
+						}`}>
+							{cat.status}
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Personality Chips -->
+			<div class="mb-8 flex flex-wrap gap-2">
+				{cat.personality.map((trait: string) => (
+					<span class="rounded-full bg-indigo-100 px-4 py-1.5 text-sm font-medium text-indigo-800">
+						{trait}
+					</span>
+				))}
+			</div>
+
+			<!-- Description Card -->
+			<div class="mb-8 rounded-xl bg-white p-6 shadow-sm sm:p-8">
+				<p class="text-base leading-relaxed text-gray-700">{cat.description}</p>
+			</div>
+
+			<!-- Adopt FAB Button -->
+			<div class="mb-16 text-center">
+				<a href={`${_base}/${lang}/${style}/auth`} class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-10 py-4 text-base font-medium text-white shadow-lg transition-all hover:bg-indigo-700 hover:shadow-xl">
+					{t.cats.adopt} {cat.name}
+				</a>
+			</div>
+
+			<!-- Other Cats -->
+			<section>
+				<h2 class="mb-6 text-2xl font-bold text-gray-800">{t.cats.otherCats}</h2>
+				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{otherCats.map((c: any) => (
+						<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class="group rounded-xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+							<h3 class="mb-1 text-lg font-bold text-gray-800 group-hover:text-indigo-600">{c.name}</h3>
+							<p class="text-sm text-gray-500">{c.breed} &middot; {c.age}</p>
+						</a>
+					))}
+				</div>
+			</section>
+		</div>
+	</main>
+</div>

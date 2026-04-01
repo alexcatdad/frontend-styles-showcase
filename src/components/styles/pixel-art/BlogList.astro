@@ -1,0 +1,56 @@
+---
+const { lang, style, nav, posts, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<main class="bg-gray-900 font-mono text-green-400 overflow-x-hidden">
+	<!-- NAV: GAME MENU BAR -->
+	<nav class="border-b-2 border-green-500 bg-gray-900 px-4 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-green-400 uppercase text-xs md:text-sm tracking-widest hover:bg-green-500 hover:text-gray-900 px-2 py-1 border border-transparent hover:border-green-500 cursor-pointer">{item.label}</a>
+		))}
+	</nav>
+
+	<!-- HEADER -->
+	<section class="px-4 pt-12 pb-8 md:pt-20 md:pb-12 border-b-2 border-green-500">
+		<div class="max-w-6xl mx-auto">
+			<div class="border-2 border-green-500 bg-gray-800 px-4 py-3 md:px-6 md:py-4 inline-block mb-4">
+				<h1 class="text-3xl md:text-5xl lg:text-7xl font-bold uppercase tracking-tight text-green-400 leading-none">{t.blog.title}</h1>
+			</div>
+			<p class="text-sm md:text-lg text-yellow-400 uppercase tracking-widest">{t.blog.subtitle}</p>
+		</div>
+	</section>
+
+	<!-- POSTS: GAME LOG STYLE -->
+	<section class="px-4 py-8 md:py-12">
+		<div class="max-w-5xl mx-auto space-y-4 md:space-y-6">
+			{posts.map((post: any) => (
+				<a href={`${_base}/${lang}/${style}/blog/${post.slug}`} class="block border-2 border-green-500 bg-gray-800 hover:border-yellow-400 hover:bg-gray-700 cursor-pointer group">
+					<img src={post.image} alt={post.title} class="w-full h-40 md:h-52 object-cover border-b-2 border-green-500 group-hover:border-yellow-400" />
+					<div class="p-4 md:p-6">
+						<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 md:gap-4 mb-3">
+							<h2 class="text-lg md:text-2xl font-bold uppercase text-yellow-400 tracking-wide leading-tight">{post.title}</h2>
+							<time datetime={post.date} class="text-xs uppercase tracking-widest text-green-400 border border-green-500 px-2 py-1 shrink-0">{post.date}</time>
+						</div>
+						<p class="text-xs md:text-sm text-gray-400 leading-relaxed mb-3">{post.excerpt}</p>
+						<div class="flex flex-wrap items-center gap-2">
+							{post.tags.map((tag: string) => (
+								<span class="text-xs uppercase tracking-wider text-blue-400 border border-blue-500 px-2 py-0.5">{tag}</span>
+							))}
+							<span class="text-xs uppercase tracking-widest text-green-500 ml-auto">{t.blog.by} {post.author}</span>
+						</div>
+					</div>
+				</a>
+			))}
+		</div>
+	</section>
+
+	<!-- FOOTER NAV -->
+	<footer class="border-t-2 border-green-500 bg-gray-900 px-4 py-6">
+		<div class="max-w-5xl mx-auto flex flex-wrap gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-green-400 uppercase text-xs tracking-widest hover:text-yellow-400 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</footer>
+</main>

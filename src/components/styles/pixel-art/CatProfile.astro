@@ -1,0 +1,107 @@
+---
+const { lang, style, nav, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<main class="bg-gray-900 font-mono text-green-400 overflow-x-hidden">
+	<!-- NAV: GAME MENU BAR -->
+	<nav class="border-b-2 border-green-500 bg-gray-900 px-4 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+		{nav.map((item: any) => (
+			<a href={item.href} class="text-green-400 uppercase text-xs md:text-sm tracking-widest hover:bg-green-500 hover:text-gray-900 px-2 py-1 border border-transparent hover:border-green-500 cursor-pointer">{item.label}</a>
+		))}
+	</nav>
+
+	<!-- BACK LINK -->
+	<div class="px-4 py-4 bg-gray-800 border-b-2 border-green-500">
+		<a href={`${_base}/${lang}/${style}/cats`} class="text-green-400 uppercase text-xs tracking-widest hover:text-yellow-400 cursor-pointer">{"<<<"} {t.cats.backToAll}</a>
+	</div>
+
+	<!-- CAT HERO -->
+	<section class="px-4 py-8 md:py-12">
+		<div class="max-w-5xl mx-auto">
+			<img src={cat.image} alt={cat.name} class="w-full h-64 md:h-96 object-cover border-4 border-green-500" />
+			<div class="mt-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+				<h1 class="text-4xl md:text-6xl lg:text-8xl font-bold uppercase text-yellow-400 tracking-tight leading-none">{cat.name}</h1>
+				<span class="text-sm uppercase tracking-widest text-red-500 border-2 border-red-500 px-4 py-2 self-start md:self-auto">{cat.status}</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- STAT SHEET -->
+	<section class="px-4 py-8 md:py-12 border-t-2 border-green-500">
+		<div class="max-w-4xl mx-auto border-2 border-green-500 bg-gray-800">
+			<div class="border-b-2 border-green-500 px-4 py-3 md:px-6 md:py-4 bg-gray-700">
+				<h2 class="text-lg md:text-xl font-bold uppercase text-green-400 tracking-widest">{"\u2605"} {t.cats.stats || t.cats.breed} {"\u2605"}</h2>
+			</div>
+			<div class="divide-y divide-gray-700">
+				<div class="flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+					<span class="text-sm uppercase tracking-widest text-green-400">{"> "}{t.cats.breed}</span>
+					<span class="text-sm md:text-base text-white">{cat.breed}</span>
+				</div>
+				<div class="flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+					<span class="text-sm uppercase tracking-widest text-green-400">{"> "}{t.cats.age}</span>
+					<span class="text-sm md:text-base text-white">{cat.age}</span>
+				</div>
+				<div class="flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+					<span class="text-sm uppercase tracking-widest text-green-400">{"> "}{t.cats.gender}</span>
+					<span class="text-sm md:text-base text-white">{cat.gender}</span>
+				</div>
+				<div class="flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+					<span class="text-sm uppercase tracking-widest text-green-400">{"> "}{t.cats.color}</span>
+					<span class="text-sm md:text-base text-white">{cat.color}</span>
+				</div>
+				<div class="flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+					<span class="text-sm uppercase tracking-widest text-green-400">{"> "}{t.cats.arrived}</span>
+					<span class="text-sm md:text-base text-white">{cat.arrivalDate}</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- PERSONALITY TRAITS -->
+	<section class="px-4 py-8 md:py-10">
+		<div class="max-w-4xl mx-auto">
+			<div class="flex flex-wrap gap-2 md:gap-3">
+				{cat.personality.map((trait: string) => (
+					<span class="text-xs md:text-sm uppercase tracking-widest text-yellow-400 border-2 border-yellow-400 px-3 py-1.5 md:px-4 md:py-2">{trait}</span>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- DESCRIPTION -->
+	<section class="px-4 py-8 md:py-12 border-t-2 border-green-500">
+		<div class="max-w-4xl mx-auto">
+			<p class="text-sm md:text-base lg:text-lg text-gray-300 leading-relaxed">{cat.description}</p>
+		</div>
+	</section>
+
+	<!-- ADOPT CTA -->
+	<section class="px-4 py-8 md:py-12 border-t-2 border-green-500 bg-gray-800 text-center">
+		<a href={`${_base}/${lang}/${style}/auth`} class="inline-block border-2 border-yellow-400 text-yellow-400 uppercase font-bold text-lg md:text-2xl px-8 md:px-12 py-4 md:py-5 tracking-widest hover:bg-yellow-400 hover:text-gray-900 cursor-pointer">{">>>"} {t.cats.adopt} {cat.name}</a>
+	</section>
+
+	<!-- OTHER CATS -->
+	<section class="px-4 py-8 md:py-12 border-t-2 border-green-500">
+		<div class="max-w-5xl mx-auto">
+			<h2 class="text-xl md:text-3xl font-bold uppercase text-green-400 tracking-wide mb-6">{t.cats.otherCats}</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+				{otherCats.map((c: any) => (
+					<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class="block border-2 border-green-500 bg-gray-800 p-4 hover:border-yellow-400 hover:bg-gray-700 cursor-pointer">
+						<h3 class="text-base md:text-lg font-bold uppercase text-green-400 tracking-wide hover:text-yellow-400">{c.name}</h3>
+						<p class="text-xs uppercase tracking-widest text-gray-400 mt-1">{c.breed} // {c.age}</p>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- FOOTER NAV -->
+	<footer class="border-t-2 border-green-500 bg-gray-900 px-4 py-6">
+		<div class="max-w-5xl mx-auto flex flex-wrap gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-green-400 uppercase text-xs tracking-widest hover:text-yellow-400 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</footer>
+</main>

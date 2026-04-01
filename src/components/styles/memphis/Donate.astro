@@ -1,0 +1,107 @@
+---
+const { lang, style, nav, monthlyTiers, oneTimeTiers, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<main class="bg-white font-sans text-black overflow-x-hidden relative">
+	<!-- GEOMETRIC DECORATIONS -->
+	<div class="absolute top-28 right-10 w-10 h-10 rounded-full bg-pink-500 opacity-40 pointer-events-none hidden md:block"></div>
+	<div class="absolute top-64 left-8 w-12 h-12 bg-yellow-400 rotate-45 opacity-30 pointer-events-none hidden lg:block"></div>
+	<div class="absolute top-[36rem] right-1/4 w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-b-[24px] border-b-blue-500 opacity-40 pointer-events-none hidden lg:block"></div>
+
+	<!-- NAV -->
+	<nav class="relative z-20 border-b-4 border-black bg-white px-4 py-4 md:px-8">
+		<div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-sm md:text-base font-extrabold uppercase tracking-wide text-black hover:text-pink-500 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</nav>
+
+	<!-- TITLE -->
+	<section class="px-4 md:px-8 pt-12 pb-8 md:pt-20 md:pb-12 relative">
+		<h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none tracking-tight">{t.donate.title}</h1>
+		<p class="text-lg md:text-xl font-bold text-pink-500 mt-4">{t.donate.subtitle}</p>
+	</section>
+
+	<!-- MONTHLY TIERS -->
+	<section class="px-4 md:px-8 py-8 md:py-12">
+		<h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-6 md:mb-10 inline-block border-b-4 border-yellow-400 pb-2">{t.donate.monthly}</h2>
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+			{monthlyTiers.map((tier: any, i: number) => (
+				<div class={`border-2 border-black p-5 md:p-6 relative bg-white
+					${tier.highlighted ? 'md:scale-105 md:z-10 border-4 shadow-[8px_8px_0_#ec4899]' : ''}
+					${!tier.highlighted && i % 3 === 0 ? 'shadow-[6px_6px_0_#facc15]' : ''}
+					${!tier.highlighted && i % 3 === 1 ? 'shadow-[6px_6px_0_#3b82f6]' : ''}
+					${!tier.highlighted && i % 3 === 2 ? 'shadow-[6px_6px_0_#4ade80]' : ''}
+				`} data-highlighted={tier.highlighted}>
+					{tier.highlighted && (
+						<span class="absolute -top-4 left-4 bg-pink-500 text-white text-xs font-extrabold uppercase px-3 py-1 border-2 border-black tracking-wide">{t.donate.mostPopular}</span>
+					)}
+					<h3 class="text-xl md:text-2xl font-black uppercase tracking-tight mt-2">{tier.name}</h3>
+					<p class="mt-4">
+						<span class="text-5xl md:text-6xl font-black leading-none">${tier.amount}</span>
+						<span class="text-sm font-extrabold uppercase tracking-wide ml-1">{t.donate.perMonth}</span>
+					</p>
+					<p class="text-sm font-bold mt-4 leading-snug border-l-4 border-pink-500 pl-3">{tier.description}</p>
+					<ul class="mt-4 space-y-2">
+						{tier.perks.map((perk: string) => (
+							<li class="text-xs font-bold uppercase tracking-wide pl-4 border-l-4 border-yellow-400">{perk}</li>
+						))}
+					</ul>
+					<button type="button" class={`mt-6 w-full font-extrabold uppercase text-sm px-4 py-3 border-2 border-black tracking-wide cursor-pointer
+						${tier.highlighted ? 'bg-pink-500 text-white shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]' : 'bg-yellow-400 text-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]'}
+					`}>{t.donate.choose} {tier.name}</button>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- ONE-TIME TIERS -->
+	<section class="px-4 md:px-8 py-8 md:py-12 border-t-2 border-black">
+		<h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-6 md:mb-10 inline-block border-b-4 border-blue-500 pb-2">{t.donate.oneTime}</h2>
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+			{oneTimeTiers.map((tier: any, i: number) => (
+				<div class={`border-2 border-black p-5 md:p-6 relative bg-white
+					${tier.highlighted ? 'md:scale-105 md:z-10 border-4 shadow-[8px_8px_0_#3b82f6]' : ''}
+					${!tier.highlighted && i % 3 === 0 ? 'shadow-[6px_6px_0_#ef4444]' : ''}
+					${!tier.highlighted && i % 3 === 1 ? 'shadow-[6px_6px_0_#ec4899]' : ''}
+					${!tier.highlighted && i % 3 === 2 ? 'shadow-[6px_6px_0_#4ade80]' : ''}
+				`} data-highlighted={tier.highlighted}>
+					{tier.highlighted && (
+						<span class="absolute -top-4 left-4 bg-blue-500 text-white text-xs font-extrabold uppercase px-3 py-1 border-2 border-black tracking-wide">{t.donate.greatestImpact}</span>
+					)}
+					<h3 class="text-xl md:text-2xl font-black uppercase tracking-tight mt-2">{tier.name}</h3>
+					<p class="mt-4">
+						<span class="text-5xl md:text-6xl font-black leading-none">${tier.amount}</span>
+					</p>
+					<p class="text-sm font-bold mt-4 leading-snug border-l-4 border-blue-500 pl-3">{tier.description}</p>
+					<ul class="mt-4 space-y-2">
+						{tier.perks.map((perk: string) => (
+							<li class="text-xs font-bold uppercase tracking-wide pl-4 border-l-4 border-green-400">{perk}</li>
+						))}
+					</ul>
+					<button type="button" class={`mt-6 w-full font-extrabold uppercase text-sm px-4 py-3 border-2 border-black tracking-wide cursor-pointer
+						${tier.highlighted ? 'bg-blue-500 text-white shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]' : 'bg-green-400 text-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]'}
+					`}>{t.donate.give} ${tier.amount}</button>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<footer class="border-t-4 border-black bg-white px-4 md:px-8 py-6">
+		<div class="flex gap-0 mb-4">
+			<div class="h-3 flex-1 bg-pink-500"></div>
+			<div class="h-3 flex-1 bg-yellow-400"></div>
+			<div class="h-3 flex-1 bg-blue-500"></div>
+			<div class="h-3 flex-1 bg-green-400"></div>
+			<div class="h-3 flex-1 bg-red-500"></div>
+		</div>
+		<div class="flex flex-wrap gap-x-6 gap-y-2">
+			{nav.map((item: any) => (
+				<a href={item.href} class="text-sm font-extrabold uppercase tracking-wide text-black hover:text-pink-500 cursor-pointer">{item.label}</a>
+			))}
+		</div>
+	</footer>
+</main>

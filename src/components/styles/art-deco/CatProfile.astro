@@ -1,0 +1,128 @@
+---
+const { lang, style, nav, cat, otherCats, t } = Astro.props;
+const _base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<div class="min-h-screen bg-neutral-900 font-serif text-stone-200 antialiased">
+	<!-- Navigation -->
+	<nav class="sticky top-0 z-50 border-b border-amber-500/30 bg-neutral-900/95 backdrop-blur-sm">
+		<div class="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 lg:px-6">
+			<a href={`${_base}/${lang}/${style}/`} class="text-sm font-light uppercase tracking-[0.3em] text-amber-400 transition-colors hover:text-amber-300">{cat.name}</a>
+			<div class="hidden items-center gap-1 sm:flex">
+				{nav.map((item: any) => (
+					<a href={item.href} class="px-3 py-2 text-xs font-light uppercase tracking-[0.3em] text-amber-400/70 transition-colors hover:text-amber-300">{item.label}</a>
+				))}
+			</div>
+		</div>
+	</nav>
+
+	<!-- Mobile nav -->
+	<div class="flex items-center gap-1 overflow-x-auto border-b border-amber-500/20 px-4 sm:hidden">
+		{nav.map((item: any) => (
+			<a href={item.href} class="shrink-0 px-3 py-2.5 text-xs font-light uppercase tracking-[0.3em] text-amber-400/70 transition-colors hover:text-amber-300">{item.label}</a>
+		))}
+	</div>
+
+	<main class="mx-auto max-w-5xl px-4 py-10 lg:px-6 lg:py-14">
+		<!-- Back link -->
+		<a href={`${_base}/${lang}/${style}/cats`} class="mb-8 inline-flex items-center gap-2 text-sm text-amber-400/70 transition-colors hover:text-amber-300">
+			<span class="text-amber-500">&larr;</span>
+			{t.cats.backToAll}
+		</a>
+
+		<!-- Two-column layout -->
+		<div class="gap-10 lg:grid lg:grid-cols-[1fr_340px]">
+			<!-- Main content -->
+			<div>
+				<!-- Cat image with gold border frame -->
+				<div class="mb-8 border-4 border-amber-500/40 p-2">
+					<img src={cat.image} alt={cat.name} class="w-full object-cover" />
+				</div>
+
+				<!-- Name -->
+				<h1 class="mb-2 text-3xl font-bold uppercase tracking-[0.1em] text-amber-400 sm:text-4xl">{cat.name}</h1>
+
+				<!-- Status -->
+				<span class={`inline-flex items-center gap-2 text-sm font-light uppercase tracking-[0.2em] ${cat.status === 'available' ? 'text-amber-400' : 'text-stone-400'}`}>
+					<span class={`h-2 w-2 rounded-full ${cat.status === 'available' ? 'bg-amber-400' : 'bg-stone-500'}`}></span>
+					{cat.status}
+				</span>
+
+				<!-- Description -->
+				<div class="mt-6 border-t border-amber-500/20 pt-6">
+					<p class="text-base leading-relaxed text-stone-300">{cat.description}</p>
+				</div>
+
+				<!-- Personality -->
+				<div class="mt-8">
+					<h3 class="mb-4 text-xs font-bold uppercase tracking-[0.4em] text-amber-500/70">{t.cats.personality}</h3>
+					<div class="flex flex-wrap gap-2">
+						{cat.personality.map((trait: string) => (
+							<span class="border border-amber-500/40 px-4 py-1.5 text-sm font-light text-amber-400">{trait}</span>
+						))}
+					</div>
+				</div>
+
+				<!-- Adopt CTA -->
+				<div class="mt-10">
+					<a href={`${_base}/${lang}/${style}/auth`} class="inline-block bg-amber-400 px-10 py-3 text-sm font-bold uppercase tracking-[0.3em] text-neutral-900 transition-colors hover:bg-amber-300">{t.cats.adopt} {cat.name}</a>
+				</div>
+			</div>
+
+			<!-- Sidebar metadata -->
+			<aside class="mt-10 lg:mt-0">
+				<div class="border border-amber-500/30 bg-neutral-800/60">
+					<div class="border-b border-amber-500/20 px-5 py-4">
+						<h3 class="text-xs font-bold uppercase tracking-[0.4em] text-amber-500/70">{t.cats.details}</h3>
+					</div>
+					<dl class="divide-y divide-amber-500/10">
+						<div class="flex items-center justify-between px-5 py-3.5">
+							<dt class="text-sm font-light uppercase tracking-[0.15em] text-amber-400/60">{t.cats.breed}</dt>
+							<dd class="text-sm text-stone-200">{cat.breed}</dd>
+						</div>
+						<div class="flex items-center justify-between px-5 py-3.5">
+							<dt class="text-sm font-light uppercase tracking-[0.15em] text-amber-400/60">{t.cats.age}</dt>
+							<dd class="text-sm text-stone-200">{cat.age}</dd>
+						</div>
+						<div class="flex items-center justify-between px-5 py-3.5">
+							<dt class="text-sm font-light uppercase tracking-[0.15em] text-amber-400/60">{t.cats.gender}</dt>
+							<dd class="text-sm text-stone-200">{cat.gender}</dd>
+						</div>
+						<div class="flex items-center justify-between px-5 py-3.5">
+							<dt class="text-sm font-light uppercase tracking-[0.15em] text-amber-400/60">{t.cats.color}</dt>
+							<dd class="text-sm text-stone-200">{cat.color}</dd>
+						</div>
+						<div class="flex items-center justify-between px-5 py-3.5">
+							<dt class="text-sm font-light uppercase tracking-[0.15em] text-amber-400/60">{t.cats.arrived}</dt>
+							<dd class="text-sm text-stone-200">{cat.arrivalDate}</dd>
+						</div>
+						<div class="flex items-center justify-between px-5 py-3.5">
+							<dt class="text-sm font-light uppercase tracking-[0.15em] text-amber-400/60">{t.cats.status}</dt>
+							<dd class={`inline-flex items-center gap-1.5 text-sm ${cat.status === 'available' ? 'text-amber-400' : 'text-stone-400'}`}>
+								<span class={`h-1.5 w-1.5 rounded-full ${cat.status === 'available' ? 'bg-amber-400' : 'bg-stone-500'}`}></span>
+								{cat.status}
+							</dd>
+						</div>
+					</dl>
+				</div>
+
+				<!-- Other cats -->
+				<section class="mt-8">
+					<h2 class="mb-4 text-xs font-bold uppercase tracking-[0.4em] text-amber-500/70">{t.cats.otherCats}</h2>
+					<div class="space-y-2">
+						{otherCats.map((c: any) => (
+							<a href={`${_base}/${lang}/${style}/cats/${c.id}`} class="group flex items-center gap-3 border border-amber-500/15 bg-neutral-800/40 px-4 py-3 transition-all duration-200 hover:border-amber-400/40 hover:bg-neutral-800/70">
+								<span class="flex h-8 w-8 shrink-0 items-center justify-center border border-amber-500/30 bg-neutral-800 text-sm font-bold text-amber-400 transition-colors group-hover:border-amber-400/50">{c.name.charAt(0)}</span>
+								<div class="min-w-0">
+									<span class="block truncate text-sm font-bold text-stone-200 transition-colors group-hover:text-amber-400">{c.name}</span>
+									<span class="block truncate text-xs font-light text-stone-500">{c.breed} &middot; {c.age}</span>
+								</div>
+								<span class="ml-auto text-xs text-amber-500/40 transition-colors group-hover:text-amber-400">&rarr;</span>
+							</a>
+						))}
+					</div>
+				</section>
+			</aside>
+		</div>
+	</main>
+</div>
